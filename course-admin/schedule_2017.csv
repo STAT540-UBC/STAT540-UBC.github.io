@@ -15,8 +15,8 @@ STAT540,lecture-5,Wed,January,18,3,5,Data QC and preprocessing,AS
 STAT540-Seminar,seminar-3a,Wed,January,18,3,3,"Knitr, Rmarkdown, and GitHub review",TBA
 STAT540-Seminar,seminar-3b,Wed,January,18,3,3,R graphics - ggplot2,TBA
 STAT540-Seminar,seminar-3c,Wed,January,18,3,3,R graphics - lattice,TBA
-STAT540,lecture-6,Mon,January,23,4,6,Statistical inferene: two group comparisons,RB
-STAT540,lecture-7,Wed,January,25,4,7,Statistical inferene: more than two groups,RB
+STAT540,lecture-6,Mon,January,23,4,6,Statistical inference: two group comparisons,RB
+STAT540,lecture-7,Wed,January,25,4,7,Statistical inference: more than two groups,RB
 STAT540-Seminar,seminar-4a,Wed,January,25,4,4,Two group testing and data aggregation,TBA
 STAT540-Seminar,seminar-4b,Wed,January,25,4,4,Introduction to data aggregation - dplyr version,TBA
 STAT540,Announcement,Fri,January,25,4,NA,form groups and finish initial project proposals,NA
