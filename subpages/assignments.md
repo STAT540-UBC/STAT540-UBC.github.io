@@ -137,7 +137,7 @@ We assume the analytical and computing task will have a substantial statistical 
  * attention to large-scale inference, e.g. control of family-wise error rate or false discovery rate
  
  
-### Data privacy 
+### Data considerations 
 
 #### Appropriate use of data
 
