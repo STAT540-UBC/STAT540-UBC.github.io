@@ -135,6 +135,21 @@ We assume the analytical and computing task will have a substantial statistical 
  * relationship between biological factors and experimental factors, apparent relative importance in terms of "explaining" observed data
 
  * attention to large-scale inference, e.g. control of family-wise error rate or false discovery rate
+ 
+ 
+### Data privacy 
+
+#### Appropriate use of data
+
+If your project involves using unpublished data, ensure your plans are known to the data providers (e.g., your supervisors), and think about implications for publishing - are you are bringing the project team in as collaborators in effect? Are you planning to publish the results of your project, and if so who will be the co-authors? It is best to deal with these questions at the outset of the project.
+
+#### Privacy of project data
+
+The projects are not made public (other than being on a poster in the lobby of EOS for a few hours). The project report materials are loaded into Github, the secure site we use to manage the course. The course staff and instructors are the only people who have access to the projects other than the other members of the project group. The data used can be uploaded to the project, but this can limited or omitted if there are special concerns about privacy etc. - it's primarily the code and write-up about the results that needs to be provided for evaluation.
+
+You can read Github's security and privacy policies here:
+- https://help.github.com/articles/github-privacy-statement/
+- https://help.github.com/articles/github-security/
 
 ### Group makeup
 
