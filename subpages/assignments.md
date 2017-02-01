@@ -8,16 +8,14 @@ output:
     toc: 3
 ---
 
- <font color="red">**Deadlines are all by 11.59 pm of the due date**</font>
-
-
-## Homework 
 You will have three individual assignments and one group project: 
 
 - One practice assignment (5 pts)
 - One paper review (5 pts) 
 - One statistics 2-part homework (30 pts)
 - Final group project (60 pts) which contains multiple parts. 
+
+<font color="red">**Deadlines are all by 11.59 pm of the due date**</font>
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html) 
 
@@ -28,72 +26,6 @@ Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.githu
 
 Deadline: <span style="color: red">**Jan 18, 2017**</span> 
 
-## STAT 540 Homework Submission Instructions
-
-**GitHub**
-You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2017`. We assume that 
-
-* You've already installed Git and (probably) a Git client.
-* You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
-* All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
-
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstnmae_STAT540_2017`). Do not use branches or other repositories.
-  
-
-**Set-up your private GitHub repo for homework**
-
-  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2017` now.
-  * Make a top-level directory for your assignment, e.g. `Homework`
-    - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
-  * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
-    - GitHub automatically renders all Markdown files into (pseudo-)HTML when you visit them in a browser. Whenever a *directory* in a repo is visited, if it contains a Markdown file called `README.md`, it will automatically be rendered, effectively serving as a landing or home page.
-
-**R Markdown**
-
-  * Write your homework in R Markdown. The file extension should be `.rmd`.
-  * Recommendation: Create a skeleton of your report by starting with the Markdown file that creates the assignment itself! You can take some things away (unnecessary detail) and add others (R chunks) to morph this into your homework solution.
-    - [Source for 2017 homework assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/homework.md)
-    - You'll have these files if you are using Git(Hub) to keep a current copy of the whole course repository. Or, from the links above, click on "Raw" to get raw Markdown and save to a local file.
-    
-**HTML**
-
-  * Compile your homework to Markdown (file extension should be `.md`).
-    - RStudio's "Knit HTML" button will do this. Your .md file is a intermediate file that can be read nicely on GitHub. 
-    - Alternatively, use `knit2html()` from the `knitr` package in the R Console or in an R script.
-    - To run from the shell or in a Makefile, use something like `Rscript -e "knitr::knit2html('hw01_lastname-firstnmae.rmd')"`
-  * Notice that, by default, any figures created are placed into a `figures/` subdirectory. The intermediate Markdown file links to these and, therefore, requires them to present your full report. By default, the figures are base64 encoded and *embedded* into the HTML, which, therefore, is self-contained.
-
-**What to put (or not put) into your Git(Hub) repository**
-
-> This is rather specific to STAT 540 and may not necessarily reflect your workflow in the future and in other contexts.
-
-  * Commit the main R markdown (`.rmd`) file that constitutes your solution. Commit early, commit often!
-  * Do not commit the input data to your repository.
-    - Locally, you are of course encouraged to keep the file in some logical place within the homework assignment's directory. But list the names of such data files in your top-level [`.gitignore` file](http://git-scm.com/docs/gitignore), so that Git ignores it. We do this so that TAs don't end up with 50 copies of the input data when they mark your work.
-  * Commit the intermediate Markdown (`.md`) file and the figures stored in the `figures/` subdirectory.
-    - Some purists would say intermediate and downstream products do NOT belong in the repo. After all, you can always recreate them from source, right? But here in reality, it turns out to be incredibly handy to have this in the repo.
-  * Commit the end product HTML (`.html`) file.
-    - See above comment re: version control purists vs. pragmatists.
-  * Push closer to the submission date.
-  * __Never ever__ edit the Markdown or HTML "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
-
-**How to "turn in" your homework**
-
-  * Make sure you have 
-    - Saved all the files associated with your solution locally.
-    - Committed those files to your local Git repository.
-    - Pushed the current state of your local repo to GitHub.
-  * Open an issue, link to the latest commit, tag us
-    - Visit your private GitHub repository in a web browser
-    - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
-     - Click on the clipboard icon to copy the revision SHA to your clipboard
-    - Click on "Issues", then on "New Issue". Name the issue "Mark homework of *your repository name*".
-    - In the description of the issue, tag both TAs by including the text `@farnushfarhadi` and `@santina`, and paste the revision SHA. You can also include a link to the markdown file as well. 
-     - Click "Submit new issue". You're done! Congratulations!
-
-> If you're concerned that something hasn't gone right with the submission, send Farnush and Santina (farnush.farhadi@gmail.com, santina424@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
-
-
 ## Paper review 
 Each student should find a paper in the Biomedical field that has statistical content and submit about one page (450 - 650 words) of summary/report for that paper. The summary should include: 
 
@@ -102,9 +34,9 @@ Each student should find a paper in the Biomedical field that has statistical co
 3. A brief review of the analytical steps in the paper with more details on some selected parts which are relevant to the course materials. *You don't need to understand all of the analysis, but should be able to identify the key analysis/method used to answer the question the paper is intended to answer*
 4. Some comments and critiques about the analytical steps, alternative suggestions or improvements. 
 
-We have provided [**this**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline.html) document as a brief guideline for this task. The material in the review **should not** be limited to merely answering the questions in the guideline, but rather using them to provide the required items listed above. Example paper reviews are also provided. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper
+We have provided [**this guideline**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline.html) for this task. The material in the review **should not** be limited to merely answering the questions in the guideline, but rather using them to provide the required items listed above. Example paper reviews are also provided. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper
 
-**Important:** Students should submit the initial information about their selected papers in respond to the [**issue Paper Review - 01**](https://github.com/STAT540-UBC/Discussion/issues/128) in Github and make sure no one else has already picked it by checking the other student's respond to the same issue. Yup... first come first served! But no worries, there are plenty of interesting papers! 
+**Important:** Students should submit the initial information about their selected papers in respond to the [**issue Paper Review - 01**](https://github.com/STAT540-UBC/Discussion/issues/128) in Github and make sure no one else has already picked it by checking the other student's respond to the same issue. 
 
 * Due date for the paper review: <span style="color: red">**Feb 22, 2017**</span>
 
@@ -115,6 +47,13 @@ We have provided [**this**](http://stat540-ubc.github.io/homework/paper\_critiqu
 
 [example paper review](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/paper_critique/paperReviewMarjan.md)
 
+## Analysis assignment 
+
+This assignment will assess your understanding of the seminar and lecture materials. The assignment is split into two parts. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
+
+- [Source for 2017 homework assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/homework.md)
+- Due date for questions 1 - 5 (14 pts): <span style="color: red">**Mar 1, 2017**</span>
+- Due date for questions 6 - 8 (11 pts): <span style="color: red">**Mar 22, 2017**</span>
 
 ## Final group project
 
@@ -237,3 +176,69 @@ Individual deliverable include:
     - scientific reflections. E.g., what worked well / poorly? what seems worth following up vs. a dead end? what was most difficult or most rewarding?
 
     Submit this individual report via your private GitHub repository, the one you used for homework. Create a new directory called project and, within it, store your report as README.md. Open an issue and tag the TAs as you did for homework submission.
+
+    
+## STAT 540 Homework Submission Instructions
+
+**GitHub**
+You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2017`. We assume that 
+
+* You've already installed Git and (probably) a Git client.
+* You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
+* All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
+
+**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstnmae_STAT540_2017`). Do not use branches or other repositories.
+  
+
+**Set-up your private GitHub repo for homework**
+
+  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2017` now.
+  * Make a top-level directory for your assignment, e.g. `Homework`
+    - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
+  * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
+    - GitHub automatically renders all Markdown files into (pseudo-)HTML when you visit them in a browser. Whenever a *directory* in a repo is visited, if it contains a Markdown file called `README.md`, it will automatically be rendered, effectively serving as a landing or home page.
+
+**R Markdown**
+
+  * Write your homework in R Markdown. The file extension should be `.rmd`.
+  * Recommendation: Create a skeleton of your report by starting with the Markdown file that creates the assignment itself! You can take some things away (unnecessary detail) and add others (R chunks) to morph this into your homework solution.
+    - You'll have these files if you are using Git(Hub) to keep a current copy of the whole course repository. Or, from the links above, click on "Raw" to get raw Markdown and save to a local file.
+    
+**HTML**
+
+  * Compile your homework to Markdown (file extension should be `.md`).
+    - RStudio's "Knit HTML" button will do this. Your .md file is a intermediate file that can be read nicely on GitHub. 
+    - Alternatively, use `knit2html()` from the `knitr` package in the R Console or in an R script.
+    - To run from the shell or in a Makefile, use something like `Rscript -e "knitr::knit2html('hw01_lastname-firstnmae.rmd')"`
+  * Notice that, by default, any figures created are placed into a `figures/` subdirectory. The intermediate Markdown file links to these and, therefore, requires them to present your full report. By default, the figures are base64 encoded and *embedded* into the HTML, which, therefore, is self-contained.
+
+**What to put (or not put) into your Git(Hub) repository**
+
+> This is rather specific to STAT 540 and may not necessarily reflect your workflow in the future and in other contexts.
+
+  * Commit the main R markdown (`.rmd`) file that constitutes your solution. Commit early, commit often!
+  * Do not commit the input data to your repository.
+    - Locally, you are of course encouraged to keep the file in some logical place within the homework assignment's directory. But list the names of such data files in your top-level [`.gitignore` file](http://git-scm.com/docs/gitignore), so that Git ignores it. We do this so that TAs don't end up with 50 copies of the input data when they mark your work.
+  * Commit the intermediate Markdown (`.md`) file and the figures stored in the `figures/` subdirectory.
+    - Some purists would say intermediate and downstream products do NOT belong in the repo. After all, you can always recreate them from source, right? But here in reality, it turns out to be incredibly handy to have this in the repo.
+  * Commit the end product HTML (`.html`) file.
+    - See above comment re: version control purists vs. pragmatists.
+  * Push closer to the submission date.
+  * __Never ever__ edit the Markdown or HTML "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
+
+**How to "turn in" your homework**
+
+  * Make sure you have 
+    - Saved all the files associated with your solution locally.
+    - Committed those files to your local Git repository.
+    - Pushed the current state of your local repo to GitHub.
+  * Open an issue, link to the latest commit, tag us
+    - Visit your private GitHub repository in a web browser
+    - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
+     - Click on the clipboard icon to copy the revision SHA to your clipboard
+    - Click on "Issues", then on "New Issue". Name the issue "Mark homework of *your repository name*".
+    - In the description of the issue, tag both TAs by including the text `@farnushfarhadi` and `@santina`, and paste the revision SHA. You can also include a link to the markdown file as well. 
+     - Click "Submit new issue". You're done! Congratulations!
+
+> If you're concerned that something hasn't gone right with the submission, send Farnush and Santina (farnush.farhadi@gmail.com, santina424@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
+
