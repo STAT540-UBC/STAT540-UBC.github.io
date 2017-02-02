@@ -99,74 +99,28 @@ Groups should have 4 to 6 members. We strongly encourage that groups be diverse 
 **Due on <span style="color: red">**January 25, 2017**</span> (but submit earlier if you are ready)**
 
  * List of group members. In addition to names, include relevant info on grad program, lab, interests/expertise. 
-
-**Due on <span style="color: red">**January 25, 2017**</span>**
  * Initial project proposal describing basic idea of project. Think: a paragraph.
 
-Each group will submit their work by responding to the Issue called "Group project: initial information" in the Discussion repository. Please, post only one proposal per group.
-
-This information will be used to create a private repository for each group to host all work related to the project.
+Each group will submit their work by responding to the Issue called "Group project: initial information" in the Discussion repository. Please, post only one proposal per group. This information will be used to create a private repository for each group to host all work related to the project.
 
 **Due on <span style="color: red">**February 15, 2017**</span>**
-  
-  * One page proposal should probably be part of the `README.md` for the repo, or should be linked in the `README.md`. Incorporate all comments given by professors/TAs. This proposal needs to outline:
-    - a clear motivation of the problem/question we will investigate
-    - general goals of the project 
-    - general description of the data 
-    - specific questions you will address with division of labour
-    - the methodology you will use to address these questions
 
-  * Include the nice table re: group membership in the `README.md`
-    - add students' degree program, i.e. MSc vs PhD vs other
-  
-  * Nail down data sources
-    - bring the data into the repo, if small enough.
-    - alternatively, distribute data to necessary group members some other way and document in the repo, e.g. link to where data came from
-    - a `data` subdirectory is a good default place to document the datasets. add `README.md` file in the subdirectory to describe your data in more detail, e.g., how many rows, how many columns, experimental design, HTML-ified code showing basic import and smell-testing, etc.
+* One page proposal should probably be part of the `README.md` for the repo, or should be linked in the `README.md`. Incorporate all comments given by professors/TAs. 
     
 ### Final deliverables
 
 **Project progress report:** <font color="red">Due March 8</font> 
 
-The project report should include the following information:
+The progress report should include information such as:
 
-1. What is changed based on the initial proposal:
-
-  - If you have decided to do different analysis and why
-  
-  - If your task assignment has changed and team members are doing different things now
-  
-  - If you have changed your data or the datasets you use and why.
-
-
-2. What is the progress on the tasks and analysis mentioned in your proposal:
-
-  - What analysis are finished (if any) and what are totally untouched
-  
-  - How much have you progressed in the rest of the tasks
-Mention if you have decided which plots you want to use (volcano, heatmap, etc.)
-   
-   This project progress report should be a markdown file in your group project repo. Submit it by linking it in an issue and tag the TA and instructor who are mentors of your team. It's just like how you submitted your paper review, except this one is a group effort and resides in your group repo. 
+1. What is changed based on the initial proposal
+2. What is the progress on the tasks and analysis mentioned in your proposal
    
 **Poster**: to be hosted and exhibited in our poster session on Wed Apr 5 from 9:30 am to 12 pm in the Atrium of the ESB. Group-level deliverable. 
 
-- Ideally, you will print your poster in the usual conference format (48''x36''). I know it is a non-trivial cost but not impossible if divided up. Sometimes supervisors will help, esp. if the poster can be displayed or used elsewhere. Prices at the village and the Sub tend to be resonable.
-    
-- a rubric for poster evaluation can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/posterRubric2012.pdf)
+Ideally, you will print your poster in the usual conference format (48''x36''). I know it is a non-trivial cost but not impossible if divided up. Sometimes supervisors will help, esp. if the poster can be displayed or used elsewhere. Prices at the village and the Sub tend to be resonable.
 
-
-**Project GitHub repository**: This should contain the materials (or associated live links) an instructor would need to evaluate your work and that a group member would need to reproduce/reuse/extend the work. Group-level deliverable. Content should include (but is not limited to!):
-
-  - revised README.md file containing a summary of your work. This file should summarize the project content, your analysis, and main results. You don't need to tell us all the story of your analysis here. Keep it brief. You can include a flow chart if you find it useful. Add links as needed
-
-  - a PDF of the poster
-
-  - important files, such as "inputs" (e.g. the dataset(s) you analyzed) and "outputs" (e.g. plain text files of your key statistical results or PDFs of your main figures); if you started with a publicly available file, you can link to it
-
-    - R Markdown that host the R code for the analysis. Compile this R Markdown source to Markdown, commit and push both. This file can include more than you present in the poster. It is your technical report. Add brief comments and text throughout explaining the aim and conclusions of each part
-
-    - a link-y version of your bibliography (for example, live Pubmed or DOI links).
-
+**Project GitHub repository**: This should contain the materials (or associated live links) an instructor would need to evaluate your work and that a group member would need to reproduce/reuse/extend the work. Group-level deliverable. 
 
 **Short individual report (1 page)**: <span style="color: red">**April 8, 2017**</span>
 
@@ -174,8 +128,6 @@ Individual deliverable include:
     - concise summary of main role / contribution of each group member 
     - more detailed description and reflections on your specific role / contribution
     - scientific reflections. E.g., what worked well / poorly? what seems worth following up vs. a dead end? what was most difficult or most rewarding?
-
-    Submit this individual report via your private GitHub repository, the one you used for homework. Create a new directory called project and, within it, store your report as README.md. Open an issue and tag the TAs as you did for homework submission.
 
     
 ## STAT 540 Homework Submission Instructions
