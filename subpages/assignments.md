@@ -1,5 +1,5 @@
 ---
-title: "Assignments"
+title: "Course work"
 output:
   html_document:
     includes:
@@ -26,6 +26,8 @@ Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.githu
 
 Deadline: <span style="color: red">**Jan 18, 2017**</span> 
 
+--------------
+
 ## Paper review 
 Each student should find a paper in the Biomedical field that has statistical content and submit about one page (450 - 650 words) of summary/report for that paper. The summary should include: 
 
@@ -47,6 +49,8 @@ We have provided [**this guideline**](http://stat540-ubc.github.io/homework/pape
 
 [example paper review](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/paper_critique/paperReviewMarjan.md)
 
+--------------
+
 ## Analysis assignment 
 
 This assignment will assess your understanding of the seminar and lecture materials. The assignment is split into two parts. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
@@ -55,7 +59,13 @@ This assignment will assess your understanding of the seminar and lecture materi
 - Due date for questions 1 - 5 (14 pts): <span style="color: red">**Mar 1, 2017**</span>
 - Due date for questions 6 - 8 (11 pts): <span style="color: red">**Mar 22, 2017**</span>
 
+--------------
+
 ## Final group project
+
+### Deliverables
+
+See the [**rubrics for project**](group_project_rubrics.html). 
 
 ### General principles
 
@@ -86,49 +96,13 @@ If your project involves using unpublished data, ensure your plans are known to 
 
 The projects are not made public (other than being on a poster in the lobby of EOS for a few hours). The project report materials are loaded into Github, the secure site we use to manage the course. The course staff and instructors are the only people who have access to the projects other than the other members of the project group. The data used can be uploaded to the project, but this can limited or omitted if there are special concerns about privacy etc. - it's primarily the code and write-up about the results that needs to be provided for evaluation.
 
-You can read Github's security and privacy policies here:
-- https://help.github.com/articles/github-privacy-statement/
-- https://help.github.com/articles/github-security/
+You can read Github's [security](https://help.github.com/articles/github-security/) and [privacy](https://help.github.com/articles/github-privacy-statement/) policies.
 
 ### Group makeup
 
 Groups should have 4 to 6 members. We strongly encourage that groups be diverse in terms of backgrounds. In practice, this probably means the students should registered in a mix of programs/departments. All groups and group projects must be approved by the instructors.
 
-### Initial deliverables
-
-**Due on <span style="color: red">**January 25, 2017**</span> (but submit earlier if you are ready)**
-
- * List of group members. In addition to names, include relevant info on grad program, lab, interests/expertise. 
- * Initial project proposal describing basic idea of project. Think: a paragraph.
-
-Each group will submit their work by responding to the Issue called "Group project: initial information" in the Discussion repository. Please, post only one proposal per group. This information will be used to create a private repository for each group to host all work related to the project.
-
-**Due on <span style="color: red">**February 15, 2017**</span>**
-
-* One page proposal should probably be part of the `README.md` for the repo, or should be linked in the `README.md`. Incorporate all comments given by professors/TAs. 
-    
-### Final deliverables
-
-**Project progress report:** <font color="red">Due March 8</font> 
-
-The progress report should include information such as:
-
-1. What is changed based on the initial proposal
-2. What is the progress on the tasks and analysis mentioned in your proposal
-   
-**Poster**: to be hosted and exhibited in our poster session on Wed Apr 5 from 9:30 am to 12 pm in the Atrium of the ESB. Group-level deliverable. 
-
-Ideally, you will print your poster in the usual conference format (48''x36''). I know it is a non-trivial cost but not impossible if divided up. Sometimes supervisors will help, esp. if the poster can be displayed or used elsewhere. Prices at the village and the Sub tend to be resonable.
-
-**Project GitHub repository**: This should contain the materials (or associated live links) an instructor would need to evaluate your work and that a group member would need to reproduce/reuse/extend the work. Group-level deliverable. 
-
-**Short individual report (1 page)**: <span style="color: red">**April 8, 2017**</span>
-
-Individual deliverable include:
-    - concise summary of main role / contribution of each group member 
-    - more detailed description and reflections on your specific role / contribution
-    - scientific reflections. E.g., what worked well / poorly? what seems worth following up vs. a dead end? what was most difficult or most rewarding?
-
+--------------
     
 ## STAT 540 Homework Submission Instructions
 

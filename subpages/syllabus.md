@@ -71,7 +71,8 @@ Students may ask for extensions with a documented excuse (like: computer caught 
     - <span style="color: red">**February 15, 2017**</span>: Finalize the one page project proposal 
     - <span style="color: red">**March 8, 2017**</span>: Progress report
     - <span style="color: red">**April 5, 2017**</span>: Poster session 
-    - <span style="color: red">**April 8, 2017**</span>: Individual report deadline
+    - <span style="color: red">**April 5, 2017**</span>: GitHub repository
+    - <span style="color: red">**April 6, 2017**</span>: Individual report deadline
 - Grading and deliverable 
     - Primary deliverable is a poster. Each student also produces a short report 
     - Planning + project + poster session - 60 points 

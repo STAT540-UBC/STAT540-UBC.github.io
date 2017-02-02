@@ -10,36 +10,29 @@ output:
 
 This page contains more specific requirements for each project deliverable as well as their points breakdown.
 
-The final group project (worth 60% of your grade) can be broken down into 5 sections:
 
-- Proposal (5 points)
-- Progress report (7 points)
-- GitHub repository (20 points)
-- Individual report (8 points)
-- Poster presentation (20 points)
-
-## Proposal (5 points)
+## Proposal (5 pts)
 A one-page proposal as `project_proposal.md`. Please make sure that you have incorporated the feedback and comments by the professors/TAs on your initial proposal. Your project proposal includes:
 
-**Motivation and background work (1 point)**
+**Motivation and background work (1 pt)**
 
 - State the background and rationale for the study.
 - What is the overall hypothesis and objectives for the project?
 - Why is it important to answer this question? Identify knowledge gaps.
 
-**Division of labour (1 point)**
+**Division of labour (1 pt)**
 
 - Who is going to do what? State assignment of tasks and projected contributions for each group members.
 - Please provide a table of group members with their background, degree, affiliations and job assignments.
 
-**Dataset (1 point)**
+**Dataset (1 pt)**
 
 - What kind of data are you working with? What is the general description and characteristics of the data?
 - State the technology used to generate the data.
 - If your data is small enough, create a read only subdirectory called `data` and keep your data there (see example project repo figure).
 - Add a `README.md` file in the subdirectory to describe your data in more detail, e.g., how many rows, how many columns, experimental design etc.
 
-**Aims and methodology (2 point)**
+**Aims and methodology (2 pt)**
 
 - What are the specific questions/aims that you will address in order to achieve the final goals of the project?
 - For each of the aims, what computational/statistical approaches did you use? (Note: your methodology might change as you are progressing, exploring your data and reading through the literature)
@@ -47,7 +40,7 @@ A one-page proposal as `project_proposal.md`. Please make sure that you have inc
 
 Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by <span style="color: red">_Feb. 15th, 2017_</span>.
 
-## Progress report (7 points)
+## Progress report (7 pts)
 
 Your group progress report entitled `progress_report.md`.
 
@@ -71,7 +64,7 @@ Your group progress report entitled `progress_report.md`.
 
 Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 8th, 2017_</span>.
 
-## GitHub repository (20 points)
+## GitHub repository (20 pts)
 
 This should contain the materials (or associated live links) an instructor would need to evaluate your work and that a group member would need to reproduce/reuse/extend the work. This is a group-level deliverable.
 
@@ -80,7 +73,7 @@ This should contain the materials (or associated live links) an instructor would
 - Create subdirectories [e.g. src (source code), data, results, docs, etc.] for different parts of your analyses. Provide a `README.md` file for each subdirectory to summarize its contents and analyses.
 - The `README.md` file in the root directory of your the group repo should contain the summary of your whole work. This file should summarize the project content, your analysis, and main results. Add links as needed when you are elaborating on your analysis or results. Your project instructors should be able to go through all of your work just by following your `README.md` file. You can include a flow chart if you find it useful. Keep it brief and concise.
 
-**Analysis and results (10 points)**
+**Analysis and results (10 pts)**
 
 - Think of it as a technical report of your poster. Add brief comments and text throughout explaining the aim and conclusions of each part. You do not need to talk about all the analysis you have done but make sure you are addressing the important files, such as “inputs” (e.g. the dataset(s) you analyzed) and “outputs” (e.g. plain text files of your key statistical results or PDFs of your main figures)
 - Make sure your code is readable and could be run by instructors. So, it is necessary to provide valid addresses for the files you use in your scripts. Add comments for different chunks of your code and document it.
@@ -88,7 +81,7 @@ This should contain the materials (or associated live links) an instructor would
 You do not need to open an issue and tag TAs for this. Just make sure that your last commit is by <span style="color: red">_April 05, 2017_</span>
 
 
-## Poster (20 points)
+## Poster (20 pts)
 
 Your poster as `poster.pdf` should be in your root group repo. For all the things you need for your poster, you can create a subdirectory poster and keep your stuff there.
 
@@ -103,15 +96,15 @@ Your poster is evaluated in 5 different categories. You can find the rubric for 
 
 Please provide a link to your poster.pdf file in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Poster of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_Apr 5th, 2017_</span>.
 
-## Individual report (8 points)
+## Individual report (8 pts)
 
 A one-page individual report as `individual_report.md` should be in your individual private repository. It includes:
-**A concise summary of contributions of each group member (4 points)**
+**A concise summary of contributions of each group member (4 pts)**
 
 - Describes the tasks and contributions of each of your group members
 - Do you think the task assignments were fairly assigned and appropriate given each member’s background and skills? If no, how would you change it?
 
-**Your specific contributions and comments (4 points)**
+**Your specific contributions and comments (4 pts)**
 
 - Explain what are your contributions to the project?
 - What worked well and what did not? What was the most challenging or rewarding moment during your group project?
