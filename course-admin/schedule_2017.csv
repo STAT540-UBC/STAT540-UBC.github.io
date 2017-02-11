@@ -30,17 +30,17 @@ STAT540,Break,Mon,February,13,6,NA,No class; Family Day,NA
 STAT540,lecture-12,Wed,February,15,6,12,RNA-Seq data analysis I,PP
 STAT540-Seminar,seminar-7a,Wed,February,15,6,7,(optional) From BAM file to count data,TBA
 STAT540-Seminar,seminar-7b,Wed,February,15,6,7,RNA-Seq analysis,TBA
-STAT540,Break,Mon,February,15,6,NA,Final project proposal due,NA
+STAT540,Break,Wed,February,15,6,NA,Final project proposal due,NA
 STAT540,Break,Mon,February,20,7,NA,Midterm Break,NA
 STAT540,Break,Wed,February,22,7,NA,Midterm Break,NA
-STAT540,Announcement,Mon,February,22,7,NA,Paper Critique 1 Due,NA
+STAT540,Announcement,Wed,February,22,7,NA,Paper Critique 1 Due,NA
 STAT540,lecture-13,Mon,February,27,8,13,RNA-Seq data analysis II,PP
-STAT540,lecture-14,Mon,March,1,8,14,PCA,PP
+STAT540,lecture-14,Wed,March,1,8,14,PCA,PP
 STAT540-Seminar,seminar-8,Wed,March,1,8,8,Methylation analysis,TBA
-STAT540,lecture-15,Wed,March,6,9,15,Guest Lecture, Dr. Meaghan Jones
+STAT540,lecture-15,Mon,March,6,9,15,Guest Lecture, Dr. Meaghan Jones
 STAT540,lecture-16,Wed,March,8,9,16,Clustering,AS
 STAT540-Seminar,seminar-9,Wed,March,8,9,9,Clustering and PCA,TBA
-STAT540,Announcement,Fri,March,8,9,NA, Project progress report due,NA
+STAT540,Announcement,Wed,March,8,9,NA, Project progress report due,NA
 STAT540,lecture-17,Mon,March,13,10,17,Classification,AS
 STAT540,lecture-18,Wed,March,15,10,18,Cross validation,AS
 STAT540-Seminar,seminar-10,Wed,March,15,10,10,"Supervised learning, cross validation, variable selection",TBA
