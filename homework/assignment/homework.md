@@ -12,7 +12,7 @@ Each student must submit their own work: no group efforts. It's fine to talk to 
 
 ## Submission 
 
-Please refer to the [submission instructions](http://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions) on the website. It's due on **March 18**. Late submission will cost 2 points per day or fraction thereof for five days, after which zero marks will be awarded. 
+Please refer to the [submission instructions](http://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions) on the website. Questions 1-5 are due on **March 1** and the second half is due on **March 22**. Late submission will cost 5 points per day. 
 
 ## About R session 
 
