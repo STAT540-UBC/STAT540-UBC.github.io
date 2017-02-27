@@ -9,7 +9,7 @@ output:
 
 # Statistical Methods for High Dimensional Biology
 
-<span style="color: red">**Next deadline: Finalize the one page project proposal - Feb. 15th**</span>
+<span style="color: red">**Next deadline: Individual assignment Q1-5 - March 1st**</span>
 
 ### UBC STAT 540
 
