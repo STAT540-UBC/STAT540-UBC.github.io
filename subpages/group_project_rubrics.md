@@ -61,7 +61,7 @@ Your group progress report entitled `progress_report.md`.
 - What are your primary results? Were you able to answer your hypothesis? Did you have any positive results? If no, postulate a discussion as to why that may be. Provide plots and/or tables to present your results.
 - List some challenges that you encountered? How will you address them?
 
-Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 8th, 2017_</span>.
+Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 15th, 2017_</span>.
 
 ## GitHub repository (20 pts)
 

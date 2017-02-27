@@ -40,9 +40,9 @@ STAT540-Seminar,seminar-8,Wed,March,1,8,8,Methylation analysis,TBA
 STAT540,lecture-15,Mon,March,6,9,15,Guest Lecture, Dr. Meaghan Jones
 STAT540,lecture-16,Wed,March,8,9,16,Clustering,AS
 STAT540-Seminar,seminar-9,Wed,March,8,9,9,Clustering and PCA,TBA
-STAT540,Announcement,Wed,March,8,9,NA, Project progress report due,NA
 STAT540,lecture-17,Mon,March,13,10,17,Classification,AS
 STAT540,lecture-18,Wed,March,15,10,18,Cross validation,AS
+STAT540,Announcement,Wed,March,15,9,NA, Project progress report due,NA
 STAT540-Seminar,seminar-10,Wed,March,15,10,10,"Supervised learning, cross validation, variable selection",TBA
 STAT540,lecture-19,Mon,March,20,11,19,Regularization,AS
 STAT540,lecture-20,Wed,March,22,11,20,Resampling and bootstrap,AS

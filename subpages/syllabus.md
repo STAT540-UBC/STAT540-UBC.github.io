@@ -69,7 +69,7 @@ Students may ask for extensions with a documented excuse (like: computer caught 
     - <span style="color: red">**Now - January 25, 2017**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
     - <span style="color: red">**January 25, 2017**</span>: Finish the initial project proposal
     - <span style="color: red">**February 15, 2017**</span>: Finalize the one page project proposal 
-    - <span style="color: red">**March 8, 2017**</span>: Progress report
+    - <span style="color: red">**March 15, 2017**</span>: Progress report
     - <span style="color: red">**April 5, 2017**</span>: Poster session 
     - <span style="color: red">**April 5, 2017**</span>: GitHub repository
     - <span style="color: red">**April 6, 2017**</span>: Individual report deadline
