@@ -60,7 +60,7 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 - <span style="color: red">Due date for questions 6 - 8 (11 pts): **Mar 22, 2017**</span>
 - 5 points will be on mechanics. 
 - [Assignment questions](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/homework.md)
-- Late penalty: -5 points per day
+- Late penalty: -2.5 points per day
 
 **Group project (60%)**: 
 
