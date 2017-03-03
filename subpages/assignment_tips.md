@@ -42,25 +42,24 @@ You might find [cheatsheets from Rstudio](https://www.rstudio.com/resources/chea
 
 ### Make it easy for people to access your work 
 
-Reduce the friction for TAs and profs to get the hard-working source code (the R markdown) __and__ the front-facing report (HTML).
+Reduce the friction for TAs and profs to get the hard-working source code and commentary (the R markdown) __and__ the markdown that has all your code and outputs. 
 
-  * Create a `README.md` in the homework's subdirectory to serve as the landing page for your submission. Whenever anyone visits this subdirectory of your repo, this will be automatically rendered nicely! In particular, hyperlinks will work.
-  * With this `README.md` file, create annotated links to the documents TAs and profs will need to access. Such as:
-    - Your main R markdown document.
-    - The intermediate Markdown product that comes from knitting your main R markdown document. Remember GitHub will render this into pseudo-HTML automagically. Remember the figures in `figures/` need to be available in the repo in order appear here.
-    - The final pretty HTML report. Read instructions below on how access the pretty, not the ugly source.
-    
-You could link to an HTML report on RPubs, but a GitHub-only solution is preferred. RPubs isn't really necessary once your work is hosted on GitHub.
+To create the markdown file from Rmarkdown, set the output of the Rmarkdown to "github_document".
 
-If you want to see an example of a `README.md` that links to and explains a bunch of files in the same repo + subdirectory, you can look at an example from Prof Jenny Bryan's STAT 545A [here](https://github.com/jennybc/STAT545A_2013/tree/master/hw06_scaffolds/02_rAndMake)
+```
+---
+title: "Homework assingment"
+author: "Santina Lin"
+date: "February 7, 2017"
+output: github_document
+---
 
-### Linking to HTML files in the repo
+```
+When you submit your homework, knit your Rmarkdown into markdown. Commit and push all of the following:
+- The Rmarkdown file
+- The markdown file that's created
+- The folder that's created. It contains your figures.  
 
-Simply visiting an HTML file in a GitHub repo just shows ugly HTML source. You need to do a little extra work to see this rendered as a proper webpage.
-
-  * Navigate to the HTML file on GitHub. Click on "Raw" to get the raw version; the URL should look something like this: `https://raw.github.com/stat540-2014-bryan-jennifer-hw/hw01/stat540-2014-bryan-jennifer-hw01.html`. Copy that URL!
-  * Create a link to that in the usual Markdown way BUT prepend `http://htmlpreview.github.io/?` to the URL. So the URL in your link should look something like this: `http://htmlpreview.github.io/?https://raw.github.com/stat540-2014-bryan-jennifer-hw/hw01/stat540-2014-bryan-jennifer-hw01.html`. 
-  * This sort of link would be fabulous to include in `README.md`.
 
 ### Make it easy for others to run your code
 
