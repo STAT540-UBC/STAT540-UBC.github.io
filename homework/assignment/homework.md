@@ -1,6 +1,6 @@
 ## THE assignment (fun!) 
 
-In this assignment, the questions are structured to test your knowledge on some statistiscal concepts and R techniques, such as data visualization, data wrangling, etc. If you find yourself referring to the seminars and perhaps googling things a lot, you're on the right track. Asking the TAs for help during the seminars is also a good option, too! 
+In this assignment, the questions are structured to test your knowledge on some statistical concepts and R techniques, such as data visualization, data wrangling, etc. If you find yourself referring to the seminars and perhaps googling things a lot, you're on the right track. Asking the TAs for help during the seminars is also a good option, too! 
 
 Also check out [this list of tips](http://stat540-ubc.github.io/subpages/assignment_tips.html).
 
