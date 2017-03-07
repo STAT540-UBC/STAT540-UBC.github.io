@@ -175,8 +175,7 @@ The labels on two of the samples have been swapped, that is one of the batch sam
 >  You can retrieve the gene IDs using the `yeast2.db` package from Bioconductor:
 
 ```r
-source("http://bioconductor.org/biocLite.R")    # Installing biocLite package
-biocLite() 										# Load the package 
+source("http://bioconductor.org/biocLite.R")    
 biocLite("yeast2.db") 							# Download the package using biocLite
 library("yeast2.db") 							# Load the yeast2.db package 
 mget("1772391_at", yeast2ORF)  					# See what gene is that probe for 
