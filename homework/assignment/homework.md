@@ -204,7 +204,7 @@ We have aligned the RNA-Seq library using the [Stampy](http://www.well.ox.ac.uk/
 
 Load the count data using `read.table`; you will need to pass the arguments `header=TRUE` and `row.names=1`. 
 
-- What are dimensions of the dataset? In addition to reporting number of rows and columns, make it clear what rows and columns represent. What is the difference between the rows of this dataset versus rows of the array data in question 1a?
+- What are dimensions of the dataset? In addition to reporting number of rows and columns, make it clear what rows and columns represent. What is the difference between the rows of this dataset versus rows of the array data in question 6a?
 - Do a sanity check to make sure there is no sample swap by plotting a heatmap of the sample correlations.
 
 
