@@ -10,7 +10,7 @@ output:
 ##<span style="color: red">Earn a bonus 1%!</span>
 
 <span style="color: red">We are dedicated to improving the learning experience for STAT540 and would love your help in doing so!
-Please submit your highly appreciated feedback for this course by completing our own course feedback evaluaton: https://docs.google.com/forms/d/e/1FAIpQLSc6cEZcamhrDTCKUGyEby48tcgkPe5sPn1BkCWw73Wn7uiOBw/viewform. Upon completion, you'll be given a link and password to a survey to submit your name and claim your bonus one percent (1%) for the STAT540 course!
+Please submit your highly appreciated feedback for this course by completing our own course feedback evaluation: https://docs.google.com/forms/d/e/1FAIpQLSc6cEZcamhrDTCKUGyEby48tcgkPe5sPn1BkCWw73Wn7uiOBw/viewform. Upon completion, you'll be given a link and password to a survey to submit your name and claim your bonus one percent (1%) for the STAT540 course!
 NOTE: THIS SURVEY IS ANONYMOUS</span>
 
 ### Late penalty for homework submission
