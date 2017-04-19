@@ -212,7 +212,7 @@ Load the count data using `read.table`; you will need to pass the arguments `hea
 
 Now you will use `edgeR` to identify differentially expressed genes between the batch medium vs. chemostat conditions.
 
-- Recall that `edgeR` needs to estimate the dispersion parameter in the negative binomial model using an empirical Bayes method. Estimate the dispersion parameters using `estimateGLMCommonDisp`, `estimateGLMTrendedDisp` and `estimateGLMTagwiseDisp`. 
+- Recall that `edgeR` needs to estimate the dispersion parameter in the negative binomial model using an empirical Bayes method. Please do filtering and normalization prior to using the function `estimateDisp`. Refer to the edgeR manual for guidance. Justify each of your step. 
 
 - Use the glm functionality of `edgeR`, i.e. use the `glmFit` function, to identify differentially expressed genes between conditions. 
 
