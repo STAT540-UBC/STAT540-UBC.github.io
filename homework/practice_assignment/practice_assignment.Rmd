@@ -1,14 +1,16 @@
 ---
 title: "Practice assignment"
-author: "Santina Lin"
-date: "January 1, 2017"
+//author: "STAT540 Instructors"
+date: "January 1, 2018"
 output: 
   html_document: 
     keep_md: yes
     toc: yes
 ---
 
-Welcome to STAT540! First things first, we need to get you a personal repository (repo) where you will record all your work and learning. Please complete [this survey](https://goo.gl/forms/NzMRW87Ccmfmc6x13) and we will set up your repository as soon as possible. Note that you must have this set up before you can proceed with any assignments because GitHub is where you will submit your work and receive feedback and grades. 
+Welcome to STAT540! 
+
+First things first, we need to get you a personal GitHub repository (repo) where you will record all your work and learning. **We will set up your repository as soon as possible once the term starts**. Note that you must have this set up before you can complete assignments because GitHub is where you will submit your work and receive feedback and grades. **If you are getting an early start, you can skip the parts of the assignment that have to do with git/GitHub and come back to them.**
 
 The point of this assignment is to get you warmed up with git, GitHub, markdown, and R so you're more prepared for the future assignments. The first few seminars will cover all you need to know for completing this practice assignment. 
 
@@ -31,7 +33,7 @@ In your README.md file, when applicable, write about:
 You can start creating folders (eg. "paper_review", "assignment", "seminars") for your course work and put README.md files in them if you wish. 
 
 
-## 2. Data insepction with R (2pt)
+## 2. Data inspection with R (2pt)
 
 If you have never used R, you can check out this blog post on [getting started with R](http://santina.me/r/2015/12/15/Get-started-with-R.html) written by one of your TAs. Set aside an afternoon or an evening to just play around with R. 
 
