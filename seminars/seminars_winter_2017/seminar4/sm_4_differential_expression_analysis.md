@@ -15,14 +15,65 @@ By the end of this seminar, you should
 -   have an intuition of how limma works in the context of “moderated” t-values
 -   be able to perform genome wide differential expression analysis given expression data and covariates and interpret the resulting statistics
 
+Packages required
+-----------------
+
+-   [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
+    -   Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+-   [reshape2](https://www.rdocumentation.org/packages/reshape2/versions/1.4.3)
+    -   Install by running 'install.packages("reshape2", dependencies = TRUE)'
+-   [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
+    -   Install by running 'source("<https://bioconductor.org/biocLite.R>")' and then 'biocLite("limma")'
+
+Functions used
+--------------
+
+-   **utils::read.table()** - Reads a file in table format and creates a dataframe from it.
+-   **base::c()** - Combine arguments into a single data strucutre; for example, c(1,2,3) -&gt; a vector containing \[1, 2, 3\].
+-   **base::names()** - Functions to get or set the names of an object (vector, tibble, data frame, etc).
+-   **base::factor()** - The function factor is used to encode a vector as a factor.
+-   **base::ncol()** - Get the number of columns in a dataframe.
+-   **base::nrow()** - Get the number of rows in a dataframe.
+-   **base::sort()** - Sort a vector into ascending or descending order.
+-   **tibble::rownames\_to\_column()** - Opposite to column\_to\_rownames(); convert row names to a column inside a dataframe.
+-   **tibble::column\_to\_rownames()** - Opposite to rownames\_to\_column(); convert a column into a dataframe's row names.
+-   **tibble::as\_tibble()** - Convert a dataframe to a tibble.
+-   **reshape2::melt()** - Melt a data frame, i.e. reduce the number of columns by increasing the number of rows.
+-   **dplyr::filter()** - Use filter() find rows/cases where conditions are true.
+-   **dplyr::select()** - Keep only the columns/variables you mention.
+-   **base::t()** - Transpose a matrix or dataframe.
+-   **base::as.data.frame()** - Coerce object into a dataframe, e.g. convert a tibble into a dataframe so that rownames can be set.
+-   **dplyr::left\_join()** - Join two tibbles together.
+-   **ggplot2::ggplot()** - Base function for using ggplot2. Lays out the invisible 'canvas' for graphing.
+-   **ggplot2::geom\_boxplot()** - Geom function for drawing box plots.
+-   **ggplot2::theme()** - Modify components of a theme/appearance, e.g. rotate the x-axis by 90 degrees.
+-   **ggplot2::facet\_wrap()** - ggplot2 function for separating factor levels into multiple graphs.
+-   **stats::t.test()** - Performs one and two sample t-tests on vectors of data.
+-   **stats::lm()** - Fit linear models.
+-   **base::summary()** - Generic function used to produce result summaries of the results of various model fitting functions.
+-   **stats::aov()** - Fit an analysis of variance model by a call to lm for each stratum.
+-   **knitr::kable()** - Table generator for R-Markdown.
+-   **base::all()** - Given a set of logical vectors, are all of the values true?
+-   **stats::model.matrix()** - Creates a design (or model) matrix, e.g., by expanding factors to a set of dummary variables.
+-   **limma::lmFit()** - Fit linear model for each gene given a series of arrays.
+-   **limma::eBayes()** - Empirical Bayes Statistics for Differential Expression.
+-   **limma::topTable()** - Extract a table of the top-ranked genes from a linear model fit.
+-   **ggplot2::geom\_jitter()** - Adds a small amount of random variation to the location of each point, and is a useful way of handling overplotting caused by discreteness in smaller datasets.
+-   **limma::makeContrasts()** - Construct the contrast matrix corresponding to specified contrasts of a set of parameters.
+-   **limma::contrast.fit()** - Given a linear model fit to microarray data, compute estimated coefficients and standard errors for a given set of contrasts.
+-   **limma::decideTests()** - Identify which genes are significantly differentially expressed for each contrast from a fit object containing p-values and test statistics.
+-   **base::intersect()** - Set intersection.
+-   **base::as.character()** - Coerce object to character type, e.g. convert a factor into character.
+-   **utils::head()** - Return first part of a object (a vector or dataframe).
+
 Part 1: Introduction
 --------------------
 
 ### What is differential gene expression, anyway? And why statistic?
 
-If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across conditions: healthy vs. disease, young vs. old, treatment vs. control, etc. And we have an elaborate statistical framework that helps make this assessment.
+If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across conditions: healthy vs. disease, young vs. old, treatment vs. control, etc. And we have an elaborate statistical framework that helps us make this assessment.
 
-Specifically, we may take a single gene and assess whether it is differentially expressed across some conditions. Or we may perform differential expression analysis on a large set of genes (sometimes all ~20,000 genes in the human genome) and do a high throughput screen to detect differentially expressed genes across some conditions. In this seminar, we will work through both scenarios. The approaches are fundamentally the same, but also quite different, as you will soon see.
+Specifically, we may take a single gene and assess whether it is differentially expressed across some conditions. Or we may perform differential expression analysis on a large set of genes (sometimes all ~20,000 genes in the human genome) and do a high throughput screen to detect differentially expressed genes across some conditions. In this seminar, we will work through both scenarios. The approaches are fundamentally the same, but are also quite different, as you will soon see.
 
 First, we introduce the gene expression dataset: its usual format & organization. We will import a sample dataset and render a few plots and tables to get you oriented. Next, we perform differential expression analysis on a single gene. This will be important for understanding the fundamental approach for assessing differential expression. Finally, we perform a genome wide differential expression screen using limma (a popular R package).
 
@@ -35,7 +86,7 @@ In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nl
 
 ### Import data
 
-First we import the dataset. With most gene expression datasets, there will be two components and generally come in two different files.
+First we import the dataset. With most gene expression datasets, there will be two components that generally come in two different files.
 
 The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column.
 
@@ -49,18 +100,18 @@ expressionMatrix <- expressionMatrix %>% as_tibble() # turn into tibble for pret
 expressionMatrix
 ```
 
-    ## # A tibble: 29,949 × 40
+    ## # A tibble: 29,949 x 40
     ##            gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16
     ##           <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ## 1    1415670_at     7.236     7.414     7.169     7.070     7.383
-    ## 2    1415671_at     9.478    10.020     9.854    10.130     7.637
-    ## 3    1415672_at    10.010    10.040     9.913     9.907     8.423
-    ## 4    1415673_at     8.362     8.374     8.404     8.487     8.363
-    ## 5  1415674_a_at     8.585     8.615     8.520     8.641     8.509
-    ## 6    1415675_at     9.591     9.719     9.709     9.700     9.656
-    ## 7  1415676_a_at     9.684    10.420     9.866    10.190     8.045
-    ## 8    1415677_at     7.236     7.901     7.478     7.492     7.338
-    ## 9    1415678_at    11.710    11.510    11.530    11.570    10.460
+    ##  1   1415670_at     7.236     7.414     7.169     7.070     7.383
+    ##  2   1415671_at     9.478    10.020     9.854    10.130     7.637
+    ##  3   1415672_at    10.010    10.040     9.913     9.907     8.423
+    ##  4   1415673_at     8.362     8.374     8.404     8.487     8.363
+    ##  5 1415674_a_at     8.585     8.615     8.520     8.641     8.509
+    ##  6   1415675_at     9.591     9.719     9.709     9.700     9.656
+    ##  7 1415676_a_at     9.684    10.420     9.866    10.190     8.045
+    ##  8   1415677_at     7.236     7.901     7.478     7.492     7.338
+    ##  9   1415678_at    11.710    11.510    11.530    11.570    10.460
     ## 10   1415679_at     9.214    10.100     9.819     9.918     8.216
     ## # ... with 29,939 more rows, and 34 more variables: Sample_17 <dbl>,
     ## #   Sample_6 <dbl>, Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>,
@@ -75,7 +126,7 @@ expressionMatrix
 
 Great, now, the expression matrix has been imported. But we still don't know the properties associated with each sample. For example, does Sample\_20 belong to treatment or control? What developmental stage is it in? What tissue is it? How about Sample\_22? Sample\_23?
 
-Without this information, the expression matrix is pretty much useless, at least for our purpose of assessing differentail expression across conditions.
+Without this information, the expression matrix is pretty much useless, at least for our purpose of assessing differential expression across conditions.
 
 So, the second component that comes with the data is the **samples metadata**. We now import it.
 
@@ -92,18 +143,18 @@ names(samplesMetadata) <- c("sample_id", "sample_number", "dev_stage", "genotype
 samplesMetadata
 ```
 
-    ## # A tibble: 39 × 4
+    ## # A tibble: 39 x 4
     ##    sample_id sample_number dev_stage genotype
     ##        <chr>         <int>     <chr>    <chr>
-    ## 1  Sample_20            20       E16       wt
-    ## 2  Sample_21            21       E16       wt
-    ## 3  Sample_22            22       E16       wt
-    ## 4  Sample_23            23       E16       wt
-    ## 5  Sample_16            16       E16    NrlKO
-    ## 6  Sample_17            17       E16    NrlKO
-    ## 7   Sample_6             6       E16    NrlKO
-    ## 8  Sample_24            24        P2       wt
-    ## 9  Sample_25            25        P2       wt
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_24            24        P2       wt
+    ##  9 Sample_25            25        P2       wt
     ## 10 Sample_26            26        P2       wt
     ## # ... with 29 more rows
 
@@ -138,18 +189,18 @@ samplesMetadata$genotype # note that Levels contain all possible categories of t
 samplesMetadata # columns dev_stage and genotype are now type factor
 ```
 
-    ## # A tibble: 39 × 4
+    ## # A tibble: 39 x 4
     ##    sample_id sample_number dev_stage genotype
     ##        <chr>         <int>    <fctr>   <fctr>
-    ## 1  Sample_20            20       E16       wt
-    ## 2  Sample_21            21       E16       wt
-    ## 3  Sample_22            22       E16       wt
-    ## 4  Sample_23            23       E16       wt
-    ## 5  Sample_16            16       E16    NrlKO
-    ## 6  Sample_17            17       E16    NrlKO
-    ## 7   Sample_6             6       E16    NrlKO
-    ## 8  Sample_24            24        P2       wt
-    ## 9  Sample_25            25        P2       wt
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_24            24        P2       wt
+    ##  9 Sample_25            25        P2       wt
     ## 10 Sample_26            26        P2       wt
     ## # ... with 29 more rows
 
@@ -203,7 +254,7 @@ Yes, the samples in both data frames match! We have metadata for every sample in
 
 ### What are genes? What are probes?
 
-One last note just before we get the party started. Notice that the row IDs in the expression matrix don't look much like genes. They looke like this: 1415670\_at, 1415671\_at, 1415672\_at. What are these random gibberish? Actualy these are probe IDs. Probes segments of sequences used in microarray to bind to segments of cDNA molcules (stretches of mRNA). This means that there may be multiple probes that map to different sections of the same gene and there may be multiple genes that map to the same probe.
+One last note just before we get the party started. Notice that the row IDs in the expression matrix don't look much like genes. They looke like this: 1415670\_at, 1415671\_at, 1415672\_at. What are these random gibberish? Actualy these are probe IDs. Probes are segments of sequences used in microarray to bind to segments of cDNA molecules (stretches of mRNA). This means that there may be multiple probes that map to different sections of the same gene and there may be multiple genes that map to the same probe.
 
 For the purpose of our seminar, we will ignore the difference between genes and probes, thereby avoiding the whole mapping problem. Instead, we will simply use these terms interchangeably. When we say "this gene is differentially expressed", feel free to substitute that for "this probe is differentially expressed" and vice versa.
 
@@ -218,11 +269,6 @@ Yes, we expect certain genes to be differentially expressed across some conditio
 Note that melt() is one of the most useful tricks you can do with your data frame to convert it into a form that is easily workable by ggplot. The opposite to melt() is spread(). We recommend that you play around with these functions to get an idea of how they work.
 
 ``` r
-# numberOfGenes <- expressionMatrix %>% nrow()
-# 
-# set.seed(3)
-# geneNumber <- runif(1, min = 1, max = numberOfGenes) %>% round()
-
 # melt into a format ggplot can easily work with
 meltedExpressionMatrix <- expressionMatrix %>% melt(id = "gene") 
 
@@ -232,7 +278,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ``` r
 meltedExpressionMatrix %>% 
@@ -241,7 +287,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-2.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-5-2.png)
 
 The distribution of gene expression for all genes across all samples look quite consistent. Let's move on!
 
@@ -259,7 +305,11 @@ geneIds <- c("1416119_at", "1431708_a_at")
 
 # use dplyr::filter() to get the expression data for the gene
 expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
+```
 
+    ## Warning: package 'bindrcpp' was built under R version 3.3.2
+
+``` r
 # transform the data frame into the format that matches the sample metadata
 expressionDataForGene <- expressionDataForGene %>%
   as.data.frame() %>% 
@@ -275,18 +325,18 @@ expressionDataForGene <- expressionDataForGene %>%
 expressionDataForGene
 ```
 
-    ## # A tibble: 78 × 3
+    ## # A tibble: 78 x 3
     ##    sample_id       gene expression
     ##        <chr>     <fctr>      <dbl>
-    ## 1  Sample_20 1416119_at     10.580
-    ## 2  Sample_21 1416119_at     11.000
-    ## 3  Sample_22 1416119_at     10.850
-    ## 4  Sample_23 1416119_at     10.920
-    ## 5  Sample_16 1416119_at      9.203
-    ## 6  Sample_17 1416119_at     11.010
-    ## 7   Sample_6 1416119_at     10.900
-    ## 8  Sample_24 1416119_at     10.380
-    ## 9  Sample_25 1416119_at     10.610
+    ##  1 Sample_20 1416119_at     10.580
+    ##  2 Sample_21 1416119_at     11.000
+    ##  3 Sample_22 1416119_at     10.850
+    ##  4 Sample_23 1416119_at     10.920
+    ##  5 Sample_16 1416119_at      9.203
+    ##  6 Sample_17 1416119_at     11.010
+    ##  7  Sample_6 1416119_at     10.900
+    ##  8 Sample_24 1416119_at     10.380
+    ##  9 Sample_25 1416119_at     10.610
     ## 10 Sample_26 1416119_at     10.250
     ## # ... with 68 more rows
 
@@ -320,7 +370,7 @@ expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
 expressionDataForGene
 ```
 
-    ## # A tibble: 2 × 40
+    ## # A tibble: 2 x 40
     ##           gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16 Sample_17
     ##          <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
     ## 1   1416119_at    10.580      11.0    10.850    10.920     9.203    11.010
@@ -341,18 +391,18 @@ expressionDataForGene <- transformGeneExpressionMatrix(expressionDataForGene)
 expressionDataForGene
 ```
 
-    ## # A tibble: 78 × 3
+    ## # A tibble: 78 x 3
     ##    sample_id       gene expression
     ##        <chr>     <fctr>      <dbl>
-    ## 1  Sample_20 1416119_at     10.580
-    ## 2  Sample_21 1416119_at     11.000
-    ## 3  Sample_22 1416119_at     10.850
-    ## 4  Sample_23 1416119_at     10.920
-    ## 5  Sample_16 1416119_at      9.203
-    ## 6  Sample_17 1416119_at     11.010
-    ## 7   Sample_6 1416119_at     10.900
-    ## 8  Sample_24 1416119_at     10.380
-    ## 9  Sample_25 1416119_at     10.610
+    ##  1 Sample_20 1416119_at     10.580
+    ##  2 Sample_21 1416119_at     11.000
+    ##  3 Sample_22 1416119_at     10.850
+    ##  4 Sample_23 1416119_at     10.920
+    ##  5 Sample_16 1416119_at      9.203
+    ##  6 Sample_17 1416119_at     11.010
+    ##  7  Sample_6 1416119_at     10.900
+    ##  8 Sample_24 1416119_at     10.380
+    ##  9 Sample_25 1416119_at     10.610
     ## 10 Sample_26 1416119_at     10.250
     ## # ... with 68 more rows
 
@@ -366,18 +416,18 @@ expressionDataForGene <- expressionDataForGene %>% left_join(samplesMetadata, by
 expressionDataForGene
 ```
 
-    ## # A tibble: 78 × 6
+    ## # A tibble: 78 x 6
     ##    sample_id       gene expression sample_number dev_stage genotype
     ##        <chr>     <fctr>      <dbl>         <int>    <fctr>   <fctr>
-    ## 1  Sample_20 1416119_at     10.580            20       E16       wt
-    ## 2  Sample_21 1416119_at     11.000            21       E16       wt
-    ## 3  Sample_22 1416119_at     10.850            22       E16       wt
-    ## 4  Sample_23 1416119_at     10.920            23       E16       wt
-    ## 5  Sample_16 1416119_at      9.203            16       E16    NrlKO
-    ## 6  Sample_17 1416119_at     11.010            17       E16    NrlKO
-    ## 7   Sample_6 1416119_at     10.900             6       E16    NrlKO
-    ## 8  Sample_24 1416119_at     10.380            24        P2       wt
-    ## 9  Sample_25 1416119_at     10.610            25        P2       wt
+    ##  1 Sample_20 1416119_at     10.580            20       E16       wt
+    ##  2 Sample_21 1416119_at     11.000            21       E16       wt
+    ##  3 Sample_22 1416119_at     10.850            22       E16       wt
+    ##  4 Sample_23 1416119_at     10.920            23       E16       wt
+    ##  5 Sample_16 1416119_at      9.203            16       E16    NrlKO
+    ##  6 Sample_17 1416119_at     11.010            17       E16    NrlKO
+    ##  7  Sample_6 1416119_at     10.900             6       E16    NrlKO
+    ##  8 Sample_24 1416119_at     10.380            24        P2       wt
+    ##  9 Sample_25 1416119_at     10.610            25        P2       wt
     ## 10 Sample_26 1416119_at     10.250            26        P2       wt
     ## # ... with 68 more rows
 
@@ -394,7 +444,7 @@ expressionDataForGene %>%
   facet_wrap(~gene)
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-10-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 Take a moment to look at these plots. Do you think one of these genes is differentially expressed across wt and NrlKO conditions?
 
@@ -569,7 +619,7 @@ So how is assessing one gene any different from assessing 20,000 genes? You ask.
 
 Great question! The intuitive approach is, of course, simply fit a linear model for every gene. Make your comparison between the groups, and then obtain a p-value for each gene. The genes with the p-values that pass the significant threshold are then hits!
 
-Sounds like a great approach! Except there are two problems. First, gene expression data is usually very high dimensional. This means a lot of variables are measured using very few samples. This leads to some biased estimates of variance, leading to bad estimates of p-values. Second, there is the multiple testing problem. It helps to think about what the p-value actually means: the probability of obtaining the test-statistics you obtained by chance. So what's the probability of obtaining a p-value of 0.05 by chance? 0.05 of course. And this is a problem when you're doing a separate t-test for all 20,000 genes!
+Sounds like a great approach! Except there are two problems. First, gene expression data is usually very high dimensional. This means a lot of variables are measured using very few samples. This leads to some biased estimates of variance, leading to bad estimates of p-values. Second, there is the multiple testing problem. It helps to think about what the p-value actually means: the probability of obtaining the test-statistics you obtained by chance. So what's the probability of obtaining a p-value of 0.05 by chance? %5 of course. And this is a problem when you're doing a separate t-test for all 20,000 genes!
 
 We address each of these problems in more detail below.
 
@@ -586,13 +636,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##             [,1]         [,2]       [,3]
-    ## [1,]  0.27505902  0.913825543 -0.3317426
-    ## [2,] -1.40831232  0.003607898 -1.4464407
-    ## [3,]  0.96926861 -2.186955766  0.2406470
-    ## [4,]  2.87420393  0.540156763  0.7188732
-    ## [5,] -0.07309438  0.660399522  0.1677349
-    ## [6,]  0.30030774 -0.887981910 -0.9516650
+    ##              [,1]       [,2]        [,3]
+    ## [1,]  0.997156587  0.8637444  0.07319997
+    ## [2,]  0.461468501 -0.6118071 -1.41203154
+    ## [3,] -0.315810569  0.6739137 -1.10367199
+    ## [4,]  1.058580169 -1.9294123 -0.14158672
+    ## [5,] -1.371040964 -1.0344508 -0.69265641
+    ## [6,] -0.008821099 -0.6120279 -0.30976453
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
@@ -603,7 +653,7 @@ tibble(variance = geneVars) %>%
   geom_point(aes(y = 0), shape = 1, size = 3)
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-17-1.png)
 
 Notice how many of the observed variances are freakishly small (and freakishly large!), even though they are indeed equal to 1 “on average”. For example, we see that at least a quarter of the genes appear to exhibit a sample variance that is less than one-third the true variance. This can wreak havoc with statistical inference, such as t-statistics. This is what limma – or the statistical methods it embodies, actually – is designed to combat.
 
@@ -611,7 +661,7 @@ Basically, low variance leads to high t-statistics, which in turn leads to low p
 
 limma fixes this by using moderated t-values where the "typical variance" is used to weight gene-specific variance estimates. Otherwise, limma is the same as plain old linear regression method.
 
-### Multiple testing: what are the chances of obtaining statistical significance value by random chance? By chance, of course!
+### Multiple testing: what are the chances of obtaining statistical significance value by random chance?
 
 Multiple testing is another problem that we need to account for. Think about what the p-value actually measures. By definition, the p-value is the **probability of making the observation you made by chance**. Therefore, the p-value of 0.05 suggests that you would get the observation simply by chance 0.05 of the time. Interestingly, 0.05 of 20,000 genes is 1000 genes! If statistical significance was taken at face value, then you would end up with 1000 differentially expressed genes, when none really exist.
 
@@ -632,18 +682,18 @@ wildTypeSamples <- samplesMetadata %>% filter(genotype == "wt")
 wildTypeSamples # reminder of what the samples metadata data frame looks like
 ```
 
-    ## # A tibble: 20 × 4
+    ## # A tibble: 20 x 4
     ##    sample_id sample_number dev_stage genotype
     ##        <chr>         <int>    <fctr>   <fctr>
-    ## 1  Sample_20            20       E16       wt
-    ## 2  Sample_21            21       E16       wt
-    ## 3  Sample_22            22       E16       wt
-    ## 4  Sample_23            23       E16       wt
-    ## 5  Sample_24            24        P2       wt
-    ## 6  Sample_25            25        P2       wt
-    ## 7  Sample_26            26        P2       wt
-    ## 8  Sample_27            27        P2       wt
-    ## 9  Sample_28            28        P6       wt
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_24            24        P2       wt
+    ##  6 Sample_25            25        P2       wt
+    ##  7 Sample_26            26        P2       wt
+    ##  8 Sample_27            27        P2       wt
+    ##  9 Sample_28            28        P6       wt
     ## 10 Sample_29            29        P6       wt
     ## 11 Sample_30            30        P6       wt
     ## 12 Sample_31            31        P6       wt
@@ -673,18 +723,18 @@ wildTypeExpressionMatrix <- getExpressionForSamples(wildTypeSamples$sample_id, e
 wildTypeExpressionMatrix %>% as_tibble() # reminder of what the expression matrix looks like
 ```
 
-    ## # A tibble: 29,949 × 20
+    ## # A tibble: 29,949 x 20
     ##    Sample_20 Sample_21 Sample_22 Sample_23 Sample_24 Sample_25 Sample_26
-    ## *      <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ## 1      7.236     7.414     7.169     7.070     7.109     7.190     7.182
-    ## 2      9.478    10.020     9.854    10.130     9.747     9.159     9.488
-    ## 3     10.010    10.040     9.913     9.907     9.393    10.110     9.412
-    ## 4      8.362     8.374     8.404     8.487     8.366     8.199     8.734
-    ## 5      8.585     8.615     8.520     8.641     8.361     8.502     8.393
-    ## 6      9.591     9.719     9.709     9.700     9.638     9.654     9.868
-    ## 7      9.684    10.420     9.866    10.190     9.155     8.182     9.101
-    ## 8      7.236     7.901     7.478     7.492     7.186     7.231     7.064
-    ## 9     11.710    11.510    11.530    11.570    11.370    11.310    11.800
+    ##  *     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+    ##  1     7.236     7.414     7.169     7.070     7.109     7.190     7.182
+    ##  2     9.478    10.020     9.854    10.130     9.747     9.159     9.488
+    ##  3    10.010    10.040     9.913     9.907     9.393    10.110     9.412
+    ##  4     8.362     8.374     8.404     8.487     8.366     8.199     8.734
+    ##  5     8.585     8.615     8.520     8.641     8.361     8.502     8.393
+    ##  6     9.591     9.719     9.709     9.700     9.638     9.654     9.868
+    ##  7     9.684    10.420     9.866    10.190     9.155     8.182     9.101
+    ##  8     7.236     7.901     7.478     7.492     7.186     7.231     7.064
+    ##  9    11.710    11.510    11.530    11.570    11.370    11.310    11.800
     ## 10     9.214    10.100     9.819     9.918     9.303     9.945     8.766
     ## # ... with 29,939 more rows, and 13 more variables: Sample_27 <dbl>,
     ## #   Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>, Sample_31 <dbl>,
@@ -833,18 +883,18 @@ topGenesExpressionData <- wildTypeExpressionMatrix %>%
 topGenesExpressionData # reminder of formatted expression data looks like - for easy graphing
 ```
 
-    ## # A tibble: 120 × 6
+    ## # A tibble: 120 x 6
     ##    sample_id       gene expression sample_number dev_stage genotype
     ##        <chr>     <fctr>      <dbl>         <int>    <fctr>   <fctr>
-    ## 1  Sample_20 1416041_at      8.478            20       E16       wt
-    ## 2  Sample_21 1416041_at      7.742            21       E16       wt
-    ## 3  Sample_22 1416041_at      8.287            22       E16       wt
-    ## 4  Sample_23 1416041_at      8.155            23       E16       wt
-    ## 5  Sample_24 1416041_at      8.174            24        P2       wt
-    ## 6  Sample_25 1416041_at      8.659            25        P2       wt
-    ## 7  Sample_26 1416041_at      8.110            26        P2       wt
-    ## 8  Sample_27 1416041_at      8.351            27        P2       wt
-    ## 9  Sample_28 1416041_at      8.395            28        P6       wt
+    ##  1 Sample_20 1416041_at      8.478            20       E16       wt
+    ##  2 Sample_21 1416041_at      7.742            21       E16       wt
+    ##  3 Sample_22 1416041_at      8.287            22       E16       wt
+    ##  4 Sample_23 1416041_at      8.155            23       E16       wt
+    ##  5 Sample_24 1416041_at      8.174            24        P2       wt
+    ##  6 Sample_25 1416041_at      8.659            25        P2       wt
+    ##  7 Sample_26 1416041_at      8.110            26        P2       wt
+    ##  8 Sample_27 1416041_at      8.351            27        P2       wt
+    ##  9 Sample_28 1416041_at      8.395            28        P6       wt
     ## 10 Sample_29 1416041_at      8.371            29        P6       wt
     ## # ... with 110 more rows
 
@@ -857,7 +907,7 @@ topGenesExpressionData %>%
   facet_wrap(~gene)
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 What do you think? Does it look plausible to you that these genes are differentially expressed across developmental stages?
 
@@ -888,7 +938,7 @@ plotGenes(topGenes, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 OK, now let's use topTable() again to find some boring(insignificant) genes.
 
@@ -937,7 +987,7 @@ plotGenes(rownames(boringGenes), wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 Are you convinced?? I hope so!
 
@@ -1028,7 +1078,7 @@ plotGenes(rownames(contrastGenes)[1:6], wildTypeExpressionMatrix, wildTypeSample
 
     ## Joining, by = "sample_id"
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 So far, so good. These 6 probes show little expression change from P6 to P10 and a strong increase from P10 to 4\_weeks. I would like to find some where there’s a change in each case but perhaps in opposite direction. Let’s press on.
 
@@ -1072,7 +1122,7 @@ plotGenes(hits1$gene, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 Here are 4 of the 8 that decline from P10 to 4\_weeks.
 
@@ -1103,7 +1153,7 @@ plotGenes(hits2$gene[1:4], wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-31-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 Is there any overlap between these probes?
 
@@ -1134,18 +1184,18 @@ interactionSamples$dev_stage <- interactionSamples$dev_stage %>%
 interactionSamples
 ```
 
-    ## # A tibble: 15 × 4
+    ## # A tibble: 15 x 4
     ##    sample_id sample_number dev_stage genotype
     ##        <chr>         <int>    <fctr>   <fctr>
-    ## 1  Sample_20            20       E16       wt
-    ## 2  Sample_21            21       E16       wt
-    ## 3  Sample_22            22       E16       wt
-    ## 4  Sample_23            23       E16       wt
-    ## 5  Sample_16            16       E16    NrlKO
-    ## 6  Sample_17            17       E16    NrlKO
-    ## 7   Sample_6             6       E16    NrlKO
-    ## 8  Sample_36            36   4_weeks       wt
-    ## 9  Sample_37            37   4_weeks       wt
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_36            36   4_weeks       wt
+    ##  9 Sample_37            37   4_weeks       wt
     ## 10 Sample_38            38   4_weeks       wt
     ## 11 Sample_39            39   4_weeks       wt
     ## 12 Sample_11            11   4_weeks    NrlKO
@@ -1158,18 +1208,18 @@ interactionSamples
 expressionMatrix
 ```
 
-    ## # A tibble: 29,949 × 40
+    ## # A tibble: 29,949 x 40
     ##            gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16
     ##           <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ## 1    1415670_at     7.236     7.414     7.169     7.070     7.383
-    ## 2    1415671_at     9.478    10.020     9.854    10.130     7.637
-    ## 3    1415672_at    10.010    10.040     9.913     9.907     8.423
-    ## 4    1415673_at     8.362     8.374     8.404     8.487     8.363
-    ## 5  1415674_a_at     8.585     8.615     8.520     8.641     8.509
-    ## 6    1415675_at     9.591     9.719     9.709     9.700     9.656
-    ## 7  1415676_a_at     9.684    10.420     9.866    10.190     8.045
-    ## 8    1415677_at     7.236     7.901     7.478     7.492     7.338
-    ## 9    1415678_at    11.710    11.510    11.530    11.570    10.460
+    ##  1   1415670_at     7.236     7.414     7.169     7.070     7.383
+    ##  2   1415671_at     9.478    10.020     9.854    10.130     7.637
+    ##  3   1415672_at    10.010    10.040     9.913     9.907     8.423
+    ##  4   1415673_at     8.362     8.374     8.404     8.487     8.363
+    ##  5 1415674_a_at     8.585     8.615     8.520     8.641     8.509
+    ##  6   1415675_at     9.591     9.719     9.709     9.700     9.656
+    ##  7 1415676_a_at     9.684    10.420     9.866    10.190     8.045
+    ##  8   1415677_at     7.236     7.901     7.478     7.492     7.338
+    ##  9   1415678_at    11.710    11.510    11.530    11.570    10.460
     ## 10   1415679_at     9.214    10.100     9.819     9.918     8.216
     ## # ... with 29,939 more rows, and 34 more variables: Sample_17 <dbl>,
     ## #   Sample_6 <dbl>, Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>,
@@ -1299,17 +1349,12 @@ expressionDataForHits %>%
   facet_wrap(~gene)
 ```
 
-![](sm_4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-34-1.png)
+![](sm_4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-34-1.png)
 
 Part 5: Deliverables
 --------------------
 
 -   Make a similar plot but this time for 4 genes where there are no interaction between genotype and developmental stages.
-
-Final notes and additional resources
-------------------------------------
-
--   will fill in. \*\*\*\*
 
 Attributions
 ------------

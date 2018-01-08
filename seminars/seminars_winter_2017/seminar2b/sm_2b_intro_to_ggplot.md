@@ -13,6 +13,32 @@ By the end of this seminar, you should
 -   have practical experience exploring ggplot2 functions by tweaking rendered visualizations (mappings, colours, shapes, transformations, etc)
 -   be able to navigate [the ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) in order to develop a data visualization
 
+Packages required
+-----------------
+
+-   [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
+    -   Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+
+Functions used
+--------------
+
+-   **%&gt;%** - Syntactic sugar for easily piping the result of one function into another.
+-   **ggplot2::ggplot()** - Base function for using ggplot2. Lays out the invisible 'canvas' for graphing.
+-   **ggplot2::geom\_point()** - Geom function for drawing data points in scatterplots.
+-   **ggplot2::geom\_smooth()** - Geom function for drawing fitted lines in trend charts.
+-   **ggplot2::geom\_bar()** - Geom function for drawing bars in bar graphs.
+-   **ggplot2::geom\_density()** - Geom function for drawing density plots.
+-   **ggplot2::geom\_boxplot()** - Geom function for drawing box plots.
+-   **ggplot2::geom\_violin()** - Geom function for violin plots.
+-   **ggplot2::facet\_wrap()** - ggplot2 function for separating factor levels into multiple graphs.
+-   **ggplot2::xlab()** - Manually set x-axis label.
+-   **ggplot2::ylab()** - Manually set y-axis label.
+-   **ggplot2::scale\_y\_reverse()** - Reverse y-axis.
+-   **ggplot2::coord\_flip()** - Flip x and y axes.
+-   **ggplot2::coord\_polar()** - Use polar axes.
+-   **dplyr::group\_by()** - Commonly used with summarize() to derive summarized values for multiple rows sharing certain attribues, e.g. Average fuel consumption rates of different car manufacturer.
+-   **dplyr::summarize()** - Commonly used with summarize() to derive summarized values for multiple rows sharing certain attribues.
+
 Part 1: First time ggplot-ing (contains excerpts from [Ch. 3 of R for Data Science](http://r4ds.had.co.nz/data-visualisation.html))
 -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +54,7 @@ First, we load tidyverse, which includes ggplot2.
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
     ## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
@@ -51,7 +77,7 @@ library(tidyverse)
 
     ## Warning: package 'forcats' was built under R version 3.3.2
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -59,7 +85,7 @@ That one line of code loads the core tidyverse; packages which you will use in a
 
 If you run this code and get the error message “there is no package called ‘tidyverse’”, you’ll need to first install it, then run library() once again.
 
-    install.packages("tidyverse")
+    install.packages("tidyverse", dependencies = TRUE)
     library(tidyverse)
 
 You only need to install a package once, but you need to reload it every time you start a new session.
@@ -347,7 +373,7 @@ Lets try and plot a bar graph to show the difference in average fuel efficiency 
 
 In case you haven't seen the summarize() function before - it is one of the most handy functions in the dplyr package. Used with group\_by(), you can easily find out summary values like mean, median, min, and max for certain variables for different groups. Very soon, you will have another seminar that introduces the dplyr package more formally. Bear with me for now!
 
-Also, this symbol: **%&gt;%** is called a "pipe". It is a syntax sugar that simply takes the object on its left and feed it into the function call on its right. This way, you can "pipe" an input through sequence of function calls nicely, without having to deal with the cumbersome syntax. The output of the previous function call can very easily be fed into the next function call as its input.
+Also, this symbol: **%&gt;%** is called a "pipe". It is a syntactic sugar that simply takes the object on its left and feed it into the function call on its right. This way, you can "pipe" an input through sequence of function calls nicely, without having to deal with the cumbersome syntax. The output of the previous function call can very easily be fed into the next function call as its input.
 
 For example, this:
 

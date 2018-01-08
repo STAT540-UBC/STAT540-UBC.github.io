@@ -8,6 +8,7 @@ library(reshape2)
 library(knitr)
 library(limma)
 ```
+
 # STAT 540 - Seminar 4: Differential Expression Analysis
 
 ## Learning Objectives
@@ -22,13 +23,62 @@ By the end of this seminar, you should
 * have an intuition of how limma works in the context of “moderated” t-values
 * be able to perform genome wide differential expression analysis given expression data and covariates and interpret the resulting statistics
 
+## Packages required
+
+* [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
+    * Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+* [reshape2](https://www.rdocumentation.org/packages/reshape2/versions/1.4.3)
+    * Install by running 'install.packages("reshape2", dependencies = TRUE)'
+* [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
+    * Install by running 'source("https://bioconductor.org/biocLite.R")' and then 'biocLite("limma")'
+
+## Functions used
+
+* **utils::read.table()** - Reads a file in table format and creates a dataframe from it.
+* **base::c()** - Combine arguments into a single data strucutre; for example, c(1,2,3) -> a vector containing [1, 2, 3].
+* **base::names()** - Functions to get or set the names of an object (vector, tibble, data frame, etc).
+* **base::factor()** - The function factor is used to encode a vector as a factor.
+* **base::ncol()** - Get the number of columns in a dataframe.
+* **base::nrow()** - Get the number of rows in a dataframe.
+* **base::sort()** - Sort a vector into ascending or descending order.
+* **tibble::rownames_to_column()** - Opposite to column_to_rownames(); convert row names to a column inside a dataframe.
+* **tibble::column_to_rownames()** - Opposite to rownames_to_column(); convert a column into a dataframe's row names.
+* **tibble::as_tibble()** - Convert a dataframe to a tibble.
+* **reshape2::melt()** - Melt a data frame, i.e. reduce the number of columns by increasing the number of rows.
+* **dplyr::filter()** - Use filter() find rows/cases where conditions are true.
+* **dplyr::select()** - Keep only the columns/variables you mention.
+* **base::t()** - Transpose a matrix or dataframe.
+* **base::as.data.frame()** - Coerce object into a dataframe, e.g. convert a tibble into a dataframe so that rownames can be set.
+* **dplyr::left_join()** - Join two tibbles together.
+* **ggplot2::ggplot()** - Base function for using ggplot2. Lays out the invisible 'canvas' for graphing. 
+* **ggplot2::geom_boxplot()** - Geom function for drawing box plots. 
+* **ggplot2::theme()** - Modify components of a theme/appearance, e.g. rotate the x-axis by 90 degrees.
+* **ggplot2::facet_wrap()** - ggplot2 function for separating factor levels into multiple graphs. 
+* **stats::t.test()** - Performs one and two sample t-tests on vectors of data.
+* **stats::lm()** - Fit linear models. 
+* **base::summary()** - Generic function used to produce result summaries of the results of various model fitting functions.
+* **stats::aov()** - Fit an analysis of variance model by a call to lm for each stratum.
+* **knitr::kable()** - Table generator for R-Markdown. 
+* **base::all()** - Given a set of logical vectors, are all of the values true?
+* **stats::model.matrix()** - Creates a design (or model) matrix, e.g., by expanding factors to a set of dummary variables. 
+* **limma::lmFit()** - Fit linear model for each gene given a series of arrays. 
+* **limma::eBayes()** - Empirical Bayes Statistics for Differential Expression. 
+* **limma::topTable()** - Extract a table of the top-ranked genes from a linear model fit.
+* **ggplot2::geom_jitter()** - Adds a small amount of random variation to the location of each point, and is a useful way of handling overplotting caused by discreteness in smaller datasets.
+* **limma::makeContrasts()** - Construct the contrast matrix corresponding to specified contrasts of a set of parameters.
+* **limma::contrast.fit()** - Given a linear model fit to microarray data, compute estimated coefficients and standard errors for a given set of contrasts.
+* **limma::decideTests()** - Identify which genes are significantly differentially expressed for each contrast from a fit object containing p-values and test statistics.
+* **base::intersect()** - Set intersection. 
+* **base::as.character()** - Coerce object to character type, e.g. convert a factor into character.
+* **utils::head()** - Return first part of a object (a vector or dataframe). 
+
 ## Part 1: Introduction
 
 ### What is differential gene expression, anyway? And why statistic? 
 
-If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across conditions: healthy vs. disease, young vs. old, treatment vs. control, etc. And we have an elaborate statistical framework that helps make this assessment. 
+If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across conditions: healthy vs. disease, young vs. old, treatment vs. control, etc. And we have an elaborate statistical framework that helps us make this assessment. 
 
-Specifically, we may take a single gene and assess whether it is differentially expressed across some conditions. Or we may perform differential expression analysis on a large set of genes (sometimes all ~20,000 genes in the human genome) and do a high throughput screen to detect differentially expressed genes across some conditions. In this seminar, we will work through both scenarios. The approaches are fundamentally the same, but also quite different, as you will soon see. 
+Specifically, we may take a single gene and assess whether it is differentially expressed across some conditions. Or we may perform differential expression analysis on a large set of genes (sometimes all ~20,000 genes in the human genome) and do a high throughput screen to detect differentially expressed genes across some conditions. In this seminar, we will work through both scenarios. The approaches are fundamentally the same, but are also quite different, as you will soon see. 
 
 First, we introduce the gene expression dataset: its usual format & organization. We will import a sample dataset and render a few plots and tables to get you oriented. Next, we perform differential expression analysis on a single gene. This will be important for understanding the fundamental approach for assessing differential expression. Finally, we perform a genome wide differential expression screen using limma (a popular R package). 
 
@@ -40,7 +90,7 @@ In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nl
 
 ### Import data
 
-First we import the dataset. With most gene expression datasets, there will be two components and generally come in two different files. 
+First we import the dataset. With most gene expression datasets, there will be two components that generally come in two different files. 
 
 The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column. 
 
@@ -58,7 +108,7 @@ expressionMatrix
 
 Great, now, the expression matrix has been imported. But we still don't know the properties associated with each sample. For example, does Sample_20 belong to treatment or control? What developmental stage is it in? What tissue is it? How about Sample_22? Sample_23? 
 
-Without this information, the expression matrix is pretty much useless, at least for our purpose of assessing differentail expression across conditions. 
+Without this information, the expression matrix is pretty much useless, at least for our purpose of assessing differential expression across conditions. 
 
 So, the second component that comes with the data is the **samples metadata**. We now import it. 
 
@@ -113,7 +163,7 @@ Yes, the samples in both data frames match! We have metadata for every sample in
 
 ### What are genes? What are probes? 
 
-One last note just before we get the party started. Notice that the row IDs in the expression matrix don't look much like genes. They looke like this: 1415670_at, 1415671_at, 1415672_at. What are these random gibberish? Actualy these are probe IDs. Probes segments of sequences used in microarray to bind to segments of cDNA molcules (stretches of mRNA). This means that there may be multiple probes that map to different sections of the same gene and there may be multiple genes that map to the same probe. 
+One last note just before we get the party started. Notice that the row IDs in the expression matrix don't look much like genes. They looke like this: 1415670_at, 1415671_at, 1415672_at. What are these random gibberish? Actualy these are probe IDs. Probes are segments of sequences used in microarray to bind to segments of cDNA molecules (stretches of mRNA). This means that there may be multiple probes that map to different sections of the same gene and there may be multiple genes that map to the same probe. 
 
 For the purpose of our seminar, we will ignore the difference between genes and probes, thereby avoiding the whole mapping problem. Instead, we will simply use these terms interchangeably. When we say "this gene is differentially expressed", feel free to substitute that for "this probe is differentially expressed" and vice versa. 
 
@@ -128,11 +178,6 @@ Yes, we expect certain genes to be differentially expressed across some conditio
 Note that melt() is one of the most useful tricks you can do with your data frame to convert it into a form that is easily workable by ggplot. The opposite to melt() is spread(). We recommend that you play around with these functions to get an idea of how they work. 
 
 ```{r}
-
-# numberOfGenes <- expressionMatrix %>% nrow()
-# 
-# set.seed(3)
-# geneNumber <- runif(1, min = 1, max = numberOfGenes) %>% round()
 
 # melt into a format ggplot can easily work with
 meltedExpressionMatrix <- expressionMatrix %>% melt(id = "gene") 
@@ -343,7 +388,7 @@ So how is assessing one gene any different from assessing 20,000 genes? You ask.
 
 Great question! The intuitive approach is, of course, simply fit a linear model for every gene. Make your comparison between the groups, and then obtain a p-value for each gene. The genes with the p-values that pass the significant threshold are then hits!
 
-Sounds like a great approach! Except there are two problems. First, gene expression data is usually very high dimensional. This means a lot of variables are measured using very few samples. This leads to some biased estimates of variance, leading to bad estimates of p-values. Second, there is the multiple testing problem. It helps to think about what the p-value actually means: the probability of obtaining the test-statistics you obtained by chance. So what's the probability of obtaining a p-value of 0.05 by chance? 0.05 of course. And this is a problem when you're doing a separate t-test for all 20,000 genes!
+Sounds like a great approach! Except there are two problems. First, gene expression data is usually very high dimensional. This means a lot of variables are measured using very few samples. This leads to some biased estimates of variance, leading to bad estimates of p-values. Second, there is the multiple testing problem. It helps to think about what the p-value actually means: the probability of obtaining the test-statistics you obtained by chance. So what's the probability of obtaining a p-value of 0.05 by chance? %5 of course. And this is a problem when you're doing a separate t-test for all 20,000 genes!
 
 We address each of these problems in more detail below. 
 
@@ -375,7 +420,7 @@ Basically, low variance leads to high t-statistics, which in turn leads to low p
 
 limma fixes this by using moderated t-values where the "typical variance" is used to weight gene-specific variance estimates. Otherwise, limma is the same as plain old linear regression method. 
 
-### Multiple testing: what are the chances of obtaining statistical significance value by random chance? By chance, of course!
+### Multiple testing: what are the chances of obtaining statistical significance value by random chance?
 
 Multiple testing is another problem that we need to account for. Think about what the p-value actually measures. By definition, the p-value is the **probability of making the observation you made by chance**. Therefore, the p-value of 0.05 suggests that you would get the observation simply by chance 0.05 of the time. Interestingly, 0.05 of 20,000 genes is 1000 genes! If statistical significance was taken at face value, then you would end up with 1000 differentially expressed genes, when none really exist.
 
@@ -735,10 +780,6 @@ expressionDataForHits %>%
 ## Part 5: Deliverables
 
 * Make a similar plot but this time for 4 genes where there are no interaction between genotype and developmental stages. 
-
-## Final notes and additional resources
-
-* will fill in. ****
 
 ## Attributions
 

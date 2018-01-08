@@ -1,7 +1,5 @@
 ---
 title: 'Seminar 5: BAM to count table'
-author: "Emma Graham"
-date: "November 7, 2017"
 output: github_document
 ---
 

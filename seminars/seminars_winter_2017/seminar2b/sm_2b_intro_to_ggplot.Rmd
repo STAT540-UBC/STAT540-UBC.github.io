@@ -14,6 +14,30 @@ By the end of this seminar, you should
 * have practical experience exploring ggplot2 functions by tweaking rendered visualizations (mappings, colours, shapes, transformations, etc)
 * be able to navigate [the ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) in order to develop a data visualization
 
+## Packages required
+
+* [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
+    * Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+
+## Functions used
+
+* **%>%** - Syntactic sugar for easily piping the result of one function into another. 
+* **ggplot2::ggplot()** - Base function for using ggplot2. Lays out the invisible 'canvas' for graphing. 
+* **ggplot2::geom_point()** - Geom function for drawing data points in scatterplots. 
+* **ggplot2::geom_smooth()** - Geom function for drawing fitted lines in trend charts. 
+* **ggplot2::geom_bar()** - Geom function for drawing bars in bar graphs. 
+* **ggplot2::geom_density()** - Geom function for drawing density plots. 
+* **ggplot2::geom_boxplot()** - Geom function for drawing box plots. 
+* **ggplot2::geom_violin()** - Geom function for violin plots. 
+* **ggplot2::facet_wrap()** - ggplot2 function for separating factor levels into multiple graphs. 
+* **ggplot2::xlab()** - Manually set x-axis label. 
+* **ggplot2::ylab()** - Manually set y-axis label. 
+* **ggplot2::scale_y_reverse()** - Reverse y-axis. 
+* **ggplot2::coord_flip()** - Flip x and y axes. 
+* **ggplot2::coord_polar()** - Use polar axes. 
+* **dplyr::group_by()** - Commonly used with summarize() to derive summarized values for multiple rows sharing certain attribues, e.g. Average fuel consumption rates of different car manufacturer.  
+* **dplyr::summarize()** - Commonly used with summarize() to derive summarized values for multiple rows sharing certain attribues. 
+
 ## Part 1: First time ggplot-ing (contains excerpts from [Ch. 3 of R for Data Science](http://r4ds.had.co.nz/data-visualisation.html))
 
 Open a new .Rmd file. This is where we will work on ggplot2. 
@@ -32,7 +56,7 @@ That one line of code loads the core tidyverse; packages which you will use in a
 
 If you run this code and get the error message “there is no package called ‘tidyverse’”, you’ll need to first install it, then run library() once again.
 
-    install.packages("tidyverse")
+    install.packages("tidyverse", dependencies = TRUE)
     library(tidyverse)
 
 You only need to install a package once, but you need to reload it every time you start a new session.
@@ -223,7 +247,7 @@ Lets try and plot a bar graph to show the difference in average fuel efficiency 
 
 In case you haven't seen the summarize() function before - it is one of the most handy functions in the dplyr package. Used with group_by(), you can easily find out summary values like mean, median, min, and max for certain variables for different groups. Very soon, you will have another seminar that introduces the dplyr package more formally. Bear with me for now!
 
-Also, this symbol: **%>%** is called a "pipe". It is a syntax sugar that simply takes the object on its left and feed it into the function call on its right. This way, you can "pipe" an input through sequence of function calls nicely, without having to deal with the cumbersome syntax. The output of the previous function call can very easily be fed into the next function call as its input. 
+Also, this symbol: **%>%** is called a "pipe". It is a syntactic sugar that simply takes the object on its left and feed it into the function call on its right. This way, you can "pipe" an input through sequence of function calls nicely, without having to deal with the cumbersome syntax. The output of the previous function call can very easily be fed into the next function call as its input. 
 
 For example, this:
 

@@ -11,6 +11,38 @@ By the end of this seminar, you should
 -   have a clear understanding of the Central Limit Theorem (CLT)
 -   have practical experience exploring the aforementioned concepts in statistics by simulating data and building visualizations
 
+Packages required
+-----------------
+
+-   [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
+    -   Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+
+Functions used
+--------------
+
+-   **base::seq()** - Generate sequence of numbers given some pattern.
+-   **base::matrix()** - Constructs matrix given data.
+-   **tibble::tibble()** - Constructs tibble given data.
+-   **stats::pnorm()** - Probability density function for the normal distribution.
+-   **stats::dnorm()** - Cumulative distribution function for the normal distribution.
+-   **stats::rnorm()** - Random number generator for sampling values from the normal distribution.
+-   **stats::dchisq()** - Cumulative distribution function for the chi-square distribution.
+-   **stats::rchisq()** - Random number generator for sampling values from the chi-square distribution.
+-   **ggplot2::ggplot()** - Base function for using ggplot2. Lays out the invisible 'canvas' for graphing.
+-   **ggplot2::geom\_line()** - Geom function for drawing lines in trend charts.
+-   **ggplot2::xlab()** - Manually set x-axis label.
+
+Statistical concepts and terminology
+------------------------------------
+
+-   **Probability distribution** - Describes the probabilities of all possible values in a given scenario.
+-   **Mean** - One of two parameters used to describe a normal distribution; it is the average value, and also the value with the highest probability.
+-   **Standard deviation** - One of two parameters used to describe a normal distribution; it describes the spread of the data.
+-   **Probability density function** - Maps the values x (possible heights in our example) to its associated probability described by a given distribution.
+-   **Cumulative distribution function** - Describes the cumulative probability of all values smaller than x; x starts a 0 and goes up to 1.
+-   **Central limit theorem (CLT)** - States that the distribution of the sum or means of random samples generated independently (IID) by any distribution will converge to the normal distribution.
+-   **Independent and identically distributed (IID)** - Each random value is sampled with replacement from the same distribution.
+
 Part 1: The normal distribution
 -------------------------------
 
@@ -22,9 +54,7 @@ First, we introduce the normal distribution. Next, we look its corresponding pro
 
 ### What is the normal distribution?
 
-A probability distribution describes the probabilities of all possible values in a given scenario. For example, if you randomly select a person from the UBC student database, what is the probability that this person's height is ~300cm? Quite unlikely. Maybe impossible? How about ~150 cm? That's probably more likely than ~300 cm. But *how much* more likely? What if we want to know the probability of the person's height being between 160 to 170 cm? These are the types of questions that a probability distribution can help answer. Specifically, we may assume that people's heights follow the normal distribution.
-
-For this scenario, your best guess may be the average height of all UBC students? Surely, that would be the number with the largest probability, if height follow the normal distribution. Suppose we assume that it does follow the normal distribution and that the average height of all UBC student is 170 cm. But how "distributed" are these heights? In other words, do most students cluster around the 170 cm mean value? Or are they more spread out?
+A probability distribution describes the probabilities of all possible values in a given scenario. For example, if you randomly select a person from the UBC student database, what is the probability that this person's height is &gt;150cm? &lt;200cm? somewhere in between? These are the types of questions that a probability distribution can help answer.
 
 The *mean* and the *standard deviation* are the two parameters used to describe a normal distribution. Respectively, these two numbers describe the average value, one with the highest probability (average height, in this case) and the spread of the data. If the standard deviation is small, it means that heights among students are less variable and generally cluster around the mean. As a consequence, the probability estimate would change more dramatically with a small change in height. On the other hand, if the standard deviation is large, it means that heights are more spread out.
 
@@ -46,11 +76,11 @@ tibble(height = all_possible_heights,
   xlab("height (cm)")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-1-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 ### The probability density function
 
-These plots are visualizations of the normal distribution's probability density function. It is a function that maps the values x (possible heights in our example) to its associated probability described by the distribution. So in the red line chart above, we can see that the probability of the person we picked at random having a height of 150 cm is ~0.2. The probability decreases as values devate from the mean; in the normal distribution, the mean value has the highest probability and the probability desnity function is symmetrical.
+These plots are visualizations of the normal distribution's probability density function. It is a function that maps the values x (possible heights in our example) to its associated probability described by the distribution. So in the red line chart above, we can see that the probability of the person we picked at random having a height of 150 cm is ~0.2. The probability decreases as values deviate from the mean; in the normal distribution, the mean value has the highest probability and the probability density function is symmetrical.
 
 Here are a few more probability density plots for the normal distribution with different means and standard deviations. We recommend that you try running the code line by line so that you understand exactly what happens every step of the way!
 
@@ -79,7 +109,7 @@ p +
   ylab("f(x)")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-2-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 Notice that in R, we can very easily plot the probability density function, simply by using the dnorm() functions. Similar functions are available for other distributions. For example, dunif() for the uniform distribution and dchisq() for the chi-square distribution.
 
@@ -114,7 +144,7 @@ p +
   ylab("f(x)")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ### Simulation vs. perfect distribution
 
@@ -142,7 +172,7 @@ dataFrame %>% ggplot() +
     ylab("")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 You guessed it, we can sample from other distributions using similar functions. For example, runif() is the random number function used to sample from a uniform distribution and rchisq() can be used to sample from the chi-square distribution.
 
@@ -155,7 +185,7 @@ The Central Limit Theorem (CLT) is one of the most exciting concepts in statisti
 
 Below, we demonstrate the Central Limit Theorem by generating random samples from the chi-square distribution and show that the sample means are normally distributed.
 
-A sample is defined as a collection of random values generated from a distribution. For example, we can generate 100 samples of size n = 5 from the chi-square distribution. This would essentially be the same as sampling 500 independently and identically distributed values and separating them into 100 groups. Sample means are the average values corresponding to each sample of size n = 5. In this case, we would have 100 sample means.
+A sample is defined as a collection of random values generated from a distribution. For example, we can generate 100 samples of size n = 5 from the chi-square distribution. This would essentially be the same as sampling 500 independently and identically distributed values and sorting them into 100 groups. Sample means are the average values corresponding to each sample of size n = 5. In this case, we would have 100 sample means.
 
 The Central Limit Theorem states that these 100 sample means would follow a normal distribution regardless of the underlying distribution from which the original random values were sampled.
 
@@ -176,7 +206,7 @@ dataFrame %>% ggplot() +
   geom_line(aes(x = x, y = probability), color = "blue")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 Note that it looks absolutely nowhere like the normal distribution. That's what makes the CTL so exciting!
 
@@ -206,7 +236,7 @@ tibble(x = randomChiSqValues) %>%
   geom_density(aes(x = x), color = "blue")
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 So, yes, of course it resembles the chi-square distribution. The values were sampled from it! Nothing too exciting yet...
 
@@ -233,7 +263,7 @@ tibble(x = sampleMeans) %>%
   geom_point(aes(x = x, y = 0), color = "blue", shape = 1, size = 3)
 ```
 
-![](sm_2c_intro_to_stat_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
+![](sm_2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 ... and TADA. Sample means of random samples generated from the chi-square distribution converges to the normal distribution. How amazing is that?!
 
