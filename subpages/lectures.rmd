@@ -22,7 +22,7 @@ rawdat$course <- as.factor(rawdat$course)
 rawdat_cm <- rawdat[rawdat$course == "STAT540",]
 
 cdat <- rawdat_cm %>%
-  mutate(ugly_date = ISOdate(2016, match(month, month.name), day),
+  mutate(ugly_date = ISOdate(2018, match(month, month.name), day),
          date = sprintf("%s-%02d %s",
                         months(ugly_date, abbreviate = TRUE),
                         day, dow),
@@ -67,7 +67,7 @@ table {
 
 **Time** : Mon Wed 9:30 - 11am
 
-**Location** : ESB 4192
+**Location** : ESB 2012
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat_cm[["STAT540"]] %>% select(date, notes, instructor))

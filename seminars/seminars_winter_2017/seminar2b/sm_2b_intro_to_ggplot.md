@@ -54,7 +54,7 @@ First, we load tidyverse, which includes ggplot2.
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
     ## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
@@ -75,9 +75,7 @@ library(tidyverse)
 
     ## Warning: package 'stringr' was built under R version 3.3.2
 
-    ## Warning: package 'forcats' was built under R version 3.3.2
-
-    ## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -136,7 +134,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-1-1.png)
 
 The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). In other words, cars with big engines use more fuel. Does this confirm or refute your hypothesis about fuel efficiency and engine size?
 
@@ -175,7 +173,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-2-1.png)
 
 (If you prefer British English, like Hadley, you can use colour instead of color.)
 
@@ -192,7 +190,7 @@ ggplot(data = mpg) +
 
     ## Warning: Using size for a discrete variable is not advised.
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
 
 For each aesthetic, you use aes() to associate the name of the aesthetic with a variable to display. The aes() function gathers together each of the aesthetic mappings used by a layer and passes them to the layer’s mapping argument. The syntax highlights a useful insight about x and y: the x and y locations of a point are themselves aesthetics, visual properties that you can map to variables to display information about the data.
 
@@ -205,7 +203,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
 Here, the color doesn’t convey information about a variable, but only changes the appearance of the plot. To set an aesthetic manually, set the aesthetic by name as an argument of your geom function; i.e. it goes outside of aes().
 
@@ -344,7 +342,7 @@ ggplot(data = mpg,
 
     ## `geom_smooth()` using method = 'loess'
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-1.png)
 
 Notice that mapping = aes() has been moved to the ggplot() call. This ensures that this argument is passed to all subsequent layers: geom\_point() and geom\_smooth() in this case. If you move the aes() argument in both layers separately, the result would be exactly the same. Try it.
 
@@ -361,7 +359,7 @@ ggplot(data = mpg,
 
     ## `geom_smooth()` using method = 'loess'
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
 
 Notice that ggplot makes a color gradient for showing the continuous variable year. Try a different variable. Try something discrete? Like trans?
 
@@ -435,7 +433,7 @@ ggplot(averageEfficiency) +
            stat = "identity")
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-1.png)
 
 Here we go! Looks like pickup trucks and SUVs are the worse in terms of fuel efficiency (meaning they have per gallon distance). Makes sense?
 
@@ -447,7 +445,7 @@ ggplot(averageEfficiency) +
            stat = "identity")
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-13-1.png)
 
 What a pretty rainbow! Not exactly a helpful data visualizaton tip, but just so you know you can do it :).
 
@@ -463,7 +461,7 @@ ggplot(averageEfficiency) +
   xlab("Vehicle Type")
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-14-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-1.png)
 
 #### <SCALE_FUNCTION>
 
@@ -478,7 +476,7 @@ ggplot(averageEfficiency) +
   scale_y_reverse()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-15-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-1.png)
 
 #### <COORDINATE_FUNCTION>
 
@@ -493,7 +491,7 @@ ggplot(averageEfficiency) +
   coord_flip()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-16-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
 
 coord\_polar?
 
@@ -504,7 +502,7 @@ ggplot(averageEfficiency) +
   coord_polar()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
 
 Isn't that cool or what.
 
@@ -522,7 +520,7 @@ ggplot(data = mpg,
   geom_point()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
 
 Now, you suspect that vehicle type (class) may complicate this relationship between engine size and fuel efficiency. So let's use facet\_wrap() to split the vehicle types into different plots.
 
@@ -533,7 +531,7 @@ ggplot(data = mpg,
   facet_wrap(~class)
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
 
 There is also a facet\_grid() function that we will not go into in this seminar. Feel free to read more [here](http://r4ds.had.co.nz/data-visualisation.html#facets).
 
@@ -551,7 +549,7 @@ Skip this part if you are running out of time. You can always come back later!
 
 Here we present the code for a variety of commonly used data visualizations in gene expression analyses. You probably won't have enough time to try out everything. Please do skim through them so you have an idea of what ggplot2 is capable of. We also hope that, in the future, you can come back here for some inspiration when developing very cool visualizations!
 
-First, load the data. Ignore the details of how the data is imported. That is not important for now.
+First, load the [data](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar2b/GSE4051_MINI.rds). Ignore the details of how the data is imported. That is not important for now.
 
 But, take note of the what the data frame looks like.
 
@@ -583,7 +581,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
    geom_point()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
 
 Different genes in separate panels.
 
@@ -593,7 +591,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
   facet_wrap(~ probeset)
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
 
 Add genotype information.
 
@@ -604,7 +602,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
   aes(color = gType)
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
 
 ### Density plots
 
@@ -613,7 +611,7 @@ ggplot(oDat, aes(geneExp)) +
    geom_density()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
 Ddding data points at the bottom.
 
@@ -623,7 +621,7 @@ ggplot(oDat, aes(geneExp)) +
   geom_point(aes(y = 0.05), position = position_jitter(height = 0.005))
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-25-1.png)
 
 Separate panels for different genotype.
 
@@ -634,7 +632,7 @@ ggplot(oDat, aes(geneExp)) +
   facet_wrap(~ gType)
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
 Or different colors for different genotype.
 
@@ -644,7 +642,7 @@ ggplot(oDat, aes(geneExp, color = gType)) +
   geom_point(aes(y = 0.05), position = position_jitter(height = 0.005))
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
 
 ### Boxplot
 
@@ -653,7 +651,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
    geom_boxplot()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
 
 Separate two genotypes.
 
@@ -663,7 +661,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
   facet_wrap(~ gType)
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-1.png)
 
 A violinplot is a hybrid of densityplot and histogram.
 
@@ -672,7 +670,7 @@ ggplot(oDat, aes(devStage, geneExp)) +
    geom_violin()
 ```
 
-![](sm_2b_intro_to_ggplot_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](sm_2b_intro_to_ggplot_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
 
 Final notes and additional resources
 ------------------------------------

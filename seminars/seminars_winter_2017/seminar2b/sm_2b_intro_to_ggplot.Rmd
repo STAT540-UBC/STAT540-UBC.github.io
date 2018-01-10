@@ -395,7 +395,7 @@ Skip this part if you are running out of time. You can always come back later!
 
 Here we present the code for a variety of commonly used data visualizations in gene expression analyses. You probably won't have enough time to try out everything. Please do skim through them so you have an idea of what ggplot2 is capable of. We also hope that, in the future, you can come back here for some inspiration when developing very cool visualizations!
 
-First, load the data. Ignore the details of how the data is imported. That is not important for now. 
+First, load the [data](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar2b/GSE4051_MINI.rds). Ignore the details of how the data is imported. That is not important for now. 
 
 But, take note of the what the data frame looks like. 
 
