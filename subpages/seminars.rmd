@@ -15,7 +15,7 @@ library(stringr)
 
 ```{r include = FALSE}
 # Import schedule
-rawdat <- read.csv(file.path("../course-admin", "schedule_2017.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat <- read.csv(file.path("../course-admin", "schedule_2018.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
 
 # Seminar meetings 
@@ -66,7 +66,7 @@ table {
 
 **Time**: Wed 11am - 1pm
 
-**Location**: ESB 1042 and 1046
+**Location**: Orchard Commons Rm 4074
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor))
