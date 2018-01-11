@@ -248,7 +248,7 @@ This is the step where you tell GitHub to recognize your computer.
 
 Copy the public key onto your clipboard. Open ~/.ssh/id\_rsa.pub in an editor and copy the contents to your clipboard or do one of the following at the command line:
 
-Mac OS: pbcopy &lt; ~/.ssh/id\_rsa.pub Windows: clip &lt; ~/.ssh/id\_rsa.pub Linux: xclip -sel clip &lt; ~/.ssh/id\_rsa.pub Linux: if needed, install via apt-get or yum. For example, sudo apt-get install xclip.
+Mac OS: `pbcopy < ~/.ssh/id\_rsa.pub` Windows: `clip < ~/.ssh/id\_rsa.pub` Linux: `xclip -sel clip < ~/.ssh/id\_rsa.pub` Linux: if needed, install via apt-get or yum. For example, `sudo apt-get install xclip`.
 
 In the top right corner of any page on GitHub, click your profile photo, then click Settings.
 
