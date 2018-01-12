@@ -35,47 +35,50 @@ Officially none BUT here in reality ...
 
 Students may ask for extensions with a documented excuse (like: computer caught on fire, sickness). No "I just need more time" extensions.
 
+**Seminar completion (10%)**
+
+- Submit "deliverable" for each of 10 seminars
+- Deliverable must be submitted by the end of the week seminar is completed (leniancy will be given for the first 2 weeks of the course)
+- 1pt per deliberable 
+
 **Warm-up Assignment (5%)**
 
 - The assignment is worth 5 points.
 - tests basic knowledge of GitHub, R and Rmarkdown
-- <span style="color: red">Due date: **Jan 18, 2017**</span>
-- [Assignment instruction](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/practice_assignment/practice_assignment.md)
+- <span style="color: red">Due date: **Jan 17, 2018**</span>
 - Late penalty: -1 point per day
 
 **Paper critique (5%)**
 
 - Summarize and critique 1 paper - 5 points
-- Select, read, summarize and critique a recent paper from the 'omics literature - write one page max
+- Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
 - Instruction on the paper critiques will be posted shortly
-- <span style="color: red">Due date: **Feb 22, 2017**</span>
-- [Paper critique instruction](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/paper_critique/PRguideline.md)
+- <span style="color: red">Due date: **Feb 22, 2018**</span>
+- [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
 - Late penalty: -1 points per day
 
 **Homework (30%)**: 
 
 - The assignment is worth 30 points. 
 - Involves detailed analysis of real data using R 
-- <span style="color: red">Due date for questions 1 - 5 (14 pts): **Mar 1, 2017**</span>
-- <span style="color: red">Due date for questions 6 - 8 (11 pts): **Mar 22, 2017**</span>
-- 5 points will be on mechanics. 
-- [Assignment questions](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/homework.md)
+- <span style="color: red">Due date for questions 1 - 3: **Mar 1, 2018**</span>
+- <span style="color: red">Due date for questions 4 - 5: **Mar 22, 2018**</span>
 - Late penalty: -2.5 points per day
 
-**Group project (60%)**: 
+**Group project (50%)**: 
 
 - A data analysis group project that will allow you to apply the techniques covered in class
 - Important dates: 
-    - <span style="color: red">**Now - January 25, 2017**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
-    - <span style="color: red">**January 25, 2017**</span>: Finish the initial project proposal
-    - <span style="color: red">**February 15, 2017**</span>: Finalize the one page project proposal 
-    - <span style="color: red">**March 15, 2017**</span>: Progress report
-    - <span style="color: red">**April 5, 2017**</span>: Poster session 
-    - <span style="color: red">**April 5, 2017**</span>: GitHub repository
-    - <span style="color: red">**April 6, 2017**</span>: Individual report deadline
+    - <span style="color: red">**Now - January 24, 2018**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
+    - <span style="color: red">**January 24, 2018**</span>: Finish the initial project proposal
+    - <span style="color: red">**February 14, 2018**</span>: Finalize the one page project proposal 
+    - <span style="color: red">**March 14, 2018**</span>: Progress report
+    - <span style="color: red">**April 4, 2018**</span>: Poster session 
+    - <span style="color: red">**April 4, 2018**</span>: GitHub repository
+    - <span style="color: red">**April 5, 2018**</span>: Individual report deadline
 - Grading and deliverable 
     - Primary deliverable is a poster. Each student also produces a short report 
-    - Planning + project + poster session - 60 points 
+    - Planning + project + poster session - 50 points 
 - Tip: try to form a group of diverse talents
 - [More information on group project](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project) 
 
@@ -89,8 +92,8 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 
 **Seminars**
 
-- Time : Wed 11pm - 12pm and 12pm - 1pm 
-- Location: ESB 1042 and 1046
+- Time : Wed 11pm - 1pm
+- Location: Orchard Commons 4074
 - See [Seminars](seminars.html) for schedule and seminar materials 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 

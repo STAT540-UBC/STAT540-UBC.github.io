@@ -30,7 +30,7 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path="../seminars", pattern = '^sm.*(html|pdf)$', full.names=TRUE),
+  data.frame(html = list.files(path="../seminars/seminars_winter_2017/", pattern = '^sm.*(html|md)$', full.names=TRUE),
              stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
@@ -40,7 +40,7 @@ sdat <- sdat %>% left_join(smdat, by="lect")
 #seminar 00 from STAT545
 
 #separate links to seminar 01 parts
-sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
+#sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
 
 
 html_exists = Negate(is.na)(sdat$html)
@@ -74,9 +74,7 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
 
 **Supplemental materials** 
 
-Work on your own to set up and learn more about R and RStudio. We will borrow some material from [STAT 545A Exploratory Analysis](https://stat545-ubc.github.io/topics.html) (by Professor Jenny Bryan).
-
-  * [seminar 00a](https://stat545-ubc.github.io/block000_r-rstudio-install.html) | R, RStudio Set Up, borrowed from STAT 545A
-  * [seminar 00b](https://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html) | Basics of R/RStudio, workspaces, and projects, borrowed from STAT 545A
-  * [seminar 00c](https://stat545-ubc.github.io/block006_care-feeding-data.html) | Basic care and feeding of data in R, borrowed from STAT 545A
-  * [seminar 00d](https://stat545-ubc.github.io/block004_basic-r-objects.html) | R objects (beyond data.frames) and indexing, borrowed from STAT 545A
+  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf) | R bootcamp -  Getting Started with R, PDF
+  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx) | R bootcamp - Getting Started with R, worksheet
+  * [seminar 0b](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0b/seminar_0b.pdf) Molecular biology review
+  * [seminar 0b quiz](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform) Check your understanding - Molecular biology quiz

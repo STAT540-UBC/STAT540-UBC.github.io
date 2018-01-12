@@ -10,10 +10,11 @@ output:
 
 You will have three individual assignments and one group project: 
 
-- One practice assignment (5 pts)
+- Ten in-seminar submissions (10 pts)
 - One paper review (5 pts) 
+- One practice assignment (5 pts)
 - One statistics 2-part homework (30 pts)
-- Final group project (60 pts) which contains multiple parts. 
+- Final group project (50 pts) which contains multiple parts. 
 
 <font color="red">**Deadlines are all by 11.59 pm of the due date**</font>
 
@@ -24,12 +25,12 @@ This is a warm-up for your future assignment. Once you have completed it, you wi
 
 Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/practice_assignment/practice_assignment.md) and start now! 
 
-Deadline: <span style="color: red">**Jan 18, 2017**</span> 
+Deadline: <span style="color: red">**Jan 17, 2018**</span> 
 
 --------------
 
 ## Paper review 
-Each student should find a paper in the Biomedical field that has statistical content and submit about one page (450 - 650 words) of summary/report for that paper. The summary should include: 
+Each student should review [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/) in a 450-650 word summary/report. The summary should include: 
 
 1. A brief review of the goal, findings and conclusion of the paper. 
 2. A list (or mentioning) of the related datasets/databases and data types used in the study. In the case of datasets, provide some details of the data matrix and meta data.
@@ -38,14 +39,9 @@ Each student should find a paper in the Biomedical field that has statistical co
 
 We have provided [**this guideline**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline.html) for this task. The material in the review **should not** be limited to merely answering the questions in the guideline, but rather using them to provide the required items listed above. Example paper reviews are also provided. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper
 
-**Important:** Students should submit the initial information about their selected papers in respond to the [**issue Paper Review - 01**](https://github.com/STAT540-UBC/Discussion/issues/128) in Github and make sure no one else has already picked it by checking the other student's respond to the same issue. 
-
-* Due date for the paper review: <span style="color: red">**Feb 22, 2017**</span>
+* Due date for the paper review: <span style="color: red">**Feb 22, 2018**</span>
 
 **Delivery:** You should put your paper review files in your individual course repository in .md format (notice that you don't need to write it in .Rmd since you are not going to have any R code in it). You could edit .md files directly from github and therefore can write your full report there, but can also write it in your RStudio and then push it to your repository. Your paper review should also contains: 
-
-1. The name of the paper with link to pubmed or the journal 
-2. The month and year it was published 
 
 [example paper review](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/paper_critique/paperReviewMarjan.md)
 
@@ -55,9 +51,10 @@ We have provided [**this guideline**](http://stat540-ubc.github.io/homework/pape
 
 This assignment will assess your understanding of the seminar and lecture materials. The assignment is split into two parts. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
 
-- [Source for 2017 homework assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/homework.md)
-- Due date for questions 1 - 5 (14 pts): <span style="color: red">**Mar 1, 2017**</span>
-- Due date for questions 6 - 8 (11 pts): <span style="color: red">**Mar 22, 2017**</span>
+The assignment will be posted shortly. 
+
+- Due date for questions 1 - 3: <span style="color: red">**Mar 1, 2018**</span>
+- Due date for questions 4 - 5: <span style="color: red">**Mar 22, 2018**</span>
 
 --------------
 
@@ -107,18 +104,17 @@ Groups should have 4 to 6 members. We strongly encourage that groups be diverse 
 ## STAT 540 Homework Submission Instructions
 
 **GitHub**
-You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2017`. We assume that 
+You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2018`. We assume that 
 
 * You've already installed Git and (probably) a Git client.
 * You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
 * All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
 
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstnmae_STAT540_2017`). Do not use branches or other repositories.
+**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstnmae_STAT540_2018`). Do not use branches or other repositories.
   
-
 **Set-up your private GitHub repo for homework**
 
-  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2017` now.
+  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2018` now.
   * Make a top-level directory for your assignment, e.g. `Homework`
     - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
   * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
@@ -166,5 +162,5 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - In the description of the issue, tag both TAs by including the text `@farnushfarhadi` and `@santina`, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
 
-> If you're concerned that something hasn't gone right with the submission, send Farnush and Santina (farnush.farhadi@gmail.com, santina424@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
+> If you're concerned that something hasn't gone right with the submission, send Emma, Julia and Ogan (emmagraham@cmmt.ubc.ca, julia.anstett@alumni.ubc.ca, ogan.mancarci@msl.ubc.ca) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
 
