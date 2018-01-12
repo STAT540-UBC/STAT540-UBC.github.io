@@ -38,3 +38,8 @@ Please complete [this survey](https://goo.gl/forms/NzMRW87Ccmfmc6x13) as soon as
 ### Seminar 1 
 
 **Important:** Please read and follow through the seminar 1 materials on the [seminars page](https://stat540-ubc.github.io/subpages/seminars.html) as much as possible before Wednesday, January 4, to ensure a productive seminar session. Please also install [R and R-studio](https://www.rstudio.com/products/rstudio/download/) if you haven't done so. 
+
+### Extra materials for Lecture 3
+
+The supporting material for Lecture 3 on data exploration are now available, [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/examples/exploration-examples).
+
