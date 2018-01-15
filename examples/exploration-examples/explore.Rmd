@@ -8,31 +8,34 @@ output:
 
 This material was prepared as an companion to a lecture on Data Exploration and Quality Control for [STAT 540](https://stat540-ubc.github.io/) It demonstrates a number of data visualization/plotting methods along with some approaches to exploring a genomics data set. Often I show more then one way to do the same thing; so not everything here was shown in the lecture. And some of this might not make sense unless you refer to the lecture notes.
 
-To run the code, you'll need to these packages:
+To run the code, you'll need these packages:
 
 ```{r installations, eval=F}
+# Not run by default
 install.packages('tidyverse')
-install.packages('ComplexHeatmap')
-install.packages('circlize') # for ComplexHeatmap, not sure it's actually needed.
+#install.packages('ComplexHeatmap') # not available for R 3.4.3
 install.packages('GGally')
 install.packages('here')
 install.packages('Biobase')
-install.packages('pheatmap')
+
+#install.packages('pheatmap')
+install.packages("devtools")
+library(devtools)
+install_github("raivokolde/pheatmap") # to get the na_col setting.
 ```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(knitr)
 library(tidyverse)
 library(plyr)
 library(ggplot2)
 library(RColorBrewer)
-library(ComplexHeatmap)
+#library(ComplexHeatmap) not available for latest R versions.
 #library(circlize)
 library(GGally)
 library(here)
 library(Biobase)
-library(hexbin)
+#library(hexbin)
 library(pheatmap)
 # Set up color scheme for heatmaps
 bcols<-colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
@@ -346,11 +349,12 @@ range(cc, na.rm=T)
 # base heatmap
 heatmap(as.matrix(cc), sym=T, Rowv=NA, Colv=NA, col=bcols, main="Base heatmap")
 
+# this package not available for latest R versions
 # complexheatmaps. Setting colors for the annotations is painful, and the choices it makes if you don't set them yourself tend to be terrible.
-Heatmap(cc, col=bcols, cluster_rows = FALSE, cluster_columns = FALSE, top_annotation = HeatmapAnnotation(data.frame(Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC))), row_names_gp = gpar(fontsize = 8), column_names_gp = gpar(fontsize = 8), column_title="ComplexHeatmap")
+#Heatmap(cc, col=bcols, cluster_rows = FALSE, cluster_columns = FALSE, top_annotation = HeatmapAnnotation(data.frame(Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC))), row_names_gp = gpar(fontsize = 8), column_names_gp = gpar(fontsize = 8), column_title="ComplexHeatmap")
 
-# pheatmap - easier to use but no ability to control the na.color!
-pheatmap(cc, color=bcols, border_color=NA, cluster_rows=F, cluster_cols=F, annotation_col=data.frame(row.names = names(d), Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC)), main="pheatmap", fontsize=8)
+# pheatmap - easier to use but no ability to control the na.color! (except in dev version)
+pheatmap(cc, color=bcols, border_color=NA, cluster_rows=F, cluster_cols=F, annotation_col=data.frame(row.names = names(d), Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC)), main="pheatmap", fontsize=8, na_col="grey")
 
 # how bad is this potential outlier? Correlations are like 0.95 while others are like 0.98.
 round(cor(d[,m$DPC == "77"]),3)
