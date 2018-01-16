@@ -1,13 +1,24 @@
-# Practice assignment
-January 1, 2018  
+---
+title: "Practice assignment"
+//author: "STAT540 Instructors"
+date: "January 1, 2018"
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+---
 
 Welcome to STAT540! 
 
-First things first, we need to get you a personal GitHub repository (repo) where you will record all your work and learning. **We will set up your repository as soon as possible once the term starts**. Note that you must have this set up before you can complete assignments because GitHub is where you will submit your work and receive feedback and grades. **If you are getting an early start, you can skip the parts of the assignment that have to do with git/GitHub and come back to them.**
+First things first, we need to get you a personal GitHub repository (repo) where you will record all your work and learning. **We will set up your repository as soon as possible once the term starts**. Note that you must have this set up before you can finish assignments because GitHub is where you will submit your work and receive feedback and grades.
 
 The point of this assignment is to get you warmed up with git, GitHub, markdown, and R so you're more prepared for the future assignments. The first few seminars will cover all you need to know for completing this practice assignment. 
 
 Note that this practice assignment, just like your 30pt assignment, will need to be done in Rmarkdown (.Rmd) because it requires R code. 
+
+If you have never used R, some resources can be found via [this page](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R). There are [hundreds of tutorials](https://www.google.ca/search?q=R+tutorial) around the web. 
+
+And if you just want to hack away and try to manage just with the built-in help (type `?` before a command, like `?read.table` and you can even get help for things like `[` or `+` if you surround it with quotes `?"["`), a pro tip is if you get a cryptic error message, just paste it into a web search.
 
 ## 1. Create a README in your repo (1pt)
 
@@ -25,10 +36,7 @@ In your README.md file, when applicable, write about:
 
 You can start creating folders (eg. "paper_review", "assignment", "seminars") for your course work and put README.md files in them if you wish. 
 
-
 ## 2. Data inspection with R (2pt)
-
-If you have never used R, you can check out this blog post on [getting started with R](http://santina.me/r/2015/12/15/Get-started-with-R.html) written by one of your TAs. Set aside an afternoon or an evening to just play around with R. 
 
 When answering the following questions, please always "sandwich" your R code with some text. Ensure fluency by avoiding inserting R code or outputs without any explaination. For example, if the question ask you what x + y given x=1 and y=2, you can answer it like this: 
 
