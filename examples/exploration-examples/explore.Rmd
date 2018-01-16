@@ -162,7 +162,7 @@ This is informative about the study design and reveals a few issues.
 table(m$SeqRun,m$DPC)
 ```
 
-The batch confound is the most concerning issue, but at least the Group is not confounded with batch. We'll come back to this.
+The batch confound is the most concerning issue so far, but at least the Group is not confounded with batch. We'll come back to this.
 
 We'll now move on to the main data.
 
@@ -335,6 +335,31 @@ heatmap(hd, Colv=NA,  scale=NULL, cexCol=0.5, cexRow=0.5, col=bcols)
 ```
 
 Because random genes show patterns related to DPC, it is obvious that this is a very strong signal (but remember there is a batch confound).
+
+## Checking correctness of metadata through sex-specific genes. 
+
+A common way to assess the correctness of genomics or genetics data is to make use of the fact that some genes are expressed in only one sex. If a data set contains samples from both males and females, then we can assess whether the data lines up with expectations. Mixups in published data sets are [suprisingly common](https://f1000research.com/articles/5-2103/). Good marker genes for sex include Xist and Uty (there are others).
+
+There are a variety of ways we could do this. First I'll show a heatmap.
+
+```{r}
+# We need to subset the data for the genes we want, and rearrange the data so Males and Females are grouped together for easier visualization. I'm using the order() function to do this.
+pheatmap(d[c("Xist", "Uty"), order(m$Sex)], color=bcols, border_color=NA, cluster_rows=F, cluster_cols=F, annotation_col=data.frame(row.names = names(d),   Sex=m$Sex, DPC=factor(m$DPC), Group = m$Group)[order(m$Sex),], main="Sex markers", fontsize=8)
+```
+
+We can clearly see a problem here - Xist is higly expressed in some of the samples annotated as "male", and Uty is highly expressed in some of the annotated "females", and _vice versa_. To help confirm this (and demonstrate another useful kind of plot):
+
+```{r}
+stripchart(t(d["Xist",]) ~ m$Sex, cex=2, pch=21, ylab="Annotated sex", xlab="Xist expression")
+
+## ggplot version. Instead of geom_point, I'm using geom_jitter to avoid overplotting.
+ggplot(subset(dmelt, subset = Gene == "Xist"), aes(Sex, Expression, color=Sex))  + geom_jitter(width=0.05, height=0, size=3 ) + ggtitle("Expression of Xist") + labs(x="Annotated sex" )
+# not shown: similar plots for Uty.
+```
+
+After some further checking by hand, and an email exchange with the senior author of the paper, I determined that for the P0 animals, sex was coded as M=2 and F=1 rather than M=1 and F=2 as done for the rest of the data. It doesn't seem likely this affected other aspects such as Chd8 genotype.
+
+*For now* I am not going to fix this but of course in any further analysis we need to do so.
 
 ## Sample-sample correlations
 
