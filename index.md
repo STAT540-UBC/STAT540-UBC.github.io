@@ -9,7 +9,7 @@ output:
 
 # Statistical Methods for High Dimensional Biology
 
-<span style="color: red">**Next deadline: Individual report (group project) - April 6th, 2017**</span>
+<span style="color: red">**Next deadline: form groups and finish initial project proposals -Jan 24th, 2018**</span>
 
 ### UBC STAT 540
 
@@ -19,7 +19,7 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 ### Time and Location
 
-04 January 2017 - 05 April 2017
+03 January 2018 - 04 April 2018
 
 #### Lecture (Sec 201)
 
@@ -29,9 +29,9 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 #### Seminar / computing lab (S2A) -- REGISTRATION IS REQUIRED!
 
-**Time**: every Wednesday 11am - 12pm. The TAs will remain in the lab until 1pm for general office hours.
+**Time**: every Wednesday 11am - 1pm. The TAs will remain in the lab until 1pm for general office hours.
 
-**Location**: ESB 1042 and 1046
+**Location**: Orchard Commons 4076	
 
 ### Learning objectives:
 
