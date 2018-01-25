@@ -122,18 +122,8 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
 
 **R Markdown**
 
-  * Write your homework in R Markdown. The file extension should be `.rmd`.
-  * Recommendation: Create a skeleton of your report by starting with the Markdown file that creates the assignment itself! You can take some things away (unnecessary detail) and add others (R chunks) to morph this into your homework solution.
-    - You'll have these files if you are using Git(Hub) to keep a current copy of the whole course repository. Or, from the links above, click on "Raw" to get raw Markdown and save to a local file.
+  * Write your homework in R Markdown. The file extension should be `.rmd`. You can create an RMD file from `File` -> `New File` -> `R Markdown`. When prompted, choose "From Template" option to create a Github document.
     
-**HTML**
-
-  * Compile your homework to Markdown (file extension should be `.md`).
-    - RStudio's "Knit HTML" button will do this. Your .md file is a intermediate file that can be read nicely on GitHub. 
-    - Alternatively, use `knit2html()` from the `knitr` package in the R Console or in an R script.
-    - To run from the shell or in a Makefile, use something like `Rscript -e "knitr::knit2html('hw01_lastname-firstnmae.rmd')"`
-  * Notice that, by default, any figures created are placed into a `figures/` subdirectory. The intermediate Markdown file links to these and, therefore, requires them to present your full report. By default, the figures are base64 encoded and *embedded* into the HTML, which, therefore, is self-contained.
-
 **What to put (or not put) into your Git(Hub) repository**
 
 > This is rather specific to STAT 540 and may not necessarily reflect your workflow in the future and in other contexts.
@@ -141,12 +131,8 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
   * Commit the main R markdown (`.rmd`) file that constitutes your solution. Commit early, commit often!
   * Do not commit the input data to your repository.
     - Locally, you are of course encouraged to keep the file in some logical place within the homework assignment's directory. But list the names of such data files in your top-level [`.gitignore` file](http://git-scm.com/docs/gitignore), so that Git ignores it. We do this so that TAs don't end up with 50 copies of the input data when they mark your work.
-  * Commit the intermediate Markdown (`.md`) file and the figures stored in the `figures/` subdirectory.
-    - Some purists would say intermediate and downstream products do NOT belong in the repo. After all, you can always recreate them from source, right? But here in reality, it turns out to be incredibly handy to have this in the repo.
-  * Commit the end product HTML (`.html`) file.
-    - See above comment re: version control purists vs. pragmatists.
-  * Push closer to the submission date.
-  * __Never ever__ edit the Markdown or HTML "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
+  * Commit the intermediate Markdown (`.md`) file and the figures (should be in a subdirectory named `[FILENAME]_files/figure-markdown_github` or something similar. When in doubt you can look at your `.md` output to see where it thinks the figures are).
+  * __Never ever__ edit the Markdown (`.md`) file "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
 
 **How to "turn in" your homework**
 
