@@ -47,7 +47,30 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /var/folders/b2/8cn96b9x6qz0b7b79dn_n_1h0000gn/T//RtmpDWmJhc/GDS507.soft.gz
+    ## /tmp/RtmpSLiSr5/GDS507.soft.gz
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   ID_REF = col_character(),
+    ##   IDENTIFIER = col_character(),
+    ##   GSM11815 = col_double(),
+    ##   GSM11832 = col_double(),
+    ##   GSM12069 = col_double(),
+    ##   GSM12083 = col_double(),
+    ##   GSM12101 = col_double(),
+    ##   GSM12106 = col_double(),
+    ##   GSM12274 = col_double(),
+    ##   GSM12299 = col_double(),
+    ##   GSM12412 = col_double(),
+    ##   GSM11810 = col_double(),
+    ##   GSM11827 = col_double(),
+    ##   GSM12078 = col_double(),
+    ##   GSM12099 = col_double(),
+    ##   GSM12269 = col_double(),
+    ##   GSM12287 = col_double(),
+    ##   GSM12301 = col_double(),
+    ##   GSM12448 = col_double()
+    ## )
 
 ``` r
 #we can use str() to peak at the structure of a data object. 
@@ -65,10 +88,10 @@ str(gds)
     ##   .. .. .. ..$ sample       : Factor w/ 17 levels "GSM11810","GSM11815",..: 2 4 5 7 9 10 12 14 16 1 ...
     ##   .. .. .. ..$ disease.state: Factor w/ 2 levels "normal","RCC": 2 2 2 2 2 2 2 2 2 1 ...
     ##   .. .. .. ..$ individual   : Factor w/ 10 levels "001","005","011",..: 6 4 1 2 3 5 8 9 10 6 ...
-    ##   .. .. .. ..$ description  : chr [1:17] "Value for GSM11815: C035 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear Cell Carcinoma t"| __truncated__ "Value for GSM11832: C023 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear Cell Carcinoma t"| __truncated__ "Value for GSM12069: C001 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear Cell Carcinoma t"| __truncated__ "Value for GSM12083: C005 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear Cell Carcinoma t"| __truncated__ ...
+    ##   .. .. .. ..$ description  : chr [1:17] "Value for GSM11815: C035 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM11832: C023 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12069: C001 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12083: C005 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ ...
     ##   .. .. ..@ table  :'data.frame':    22645 obs. of  19 variables:
-    ##   .. .. .. ..$ ID_REF    : Factor w/ 22646 levels "200000_s_at",..: 1 2 3 4 5 6 7 8 9 10 ...
-    ##   .. .. .. ..$ IDENTIFIER: Factor w/ 16466 levels "ABCF1","ANAPC5",..: 53 10 68 46 20 18 52 90 25 25 ...
+    ##   .. .. .. ..$ ID_REF    : chr [1:22645] "200000_s_at" "200001_at" "200002_at" "200003_s_at" ...
+    ##   .. .. .. ..$ IDENTIFIER: chr [1:22645] "PRPF8" "CAPNS1" "RPL35" "MIR6805" ...
     ##   .. .. .. ..$ GSM11815  : num [1:22645] 4254 17996 41679 65391 19030 ...
     ##   .. .. .. ..$ GSM11832  : num [1:22645] 5298 12011 39117 34806 15814 ...
     ##   .. .. .. ..$ GSM12069  : num [1:22645] 4026 10284 38759 31257 16356 ...
@@ -86,10 +109,53 @@ str(gds)
     ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23496 16686 ...
     ##   .. .. .. ..$ GSM12301  : num [1:22645] 4070 11844 22734 21315 18817 ...
     ##   .. .. .. ..$ GSM12448  : num [1:22645] 3482 9742 25396 28631 17421 ...
+    ##   .. .. .. ..- attr(*, "spec")=List of 2
+    ##   .. .. .. .. ..$ cols   :List of 19
+    ##   .. .. .. .. .. ..$ ID_REF    : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+    ##   .. .. .. .. .. ..$ IDENTIFIER: list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+    ##   .. .. .. .. .. ..$ GSM11815  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM11832  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12069  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12083  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12101  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12106  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12274  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12299  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12412  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM11810  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM11827  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12078  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12099  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12269  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12287  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12301  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. .. ..$ GSM12448  : list()
+    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+    ##   .. .. .. .. ..$ default: list()
+    ##   .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_guess" "collector"
+    ##   .. .. .. .. ..- attr(*, "class")= chr "col_spec"
     ##   ..@ header   :List of 23
     ##   .. ..$ channel_count           : chr "1"
     ##   .. ..$ dataset_id              : chr [1:12] "GDS507" "GDS507" "GDS507" "GDS507" ...
-    ##   .. ..$ description             : chr [1:13] "Investigation into mechanisms of renal clear cell carcinogenesis (RCC). Comparison of renal clear cell tumor tissue and adjacen"| __truncated__ "RCC" "normal" "035" ...
+    ##   .. ..$ description             : chr [1:13] "Investigation into mechanisms of renal clear cell carcinogenesis (RCC). Comparison of renal clear cell tumor ti"| __truncated__ "RCC" "normal" "035" ...
     ##   .. ..$ email                   : chr "geo@ncbi.nlm.nih.gov"
     ##   .. ..$ feature_count           : chr "22645"
     ##   .. ..$ institute               : chr "NCBI NLM NIH"
@@ -230,8 +296,6 @@ iris %>%
     head()
 ```
 
-    ## Warning: package 'bindrcpp' was built under R version 3.3.2
-
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
     ## 1          5.1         3.5          1.4         0.2  setosa
     ## 2          5.4         3.9          1.7         0.4  setosa
@@ -250,13 +314,13 @@ iris %>%
     ## # A tibble: 6 x 5
     ## # Groups:   Species [1]
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-    ##          <dbl>       <dbl>        <dbl>       <dbl>  <fctr>
-    ## 1          5.1         3.5          1.4         0.2  setosa
-    ## 2          4.9         3.0          1.4         0.2  setosa
-    ## 3          4.7         3.2          1.3         0.2  setosa
-    ## 4          4.6         3.1          1.5         0.2  setosa
-    ## 5          5.0         3.6          1.4         0.2  setosa
-    ## 6          5.4         3.9          1.7         0.4  setosa
+    ##          <dbl>       <dbl>        <dbl>       <dbl> <fct>  
+    ## 1         5.10        3.50         1.40       0.200 setosa 
+    ## 2         4.90        3.00         1.40       0.200 setosa 
+    ## 3         4.70        3.20         1.30       0.200 setosa 
+    ## 4         4.60        3.10         1.50       0.200 setosa 
+    ## 5         5.00        3.60         1.40       0.200 setosa 
+    ## 6         5.40        3.90         1.70       0.400 setosa
 
 ``` r
 #select the column called "Sepal.Width"
@@ -284,14 +348,14 @@ iris %>%
     ## # A tibble: 6 x 6
     ## # Groups:   Species [1]
     ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-    ##          <dbl>       <dbl>        <dbl>       <dbl>  <fctr>
-    ## 1          5.1         3.5          1.4         0.2  setosa
-    ## 2          4.9         3.0          1.4         0.2  setosa
-    ## 3          4.7         3.2          1.3         0.2  setosa
-    ## 4          4.6         3.1          1.5         0.2  setosa
-    ## 5          5.0         3.6          1.4         0.2  setosa
-    ## 6          5.4         3.9          1.7         0.4  setosa
-    ## # ... with 1 more variables: Capitalized_names <chr>
+    ##          <dbl>       <dbl>        <dbl>       <dbl> <fct>  
+    ## 1         5.10        3.50         1.40       0.200 setosa 
+    ## 2         4.90        3.00         1.40       0.200 setosa 
+    ## 3         4.70        3.20         1.30       0.200 setosa 
+    ## 4         4.60        3.10         1.50       0.200 setosa 
+    ## 5         5.00        3.60         1.40       0.200 setosa 
+    ## 6         5.40        3.90         1.70       0.400 setosa 
+    ## # ... with 1 more variable: Capitalized_names <chr>
 
 ``` r
 #summarize the average sepal length and number of rows belonging to each species.
@@ -302,11 +366,11 @@ iris %>%
 ```
 
     ## # A tibble: 3 x 3
-    ##      Species average_sepal_length     n
-    ##       <fctr>                <dbl> <int>
-    ## 1     setosa                5.006    50
-    ## 2 versicolor                5.936    50
-    ## 3  virginica                6.588    50
+    ##   Species    average_sepal_length     n
+    ##   <fct>                     <dbl> <int>
+    ## 1 setosa                     5.01    50
+    ## 2 versicolor                 5.94    50
+    ## 3 virginica                  6.59    50
 
 ``` r
 #arrange the species in alphabetical order
@@ -353,25 +417,25 @@ melted_data %>%
 ```
 
     ## # A tibble: 17 x 2
-    ##      Sample     mean
-    ##      <fctr>    <dbl>
-    ##  1 GSM11815 750.7509
-    ##  2 GSM11832 742.4145
-    ##  3 GSM12069 747.8430
-    ##  4 GSM12083 735.2105
-    ##  5 GSM12101 803.1214
-    ##  6 GSM12106 744.1075
-    ##  7 GSM12274 760.8317
-    ##  8 GSM12299 801.8423
-    ##  9 GSM12412 685.3858
-    ## 10 GSM11810 765.1143
-    ## 11 GSM11827 780.1470
-    ## 12 GSM12078 774.4252
-    ## 13 GSM12099 765.9055
-    ## 14 GSM12269 710.3428
-    ## 15 GSM12287 791.4746
-    ## 16 GSM12301 769.9315
-    ## 17 GSM12448 757.1167
+    ##    Sample    mean
+    ##    <fct>    <dbl>
+    ##  1 GSM11815   751
+    ##  2 GSM11832   742
+    ##  3 GSM12069   748
+    ##  4 GSM12083   735
+    ##  5 GSM12101   803
+    ##  6 GSM12106   744
+    ##  7 GSM12274   761
+    ##  8 GSM12299   802
+    ##  9 GSM12412   685
+    ## 10 GSM11810   765
+    ## 11 GSM11827   780
+    ## 12 GSM12078   774
+    ## 13 GSM12099   766
+    ## 14 GSM12269   710
+    ## 15 GSM12287   791
+    ## 16 GSM12301   770
+    ## 17 GSM12448   757
 
 Another thing we note is that there are multiple probes that map to a specific gene. In a real life analysis workflow, there are multiple ways to deal with this. Some popular options include picking the probe with the highest expression, or taking the mean/median of all probes' expression. For simplicity, we will use summarize() to take the mean of each probe's expression.
 
@@ -395,7 +459,7 @@ human = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #function that takes in data frame, and outputs same data frame with associated chromosome annotations.
 identify_gene_names <- function(df){
     names(df) <- c("Sample", "hgnc_symbol", "Count")
-    names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = df$hgnc_symbol, mart = human)
+    names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = unique(df$hgnc_symbol), mart = human)
     left_join(df, names, by = "hgnc_symbol")
 }
 
@@ -403,9 +467,6 @@ identify_gene_names <- function(df){
 data_with_chromosome <- identify_gene_names(new_melted_data) %>% 
     filter(chromosome_name %in% c(1:23, "X", "Y"))
 ```
-
-    ## Warning: Column `hgnc_symbol` joining factor and character vector, coercing
-    ## into character vector
 
 Part 2 Exercise
 ---------------
@@ -431,10 +492,10 @@ full_data %>%
 ```
 
     ## # A tibble: 2 x 2
-    ##   disease     mean
-    ##    <fctr>    <dbl>
-    ## 1  normal 730.6505
-    ## 2     RCC 675.6147
+    ##   disease  mean
+    ##   <fct>   <dbl>
+    ## 1 normal    729
+    ## 2 RCC       674
 
 Part 3: Graphing expression data
 ================================
@@ -455,7 +516,7 @@ full_data %>%
     ggplot(aes(x = as.factor(chromosome_name), y = Count)) + geom_point()
 ```
 
-![](Seminar3_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-13-1.png)
+![](Seminar3_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Part 3 Exercise
 ---------------
@@ -475,24 +536,28 @@ full_data %>%
     summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
-    ## # A tibble: 9,495 x 2
-    ##    hgnc_symbol     pvalue
-    ##          <chr>      <dbl>
-    ##  1        A1BG 0.70829707
-    ##  2    A1BG-AS1 0.03655069
-    ##  3        A1CF 0.13165302
-    ##  4       A2MP1 0.02449191
-    ##  5     AADACL2 0.14311907
-    ##  6       AADAT 0.03038926
-    ##  7       AAED1 0.03665928
-    ##  8       AAGAB 0.46913615
-    ##  9        AAK1 0.02289984
-    ## 10       AARS2 0.04160953
-    ## # ... with 9,485 more rows
+    ## # A tibble: 9,471 x 2
+    ##    hgnc_symbol pvalue
+    ##    <chr>        <dbl>
+    ##  1 A1BG        0.708 
+    ##  2 A1BG-AS1    0.0366
+    ##  3 A1CF        0.132 
+    ##  4 A2MP1       0.0245
+    ##  5 AADACL2     0.143 
+    ##  6 AADAT       0.0304
+    ##  7 AAED1       0.0367
+    ##  8 AAGAB       0.469 
+    ##  9 AAK1        0.0229
+    ## 10 AARS2       0.0416
+    ## # ... with 9,461 more rows
 
 Part 4 Exercise - Take home
 ---------------------------
 
 *Make a density plot using geom\_density() graph of the p-value distributions of the above t-test. It should look like this:*
 
-![p-value distribution](pvalue_dist.png) *Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
+![p-value distribution](pvalue_dist.png)
+
+*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
+
+*Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*

@@ -190,7 +190,7 @@ human = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #function that takes in data frame, and outputs same data frame with associated chromosome annotations.
 identify_gene_names <- function(df){
 	names(df) <- c("Sample", "hgnc_symbol", "Count")
-	names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = df$hgnc_symbol, mart = human)
+	names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = unique(df$hgnc_symbol), mart = human)
 	left_join(df, names, by = "hgnc_symbol")
 }
 
@@ -255,4 +255,7 @@ full_data %>%
 *Make a density plot using geom_density() graph of the p-value distributions of the above t-test. It should look like this:*
 
 ![p-value distribution](pvalue_dist.png)
+
+*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
+
 *Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
