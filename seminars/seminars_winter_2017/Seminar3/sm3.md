@@ -47,7 +47,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /tmp/RtmpSLiSr5/GDS507.soft.gz
+    ## /tmp/Rtmpv2NO4i/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -516,7 +516,7 @@ full_data %>%
     ggplot(aes(x = as.factor(chromosome_name), y = Count)) + geom_point()
 ```
 
-![](Seminar3_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](sm3_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Part 3 Exercise
 ---------------
