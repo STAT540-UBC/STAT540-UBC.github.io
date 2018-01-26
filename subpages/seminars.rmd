@@ -31,7 +31,7 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path="../seminars/seminars_winter_2017/", pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
+  data.frame(html = list.files(path="../seminars/seminars_winter_2017", pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
              stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
