@@ -86,7 +86,7 @@ First, we introduce the gene expression dataset: its usual format & organization
 
 So, what does gene expression data look like? 
 
-In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset. 
+In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset. This is the same data set we've been exploring in class!
 
 ### Import data
 
@@ -97,8 +97,8 @@ The first is the **expression matrix**, containing the sample IDs and their corr
 Here, we load the expression matrix. We've printed out a small subset of the dataset so you have an idea what it looks like. 
 
 ```{r}
-
-expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE)
+expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE, sep = "\t", 
+															 quote = "")
 expressionMatrix <- expressionMatrix %>% rownames_to_column("gene") # rownames deprecated in tibbles and are hard to work with in ggplot
 expressionMatrix <- expressionMatrix %>% as_tibble() # turn into tibble for pretty printing
 
