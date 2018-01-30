@@ -86,7 +86,7 @@ In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nl
 
 ### Import data
 
-First we import the dataset. With most gene expression datasets, there will be two components that generally come in two different files.
+First we import the dataset. The file is located [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/seminars/seminars_winter_2017/seminar4/expression_data). With most gene expression datasets, there will be two components that generally come in two different files.
 
 The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column.
 
@@ -637,13 +637,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##              [,1]       [,2]        [,3]
-    ## [1,] -0.437949093 -0.1524744 -0.82718398
-    ## [2,] -0.008697243  0.4646872  1.62423621
-    ## [3,]  0.947258639  1.2634303  0.58615183
-    ## [4,] -0.797052525  0.3367232 -0.04420185
-    ## [5,]  0.235076399 -0.6855416  0.64608293
-    ## [6,]  0.379258678 -0.6233407 -0.33590871
+    ##            [,1]       [,2]         [,3]
+    ## [1,]  0.3652621 -0.4898400  0.324958390
+    ## [2,] -1.7176540  0.3261726  0.489372624
+    ## [3,]  1.0700617  0.3438700 -1.101629779
+    ## [4,]  0.1890152 -0.2988744  0.008968923
+    ## [5,] -1.8159556  1.0520086 -1.099587764
+    ## [6,]  1.2171167  0.2051624  0.813084345
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
