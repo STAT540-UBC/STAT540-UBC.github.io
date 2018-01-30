@@ -24,6 +24,8 @@ Packages required
     -   Install by running 'install.packages("reshape2", dependencies = TRUE)'
 -   [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
     -   Install by running 'source("<https://bioconductor.org/biocLite.R>")' and then 'biocLite("limma")'
+-   knitr
+    -   Install by running 'install.packages("knitr", dependencies = TRUE), and then load using library(knitr)
 
 Functions used
 --------------
@@ -637,13 +639,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##            [,1]       [,2]         [,3]
-    ## [1,]  0.3652621 -0.4898400  0.324958390
-    ## [2,] -1.7176540  0.3261726  0.489372624
-    ## [3,]  1.0700617  0.3438700 -1.101629779
-    ## [4,]  0.1890152 -0.2988744  0.008968923
-    ## [5,] -1.8159556  1.0520086 -1.099587764
-    ## [6,]  1.2171167  0.2051624  0.813084345
+    ##              [,1]         [,2]        [,3]
+    ## [1,]  0.887537656 -0.126478926  1.12540510
+    ## [2,] -0.740324129  0.088111941  0.05430366
+    ## [3,] -0.518613226 -0.193345895 -0.06921903
+    ## [4,]  1.350955151 -0.237760548 -0.87857445
+    ## [5,] -1.322731960 -1.034691323  0.12626204
+    ## [6,] -0.002712582  0.001883206  1.22715984
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
