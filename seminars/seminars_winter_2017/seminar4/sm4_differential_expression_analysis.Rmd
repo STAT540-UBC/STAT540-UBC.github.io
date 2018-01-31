@@ -31,6 +31,8 @@ By the end of this seminar, you should
     * Install by running 'install.packages("reshape2", dependencies = TRUE)'
 * [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
     * Install by running 'source("https://bioconductor.org/biocLite.R")' and then 'biocLite("limma")'
+* knitr
+    * Install by running 'install.packages("knitr", dependencies = TRUE), and then load using library(knitr)
 
 ## Functions used
 
