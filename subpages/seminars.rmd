@@ -11,9 +11,12 @@ output:
 ```{r include = FALSE}
 library(dplyr)
 library(stringr)
+library(glue)
 ```
 
 ```{r include = FALSE}
+githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
+
 # Import schedule
 rawdat <- read.csv(file.path("../course-admin", "schedule_2018.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
@@ -30,7 +33,7 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path="../seminars/seminars_winter_2017/", pattern = '^sm.*(html|md)$', full.names=TRUE),
+  data.frame(html = list.files(path="../seminars/seminars_winter_2017", pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
              stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
@@ -48,7 +51,11 @@ html_exists = Negate(is.na)(sdat$html)
 sdat$lect[html_exists] <-
   str_replace(sdat$lect[html_exists],
               pattern="(^seminar-.*)", replacement='<a href="LINK">\\1</a>')
-sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], "LINK", sdat$html[html_exists])
+sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], 
+                                      "LINK", 
+                                      file.path(githubLink,'tree/master',
+                                                str_replace(sdat$html[html_exists],'\\.\\.','')
+                                                ))
 
 dat_sm <- sdat %>% split(sdat$course)
 dat_sm <- lapply(dat_sm, 'rownames<-', NULL)

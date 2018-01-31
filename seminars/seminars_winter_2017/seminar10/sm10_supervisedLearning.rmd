@@ -1,7 +1,6 @@
 ---
 output:
-  html_document:
-    keep_md: yes
+  github_document
 ---
 Supervised learning, classification, cross validation, variable selection
 =========================================================================
@@ -42,14 +41,17 @@ In this Seminar we go over packages and codes for performing supervised learning
 
 There are many packages for performing supervised learning in R, each of which may implement one or more algorithms. There have also been at least two major efforts to unify these libraries under a common framework to make them easier to use: `MLInterfaces` and `CMA`. Although these may be useful and save you a lot of time in your analysis, it is important that you understand what these packages are doing and what they are *not* doing. Thus, I will not use these packages in this Seminar but I encourage you to reproduce the analysis using at least one of them! (I recommend `CMA`).
 
-Install the following packages from Bioconductor: `CMA` and `GEOquery`, and from CRAN: `ROCR`, `car`, `e1071` (for SVM), and `glmnet`.
+Install the following packages from Bioconductor: `CMA` and `GEOquery`, and from CRAN: `ROCR`, `car`, `e1071` (for SVM), and `glmnet` along with ther dependencies.
 
 ```{r, eval=FALSE}
 source('http://bioconductor.org/biocLite.R')
 biocLite('GEOquery')
 biocLite('CMA')
 
-install.packages("ROCR")
+install.packages('ROCR')
+
+install.packages(c('e1071','glmnet','caret','mlbench','gbm'))
+
 ```
 
 ```{r, message=F, warning=F}
@@ -477,7 +479,7 @@ soyTest  <- soybean_x[-trainIndex,]
 **Cross validation results**  
 We set up our cross-validation folds. Note we can also choose the option 'cv' or 'LOOCV' instead of 'repeatedcv'.    
 With 'repeatedcv', we don't have to manually set up the multiple loops we did when we were using CMA.  
-```{r}
+```{r, messages=FALSE,warnings=FALSE}
 #Prepare resamling method for Cross-Validation folds  
 set.seed(7)
 cv_control = trainControl(method="repeatedcv", number=5, repeats=10, classProbs=FALSE) #summaryFunction=mnLogLoss)
