@@ -117,6 +117,7 @@ So, the second component that comes with the data is the **samples metadata**. W
 ```{r}
 
 samplesMetadata <- read.table("expression_data/GSE4051_design.tsv", 
+															sep = "\t",
                               header = TRUE, # set header = TRUE to use the first row of the data as column names
                               stringsAsFactors = FALSE) # set stringAsFactors to avoid setting everything as factors, we can control that ourselves
 

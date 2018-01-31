@@ -135,6 +135,7 @@ So, the second component that comes with the data is the **samples metadata**. W
 
 ``` r
 samplesMetadata <- read.table("expression_data/GSE4051_design.tsv", 
+                                                            sep = "\t",
                               header = TRUE, # set header = TRUE to use the first row of the data as column names
                               stringsAsFactors = FALSE) # set stringAsFactors to avoid setting everything as factors, we can control that ourselves
 
@@ -639,13 +640,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##              [,1]         [,2]        [,3]
-    ## [1,]  0.887537656 -0.126478926  1.12540510
-    ## [2,] -0.740324129  0.088111941  0.05430366
-    ## [3,] -0.518613226 -0.193345895 -0.06921903
-    ## [4,]  1.350955151 -0.237760548 -0.87857445
-    ## [5,] -1.322731960 -1.034691323  0.12626204
-    ## [6,] -0.002712582  0.001883206  1.22715984
+    ##             [,1]       [,2]       [,3]
+    ## [1,] -0.74159572  0.6065227 -0.5464251
+    ## [2,]  0.27872352 -1.0279044 -0.2498112
+    ## [3,]  0.04265112 -0.2916751  0.3453448
+    ## [4,]  1.77218697 -0.7228778  1.6298480
+    ## [5,] -0.78503248 -1.1129852  0.5196493
+    ## [6,]  0.58055035  1.3148034  0.7557285
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
