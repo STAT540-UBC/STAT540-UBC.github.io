@@ -24,6 +24,8 @@ Packages required
     -   Install by running 'install.packages("reshape2", dependencies = TRUE)'
 -   [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
     -   Install by running 'source("<https://bioconductor.org/biocLite.R>")' and then 'biocLite("limma")'
+-   knitr
+    -   Install by running 'install.packages("knitr", dependencies = TRUE), and then load using library(knitr)
 
 Functions used
 --------------
@@ -82,18 +84,19 @@ Part 2: Gene expression data
 
 So, what does gene expression data look like?
 
-In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset.
+In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset. This is the same data set we've been exploring in class!
 
 ### Import data
 
-First we import the dataset. With most gene expression datasets, there will be two components that generally come in two different files.
+First we import the dataset. The file is located [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/seminars/seminars_winter_2017/seminar4/expression_data). With most gene expression datasets, there will be two components that generally come in two different files.
 
 The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column.
 
 Here, we load the expression matrix. We've printed out a small subset of the dataset so you have an idea what it looks like.
 
 ``` r
-expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE)
+expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE, sep = "\t", 
+                                                             quote = "")
 expressionMatrix <- expressionMatrix %>% rownames_to_column("gene") # rownames deprecated in tibbles and are hard to work with in ggplot
 expressionMatrix <- expressionMatrix %>% as_tibble() # turn into tibble for pretty printing
 
@@ -101,27 +104,28 @@ expressionMatrix
 ```
 
     ## # A tibble: 29,949 x 40
-    ##    gene        Sample_20 Sample_21 Sample_22 Sample_23 Sample_16 Sample_17
-    ##    <chr>           <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ##  1 1415670_at       7.24      7.41      7.17      7.07      7.38      7.34
-    ##  2 1415671_at       9.48     10.0       9.85     10.1       7.64     10.0 
-    ##  3 1415672_at      10.0      10.0       9.91      9.91      8.42     10.2 
-    ##  4 1415673_at       8.36      8.37      8.40      8.49      8.36      8.37
-    ##  5 1415674_a_…      8.59      8.62      8.52      8.64      8.51      8.89
-    ##  6 1415675_at       9.59      9.72      9.71      9.70      9.66      9.61
-    ##  7 1415676_a_…      9.68     10.4       9.87     10.2       8.04     10.0 
-    ##  8 1415677_at       7.24      7.90      7.48      7.49      7.34      7.34
-    ##  9 1415678_at      11.7      11.5      11.5      11.6      10.5      11.8 
-    ## 10 1415679_at       9.21     10.1       9.82      9.92      8.22      9.60
-    ## # ... with 29,939 more rows, and 33 more variables: Sample_6 <dbl>,
-    ## #   Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>, Sample_27 <dbl>,
-    ## #   Sample_14 <dbl>, Sample_3 <dbl>, Sample_5 <dbl>, Sample_8 <dbl>,
-    ## #   Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>, Sample_31 <dbl>,
-    ## #   Sample_1 <dbl>, Sample_10 <dbl>, Sample_4 <dbl>, Sample_7 <dbl>,
-    ## #   Sample_32 <dbl>, Sample_33 <dbl>, Sample_34 <dbl>, Sample_35 <dbl>,
-    ## #   Sample_13 <dbl>, Sample_15 <dbl>, Sample_18 <dbl>, Sample_19 <dbl>,
-    ## #   Sample_36 <dbl>, Sample_37 <dbl>, Sample_38 <dbl>, Sample_39 <dbl>,
-    ## #   Sample_11 <dbl>, Sample_12 <dbl>, Sample_2 <dbl>, Sample_9 <dbl>
+    ##            gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16
+    ##           <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+    ##  1   1415670_at     7.236     7.414     7.169     7.070     7.383
+    ##  2   1415671_at     9.478    10.020     9.854    10.130     7.637
+    ##  3   1415672_at    10.010    10.040     9.913     9.907     8.423
+    ##  4   1415673_at     8.362     8.374     8.404     8.487     8.363
+    ##  5 1415674_a_at     8.585     8.615     8.520     8.641     8.509
+    ##  6   1415675_at     9.591     9.719     9.709     9.700     9.656
+    ##  7 1415676_a_at     9.684    10.420     9.866    10.190     8.045
+    ##  8   1415677_at     7.236     7.901     7.478     7.492     7.338
+    ##  9   1415678_at    11.710    11.510    11.530    11.570    10.460
+    ## 10   1415679_at     9.214    10.100     9.819     9.918     8.216
+    ## # ... with 29,939 more rows, and 34 more variables: Sample_17 <dbl>,
+    ## #   Sample_6 <dbl>, Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>,
+    ## #   Sample_27 <dbl>, Sample_14 <dbl>, Sample_3 <dbl>, Sample_5 <dbl>,
+    ## #   Sample_8 <dbl>, Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>,
+    ## #   Sample_31 <dbl>, Sample_1 <dbl>, Sample_10 <dbl>, Sample_4 <dbl>,
+    ## #   Sample_7 <dbl>, Sample_32 <dbl>, Sample_33 <dbl>, Sample_34 <dbl>,
+    ## #   Sample_35 <dbl>, Sample_13 <dbl>, Sample_15 <dbl>, Sample_18 <dbl>,
+    ## #   Sample_19 <dbl>, Sample_36 <dbl>, Sample_37 <dbl>, Sample_38 <dbl>,
+    ## #   Sample_39 <dbl>, Sample_11 <dbl>, Sample_12 <dbl>, Sample_2 <dbl>,
+    ## #   Sample_9 <dbl>
 
 Great, now, the expression matrix has been imported. But we still don't know the properties associated with each sample. For example, does Sample\_20 belong to treatment or control? What developmental stage is it in? What tissue is it? How about Sample\_22? Sample\_23?
 
@@ -144,17 +148,17 @@ samplesMetadata
 
     ## # A tibble: 39 x 4
     ##    sample_id sample_number dev_stage genotype
-    ##    <chr>             <int> <chr>     <chr>   
-    ##  1 Sample_20            20 E16       wt      
-    ##  2 Sample_21            21 E16       wt      
-    ##  3 Sample_22            22 E16       wt      
-    ##  4 Sample_23            23 E16       wt      
-    ##  5 Sample_16            16 E16       NrlKO   
-    ##  6 Sample_17            17 E16       NrlKO   
-    ##  7 Sample_6              6 E16       NrlKO   
-    ##  8 Sample_24            24 P2        wt      
-    ##  9 Sample_25            25 P2        wt      
-    ## 10 Sample_26            26 P2        wt      
+    ##        <chr>         <int>     <chr>    <chr>
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_24            24        P2       wt
+    ##  9 Sample_25            25        P2       wt
+    ## 10 Sample_26            26        P2       wt
     ## # ... with 29 more rows
 
 From the data, it looks like dev\_stage and genotype could be made into factors. You can read more about factors [here](http://r4ds.had.co.nz/factors.html). Basically, factors are categorical variables. By declaring a variable as a factor, many operations on the categorical data becomes easier, such as making separate graphs for each categorical grouping. Generally, it is recommended to use factors where appropriate.
@@ -190,17 +194,17 @@ samplesMetadata # columns dev_stage and genotype are now type factor
 
     ## # A tibble: 39 x 4
     ##    sample_id sample_number dev_stage genotype
-    ##    <chr>             <int> <fct>     <fct>   
-    ##  1 Sample_20            20 E16       wt      
-    ##  2 Sample_21            21 E16       wt      
-    ##  3 Sample_22            22 E16       wt      
-    ##  4 Sample_23            23 E16       wt      
-    ##  5 Sample_16            16 E16       NrlKO   
-    ##  6 Sample_17            17 E16       NrlKO   
-    ##  7 Sample_6              6 E16       NrlKO   
-    ##  8 Sample_24            24 P2        wt      
-    ##  9 Sample_25            25 P2        wt      
-    ## 10 Sample_26            26 P2        wt      
+    ##        <chr>         <int>    <fctr>   <fctr>
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_24            24        P2       wt
+    ##  9 Sample_25            25        P2       wt
+    ## 10 Sample_26            26        P2       wt
     ## # ... with 29 more rows
 
 Notice that the samples metadata dataset contains the properties of each sample. Yes, the sample IDs don't match. That's because we're only printing out a subset of the entire dataset to avoid filling up the entire page. Let's now do a quick sanity check make sure the samples match between the two data frames.
@@ -277,7 +281,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
 ``` r
 meltedExpressionMatrix %>% 
@@ -286,7 +290,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-5-2.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-2.png)
 
 The distribution of gene expression for all genes across all samples look quite consistent. Let's move on!
 
@@ -304,7 +308,11 @@ geneIds <- c("1416119_at", "1431708_a_at")
 
 # use dplyr::filter() to get the expression data for the gene
 expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
+```
 
+    ## Warning: package 'bindrcpp' was built under R version 3.3.2
+
+``` r
 # transform the data frame into the format that matches the sample metadata
 expressionDataForGene <- expressionDataForGene %>%
   as.data.frame() %>% 
@@ -321,18 +329,18 @@ expressionDataForGene
 ```
 
     ## # A tibble: 78 x 3
-    ##    sample_id gene       expression
-    ##    <chr>     <fct>           <dbl>
-    ##  1 Sample_20 1416119_at      10.6 
-    ##  2 Sample_21 1416119_at      11.0 
-    ##  3 Sample_22 1416119_at      10.8 
-    ##  4 Sample_23 1416119_at      10.9 
-    ##  5 Sample_16 1416119_at       9.20
-    ##  6 Sample_17 1416119_at      11.0 
-    ##  7 Sample_6  1416119_at      10.9 
-    ##  8 Sample_24 1416119_at      10.4 
-    ##  9 Sample_25 1416119_at      10.6 
-    ## 10 Sample_26 1416119_at      10.2 
+    ##    sample_id       gene expression
+    ##        <chr>     <fctr>      <dbl>
+    ##  1 Sample_20 1416119_at     10.580
+    ##  2 Sample_21 1416119_at     11.000
+    ##  3 Sample_22 1416119_at     10.850
+    ##  4 Sample_23 1416119_at     10.920
+    ##  5 Sample_16 1416119_at      9.203
+    ##  6 Sample_17 1416119_at     11.010
+    ##  7  Sample_6 1416119_at     10.900
+    ##  8 Sample_24 1416119_at     10.380
+    ##  9 Sample_25 1416119_at     10.610
+    ## 10 Sample_26 1416119_at     10.250
     ## # ... with 68 more rows
 
 Actually, let's put this data transformation code into a function so that it can be reused; we will routinely need the dataset to be in this format as we perform analyses.
@@ -366,10 +374,10 @@ expressionDataForGene
 ```
 
     ## # A tibble: 2 x 40
-    ##   gene         Sample_20 Sample_21 Sample_22 Sample_23 Sample_16 Sample_17
-    ##   <chr>            <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ## 1 1416119_at       10.6       11.0     10.8      10.9       9.20     11.0 
-    ## 2 1431708_a_at      9.95      10.1      9.83      9.98      7.73      6.85
+    ##           gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16 Sample_17
+    ##          <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+    ## 1   1416119_at    10.580      11.0    10.850    10.920     9.203    11.010
+    ## 2 1431708_a_at     9.946      10.1     9.828     9.984     7.732     6.846
     ## # ... with 33 more variables: Sample_6 <dbl>, Sample_24 <dbl>,
     ## #   Sample_25 <dbl>, Sample_26 <dbl>, Sample_27 <dbl>, Sample_14 <dbl>,
     ## #   Sample_3 <dbl>, Sample_5 <dbl>, Sample_8 <dbl>, Sample_28 <dbl>,
@@ -387,18 +395,18 @@ expressionDataForGene
 ```
 
     ## # A tibble: 78 x 3
-    ##    sample_id gene       expression
-    ##    <chr>     <fct>           <dbl>
-    ##  1 Sample_20 1416119_at      10.6 
-    ##  2 Sample_21 1416119_at      11.0 
-    ##  3 Sample_22 1416119_at      10.8 
-    ##  4 Sample_23 1416119_at      10.9 
-    ##  5 Sample_16 1416119_at       9.20
-    ##  6 Sample_17 1416119_at      11.0 
-    ##  7 Sample_6  1416119_at      10.9 
-    ##  8 Sample_24 1416119_at      10.4 
-    ##  9 Sample_25 1416119_at      10.6 
-    ## 10 Sample_26 1416119_at      10.2 
+    ##    sample_id       gene expression
+    ##        <chr>     <fctr>      <dbl>
+    ##  1 Sample_20 1416119_at     10.580
+    ##  2 Sample_21 1416119_at     11.000
+    ##  3 Sample_22 1416119_at     10.850
+    ##  4 Sample_23 1416119_at     10.920
+    ##  5 Sample_16 1416119_at      9.203
+    ##  6 Sample_17 1416119_at     11.010
+    ##  7  Sample_6 1416119_at     10.900
+    ##  8 Sample_24 1416119_at     10.380
+    ##  9 Sample_25 1416119_at     10.610
+    ## 10 Sample_26 1416119_at     10.250
     ## # ... with 68 more rows
 
 Yay! Now, we integrate the samples metadata by doing a join.
@@ -412,18 +420,18 @@ expressionDataForGene
 ```
 
     ## # A tibble: 78 x 6
-    ##    sample_id gene       expression sample_number dev_stage genotype
-    ##    <chr>     <fct>           <dbl>         <int> <fct>     <fct>   
-    ##  1 Sample_20 1416119_at      10.6             20 E16       wt      
-    ##  2 Sample_21 1416119_at      11.0             21 E16       wt      
-    ##  3 Sample_22 1416119_at      10.8             22 E16       wt      
-    ##  4 Sample_23 1416119_at      10.9             23 E16       wt      
-    ##  5 Sample_16 1416119_at       9.20            16 E16       NrlKO   
-    ##  6 Sample_17 1416119_at      11.0             17 E16       NrlKO   
-    ##  7 Sample_6  1416119_at      10.9              6 E16       NrlKO   
-    ##  8 Sample_24 1416119_at      10.4             24 P2        wt      
-    ##  9 Sample_25 1416119_at      10.6             25 P2        wt      
-    ## 10 Sample_26 1416119_at      10.2             26 P2        wt      
+    ##    sample_id       gene expression sample_number dev_stage genotype
+    ##        <chr>     <fctr>      <dbl>         <int>    <fctr>   <fctr>
+    ##  1 Sample_20 1416119_at     10.580            20       E16       wt
+    ##  2 Sample_21 1416119_at     11.000            21       E16       wt
+    ##  3 Sample_22 1416119_at     10.850            22       E16       wt
+    ##  4 Sample_23 1416119_at     10.920            23       E16       wt
+    ##  5 Sample_16 1416119_at      9.203            16       E16    NrlKO
+    ##  6 Sample_17 1416119_at     11.010            17       E16    NrlKO
+    ##  7  Sample_6 1416119_at     10.900             6       E16    NrlKO
+    ##  8 Sample_24 1416119_at     10.380            24        P2       wt
+    ##  9 Sample_25 1416119_at     10.610            25        P2       wt
+    ## 10 Sample_26 1416119_at     10.250            26        P2       wt
     ## # ... with 68 more rows
 
 Beautiful! Now, what we have is one data frame that contains all the metadata for all samples as well as the gene expression for the genes that we're interested in.
@@ -439,7 +447,7 @@ expressionDataForGene %>%
   facet_wrap(~gene)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-10-1.png)
 
 Take a moment to look at these plots. Do you think one of these genes is differentially expressed across wt and NrlKO conditions?
 
@@ -631,13 +639,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##            [,1]       [,2]      [,3]
-    ## [1,]  1.1039162 -0.5090475 0.7610464
-    ## [2,] -0.1100569 -0.4530464 0.1679037
-    ## [3,] -0.1124472  0.5867270 0.9109773
-    ## [4,]  0.9673983 -1.2247158 0.2989377
-    ## [5,]  0.1885111 -1.2288640 0.2071773
-    ## [6,]  1.5871580 -1.5155905 1.6805189
+    ##              [,1]         [,2]        [,3]
+    ## [1,]  0.887537656 -0.126478926  1.12540510
+    ## [2,] -0.740324129  0.088111941  0.05430366
+    ## [3,] -0.518613226 -0.193345895 -0.06921903
+    ## [4,]  1.350955151 -0.237760548 -0.87857445
+    ## [5,] -1.322731960 -1.034691323  0.12626204
+    ## [6,] -0.002712582  0.001883206  1.22715984
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
@@ -648,7 +656,7 @@ tibble(variance = geneVars) %>%
   geom_point(aes(y = 0), shape = 1, size = 3)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
 
 Notice how many of the observed variances are freakishly small (and freakishly large!), even though they are indeed equal to 1 “on average”. For example, we see that at least a quarter of the genes appear to exhibit a sample variance that is less than one-third the true variance. This can wreak havoc with statistical inference, such as t-statistics. This is what limma – or the statistical methods it embodies, actually – is designed to combat.
 
@@ -679,27 +687,27 @@ wildTypeSamples # reminder of what the samples metadata data frame looks like
 
     ## # A tibble: 20 x 4
     ##    sample_id sample_number dev_stage genotype
-    ##    <chr>             <int> <fct>     <fct>   
-    ##  1 Sample_20            20 E16       wt      
-    ##  2 Sample_21            21 E16       wt      
-    ##  3 Sample_22            22 E16       wt      
-    ##  4 Sample_23            23 E16       wt      
-    ##  5 Sample_24            24 P2        wt      
-    ##  6 Sample_25            25 P2        wt      
-    ##  7 Sample_26            26 P2        wt      
-    ##  8 Sample_27            27 P2        wt      
-    ##  9 Sample_28            28 P6        wt      
-    ## 10 Sample_29            29 P6        wt      
-    ## 11 Sample_30            30 P6        wt      
-    ## 12 Sample_31            31 P6        wt      
-    ## 13 Sample_32            32 P10       wt      
-    ## 14 Sample_33            33 P10       wt      
-    ## 15 Sample_34            34 P10       wt      
-    ## 16 Sample_35            35 P10       wt      
-    ## 17 Sample_36            36 4_weeks   wt      
-    ## 18 Sample_37            37 4_weeks   wt      
-    ## 19 Sample_38            38 4_weeks   wt      
-    ## 20 Sample_39            39 4_weeks   wt
+    ##        <chr>         <int>    <fctr>   <fctr>
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_24            24        P2       wt
+    ##  6 Sample_25            25        P2       wt
+    ##  7 Sample_26            26        P2       wt
+    ##  8 Sample_27            27        P2       wt
+    ##  9 Sample_28            28        P6       wt
+    ## 10 Sample_29            29        P6       wt
+    ## 11 Sample_30            30        P6       wt
+    ## 12 Sample_31            31        P6       wt
+    ## 13 Sample_32            32       P10       wt
+    ## 14 Sample_33            33       P10       wt
+    ## 15 Sample_34            34       P10       wt
+    ## 16 Sample_35            35       P10       wt
+    ## 17 Sample_36            36   4_weeks       wt
+    ## 18 Sample_37            37   4_weeks       wt
+    ## 19 Sample_38            38   4_weeks       wt
+    ## 20 Sample_39            39   4_weeks       wt
 
 ``` r
 # reusable function for pulling expression data for given samples
@@ -721,16 +729,16 @@ wildTypeExpressionMatrix %>% as_tibble() # reminder of what the expression matri
     ## # A tibble: 29,949 x 20
     ##    Sample_20 Sample_21 Sample_22 Sample_23 Sample_24 Sample_25 Sample_26
     ##  *     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ##  1      7.24      7.41      7.17      7.07      7.11      7.19      7.18
-    ##  2      9.48     10.0       9.85     10.1       9.75      9.16      9.49
-    ##  3     10.0      10.0       9.91      9.91      9.39     10.1       9.41
-    ##  4      8.36      8.37      8.40      8.49      8.37      8.20      8.73
-    ##  5      8.59      8.62      8.52      8.64      8.36      8.50      8.39
-    ##  6      9.59      9.72      9.71      9.70      9.64      9.65      9.87
-    ##  7      9.68     10.4       9.87     10.2       9.15      8.18      9.10
-    ##  8      7.24      7.90      7.48      7.49      7.19      7.23      7.06
-    ##  9     11.7      11.5      11.5      11.6      11.4      11.3      11.8 
-    ## 10      9.21     10.1       9.82      9.92      9.30      9.94      8.77
+    ##  1     7.236     7.414     7.169     7.070     7.109     7.190     7.182
+    ##  2     9.478    10.020     9.854    10.130     9.747     9.159     9.488
+    ##  3    10.010    10.040     9.913     9.907     9.393    10.110     9.412
+    ##  4     8.362     8.374     8.404     8.487     8.366     8.199     8.734
+    ##  5     8.585     8.615     8.520     8.641     8.361     8.502     8.393
+    ##  6     9.591     9.719     9.709     9.700     9.638     9.654     9.868
+    ##  7     9.684    10.420     9.866    10.190     9.155     8.182     9.101
+    ##  8     7.236     7.901     7.478     7.492     7.186     7.231     7.064
+    ##  9    11.710    11.510    11.530    11.570    11.370    11.310    11.800
+    ## 10     9.214    10.100     9.819     9.918     9.303     9.945     8.766
     ## # ... with 29,939 more rows, and 13 more variables: Sample_27 <dbl>,
     ## #   Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>, Sample_31 <dbl>,
     ## #   Sample_32 <dbl>, Sample_33 <dbl>, Sample_34 <dbl>, Sample_35 <dbl>,
@@ -879,18 +887,18 @@ topGenesExpressionData # reminder of formatted expression data looks like - for 
 ```
 
     ## # A tibble: 120 x 6
-    ##    sample_id gene       expression sample_number dev_stage genotype
-    ##    <chr>     <fct>           <dbl>         <int> <fct>     <fct>   
-    ##  1 Sample_20 1416041_at       8.48            20 E16       wt      
-    ##  2 Sample_21 1416041_at       7.74            21 E16       wt      
-    ##  3 Sample_22 1416041_at       8.29            22 E16       wt      
-    ##  4 Sample_23 1416041_at       8.15            23 E16       wt      
-    ##  5 Sample_24 1416041_at       8.17            24 P2        wt      
-    ##  6 Sample_25 1416041_at       8.66            25 P2        wt      
-    ##  7 Sample_26 1416041_at       8.11            26 P2        wt      
-    ##  8 Sample_27 1416041_at       8.35            27 P2        wt      
-    ##  9 Sample_28 1416041_at       8.40            28 P6        wt      
-    ## 10 Sample_29 1416041_at       8.37            29 P6        wt      
+    ##    sample_id       gene expression sample_number dev_stage genotype
+    ##        <chr>     <fctr>      <dbl>         <int>    <fctr>   <fctr>
+    ##  1 Sample_20 1416041_at      8.478            20       E16       wt
+    ##  2 Sample_21 1416041_at      7.742            21       E16       wt
+    ##  3 Sample_22 1416041_at      8.287            22       E16       wt
+    ##  4 Sample_23 1416041_at      8.155            23       E16       wt
+    ##  5 Sample_24 1416041_at      8.174            24        P2       wt
+    ##  6 Sample_25 1416041_at      8.659            25        P2       wt
+    ##  7 Sample_26 1416041_at      8.110            26        P2       wt
+    ##  8 Sample_27 1416041_at      8.351            27        P2       wt
+    ##  9 Sample_28 1416041_at      8.395            28        P6       wt
+    ## 10 Sample_29 1416041_at      8.371            29        P6       wt
     ## # ... with 110 more rows
 
 ``` r
@@ -902,7 +910,7 @@ topGenesExpressionData %>%
   facet_wrap(~gene)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
 
 What do you think? Does it look plausible to you that these genes are differentially expressed across developmental stages?
 
@@ -933,7 +941,7 @@ plotGenes(topGenes, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
 OK, now let's use topTable() again to find some boring(insignificant) genes.
 
@@ -982,7 +990,7 @@ plotGenes(rownames(boringGenes), wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
 Are you convinced?? I hope so!
 
@@ -1073,7 +1081,7 @@ plotGenes(rownames(contrastGenes)[1:6], wildTypeExpressionMatrix, wildTypeSample
 
     ## Joining, by = "sample_id"
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
 
 So far, so good. These 6 probes show little expression change from P6 to P10 and a strong increase from P10 to 4\_weeks. I would like to find some where there’s a change in each case but perhaps in opposite direction. Let’s press on.
 
@@ -1085,10 +1093,10 @@ wtResCont <- decideTests(contrastFitEb, p.value = cutoff, method = "global")
 summary(wtResCont)
 ```
 
-    ##        p10vsp6 fourweeksVsP10
-    ## Down         4              8
-    ## NotSig   29945          29895
-    ## Up           0             46
+    ##    p10vsp6 fourweeksVsP10
+    ## -1       4              8
+    ## 0    29945          29895
+    ## 1        0             46
 
 We see there are 4 probes that go down from P6 to P10 and no hits going the other way. There are 8 probes that go down from P10 to 4\_weeks and 46 going the other way. Let’s try to pull out various hits and plot their data.
 
@@ -1117,7 +1125,7 @@ plotGenes(hits1$gene, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
 
 Here are 4 of the 8 that decline from P10 to 4\_weeks.
 
@@ -1148,7 +1156,7 @@ plotGenes(hits2$gene[1:4], wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-31-1.png)
 
 Is there any overlap between these probes?
 
@@ -1181,22 +1189,22 @@ interactionSamples
 
     ## # A tibble: 15 x 4
     ##    sample_id sample_number dev_stage genotype
-    ##    <chr>             <int> <fct>     <fct>   
-    ##  1 Sample_20            20 E16       wt      
-    ##  2 Sample_21            21 E16       wt      
-    ##  3 Sample_22            22 E16       wt      
-    ##  4 Sample_23            23 E16       wt      
-    ##  5 Sample_16            16 E16       NrlKO   
-    ##  6 Sample_17            17 E16       NrlKO   
-    ##  7 Sample_6              6 E16       NrlKO   
-    ##  8 Sample_36            36 4_weeks   wt      
-    ##  9 Sample_37            37 4_weeks   wt      
-    ## 10 Sample_38            38 4_weeks   wt      
-    ## 11 Sample_39            39 4_weeks   wt      
-    ## 12 Sample_11            11 4_weeks   NrlKO   
-    ## 13 Sample_12            12 4_weeks   NrlKO   
-    ## 14 Sample_2              2 4_weeks   NrlKO   
-    ## 15 Sample_9              9 4_weeks   NrlKO
+    ##        <chr>         <int>    <fctr>   <fctr>
+    ##  1 Sample_20            20       E16       wt
+    ##  2 Sample_21            21       E16       wt
+    ##  3 Sample_22            22       E16       wt
+    ##  4 Sample_23            23       E16       wt
+    ##  5 Sample_16            16       E16    NrlKO
+    ##  6 Sample_17            17       E16    NrlKO
+    ##  7  Sample_6             6       E16    NrlKO
+    ##  8 Sample_36            36   4_weeks       wt
+    ##  9 Sample_37            37   4_weeks       wt
+    ## 10 Sample_38            38   4_weeks       wt
+    ## 11 Sample_39            39   4_weeks       wt
+    ## 12 Sample_11            11   4_weeks    NrlKO
+    ## 13 Sample_12            12   4_weeks    NrlKO
+    ## 14  Sample_2             2   4_weeks    NrlKO
+    ## 15  Sample_9             9   4_weeks    NrlKO
 
 ``` r
 # reminder of what expression matrix looks like
@@ -1204,27 +1212,28 @@ expressionMatrix
 ```
 
     ## # A tibble: 29,949 x 40
-    ##    gene        Sample_20 Sample_21 Sample_22 Sample_23 Sample_16 Sample_17
-    ##    <chr>           <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-    ##  1 1415670_at       7.24      7.41      7.17      7.07      7.38      7.34
-    ##  2 1415671_at       9.48     10.0       9.85     10.1       7.64     10.0 
-    ##  3 1415672_at      10.0      10.0       9.91      9.91      8.42     10.2 
-    ##  4 1415673_at       8.36      8.37      8.40      8.49      8.36      8.37
-    ##  5 1415674_a_…      8.59      8.62      8.52      8.64      8.51      8.89
-    ##  6 1415675_at       9.59      9.72      9.71      9.70      9.66      9.61
-    ##  7 1415676_a_…      9.68     10.4       9.87     10.2       8.04     10.0 
-    ##  8 1415677_at       7.24      7.90      7.48      7.49      7.34      7.34
-    ##  9 1415678_at      11.7      11.5      11.5      11.6      10.5      11.8 
-    ## 10 1415679_at       9.21     10.1       9.82      9.92      8.22      9.60
-    ## # ... with 29,939 more rows, and 33 more variables: Sample_6 <dbl>,
-    ## #   Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>, Sample_27 <dbl>,
-    ## #   Sample_14 <dbl>, Sample_3 <dbl>, Sample_5 <dbl>, Sample_8 <dbl>,
-    ## #   Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>, Sample_31 <dbl>,
-    ## #   Sample_1 <dbl>, Sample_10 <dbl>, Sample_4 <dbl>, Sample_7 <dbl>,
-    ## #   Sample_32 <dbl>, Sample_33 <dbl>, Sample_34 <dbl>, Sample_35 <dbl>,
-    ## #   Sample_13 <dbl>, Sample_15 <dbl>, Sample_18 <dbl>, Sample_19 <dbl>,
-    ## #   Sample_36 <dbl>, Sample_37 <dbl>, Sample_38 <dbl>, Sample_39 <dbl>,
-    ## #   Sample_11 <dbl>, Sample_12 <dbl>, Sample_2 <dbl>, Sample_9 <dbl>
+    ##            gene Sample_20 Sample_21 Sample_22 Sample_23 Sample_16
+    ##           <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+    ##  1   1415670_at     7.236     7.414     7.169     7.070     7.383
+    ##  2   1415671_at     9.478    10.020     9.854    10.130     7.637
+    ##  3   1415672_at    10.010    10.040     9.913     9.907     8.423
+    ##  4   1415673_at     8.362     8.374     8.404     8.487     8.363
+    ##  5 1415674_a_at     8.585     8.615     8.520     8.641     8.509
+    ##  6   1415675_at     9.591     9.719     9.709     9.700     9.656
+    ##  7 1415676_a_at     9.684    10.420     9.866    10.190     8.045
+    ##  8   1415677_at     7.236     7.901     7.478     7.492     7.338
+    ##  9   1415678_at    11.710    11.510    11.530    11.570    10.460
+    ## 10   1415679_at     9.214    10.100     9.819     9.918     8.216
+    ## # ... with 29,939 more rows, and 34 more variables: Sample_17 <dbl>,
+    ## #   Sample_6 <dbl>, Sample_24 <dbl>, Sample_25 <dbl>, Sample_26 <dbl>,
+    ## #   Sample_27 <dbl>, Sample_14 <dbl>, Sample_3 <dbl>, Sample_5 <dbl>,
+    ## #   Sample_8 <dbl>, Sample_28 <dbl>, Sample_29 <dbl>, Sample_30 <dbl>,
+    ## #   Sample_31 <dbl>, Sample_1 <dbl>, Sample_10 <dbl>, Sample_4 <dbl>,
+    ## #   Sample_7 <dbl>, Sample_32 <dbl>, Sample_33 <dbl>, Sample_34 <dbl>,
+    ## #   Sample_35 <dbl>, Sample_13 <dbl>, Sample_15 <dbl>, Sample_18 <dbl>,
+    ## #   Sample_19 <dbl>, Sample_36 <dbl>, Sample_37 <dbl>, Sample_38 <dbl>,
+    ## #   Sample_39 <dbl>, Sample_11 <dbl>, Sample_12 <dbl>, Sample_2 <dbl>,
+    ## #   Sample_9 <dbl>
 
 ``` r
 # reuse getExpressionForSamples() to get expression data for the samples that we want
@@ -1343,7 +1352,7 @@ expressionDataForHits %>%
   facet_wrap(~gene)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-markdown_github/unnamed-chunk-34-1.png)
+![](sm4_differential_expression_analysis_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-34-1.png)
 
 Part 5: Deliverables
 --------------------

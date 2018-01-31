@@ -31,6 +31,8 @@ By the end of this seminar, you should
     * Install by running 'install.packages("reshape2", dependencies = TRUE)'
 * [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
     * Install by running 'source("https://bioconductor.org/biocLite.R")' and then 'biocLite("limma")'
+* knitr
+    * Install by running 'install.packages("knitr", dependencies = TRUE), and then load using library(knitr)
 
 ## Functions used
 
@@ -86,19 +88,19 @@ First, we introduce the gene expression dataset: its usual format & organization
 
 So, what does gene expression data look like? 
 
-In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset. 
+In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051) for more details about the dataset. This is the same data set we've been exploring in class!
 
 ### Import data
 
-First we import the dataset. With most gene expression datasets, there will be two components that generally come in two different files. 
+First we import the dataset. The file is located [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/seminars/seminars_winter_2017/seminar4/expression_data). With most gene expression datasets, there will be two components that generally come in two different files. 
 
 The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column. 
 
 Here, we load the expression matrix. We've printed out a small subset of the dataset so you have an idea what it looks like. 
 
 ```{r}
-
-expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE)
+expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE, sep = "\t", 
+															 quote = "")
 expressionMatrix <- expressionMatrix %>% rownames_to_column("gene") # rownames deprecated in tibbles and are hard to work with in ggplot
 expressionMatrix <- expressionMatrix %>% as_tibble() # turn into tibble for pretty printing
 
