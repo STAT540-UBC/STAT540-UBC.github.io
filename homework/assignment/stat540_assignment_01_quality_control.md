@@ -3,7 +3,7 @@ STAT 540 - Assignment 1 - Quality Control
 
 The dataset used for this assignment has been published by Scheffer et al. in 2015. The raw RNA-Seq reads have been submitted to GEO under the series ID [GSE60019](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60019). Be sure to review the [paper](https://www.ncbi.nlm.nih.gov/pubmed/25904789) to gain some familiarity with the study before you start.
 
-The transcriptomic data and the samples metadata can be downloaded here: [Samples Metadata](https://github.com/STAT540-UBC/STAT540-instructors-only/blob/master/homework/homework_winter_2017/01_quality_control/data/gse60019_expression_matrix.RDS), and [Expression Matrix](https://github.com/STAT540-UBC/STAT540-instructors-only/blob/master/homework/homework_winter_2017/01_quality_control/data/gse60019_experiment_design.RDS).
+The transcriptomic data and the samples metadata can be downloaded here: [Samples Metadata](data/gse60019_expression_matrix.RDS), and [Expression Matrix](data/gse60019_experiment_design.RDS).
 
 The raw reads have been mapped and processed into gene expression values using an established RNA-Seq pipeline at the [Pavlidis Lab](http://pavlab.msl.ubc.ca/) during data curation in [Gemma](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=9818). Expression values are given in Counts per Million (CPM). Quantile normalization has been done as part of the data processing pipeline.
 
