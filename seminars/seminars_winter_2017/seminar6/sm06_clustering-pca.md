@@ -34,16 +34,33 @@ Install required packages if you haven't done so before. This seminar will requi
 library(RColorBrewer)
 library(cluster)
 library(pvclust)
+```
+
+    ## Warning: package 'pvclust' was built under R version 3.3.3
+
+``` r
 library(xtable)
 library(limma)
+```
+
+    ## Warning: package 'limma' was built under R version 3.3.3
+
+``` r
 library(plyr)
 library(lattice)
 library(RCurl)
+```
+
+    ## Warning: package 'RCurl' was built under R version 3.3.3
+
+``` r
 options(download.file.method = "curl")
 library(GEOquery)
 library(knitr)
 library(pheatmap)
 ```
+
+    ## Warning: package 'pheatmap' was built under R version 3.3.3
 
 If you don't have `GEOquery` installed, you will need to get it using biocLite (`install.packages` won't work!).
 
@@ -379,8 +396,8 @@ align(prTable) <- "lccccc"
 print(prTable, type = "html", caption.placement = "top")
 ```
 
-<!-- html table generated in R 3.4.3 by xtable 1.8-2 package -->
-<!-- Wed Feb 14 02:17:11 2018 -->
+<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
+<!-- Wed Feb 14 12:00:50 2018 -->
 <table border="1">
 <caption align="top">
 Number of samples from each experimental group within each k-means cluster
@@ -510,8 +527,8 @@ align(pamTable) <- "lccccc"
 print(pamTable, type = "html", caption.placement = "top")
 ```
 
-<!-- html table generated in R 3.4.3 by xtable 1.8-2 package -->
-<!-- Wed Feb 14 02:17:11 2018 -->
+<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
+<!-- Wed Feb 14 12:00:50 2018 -->
 <table border="1">
 <caption align="top">
 Number of samples from each experimental group within each PAM cluster
@@ -645,6 +662,21 @@ In many cases, analysts use cluster analysis to illustrate the results of a diff
 #### A smaller dataset
 
 In [Seminar 6: Fitting and interpretting linear models (high volume)](http://stat540-ubc.github.io/sm06_highVolumeLinearModelling.html), you've learned how to use `limma` to fit a common linear model to a very large number of genes and thus identify genes that show differential expression over the course of development.
+
+``` r
+cutoff <- 1e-05
+DesMat <- model.matrix(~grp, prDes)
+dsFit <- lmFit(sprDat, DesMat)
+dsEbFit <- eBayes(dsFit)
+dsHits <- topTable(dsEbFit, coef = grep("grp", colnames(coef(dsEbFit))), p.value = cutoff, 
+    n = Inf)
+numBHhits <- nrow(dsHits)
+
+topGenes <- rownames(dsHits)
+
+# Scaled data of topGenes
+topDat <- sprDat[topGenes, ]
+```
 
 We start by using different clustering algorithms to cluster the top 897 genes that showed differential expression across the different developmental stage (BH adjusted p value &lt; 10^{-5}).
 
@@ -916,6 +948,11 @@ In this plot we are changing the perplexity parameter for the two different plot
 ``` r
 # install.packages('Rtsne')
 library(Rtsne)
+```
+
+    ## Warning: package 'Rtsne' was built under R version 3.3.3
+
+``` r
 colors = rainbow(length(unique(prDes$grp)))
 names(colors) = unique(prDes$grp)
 tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max_iter = 100)
@@ -930,9 +967,9 @@ tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max
     ##  - point 0 of 24
     ## Done in 0.00 seconds (sparsity = 0.000000)!
     ## Learning embedding...
-    ## Iteration 50: error is 0.000000 (50 iterations in 0.00 seconds)
+    ## Iteration 50: error is 0.000000 (50 iterations in 0.01 seconds)
     ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Fitting performed in 0.01 seconds.
 
 ``` r
 plot(tsne$Y, main = "tsne")
@@ -955,7 +992,7 @@ tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, ma
     ## Learning embedding...
     ## Iteration 50: error is 58.920558 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 63.550261 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.01 seconds.
+    ## Fitting performed in 0.00 seconds.
 
 ``` r
 plot(tsne_p1$Y, main = "tsne")

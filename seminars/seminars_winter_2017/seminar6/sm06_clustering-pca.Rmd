@@ -328,7 +328,7 @@ In many cases, analysts use cluster analysis to illustrate the results of a diff
 
 In [Seminar 6: Fitting and interpretting linear models (high volume)](http://stat540-ubc.github.io/sm06_highVolumeLinearModelling.html), you've learned how to use `limma` to fit a common linear model to a very large number of genes and thus identify genes that show differential expression over the course of development.  
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 cutoff <-  1e-05
 DesMat <- model.matrix(~ grp, prDes)
 dsFit <- lmFit(sprDat, DesMat)
