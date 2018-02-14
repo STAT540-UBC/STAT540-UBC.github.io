@@ -30,6 +30,21 @@ Install required packages if you haven't done so before. This seminar will requi
 
 > Remember you may need to edit the file paths below, to reflect your working directory and local file storage choices.
 
+``` r
+library(RColorBrewer)
+library(cluster)
+library(pvclust)
+library(xtable)
+library(limma)
+library(plyr)
+library(lattice)
+library(RCurl)
+options(download.file.method = "curl")
+library(GEOquery)
+library(knitr)
+library(pheatmap)
+```
+
 If you don't have `GEOquery` installed, you will need to get it using biocLite (`install.packages` won't work!).
 
 ``` r
@@ -39,6 +54,31 @@ biocLite("GEOquery")
 
 **Read the data into R**
 &gt; We will be reading in the data using the GEOquery library. This lets us read in the expression data and phenotypic data for a particular analysis, using its GEO accession ID.
+
+``` r
+if (file.exists("GSE70213.Rdata")) {
+    # if previously downloaded
+    load("GSE70213.Rdata")
+} else {
+    # Get geo object that contains our data and phenotype information
+    geo_obj <- getGEO("GSE70213", GSEMatrix = TRUE)
+    geo_obj <- geo_obj[[1]]
+    save(geo_obj, file = "GSE70213.Rdata")
+}
+# Get expression data
+data <- exprs(geo_obj)
+
+# Get covariate data
+prDes <- pData(geo_obj)[, c("organism_ch1", "title", colnames(pData(geo_obj))[grep("characteristics", 
+    colnames(pData(geo_obj)))])]
+
+## Clean up covariate data
+colnames(prDes) = c("organism", "sample_name", "tissue", "genotype", "sex", "age")
+prDes$tissue = as.factor(gsub("tissue: ", "", prDes$tissue))
+prDes$genotype = as.factor(gsub("genotype: ", "", prDes$genotype))
+prDes$sex = as.factor(gsub("Sex: ", "", prDes$sex))
+prDes$age = gsub("age: ", "", prDes$age)
+```
 
 > You might get an error like `Error in download.file..cannot download all files`.
 > This happens when R cannot connect to the NCBI ftp servers from linux systems. We will need to set the 'curl' option to fix this.
@@ -51,6 +91,10 @@ options(download.file.method = "curl")
 
 Let us take a look at our data.
 
+``` r
+kable(head(data[, 1:5]))
+```
+
 |          |   GSM1720833|   GSM1720834|   GSM1720835|   GSM1720836|   GSM1720837|
 |----------|------------:|------------:|------------:|------------:|------------:|
 | 10338001 |  2041.408000|  2200.861000|  2323.760000|  3216.263000|  2362.775000|
@@ -60,9 +104,17 @@ Let us take a look at our data.
 | 10338005 |     2.808835|     2.966376|     2.985357|     3.352954|     3.155735|
 | 10338006 |     3.573085|     3.816430|     3.815323|     4.690040|     3.862684|
 
+``` r
+dim(data)
+```
+
     ## [1] 35557    24
 
 We have 24 samples (*columns*) and 35,557 genes (*rows*) in our dataset. If we look in our covars object (called prDes), we should have 24 rows, each corresponding to each sample.
+
+``` r
+kable(head(prDes))
+```
 
 |            | organism     | sample\_name   | tissue     | genotype | sex  | age         |
 |------------|:-------------|:---------------|:-----------|:---------|:-----|:------------|
@@ -73,9 +125,17 @@ We have 24 samples (*columns*) and 35,557 genes (*rows*) in our dataset. If we l
 | GSM1720837 | Mus musculus | quad-control-5 | quadriceps | control  | male | 42 days old |
 | GSM1720838 | Mus musculus | quad-control-6 | quadriceps | control  | male | 40 days old |
 
+``` r
+dim(prDes)
+```
+
     ## [1] 24  6
 
 Now let us see how the gene values are spread across our dataset, with a frequency histogram.
+
+``` r
+hist(data, col = "gray", main = "GSE70213 - Histogram")
+```
 
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
@@ -83,11 +143,26 @@ It appears a lot of genes have values &lt; 1000. What happens if we plot the fre
 
 > Why might it be useful to log transform the data, prior to making any comparisons?
 
+``` r
+hist(log2(data + 1), col = "gray", main = "GSE70213 log transformed - Histogram")
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 Finally, as an additional step to make visualization easier later, we'll rescale the rows in our data object, since we're not interested in absolute differences in expression between genes at the moment. Note that although one can do this step within the `pheatmap()` function, it will not be available for other functions we will use. We can always go back to the original data if we need to.
 
+``` r
+sprDat <- t(scale(t(data)))
+str(sprDat, max.level = 0, give.attr = FALSE)
+```
+
     ##  num [1:35557, 1:24] -0.2042 0.9693 -0.0693 -0.3329 -0.7671 ...
+
+``` r
+round(data.frame(avgBefore = rowMeans(head(data)), avgAfter = rowMeans(head(sprDat)), 
+    varBefore = apply(head(data), 1, var), varAfter = apply(head(sprDat), 1, var)), 
+    2)
+```
 
     ##          avgBefore avgAfter varBefore varAfter
     ## 10338001   2109.42        0 110944.28        1
@@ -115,12 +190,42 @@ In this section we will illustrate different hierarchical clustering methods. Th
 
 However, for most expression data applications, we suggest you should standardize the data; use Euclidean as the "distance" (so it's just like Pearson correlation) and use "average linkage".
 
+``` r
+data_to_plot = sprDat
+# compute pairwise distances
+pr.dis <- dist(t(data_to_plot), method = "euclidean")
+
+# create a new factor representing the interaction of tissue type and genotype
+prDes$grp <- with(prDes, interaction(tissue, genotype))
+summary(prDes$grp)
+```
+
     ##    quadriceps.control        soleus.control quadriceps.nebulin KO 
     ##                     6                     6                     6 
     ##     soleus.nebulin KO 
     ##                     6
 
+``` r
+# compute hierarchical clustering using different linkage types
+pr.hc.s <- hclust(pr.dis, method = "single")
+pr.hc.c <- hclust(pr.dis, method = "complete")
+pr.hc.a <- hclust(pr.dis, method = "average")
+pr.hc.w <- hclust(pr.dis, method = "ward.D")
+
+# plot them
+op <- par(mar = c(0, 4, 4, 2), mfrow = c(2, 2))
+
+plot(pr.hc.s, labels = FALSE, main = "Single", xlab = "")
+plot(pr.hc.c, labels = FALSE, main = "Complete", xlab = "")
+plot(pr.hc.a, labels = FALSE, main = "Average", xlab = "")
+plot(pr.hc.w, labels = FALSE, main = "Ward", xlab = "")
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+``` r
+par(op)
+```
 
 We can look at the trees that are output from different clustering algorithms. However, it can also be visually helpful to identify what sorts of trends in the data are associated with these clusters. We can look at this output using heatmaps. We will be using the *pheatmap* package for the same.
 
@@ -134,13 +239,50 @@ By default, `pheatmap()` uses the `hclust()` function, which takes a distance ma
 
 **Exercise**: Play with the options of the pheatmap function and compare the different heatmaps. Note that one can also use the original data `data` and set the option `scale = "row"`. You will get the same heatmaps although the columns may be ordered differently (use `cluster_cols = FALSE` to suppress reordering).
 
+``` r
+# set pheatmap clustering parameters
+clust_dist_col = "euclidean"  #‘'correlation'’ for Pearson correlation, ‘'euclidean'’, ‘'maximum'’, ‘'manhattan'’, ‘'canberra'’, ‘'binary'’ or ‘'minkowski'’
+clust_method = "ward.D2"  #‘'ward.D'’, ‘'ward.D2'’,‘'single'’, ‘'complete'’, ‘'average'’ (= UPGMA), ‘'mcquitty'’ (= WPGMA), ‘'median'’ (= WPGMC) or ‘'centroid'’ (= UPGMC)
+clust_scale = "none"  #'column', 'none', 'row'
+
+## the annotation option uses the covariate object (prDes) we defined. It should
+## have the same rownames, as the colnames in our data object (data_to_plot).
+
+pheatmap(data_to_plot, cluster_rows = FALSE, scale = clust_scale, clustering_method = clust_method, 
+    clustering_distance_cols = clust_dist_col, , show_colnames = T, show_rownames = FALSE, 
+    main = "Clustering heatmap for GSE70213", annotation = prDes[, c("tissue", "genotype", 
+        "grp")])
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 We can also change the colours of the different covariates. As you see, this can help differentiate important variables and the clustering trends.
 
+``` r
+## We can change the colours of the covariates
+var1 = c("orange1", "darkred")
+names(var1) = levels(prDes$tissue)
+var2 = c("grey", "black")
+names(var2) = levels(prDes$genotype)
+var3 = c("pink1", "pink3", "lightblue1", "blue3")
+names(var3) = levels(as.factor(prDes$grp))
+covar_color = list(tissue = var1, genotype = var2, grp = var3)
+
+my_heatmap_obj = pheatmap(data_to_plot, cluster_rows = FALSE, scale = clust_scale, 
+    clustering_method = clust_method, clustering_distance_cols = clust_dist_col, 
+    show_rownames = FALSE, main = "Clustering heatmap for GSE70213", annotation = prDes[, 
+        c("tissue", "genotype", "grp")], annotation_colors = covar_color)
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 We can also get clusters from our pheatmap object. We will use the `cutree` function to extract the clusters. Note that we can do this for samples (look at the `tree_col`) or for genes (look at the `tree_row`).
+
+``` r
+cluster_samples = cutree(my_heatmap_obj$tree_col, k = 10)
+# cluster_genes = cutree(my_heatmap_obj$tree_row, k=100)
+kable(cluster_samples)
+```
 
 |            |    x|
 |------------|----:|
@@ -170,7 +312,19 @@ We can also get clusters from our pheatmap object. We will use the `cutree` func
 | GSM1720856 |   10|
 
 Note you can do this with the base `hclust` method too, as shown here. We are using one of the hclust objects we defined earlier in this document.
+
+``` r
+# identify 10 clusters
+op <- par(mar = c(1, 4, 4, 1))
+plot(pr.hc.w, labels = prDes$grp, cex = 0.6, main = "Ward showing 10 clusters")
+rect.hclust(pr.hc.w, k = 10)
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-15-1.png)
+
+``` r
+par(op)
+```
 
 We can save the heatmap we made, to a PDF file for reference. Remember to define the filename properly as the file will be saved relative to where you are running the script in your directory structure.
 
@@ -202,10 +356,31 @@ Often, we have to try different 'k' values before we identify the most suitable 
 
 Here we'll just do a k-means clustering of samples using all genes (~35K).
 
+``` r
+# Objects in columns
+set.seed(31)
+k <- 5
+pr.km <- kmeans(t(data_to_plot), centers = k, nstart = 50)
+
+# We can look at the within sum of squares of each cluster
+pr.km$withinss
+```
+
     ## [1] 131484.25  95226.22 107233.61 103083.34      0.00
 
-<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
-<!-- Thu Jan 25 14:37:40 2018 -->
+``` r
+# We can look at the composition of each cluster
+pr.kmTable <- data.frame(exptStage = prDes$grp, cluster = pr.km$cluster)
+prTable <- xtable(with(pr.kmTable, table(exptStage, cluster)), caption = "Number of samples from each experimental group within each k-means cluster")
+```
+
+``` r
+align(prTable) <- "lccccc"
+print(prTable, type = "html", caption.placement = "top")
+```
+
+<!-- html table generated in R 3.4.3 by xtable 1.8-2 package -->
+<!-- Wed Feb 14 02:17:11 2018 -->
 <table border="1">
 <caption align="top">
 Number of samples from each experimental group within each k-means cluster
@@ -324,8 +499,19 @@ Nice features of partitioning around medoids (PAM) are: (a) it accepts a dissimi
 
 We will determine the optimal number of clusters in this experiment, by looking at the average silhouette value. This is a stastistic introduced in the PAM algorithm, which lets us identify a suitable k.
 
-<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
-<!-- Thu Jan 25 14:37:40 2018 -->
+``` r
+pr.pam <- pam(pr.dis, k = k)
+pr.pamTable <- data.frame(exptStage = prDes$grp, cluster = pr.pam$clustering)
+pamTable <- xtable(with(pr.pamTable, table(exptStage, cluster)), caption = "Number of samples from each experimental group within each PAM cluster")
+```
+
+``` r
+align(pamTable) <- "lccccc"
+print(pamTable, type = "html", caption.placement = "top")
+```
+
+<!-- html table generated in R 3.4.3 by xtable 1.8-2 package -->
+<!-- Wed Feb 14 02:17:11 2018 -->
 <table border="1">
 <caption align="top">
 Number of samples from each experimental group within each PAM cluster
@@ -434,7 +620,16 @@ soleus.nebulin KO
 
 **The silhouette plot** The `cluster` package contains the function `silhouette()` that compares the minimum average dissimilarity of each object to other clusters **with** the average dissimilarity to objects in its own cluster. The resulting measure is called the "width of each object's silhouette". A value close to 1 indicates that the object is similar to objects in its cluster compared to those in other clusters. Thus, the average of all objects silhouette widths gives an indication of how well the clusters are defined.
 
+``` r
+op <- par(mar = c(5, 1, 4, 4))
+plot(pr.pam, main = "Silhouette Plot for 5 clusters")
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-21-1.png)
+
+``` r
+par(op)
+```
 
 **Take-home problem** (1)draw a plot with number of clusters in the x-axis and the average silhouette widths in the y-axis. Use the information obtained to determine if 5 was the best choice for the number of clusters.
 
@@ -455,9 +650,28 @@ We start by using different clustering algorithms to cluster the top 897 genes t
 
 #### Agglomerative Hierarchical Clustering
 
-We can plot the heatmap using the `pheatmap` function.... ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
+We can plot the heatmap using the `pheatmap` function....
 
-Or we can plot the heatmap using the `plot` function, after we have made the hclust object.... ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-24-1.png)
+``` r
+pheatmap(topDat, cluster_rows = TRUE, scale = "none", clustering_method = "average", 
+    clustering_distance_cols = "euclidean", clustering_distance_rows = "euclidean", 
+    annotation = prDes[, c("tissue", "genotype", "grp")], show_rownames = FALSE, 
+    annotation_colors = covar_color)
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
+
+Or we can plot the heatmap using the `plot` function, after we have made the hclust object....
+
+``` r
+geneC.dis <- dist(topDat, method = "euclidean")
+
+geneC.hc.a <- hclust(geneC.dis, method = "average")
+
+plot(geneC.hc.a, labels = FALSE, main = "Hierarchical with Average Linkage", xlab = "")
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 As you can see, when there are lots of objects to cluster, the dendrograms are in general not very informative as it is difficult to identify any interesting pattern in the data.
 
@@ -466,6 +680,28 @@ As you can see, when there are lots of objects to cluster, the dendrograms are i
 The most interesting thing to look at is the cluster centers (basically the "prototype" for the cluster) and membership sizes. Then we can try to visualize the genes that are in each cluster.
 
 Let's visualize a cluster (remember the data were rescaled) using line plots. This makes sense since we also want to be able to see the cluster center.
+
+``` r
+set.seed(1234)
+k <- 5
+kmeans.genes <- kmeans(topDat, centers = k)
+
+# choose which cluster we want
+clusterNum <- 2
+
+# Set up the axes without plotting; ylim set based on trial run.
+plot(kmeans.genes$centers[clusterNum, ], ylim = c(0, 10), type = "n", xlab = "Samples", 
+    ylab = "Relative expression")
+
+# Plot the expression of all the genes in the selected cluster in grey.
+matlines(y = t(topDat[kmeans.genes$cluster == clusterNum, ]), col = "grey")
+
+# Add the cluster center. This is last so it isn't underneath the members
+points(kmeans.genes$centers[clusterNum, ], type = "l")
+
+# Optional: colored points to show which stage the samples are from.
+points(kmeans.genes$centers[clusterNum, ], col = prDes$grp, pch = 20)
+```
 
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
@@ -480,9 +716,56 @@ As mentioned in lecture 16, we need to find a balance between accurately groupin
 
 First, we calculate the AIC for each choice of k. We are clustering the samples in this example:
 
-Then, we plot the AIC vs. the number of clusters. We want to choose the k value that corresponds to the elbow point on the AIC/BIC curve. ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
+``` r
+set.seed(31)
 
-Same for BIC ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
+k_max <- 10  # the max number of clusters to explore clustering with 
+km_fit <- list()  # create empty list to store the kmeans object
+
+for (i in 1:k_max) {
+    k_cluster <- kmeans(t(sprDat), centers = i, nstart = 50)
+    km_fit[[i]] <- k_cluster
+}
+
+
+# calculate AIC
+km_AIC <- function(km_cluster) {
+    m <- ncol(km_cluster$centers)
+    n <- length(km_cluster$cluster)
+    k <- nrow(km_cluster$centers)
+    D <- km_cluster$tot.withinss
+    return(D + 2 * m * k)
+}
+```
+
+Then, we plot the AIC vs. the number of clusters. We want to choose the k value that corresponds to the elbow point on the AIC/BIC curve.
+
+``` r
+aic <- sapply(km_fit, km_AIC)
+plot(seq(1, k_max), aic, xlab = "Number of clusters", ylab = "AIC", pch = 20, cex = 2, 
+    main = "Clustering Samples")
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
+
+Same for BIC
+
+``` r
+# calculate BIC
+km_BIC <- function(km_cluster) {
+    m <- ncol(km_cluster$centers)
+    n <- length(km_cluster$cluster)
+    k <- nrow(km_cluster$centers)
+    D <- km_cluster$tot.withinss
+    return(D + log(n) * m * k)
+}
+
+bic <- sapply(km_fit, km_BIC)
+plot(seq(1, k_max), bic, xlab = "Number of clusters", ylab = "BIC", pch = 20, cex = 2, 
+    main = "Clustering Samples")
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 > Can you eyeball the optimal 'k' by looking at these plots?
 
@@ -498,6 +781,10 @@ An important issue for clustering is the question of certainty of the cluster me
 
 Unlike picking the right clusters in the partition based methods (like k-means and PAM), here we are identifying the most stable clustering arising from hierarchichal clustering.
 
+``` r
+pvc <- pvclust(topDat, nboot = 100)
+```
+
     ## Bootstrap (r = 0.5)... Done.
     ## Bootstrap (r = 0.6)... Done.
     ## Bootstrap (r = 0.7)... Done.
@@ -508,6 +795,11 @@ Unlike picking the right clusters in the partition based methods (like k-means a
     ## Bootstrap (r = 1.2)... Done.
     ## Bootstrap (r = 1.3)... Done.
     ## Bootstrap (r = 1.4)... Done.
+
+``` r
+plot(pvc, labels = prDes$grp, cex = 0.6)
+pvrect(pvc, alpha = 0.95)
+```
 
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
@@ -524,22 +816,63 @@ In R, we can use `prcomp()` to do PCA. You can also use `svd()`.
 
 > Scaling is suppressed because we already scaled the rows. You can experiment with this to see what happens.
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-2.png)
+``` r
+pcs <- prcomp(sprDat, center = FALSE, scale = FALSE)
+
+# scree plot
+plot(pcs)
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)
+
+``` r
+# append the rotations for the first 10 PCs to the phenodata
+prinComp <- cbind(prDes, pcs$rotation[rownames(prDes), 1:10])
+
+# scatter plot showing us how the first few PCs relate to covariates
+plot(prinComp[, c("genotype", "tissue", "PC1", "PC2", "PC3")], pch = 19, cex = 0.8)
+```
+
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-2.png)
 
 What does the samples spread look like, as explained by their first 2 principal components?
+
+``` r
+plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 Is the covariate `tissue` localized in the different clusters we see?
+
+``` r
+plot(prinComp[, c("PC1", "PC2")], bg = prDes$tissue, pch = 21, cex = 1.5)
+legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$tissue)), pch = 21, pt.bg = c(1, 
+    2, 3, 4, 5))
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 Is the covariate `genotype` localized in the different clusters we see?
+
+``` r
+plot(prinComp[, c("PC1", "PC2")], bg = prDes$genotype, pch = 21, cex = 1.5)
+legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$genotype)), pch = 21, pt.bg = c(1, 
+    2, 3, 4, 5))
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-33-1.png)
 
 PCA is a useful initial means of analysing any hidden structures in your data. We can also use it to determine how many sources of variance are important, and how the different features interact to produce these sources.
 
 First, let us first assess how much of the total variance is captured by each principal component.
 
-    ## Importance of components%s:
+``` r
+# Get the subset of PCs that capture the most variance in your predictors
+summary(pcs)
+```
+
+    ## Importance of components:
     ##                           PC1    PC2     PC3     PC4     PC5     PC6
     ## Standard deviation     2.1235 1.8957 1.49067 1.30336 1.02878 0.92795
     ## Proportion of Variance 0.1961 0.1562 0.09661 0.07386 0.04602 0.03744
@@ -560,6 +893,10 @@ First, let us first assess how much of the total variance is captured by each pr
 We see that the first two principal components capture 35% of the total variance. If we include the first 11 principal components, we capture 75% of the total variance.
 Depending on which of these subsets you want to keep, we will select the rotated data from the first n components. We can use the `tol` parameter in `prcomp` to remove trailing PCs.
 
+``` r
+pcs_2dim = prcomp(sprDat, center = FALSE, scale = FALSE, tol = 0.8)
+```
+
 It is commonly seen a cluster analysis on the first 3 principal components to illustrate and explore the data.
 
 ### t-SNE plots
@@ -576,6 +913,14 @@ The computational costs of t-SNE are also quite expensive, and finding an embedd
 We will be using the `Rtsne` package to visualize our data using t-SNE.
 In this plot we are changing the perplexity parameter for the two different plots. As you see, the outputs are remarkably different.
 
+``` r
+# install.packages('Rtsne')
+library(Rtsne)
+colors = rainbow(length(unique(prDes$grp)))
+names(colors) = unique(prDes$grp)
+tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max_iter = 100)
+```
+
     ## Read the 24 x 24 data matrix successfully!
     ## Using no_dims = 2, perplexity = 0.100000, and theta = 0.500000
     ## Computing input similarities...
@@ -589,7 +934,16 @@ In this plot we are changing the perplexity parameter for the two different plot
     ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
     ## Fitting performed in 0.00 seconds.
 
+``` r
+plot(tsne$Y, main = "tsne")
+text(tsne$Y, labels = prDes$grp, col = colors[prDes$grp])
+```
+
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-36-1.png)
+
+``` r
+tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, max_iter = 100)
+```
 
     ## Read the 24 x 24 data matrix successfully!
     ## Using no_dims = 2, perplexity = 1.000000, and theta = 0.500000
@@ -601,7 +955,12 @@ In this plot we are changing the perplexity parameter for the two different plot
     ## Learning embedding...
     ## Iteration 50: error is 58.920558 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 63.550261 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Fitting performed in 0.01 seconds.
+
+``` r
+plot(tsne_p1$Y, main = "tsne")
+text(tsne_p1$Y, labels = prDes$grp, col = colors[prDes$grp])
+```
 
 ![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-36-2.png)
 

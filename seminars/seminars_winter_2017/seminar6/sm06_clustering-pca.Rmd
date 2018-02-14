@@ -8,7 +8,7 @@ Seminar 6: Dimensionality reduction and Cluster Analysis
 Contributors: Gabriela Cohen Freue, Jasleen Grewal, Alice Zhu.  
 
 ```{r include = FALSE }
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, tidy.opts=list(width.cutoff=80),tidy=TRUE)
+knitr::opts_chunk$set(echo=TRUE, warning=TRUE, message=TRUE, tidy.opts=list(width.cutoff=80),tidy=TRUE)
 knitr::opts_chunk$set(fig.width=6, fig.height=4) 
 ```
 
