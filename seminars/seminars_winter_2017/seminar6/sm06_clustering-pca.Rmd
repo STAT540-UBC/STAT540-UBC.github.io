@@ -540,4 +540,4 @@ text(tsne_p1$Y, labels=prDes$grp, col=colors[prDes$grp])
 
 ## Deliverables   
 - Regenerate the pheatmap clustering plot for the top genes, selected from limma, using clustering distance: correlation, and clustering method: mcquitty.  
-- Regenerate the plots in this document using `lattice` and/or `ggplot2`.   
+- Regenerate the heatmaps and dendrograms in this document using `ggplot2`.   

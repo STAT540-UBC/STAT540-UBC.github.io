@@ -801,7 +801,7 @@ tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max
     ## Learning embedding...
     ## Iteration 50: error is 0.000000 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.01 seconds.
+    ## Fitting performed in 0.00 seconds.
 
 ``` r
 plot(tsne$Y, main = "tsne")
@@ -824,7 +824,7 @@ tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, ma
     ## Learning embedding...
     ## Iteration 50: error is 58.920558 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 63.550261 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Fitting performed in 0.01 seconds.
 
 ``` r
 plot(tsne_p1$Y, main = "tsne")
@@ -837,4 +837,4 @@ Deliverables
 ------------
 
 -   Regenerate the pheatmap clustering plot for the top genes, selected from limma, using clustering distance: correlation, and clustering method: mcquitty.
--   Regenerate the plots in this document using `lattice` and/or `ggplot2`.
+-   Regenerate the heatmaps and dendrograms in this document using `ggplot2`.
