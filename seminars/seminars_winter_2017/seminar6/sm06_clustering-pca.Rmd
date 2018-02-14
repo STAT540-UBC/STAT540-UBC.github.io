@@ -263,13 +263,7 @@ pr.km$withinss
 
 #We can look at the composition of each cluster
 pr.kmTable <- data.frame(exptStage = prDes$grp, cluster = pr.km$cluster)
-prTable  <-  xtable(with(pr.kmTable, table(exptStage,cluster)),
-                    caption='Number of samples from each experimental group within each k-means cluster')
-```
-
-```{r, results = 'asis'}
-align(prTable) <- "lccccc"
-print(prTable, type = 'html', caption.placement = 'top')
+kable(pr.kmTable)
 ```
 
 > Repeat the analysis using a different seed and check if you get the same clusters.
@@ -292,13 +286,7 @@ We will determine the optimal number of clusters in this experiment, by looking 
 pr.pam <- pam(pr.dis, k = k)
 pr.pamTable <- data.frame(exptStage = prDes$grp,
                           cluster = pr.pam$clustering)
-pamTable  <-  xtable(with(pr.pamTable, table(exptStage, cluster)),
-                     caption='Number of samples from each experimental group within each PAM cluster')
-```
-
-```{r, results = 'asis'}
-align(pamTable) <- "lccccc"
-print(pamTable, type = 'html', caption.placement = 'top')
+kable(pr.pamTable)
 ```
 
 > Additional information on the PAM result is available through `summary(pr.pam)`

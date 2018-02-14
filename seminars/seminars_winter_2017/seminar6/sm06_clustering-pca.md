@@ -388,120 +388,36 @@ pr.km$withinss
 ``` r
 # We can look at the composition of each cluster
 pr.kmTable <- data.frame(exptStage = prDes$grp, cluster = pr.km$cluster)
-prTable <- xtable(with(pr.kmTable, table(exptStage, cluster)), caption = "Number of samples from each experimental group within each k-means cluster")
+kable(pr.kmTable)
 ```
 
-``` r
-align(prTable) <- "lccccc"
-print(prTable, type = "html", caption.placement = "top")
-```
+|            | exptStage             |  cluster|
+|------------|:----------------------|--------:|
+| GSM1720833 | quadriceps.control    |        4|
+| GSM1720834 | quadriceps.control    |        4|
+| GSM1720835 | quadriceps.control    |        4|
+| GSM1720836 | quadriceps.control    |        5|
+| GSM1720837 | quadriceps.control    |        4|
+| GSM1720838 | quadriceps.control    |        4|
+| GSM1720839 | quadriceps.nebulin KO |        3|
+| GSM1720840 | quadriceps.nebulin KO |        3|
+| GSM1720841 | quadriceps.nebulin KO |        3|
+| GSM1720842 | quadriceps.nebulin KO |        3|
+| GSM1720843 | quadriceps.nebulin KO |        3|
+| GSM1720844 | quadriceps.nebulin KO |        3|
+| GSM1720845 | soleus.control        |        1|
+| GSM1720846 | soleus.control        |        1|
+| GSM1720847 | soleus.control        |        1|
+| GSM1720848 | soleus.control        |        1|
+| GSM1720849 | soleus.control        |        1|
+| GSM1720850 | soleus.control        |        1|
+| GSM1720851 | soleus.nebulin KO     |        2|
+| GSM1720852 | soleus.nebulin KO     |        2|
+| GSM1720853 | soleus.nebulin KO     |        2|
+| GSM1720854 | soleus.nebulin KO     |        2|
+| GSM1720855 | soleus.nebulin KO     |        2|
+| GSM1720856 | soleus.nebulin KO     |        2|
 
-<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
-<!-- Wed Feb 14 12:00:50 2018 -->
-<table border="1">
-<caption align="top">
-Number of samples from each experimental group within each k-means cluster
-</caption>
-<tr>
-<th>
-</th>
-<th>
-1
-</th>
-<th>
-2
-</th>
-<th>
-3
-</th>
-<th>
-4
-</th>
-<th>
-5
-</th>
-</tr>
-<tr>
-<td>
-quadriceps.control
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-5
-</td>
-<td align="center">
-1
-</td>
-</tr>
-<tr>
-<td>
-soleus.control
-</td>
-<td align="center">
-6
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-</tr>
-<tr>
-<td>
-quadriceps.nebulin KO
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-6
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-</tr>
-<tr>
-<td>
-soleus.nebulin KO
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-6
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-</tr>
-</table>
 > Repeat the analysis using a different seed and check if you get the same clusters.
 
 Helpful info and tips:
@@ -519,120 +435,36 @@ We will determine the optimal number of clusters in this experiment, by looking 
 ``` r
 pr.pam <- pam(pr.dis, k = k)
 pr.pamTable <- data.frame(exptStage = prDes$grp, cluster = pr.pam$clustering)
-pamTable <- xtable(with(pr.pamTable, table(exptStage, cluster)), caption = "Number of samples from each experimental group within each PAM cluster")
+kable(pr.pamTable)
 ```
 
-``` r
-align(pamTable) <- "lccccc"
-print(pamTable, type = "html", caption.placement = "top")
-```
+|            | exptStage             |  cluster|
+|------------|:----------------------|--------:|
+| GSM1720833 | quadriceps.control    |        1|
+| GSM1720834 | quadriceps.control    |        1|
+| GSM1720835 | quadriceps.control    |        1|
+| GSM1720836 | quadriceps.control    |        2|
+| GSM1720837 | quadriceps.control    |        1|
+| GSM1720838 | quadriceps.control    |        3|
+| GSM1720839 | quadriceps.nebulin KO |        3|
+| GSM1720840 | quadriceps.nebulin KO |        3|
+| GSM1720841 | quadriceps.nebulin KO |        3|
+| GSM1720842 | quadriceps.nebulin KO |        3|
+| GSM1720843 | quadriceps.nebulin KO |        3|
+| GSM1720844 | quadriceps.nebulin KO |        3|
+| GSM1720845 | soleus.control        |        4|
+| GSM1720846 | soleus.control        |        5|
+| GSM1720847 | soleus.control        |        5|
+| GSM1720848 | soleus.control        |        5|
+| GSM1720849 | soleus.control        |        5|
+| GSM1720850 | soleus.control        |        4|
+| GSM1720851 | soleus.nebulin KO     |        4|
+| GSM1720852 | soleus.nebulin KO     |        4|
+| GSM1720853 | soleus.nebulin KO     |        4|
+| GSM1720854 | soleus.nebulin KO     |        4|
+| GSM1720855 | soleus.nebulin KO     |        4|
+| GSM1720856 | soleus.nebulin KO     |        4|
 
-<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
-<!-- Wed Feb 14 12:00:50 2018 -->
-<table border="1">
-<caption align="top">
-Number of samples from each experimental group within each PAM cluster
-</caption>
-<tr>
-<th>
-</th>
-<th>
-1
-</th>
-<th>
-2
-</th>
-<th>
-3
-</th>
-<th>
-4
-</th>
-<th>
-5
-</th>
-</tr>
-<tr>
-<td>
-quadriceps.control
-</td>
-<td align="center">
-4
-</td>
-<td align="center">
-1
-</td>
-<td align="center">
-1
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-</tr>
-<tr>
-<td>
-soleus.control
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-2
-</td>
-<td align="center">
-4
-</td>
-</tr>
-<tr>
-<td>
-quadriceps.nebulin KO
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-6
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-</tr>
-<tr>
-<td>
-soleus.nebulin KO
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-0
-</td>
-<td align="center">
-6
-</td>
-<td align="center">
-0
-</td>
-</tr>
-</table>
 > Additional information on the PAM result is available through `summary(pr.pam)`
 
 **The silhouette plot** The `cluster` package contains the function `silhouette()` that compares the minimum average dissimilarity of each object to other clusters **with** the average dissimilarity to objects in its own cluster. The resulting measure is called the "width of each object's silhouette". A value close to 1 indicates that the object is similar to objects in its cluster compared to those in other clusters. Thus, the average of all objects silhouette widths gives an indication of how well the clusters are defined.
@@ -642,7 +474,7 @@ op <- par(mar = c(5, 1, 4, 4))
 plot(pr.pam, main = "Silhouette Plot for 5 clusters")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 ``` r
 par(op)
@@ -691,7 +523,7 @@ pheatmap(topDat, cluster_rows = TRUE, scale = "none", clustering_method = "avera
     annotation_colors = covar_color)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
 Or we can plot the heatmap using the `plot` function, after we have made the hclust object....
 
@@ -703,7 +535,7 @@ geneC.hc.a <- hclust(geneC.dis, method = "average")
 plot(geneC.hc.a, labels = FALSE, main = "Hierarchical with Average Linkage", xlab = "")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 As you can see, when there are lots of objects to cluster, the dendrograms are in general not very informative as it is difficult to identify any interesting pattern in the data.
 
@@ -735,7 +567,7 @@ points(kmeans.genes$centers[clusterNum, ], type = "l")
 points(kmeans.genes$centers[clusterNum, ], col = prDes$grp, pch = 20)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 > Improve the plot above adding sample names to the x-axis (e.g., wt\_E16\_1)
 
@@ -778,7 +610,7 @@ plot(seq(1, k_max), aic, xlab = "Number of clusters", ylab = "AIC", pch = 20, ce
     main = "Clustering Samples")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 Same for BIC
 
@@ -797,7 +629,7 @@ plot(seq(1, k_max), bic, xlab = "Number of clusters", ylab = "BIC", pch = 20, ce
     main = "Clustering Samples")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 > Can you eyeball the optimal 'k' by looking at these plots?
 
@@ -833,7 +665,7 @@ plot(pvc, labels = prDes$grp, cex = 0.6)
 pvrect(pvc, alpha = 0.95)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
 
 Feature reduction
 -----------------
@@ -855,7 +687,7 @@ pcs <- prcomp(sprDat, center = FALSE, scale = FALSE)
 plot(pcs)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 ``` r
 # append the rotations for the first 10 PCs to the phenodata
@@ -865,7 +697,7 @@ prinComp <- cbind(prDes, pcs$rotation[rownames(prDes), 1:10])
 plot(prinComp[, c("genotype", "tissue", "PC1", "PC2", "PC3")], pch = 19, cex = 0.8)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-2.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-2.png)
 
 What does the samples spread look like, as explained by their first 2 principal components?
 
@@ -873,7 +705,7 @@ What does the samples spread look like, as explained by their first 2 principal 
 plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 Is the covariate `tissue` localized in the different clusters we see?
 
@@ -883,7 +715,7 @@ legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$tissue)), pch = 21, pt.
     2, 3, 4, 5))
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-32-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 Is the covariate `genotype` localized in the different clusters we see?
 
@@ -893,7 +725,7 @@ legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$genotype)), pch = 21, p
     2, 3, 4, 5))
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-33-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 PCA is a useful initial means of analysing any hidden structures in your data. We can also use it to determine how many sources of variance are important, and how the different features interact to produce these sources.
 
@@ -967,7 +799,7 @@ tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max
     ##  - point 0 of 24
     ## Done in 0.00 seconds (sparsity = 0.000000)!
     ## Learning embedding...
-    ## Iteration 50: error is 0.000000 (50 iterations in 0.01 seconds)
+    ## Iteration 50: error is 0.000000 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
     ## Fitting performed in 0.01 seconds.
 
@@ -976,7 +808,7 @@ plot(tsne$Y, main = "tsne")
 text(tsne$Y, labels = prDes$grp, col = colors[prDes$grp])
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-36-1.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-1.png)
 
 ``` r
 tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, max_iter = 100)
@@ -999,7 +831,7 @@ plot(tsne_p1$Y, main = "tsne")
 text(tsne_p1$Y, labels = prDes$grp, col = colors[prDes$grp])
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-36-2.png)
+![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-2.png)
 
 Deliverables
 ------------
