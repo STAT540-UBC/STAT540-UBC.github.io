@@ -39,7 +39,11 @@ In this seminar, we are going to perform differential methylation analysis for A
 
 First, let's retrieve our datasets from GEO with `getGEO` from `GEOquery` package. Warning: this may take several minutes! So to avoid re-downloading in the future, save the data once you get it into a good shape.    
 
-As you can see, the datasets we got are large lists including Beta values as well as metadata. We can extract this information separately. Then we can isolate a subset of GSE42865 containing only the healthy cells.    
+As you can see, the datasets we got are large lists including Beta values as well as metadata. We can extract this information separately. Then we can isolate a subset of GSE42865 containing only the healthy cells.   
+
+**IMPORTANT EDIT:** Due to a change in the GEO, the getGEO functions below no longer work
+Please download your data from [this](https://www.dropbox.com/s/vkijisly8zwxkk9/methyl_ALL.Rdata?dl=0) link and place it next to your rmd file to be able
+to finish the assignment
 
 ```{r fetchGEO, message = F}
 if(file.exists("methyl_ALL.Rdata")){ # if previously downloaded
@@ -80,7 +84,7 @@ if(file.exists("methyl_ALL.Rdata")){ # if previously downloaded
 Now, we can do some exploratory analysis of the data, for examples, looking at distribution of Beta values in each sample or each probe. Here is a density plot of average Beta values for probes in the two datasets. See if you get similar results. 
 > Hint: you can use `rowMeans` function to calculate the average Beta value for each probe. Don't forget to use `na.rm = T` to exclude NAs. 
 
-```{r exploratory, echo = F}
+```{r exploratory, echo = T}
 # density plot
 library(ggplot2)
 dat.probeMeans <- c(rowMeans(ALL.dat, na.rm = T), rowMeans(CTRL.dat, na.rm = T)) 
@@ -107,7 +111,7 @@ str(beta.matrix, max.level = 0)
 # quantile normalization
 system.time(beta.norm <- betaqn(beta.matrix))
 ```
-```{r postNorm, echo = F}
+```{r postNorm, echo = T}
 dat.probeMeans <- c(rowMeans(beta.norm[, 1:ncol(ALL.dat)], na.rm = TRUE),
                     rowMeans(beta.norm[, ncol(ALL.dat):ncol(beta.norm)], na.rm = TRUE)) 
 plotNorm <-
@@ -138,7 +142,7 @@ M.norm <- beta2m(beta.norm)
 Now we can go ahead with differential methylation analysis -- `cases vs. controls` or `leukemia vs. healthy`. You can perform this analysis on each probe, but in this seminar, we will aggregate the probes into CpG Islands (CGIs), i.e. the CpG dense regions of the genome, and then detect differentially methylated CGIs. The biological function of CGIs is better studied, so the interpretation of our results will be easier if we focus on CGIs.  
 Conveniently, the Bioconductor package `FDb.InfiniumMethylation.hg19` provides all sorts of annotation information for the 450K methylation array including the association of probes to CGIs. We will extract this information and use the *mean of M values* for all probes in a specific CGI to represent its methylation level. Check if you get the same boxplot for CGI M values.    
 
-```{r eval=TRUE,echo=FALSE}
+```{r eval=TRUE,echo=T}
 #First get annotation data from FDb database  
 InfiniumMethylation <- features(FDb.InfiniumMethylation.hg19)
 
@@ -180,7 +184,7 @@ M.CGI <- subset(M.CGI, select = - Group.1)
 str(M.CGI, max.level = 0)
 ```
 
-```{r aggregate_old, echo=FALSE, eval=FALSE}
+```{r aggregate_old, echo=T, eval=FALSE}
 # Extracting probe ID to CpG islands association
 cginame <- as.data.frame(hg19.islands[,c("ID","")])
 cginame <- as.data.frame(IlluminaHumanMethylation450kCPGINAME)
@@ -203,7 +207,7 @@ rownames(M.CGI) <- M.CGI[, "Group.1"]
 M.CGI <- subset(M.CGI, select = - Group.1)
 str(M.CGI, max.level = 0)
 ```
-```{r M.CGI.boxplot, echo=F, warning=F}
+```{r M.CGI.boxplot, echo=T, warning=F}
 # check the distribution of CGI M values with boxplot
 library(reshape2)
 M.CGI.tall <- melt(t(M.CGI), value.name = 'M', varnames = c('Sample', 'CGI'))
