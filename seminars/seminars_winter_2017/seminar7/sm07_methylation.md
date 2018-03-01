@@ -22,6 +22,8 @@ Introduction
 The Illumina Infiniumn Array is a microarray based high throughput platform for methylation profiling on 487,173 pre-selected probes for CpGs across the human genome. A great number of datasets have been made publicly available through Gene Expression Omnibus (GEO). Each dataset in GEO has a unique GSE ID that we can use to retrieve it from GEO. There are several Bioconductor packages that are very useful for obtaining data from GEO and microarray analysis. If you haven't done so yet, install and load these packages.
 The Illumina Infinium Methylation is an aggregation of the HumanMethylation27 and HumanMethylation450 annotations.
 
+**IMPORTANT EDIT:** Due to a change in the GEO, the getGEO functions below no longer work Please download your data from [this](https://www.dropbox.com/s/vkijisly8zwxkk9/methyl_ALL.Rdata?dl=0) link and place it next to your rmd file to be able to finish the assignment
+
 ``` r
 source('http://bioconductor.org/biocLite.R')
 biocLite('GEOquery')
@@ -123,7 +125,7 @@ system.time(beta.norm <- betaqn(beta.matrix))
 ```
 
     ##    user  system elapsed 
-    ##  18.004   0.668  18.670
+    ##  26.521   2.852  29.434
 
 ``` r
 dat.probeMeans <- c(rowMeans(beta.norm[, 1:ncol(ALL.dat)], na.rm = TRUE),
@@ -291,30 +293,6 @@ str(M.CGI, max.level = 0)
     ## 'data.frame':    20414 obs. of  42 variables:
 
 ``` r
-# Extracting probe ID to CpG islands association
-cginame <- as.data.frame(hg19.islands[,c("ID","")])
-cginame <- as.data.frame(IlluminaHumanMethylation450kCPGINAME)
-names(cginame) <- c('Probe_ID', 'cginame')
-rownames(cginame) <- cginame$Probe_ID
-length(levels(factor(cginame$cginame)))   # No. of CGIs
-
-# restrict probes to those within CGIs
-beta.inCGI <- beta.norm[cginame$Probe_ID, ]
-M.inCGI <- M.norm[cginame$Probe_ID, ]
-nrow(M.inCGI)  # No. of probes within CGIs
-
-# aggregate probes to CGIs
-beta.CGI <- aggregate(beta.inCGI, by = list(cginame$cginame), mean, na.rm = T)
-rownames(beta.CGI) <- beta.CGI[, "Group.1"]
-beta.CGI <- subset(beta.CGI, select = - Group.1)
-str(beta.CGI, max.level = 0)
-M.CGI <- aggregate(M.inCGI, by = list(cginame$cginame), mean, na.rm = T)
-rownames(M.CGI) <- M.CGI[, "Group.1"]
-M.CGI <- subset(M.CGI, select = - Group.1)
-str(M.CGI, max.level = 0)
-```
-
-``` r
 # check the distribution of CGI M values with boxplot
 library(reshape2)
 M.CGI.tall <- melt(t(M.CGI), value.name = 'M', varnames = c('Sample', 'CGI'))
@@ -408,21 +386,21 @@ head(DMR)   # top hits
 ```
 
     ##                 logFC    AveExpr         t      P.Value    adj.P.Val
-    ## MIRLET7DHG  1.2189997  2.1623616  12.65473 4.805243e-16 9.809423e-12
-    ## SLC6A16     1.1853858  1.8099160  11.56502 9.615211e-15 9.814246e-11
-    ## SMC5        0.8456980  0.1723806  11.14704 3.159645e-14 2.150033e-10
-    ## GABRR2     -0.4506881  2.1276014 -10.90988 6.268791e-14 3.199278e-10
-    ## FCER1G     -1.7373139 -0.8682490 -10.55351 1.779210e-13 7.264159e-10
-    ## ODAPH       1.0424391  1.8333076  10.44988 2.417244e-13 8.224271e-10
+    ## MIRLET7DHG  1.2189997  2.1623616  12.65489 4.802396e-16 9.803611e-12
+    ## SLC6A16     1.1853858  1.8099160  11.56515 9.610163e-15 9.809094e-11
+    ## SMC5        0.8456980  0.1723806  11.14723 3.157506e-14 2.148577e-10
+    ## GABRR2     -0.4506881  2.1276014 -10.91036 6.259158e-14 3.194361e-10
+    ## FCER1G     -1.7373139 -0.8682490 -10.55359 1.778561e-13 7.261510e-10
+    ## C4orf26     1.0424391  1.8333076  10.45000 2.416054e-13 8.220220e-10
     ##                   B
-    ## MIRLET7DHG 25.99111
-    ## SLC6A16    23.18101
-    ## SMC5       22.05802
-    ## GABRR2     21.40963
-    ## FCER1G     20.42017
-    ## ODAPH      20.12900
+    ## MIRLET7DHG 25.99524
+    ## SLC6A16    23.18421
+    ## SMC5       22.06106
+    ## GABRR2     21.41331
+    ## FCER1G     20.42248
+    ## C4orf26    20.13136
 
-So using a cutoff of FDR = 0.01, we identified 3492 CGIs that are differentially methylated between ALL and control group. Now we can make some plots to check these hits.
+So using a cutoff of FDR = 0.01, we identified 3494 CGIs that are differentially methylated between ALL and control group. Now we can make some plots to check these hits.
 
 First, let us plot a heatmap of beta values of top 100 hits.
 
@@ -480,6 +458,8 @@ beta.DMR5probe.tall$CGI <-
    theme_bw())
 ```
 
+![](sm07_methylation_files/figure-markdown_github/stripplot-1.png)
+
 Finally, plot location of differentially methylated probes along each chromosome.
 
 ``` r
@@ -504,38 +484,6 @@ coordDMRprobe$chr <- as.character(coordDMRprobe$chr)
 ```
 
 ![](sm07_methylation_files/figure-markdown_github/coord-1.png)
-
-``` r
-# get the length of chromosome 1-22 and X
-chrlen <-
-  unlist(as.list(IlluminaHumanMethylation450kCHRLENGTHS)[c(as.character(1:22),
-                                                           "X")])   
-chrlen <- data.frame(chr = factor(names(chrlen)), length = chrlen)
-chr <- IlluminaHumanMethylation450kCHR        # get the chromosome of each probe
-# get the probe identifiers that are mapped to chromosome
-chr <- unlist(as.list(chr[mappedkeys(chr)]))
-# get chromosome coordinate of each probe
-coord <- IlluminaHumanMethylation450kCPGCOORDINATE   
-# get the probe identifiers that are mapped to coordinate
-coord <- unlist(as.list(coord[mappedkeys(coord)]))      
-coord <- data.frame(chr = chr[intersect(names(chr), names(coord))],
-                    coord = coord[intersect(names(chr), names(coord))])
-# coordinates of probes in DM CGIs
-coordDMRprobe <-
-  droplevels(na.omit(coord[cginame[cginame$cginame %in%
-                                     rownames(DMR),]$Probe_ID,])) 
-(coord.plot <- ggplot(data = coordDMRprobe) + 
-   geom_linerange(aes(factor(chr, levels = c("X", as.character(22:1))),
-                      ymin = 0, ymax = length), data = chrlen, alpha = 0.5) + 
-   geom_point(aes(x = factor(chr,
-                             levels = c("X", as.character(22:1))), y = coord),
-              position = position_jitter(width = 0.03), na.rm = T) + 
-   ggtitle("DMR positions on chromosomes") + 
-   ylab("Position of DMRs") +
-   xlab("chr") +
-   coord_flip() + 
-   theme_bw())
-```
 
 Interpretation and functional enrichment analysis
 -------------------------------------------------

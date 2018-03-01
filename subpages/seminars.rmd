@@ -16,7 +16,6 @@ library(glue)
 
 ```{r include = FALSE}
 githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
-
 # Import schedule
 rawdat <- read.csv(file.path("../course-admin", "schedule_2018.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)

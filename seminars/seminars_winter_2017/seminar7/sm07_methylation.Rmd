@@ -21,6 +21,9 @@ By the end of this tutorial, you should be able to
 The Illumina Infiniumn Array is a microarray based high throughput platform for methylation profiling on 487,173 pre-selected probes for CpGs across the human genome. A great number of datasets have been made publicly available through Gene Expression Omnibus (GEO). Each dataset in GEO has a unique GSE ID that we can use to retrieve it from GEO. There are several Bioconductor packages that are very useful for obtaining data from GEO and microarray analysis. If you haven't done so yet, install and load these packages.    
 The Illumina Infinium Methylation is an aggregation of the HumanMethylation27 and HumanMethylation450 annotations. 
 
+**IMPORTANT EDIT:** Due to a change in the GEO, the getGEO functions below no longer work Please download your data from [this](https://www.dropbox.com/s/vkijisly8zwxkk9/methyl_ALL.Rdata?dl=0) link and place it next to your rmd file to be able to finish the assignment
+
+
 ```{r, eval = FALSE}
 source('http://bioconductor.org/biocLite.R')
 biocLite('GEOquery')
@@ -184,7 +187,7 @@ M.CGI <- subset(M.CGI, select = - Group.1)
 str(M.CGI, max.level = 0)
 ```
 
-```{r aggregate_old, echo=T, eval=FALSE}
+```{r aggregate_old, echo=F, eval=FALSE}
 # Extracting probe ID to CpG islands association
 cginame <- as.data.frame(hg19.islands[,c("ID","")])
 cginame <- as.data.frame(IlluminaHumanMethylation450kCPGINAME)
@@ -264,7 +267,7 @@ par(op)
 
 Next, stripplot of beta values of probes within top 5 CGI hits.   
 
-```{r stripplot, warning=F, message=F, eval=F}
+```{r stripplot, warning=F, message=F, eval=T, echo = T}
 DMR5 <- topTable(DMRfitEb, coef = 'GroupALL', number = 5)
 beta.DMR5probe <-
   beta.inCGI[cginame[rownames(beta.inCGI),]$cginame %in% rownames(DMR5),]
@@ -308,7 +311,7 @@ coordDMRprobe$chr <- as.character(coordDMRprobe$chr)
    theme_bw())
 ```
 
-```{r coord_old, warning=F, message=F, eval=F}
+```{r coord_old, warning=F, message=F, eval=F, echo = FALSE}
 # get the length of chromosome 1-22 and X
 chrlen <-
   unlist(as.list(IlluminaHumanMethylation450kCHRLENGTHS)[c(as.character(1:22),
