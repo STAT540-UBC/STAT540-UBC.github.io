@@ -53,6 +53,8 @@ This assignment will assess your understanding of the seminar and lecture materi
 
 Questions for Part 1 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_01_quality_control.md). Data for Part 1 is [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/homework/assignment/data). 
 
+Questions for Part 2 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_02_DEA.md). Part 2 is a continuation of Part 1, so please use the same dataset. 
+
 - Due date for questions 1 - 3: <span style="color: red">**Mar 1, 2018**</span>
 - Due date for questions 4 - 5: <span style="color: red">**Mar 22, 2018**</span>
 
