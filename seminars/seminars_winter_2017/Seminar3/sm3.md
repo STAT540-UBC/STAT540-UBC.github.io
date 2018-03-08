@@ -47,7 +47,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /tmp/Rtmpv2NO4i/GDS507.soft.gz
+    ## /tmp/RtmpA2sV9u/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -419,23 +419,23 @@ melted_data %>%
     ## # A tibble: 17 x 2
     ##    Sample    mean
     ##    <fct>    <dbl>
-    ##  1 GSM11815   751
-    ##  2 GSM11832   742
-    ##  3 GSM12069   748
-    ##  4 GSM12083   735
-    ##  5 GSM12101   803
-    ##  6 GSM12106   744
-    ##  7 GSM12274   761
-    ##  8 GSM12299   802
-    ##  9 GSM12412   685
-    ## 10 GSM11810   765
-    ## 11 GSM11827   780
-    ## 12 GSM12078   774
-    ## 13 GSM12099   766
-    ## 14 GSM12269   710
-    ## 15 GSM12287   791
-    ## 16 GSM12301   770
-    ## 17 GSM12448   757
+    ##  1 GSM11815  751.
+    ##  2 GSM11832  742.
+    ##  3 GSM12069  748.
+    ##  4 GSM12083  735.
+    ##  5 GSM12101  803.
+    ##  6 GSM12106  744.
+    ##  7 GSM12274  761.
+    ##  8 GSM12299  802.
+    ##  9 GSM12412  685.
+    ## 10 GSM11810  765.
+    ## 11 GSM11827  780.
+    ## 12 GSM12078  774.
+    ## 13 GSM12099  766.
+    ## 14 GSM12269  710.
+    ## 15 GSM12287  791.
+    ## 16 GSM12301  770.
+    ## 17 GSM12448  757.
 
 Another thing we note is that there are multiple probes that map to a specific gene. In a real life analysis workflow, there are multiple ways to deal with this. Some popular options include picking the probe with the highest expression, or taking the mean/median of all probes' expression. For simplicity, we will use summarize() to take the mean of each probe's expression.
 
@@ -494,8 +494,8 @@ full_data %>%
     ## # A tibble: 2 x 2
     ##   disease  mean
     ##   <fct>   <dbl>
-    ## 1 normal    729
-    ## 2 RCC       674
+    ## 1 normal   729.
+    ## 2 RCC      674.
 
 Part 3: Graphing expression data
 ================================

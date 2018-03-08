@@ -90,6 +90,48 @@ if(file.exists("eQTL_melanoma.Rdata")){ # if previously downloaded
 }
 ```
 
+    ## $GSE78995_series_matrix.txt.gz
+    ## ExpressionSet (storageMode: lockedEnvironment)
+    ## assayData: 54675 features, 59 samples 
+    ##   element names: exprs 
+    ## protocolData: none
+    ## phenoData
+    ##   sampleNames: GSM2083256 GSM2083257 ... GSM2083314 (59 total)
+    ##   varLabels: title geo_accession ... tissue:ch1 (34 total)
+    ##   varMetadata: labelDescription
+    ## featureData
+    ##   featureNames: 1007_s_at 1053_at ... AFFX-TrpnX-M_at (54675
+    ##     total)
+    ##   fvarLabels: ID GB_ACC ... Gene Ontology Molecular Function (16
+    ##     total)
+    ##   fvarMetadata: Column Description labelDescription
+    ## experimentData: use 'experimentData(object)'
+    ## Annotation: GPL570
+
+    ## Warning in rbind(names(probs), probs_f): number of columns of result is not
+    ## a multiple of vector length (arg 1)
+
+    ## Warning: 20476 parsing failures.
+    ## row # A tibble: 5 x 5 col      row col   expected   actual file         expected    <int> <chr> <chr>      <chr>  <chr>        actual 1 712727 Chr   an integer X      literal data file 2 712728 Chr   an integer X      literal data row 3 712729 Chr   an integer X      literal data col 4 712730 Chr   an integer X      literal data expected 5 712731 Chr   an integer X      literal data
+    ## ... ................. ... ............................................. ........ ............................................. ...... ............................................. .... ............................................. ... ............................................. ... ............................................. ........ .............................................
+    ## See problems(...) for more details.
+
+    ## $GSE99193_series_matrix.txt.gz
+    ## ExpressionSet (storageMode: lockedEnvironment)
+    ## assayData: 733202 features, 67 samples 
+    ##   element names: exprs 
+    ## protocolData: none
+    ## phenoData
+    ##   sampleNames: GSM2635493 GSM2635494 ... GSM2635559 (67 total)
+    ##   varLabels: title geo_accession ... tissue:ch1 (36 total)
+    ##   varMetadata: labelDescription
+    ## featureData
+    ##   featureNames: rs1000000 rs1000002 ... VGXS35706 (733202 total)
+    ##   fvarLabels: ID Chr Position SNP_ID
+    ##   fvarMetadata: Column Description labelDescription
+    ## experimentData: use 'experimentData(object)'
+    ## Annotation: GPL13135
+
 Let us update the column names so that the samples are defined by the cell line, and not by the GSM IDs (the latter are specific to the submission sample and data type, so will not overlap between the SNP and expression data).
 
 ``` r
