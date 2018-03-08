@@ -39,7 +39,7 @@ STAT540,Announcement,Wed,March,14,10,NA, Project progress report due,NA
 STAT540-Seminar,seminar-9,Wed,March,14,11,10,"Supervised learning, cross-validation, variable selection",TA
 STAT540,lecture-19,Mon,March,19,11,19,Co-expression networks and gene function prediction,PP
 STAT540,lecture-20,Wed,March,21,11,20,Gene function prediction,PP
-STAT540-Seminar,seminar-10,Wed,March,21,12,NA,Pathway analysis for methylation and gene expression data,TA
+STAT540-Seminar,seminar-10,Wed,March,21,12,NA,Geneset Enrichment Analysis,TA
 STAT540,Announcement,Thurs,March,22,11,NA,Part 2 of assignment due,NA
 STAT540,lecture-21,Mon,March,26,12,21,Mendelian Randomization and Causality,GFC
 STAT540,lecture-22,Wed,March,28,12,22,Multi-omic analysis,SM
