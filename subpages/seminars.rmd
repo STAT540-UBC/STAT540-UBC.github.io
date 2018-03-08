@@ -16,17 +16,17 @@ library(here)
 ```
 
 ```{r include = FALSE}
-GitHubUsername = "USERNAME"
-GitHubPassword = "PASSWORD"
+GitHubUsername = ""
+GitHubPassword = ""
 
 githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
 seminarPathInInstructorsOnly = 'seminars/seminars_winter_2017'
-seminarPathGithubIO = here('seminars/seminars_winter_2017')
+seminarPathGithubIO = 'seminars/seminars_winter_2017'
 
-unlink(seminarPathGithubIO, force = TRUE, recursive = TRUE)
+unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
 system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
-dir.create(dirname(seminarPathGithubIO),showWarnings = FALSE,recursive = TRUE)
-file.copy(basename(seminarPathInInstructorsOnly), dirname(seminarPathGithubIO),recursive = TRUE)
+dir.create(dirname(here(seminarPathGithubIO)),showWarnings = FALSE,recursive = TRUE)
+file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithubIO)),recursive = TRUE)
 unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
 
 # Import schedule
@@ -45,7 +45,7 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path="../seminars/seminars_winter_2017", pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
+  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
              stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
