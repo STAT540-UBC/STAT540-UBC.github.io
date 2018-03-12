@@ -34,33 +34,16 @@ Install required packages if you haven't done so before. This seminar will requi
 library(RColorBrewer)
 library(cluster)
 library(pvclust)
-```
-
-    ## Warning: package 'pvclust' was built under R version 3.3.3
-
-``` r
 library(xtable)
 library(limma)
-```
-
-    ## Warning: package 'limma' was built under R version 3.3.3
-
-``` r
 library(plyr)
 library(lattice)
 library(RCurl)
-```
-
-    ## Warning: package 'RCurl' was built under R version 3.3.3
-
-``` r
 options(download.file.method = "curl")
 library(GEOquery)
 library(knitr)
 library(pheatmap)
 ```
-
-    ## Warning: package 'pheatmap' was built under R version 3.3.3
 
 If you don't have `GEOquery` installed, you will need to get it using biocLite (`install.packages` won't work!).
 
@@ -736,7 +719,7 @@ First, let us first assess how much of the total variance is captured by each pr
 summary(pcs)
 ```
 
-    ## Importance of components:
+    ## Importance of components%s:
     ##                           PC1    PC2     PC3     PC4     PC5     PC6
     ## Standard deviation     2.1235 1.8957 1.49067 1.30336 1.02878 0.92795
     ## Proportion of Variance 0.1961 0.1562 0.09661 0.07386 0.04602 0.03744
@@ -780,11 +763,6 @@ In this plot we are changing the perplexity parameter for the two different plot
 ``` r
 # install.packages('Rtsne')
 library(Rtsne)
-```
-
-    ## Warning: package 'Rtsne' was built under R version 3.3.3
-
-``` r
 colors = rainbow(length(unique(prDes$grp)))
 names(colors) = unique(prDes$grp)
 tsne <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 0.1, verbose = TRUE, max_iter = 100)
@@ -824,7 +802,7 @@ tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, ma
     ## Learning embedding...
     ## Iteration 50: error is 58.920558 (50 iterations in 0.00 seconds)
     ## Iteration 100: error is 63.550261 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.01 seconds.
+    ## Fitting performed in 0.00 seconds.
 
 ``` r
 plot(tsne_p1$Y, main = "tsne")

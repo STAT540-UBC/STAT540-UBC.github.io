@@ -58,6 +58,8 @@ First, let's retrieve our datasets from GEO with `getGEO` from `GEOquery` packag
 
 We will extract our data and metadata from the objects we get from GEO. We will also subset our genotype data to only include cell lines for which we have expression data.
 
+**If you cannot download the expression data from the below code, the "eQTL\_melanoma.Rdata" file can be downloaded [here](https://www.dropbox.com/s/0mr5s8ilo1rtsq4/eQTL_melanoma.Rdata?dl=0).**
+
 ``` r
 if(file.exists("eQTL_melanoma.Rdata")){ # if previously downloaded
   load("eQTL_melanoma.Rdata")

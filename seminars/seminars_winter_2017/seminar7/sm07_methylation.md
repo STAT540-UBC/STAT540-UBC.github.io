@@ -85,6 +85,38 @@ if(file.exists("methyl_ALL.Rdata")){ # if previously downloaded
 }
 ```
 
+    ## $GSE39141_series_matrix.txt.gz
+    ## ExpressionSet (storageMode: lockedEnvironment)
+    ## assayData: 485577 features, 33 samples 
+    ##   element names: exprs 
+    ## protocolData: none
+    ## phenoData
+    ##   sampleNames: GSM956761 GSM956762 ... GSM956793 (33 total)
+    ##   varLabels: title geo_accession ... treatment:ch1 (42 total)
+    ##   varMetadata: labelDescription
+    ## featureData
+    ##   featureNames: cg00000029 cg00000108 ... rs9839873 (485577 total)
+    ##   fvarLabels: ID Name ... SPOT_ID (37 total)
+    ##   fvarMetadata: Column Description labelDescription
+    ## experimentData: use 'experimentData(object)'
+    ## Annotation: GPL13534 
+    ## 
+    ## $GSE42865_series_matrix.txt.gz
+    ## ExpressionSet (storageMode: lockedEnvironment)
+    ## assayData: 485577 features, 16 samples 
+    ##   element names: exprs 
+    ## protocolData: none
+    ## phenoData
+    ##   sampleNames: GSM1052413 GSM1052414 ... GSM1052428 (16 total)
+    ##   varLabels: title geo_accession ... health state:ch1 (37 total)
+    ##   varMetadata: labelDescription
+    ## featureData
+    ##   featureNames: cg00000029 cg00000108 ... rs9839873 (485577 total)
+    ##   fvarLabels: ID Name ... SPOT_ID (37 total)
+    ##   fvarMetadata: Column Description labelDescription
+    ## experimentData: use 'experimentData(object)'
+    ## Annotation: GPL13534
+
 Now, we can do some exploratory analysis of the data, for examples, looking at distribution of Beta values in each sample or each probe. Here is a density plot of average Beta values for probes in the two datasets. See if you get similar results. &gt; Hint: you can use `rowMeans` function to calculate the average Beta value for each probe. Don't forget to use `na.rm = T` to exclude NAs.
 
 ``` r
@@ -125,7 +157,7 @@ system.time(beta.norm <- betaqn(beta.matrix))
 ```
 
     ##    user  system elapsed 
-    ##  26.521   2.852  29.434
+    ##  17.860   0.720  18.616
 
 ``` r
 dat.probeMeans <- c(rowMeans(beta.norm[, 1:ncol(ALL.dat)], na.rm = TRUE),
@@ -386,21 +418,21 @@ head(DMR)   # top hits
 ```
 
     ##                 logFC    AveExpr         t      P.Value    adj.P.Val
-    ## MIRLET7DHG  1.2189997  2.1623616  12.65489 4.802396e-16 9.803611e-12
-    ## SLC6A16     1.1853858  1.8099160  11.56515 9.610163e-15 9.809094e-11
-    ## SMC5        0.8456980  0.1723806  11.14723 3.157506e-14 2.148577e-10
-    ## GABRR2     -0.4506881  2.1276014 -10.91036 6.259158e-14 3.194361e-10
-    ## FCER1G     -1.7373139 -0.8682490 -10.55359 1.778561e-13 7.261510e-10
-    ## C4orf26     1.0424391  1.8333076  10.45000 2.416054e-13 8.220220e-10
+    ## MIRLET7DHG  1.2189997  2.1623616  12.65473 4.805243e-16 9.809423e-12
+    ## SLC6A16     1.1853858  1.8099160  11.56502 9.615211e-15 9.814246e-11
+    ## SMC5        0.8456980  0.1723806  11.14704 3.159645e-14 2.150033e-10
+    ## GABRR2     -0.4506881  2.1276014 -10.90988 6.268791e-14 3.199278e-10
+    ## FCER1G     -1.7373139 -0.8682490 -10.55351 1.779210e-13 7.264159e-10
+    ## ODAPH       1.0424391  1.8333076  10.44988 2.417244e-13 8.224271e-10
     ##                   B
-    ## MIRLET7DHG 25.99524
-    ## SLC6A16    23.18421
-    ## SMC5       22.06106
-    ## GABRR2     21.41331
-    ## FCER1G     20.42248
-    ## C4orf26    20.13136
+    ## MIRLET7DHG 25.99111
+    ## SLC6A16    23.18101
+    ## SMC5       22.05802
+    ## GABRR2     21.40963
+    ## FCER1G     20.42017
+    ## ODAPH      20.12900
 
-So using a cutoff of FDR = 0.01, we identified 3494 CGIs that are differentially methylated between ALL and control group. Now we can make some plots to check these hits.
+So using a cutoff of FDR = 0.01, we identified 3492 CGIs that are differentially methylated between ALL and control group. Now we can make some plots to check these hits.
 
 First, let us plot a heatmap of beta values of top 100 hits.
 
