@@ -7,9 +7,9 @@ output:
       after_body: ../include/nothing.html
 ---
 
-**Time**: Wed 12pm - 1pm (welcome to come after class around 11am)
+**Time**: Wed 11pm - 1pm (welcome to come after class around 11am)
 
-**Location**: ESB 1042 and 1046
+**Location**: Hugh Dempster Pavillion 201
 
 ### Self-guided seminars
 
@@ -31,7 +31,7 @@ Work on your own to set up and learn more about R and RStudio. We will borrow so
   
 **Seminar 02**
 
-  * [seminar 02a](sm02a_rMarkdown.html) | Learn how to use rMarkdown
+  * [seminar 02a](seminarsm02a_rMarkdown.html) | Learn how to use rMarkdown
   * [seminar 02b](sm02b_introProbCltLln.html) | Learn more about R while you simulate data and play with probability 
   * [seminar 02c](sm02c_playing-with-probability.html) | More about simulation and probabilities
 

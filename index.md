@@ -8,8 +8,7 @@ output:
 
 
 # Statistical Methods for High Dimensional Biology
-
-<span style="color: red">**Next deadline: Final project proposals due - Feb 14th, 2018**</span>
+<span style="color: red">**Next deadline: Initial project proposals due - Jan 23rd, 2019**</span>
 
 ### UBC STAT 540
 
@@ -19,7 +18,7 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 ### Time and Location
 
-03 January 2018 - 04 April 2018
+02 January 2019 - 03 April 2019
 
 #### Lecture (Sec 201)
 
@@ -31,14 +30,14 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 **Time**: every Wednesday 11am - 1pm. The TAs will remain in the lab until 1pm for general office hours.
 
-**Location**: Orchard Commons 4076	
+**Location**: Hugh Dempster Pavillion 201
 
 ### Learning objectives:
 
-  * explore and visualize genomics data
-  * apply tailored statitical methods for high dimensional biology data
-  * make your work reproducible, reusable, and shareable
-  * work with real data in a collaborative model
+  * Explore and visualize genomics data
+  * Apply tailored statitical methods for high dimensional biology data
+  * Make your work reproducible, reusable, and shareable
+  * Work with real data in a collaborative model
 
 ### Selected topics
 
@@ -62,3 +61,4 @@ Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.gith
 
 Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
+### Assignment Timeline

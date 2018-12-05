@@ -35,25 +35,25 @@ Officially none BUT here in reality ...
 
 Students may ask for extensions with a documented excuse (like: computer caught on fire, sickness). No "I just need more time" extensions.
 
-**Seminar completion (10%)**
+**Seminar completion (9%)**
 
-- Submit "deliverable" for each of 10 seminars
-- Deliverable must be submitted by the end of the week seminar is completed (leniancy will be given for the first 2 weeks of the course)
-- 1pt per deliberable 
+- Submit "deliverable" for seminars 1,2,3,4,6, and 10
+- Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
+- 1.5pt per deliverable 
 
 **Warm-up Assignment (5%)**
 
 - The assignment is worth 5 points.
 - tests basic knowledge of GitHub, R and Rmarkdown
-- <span style="color: red">Due date: **Jan 17, 2018**</span>
+- <span style="color: red">Due date: **Jan 16, 2019**</span>
 - Late penalty: -1 point per day
 
-**Paper critique (5%)**
+**Paper critique (6%)**
 
-- Summarize and critique 1 paper - 5 points
+- Summarize and critique 1 paper - 6 points
 - Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
 - Instruction on the paper critiques will be posted shortly
-- <span style="color: red">Due date: **Feb 22, 2018**</span>
+- <span style="color: red">Due date: **Feb 24, 2019**</span>
 - [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
 - Late penalty: -1 points per day
 
@@ -61,21 +61,21 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 
 - The assignment is worth 30 points. 
 - Involves detailed analysis of real data using R 
-- <span style="color: red">Due date for questions 1 - 3: **Mar 1, 2018**</span>
-- <span style="color: red">Due date for questions 4 - 5: **Mar 22, 2018**</span>
+- <span style="color: red">Due date for questions 1 - 3: **February 28, 2019**</span>
+- <span style="color: red">Due date for questions 4 - 5: **Mar 23, 2019**</span>
 - Late penalty: -2.5 points per day
 
 **Group project (50%)**: 
 
 - A data analysis group project that will allow you to apply the techniques covered in class
 - Important dates: 
-    - <span style="color: red">**Now - January 24, 2018**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
-    - <span style="color: red">**January 24, 2018**</span>: Finish the initial project proposal
-    - <span style="color: red">**February 14, 2018**</span>: Finalize the one page project proposal 
-    - <span style="color: red">**March 14, 2018**</span>: Progress report
-    - <span style="color: red">**April 4, 2018**</span>: Poster session 
-    - <span style="color: red">**April 4, 2018**</span>: GitHub repository
-    - <span style="color: red">**April 5, 2018**</span>: Individual report deadline
+    - <span style="color: red">**Now - January 23, 2019**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
+    - <span style="color: red">**January 23, 2019**</span>: Finish the initial project proposal
+    - <span style="color: red">**February 13, 2019**</span>: Finalize the one page project proposal 
+    - <span style="color: red">**March 13, 2019**</span>: Progress report
+    - <span style="color: red">**April 3, 2019**</span>: Poster session 
+    - <span style="color: red">**April 3, 2019**</span>: GitHub repository
+    - <span style="color: red">**April 4, 2019**</span>: Individual report deadline
 - Grading and deliverable 
     - Primary deliverable is a poster. Each student also produces a short report 
     - Planning + project + poster session - 50 points 
@@ -88,12 +88,13 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 **Class mettings** 
 
 - Time : Mon Wed 9:30 - 11am
+- Location: ESB 2012
 - See [Lectures](lectures.html) for lecture materials, schedule, and deadlines 
 
 **Seminars**
 
 - Time : Wed 11pm - 1pm
-- Location: Orchard Commons 4074
+- Location: Hugh Dempster Pavillion 201
 - See [Seminars](seminars.html) for schedule and seminar materials 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 
