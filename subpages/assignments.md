@@ -25,7 +25,7 @@ This is a warm-up for your future assignment. Once you have completed it, you wi
 
 Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/practice_assignment/practice_assignment.md) and start now! 
 
-Deadline: <span style="color: red">**Jan 17, 2018**</span> 
+Deadline: <span style="color: red">**Jan 16, 2019**</span> 
 
 --------------
 
@@ -39,7 +39,7 @@ Each student should review [this paper](https://www.ncbi.nlm.nih.gov/pmc/article
 
 We have provided [**this guideline**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline.html) for this task. The material in the review **should not** be limited to merely answering the questions in the guideline, but rather using them to provide the required items listed above. Example paper reviews are also provided. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper
 
-* Due date for the paper review: <span style="color: red">**Feb 22, 2018**</span>
+* Due date for the paper review: <span style="color: red">**Feb 20, 2019**</span>
 
 **Delivery:** You should put your paper review files in your individual course repository in .md format (notice that you don't need to write it in .Rmd since you are not going to have any R code in it). You could edit .md files directly from github and therefore can write your full report there, but can also write it in your RStudio and then push it to your repository.
 
@@ -55,8 +55,8 @@ Questions for Part 1 can be downloaded [here](https://github.com/STAT540-UBC/STA
 
 Questions for Part 2 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_02_DEA.md). Part 2 is a continuation of Part 1, so please use the same dataset. 
 
-- Due date for questions 1 - 3: <span style="color: red">**Mar 1, 2018**</span>
-- Due date for questions 4 - 5: <span style="color: red">**Mar 22, 2018**</span>
+- Due date for questions 1 - 3: <span style="color: red">**Mar 4, 2019**</span>
+- Due date for questions 4 - 5: <span style="color: red">**Mar 25, 2019**</span>
 
 --------------
 

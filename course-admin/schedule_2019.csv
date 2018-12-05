@@ -1,0 +1,50 @@
+course,lect,dow,month,day,week,lecture_num,raw_notes,instructor
+STAT540,lecture-1,Wed,January,2,1,1,Course intro ,GC
+STAT540-Seminar,seminar-1,Wed,January,2,1,1,"Introduction to version control, Git, GitHub",TA
+STAT540,lecture-2,Mon,January,7,2,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",GC
+STAT540,lecture-3,Wed,January,9,2,3,"Exploratory data analysis, QC ",GC
+STAT540-Seminar,seminar-2a,Wed,January,9,2,2,"Introduction to Markdown, Knitr",TA
+STAT540,lecture-4,Mon,January,14,3,4,Stats Philosophy & Math/stat background,SM
+STAT540,lecture-5,Wed,January,16,3,5,Statistical Inference - two groups,SM
+STAT540-Seminar,seminar-2b,Wed,January,9,2,3,"R graphics -- ggplot2, lattice",TA
+STAT540,Announcement,Wed,January,16,3,NA,Warm up assignmnent due,NA
+STAT540,lecture-6,Mon,January,21,4,6,Statistical Inference - linear regression and ANOVA,SM
+STAT540,lecture-7,Wed,January,23,4,7,"Statistical inference - linear models (more than two groups, and interaction testing)",SM
+STAT540-Seminar,seminar-2c,Wed,January,16,4,4,Getting your hands dirty with R -- simulate data and do some statistics,TA
+STAT540-Seminar,seminar-3,Wed,January,23,5,4,Load and analyze some gene expression data -- data aggregation with dplyr,TA
+STAT540,Announcement,Wed,January,23,4,NA,form groups and finish initial project proposals,NA
+STAT540,lecture-8,Mon,January,28,5,8,Statistical inference - multiple testing & non-parametric,SM
+STAT540,lecture-9,Wed,January,30,5,9,"Batch effects, resampling, and non-parametric tests",SM
+STAT540-Seminar,seminar-4,Wed,January,30,5,5,"Two group testing, fitting and interpreting linear models",TA
+STAT540,lecture-10,Mon,February,4,6,10,Application of statistical inference to RNA-seq I,GC
+STAT540,lecture-11,Wed,February,6,6,11,Application of statistical inference to RNA-seq II,GC
+STAT540-Seminar,seminar-5,Wed,February,6,6,6,RNA-seq: from beginning to end -- BAM to count data (optional),TA
+STAT540,Break,Mon,February,11,7,NA,No class; Family Day,NA
+STAT540,lecture-12,Wed,February,13,7,12,Machine Learning Intro: Unsupervised learning (PCA + Clustering),SM
+STAT540-Seminar,seminar-6,Wed,February,13,7,7,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
+STAT540,Announcement,Wed,February,13,7,NA,Final project proposal due,NA
+STAT540,Break,Mon,February,18,7,NA,Midterm Break,NA
+STAT540,Break,Wed,February,20,7,NA,Midterm Break,NA
+STAT540,Announcement,Thurs,February,25,7,NA,Paper Critique Due,NA
+STAT540,lecture-13,Mon,February,27,8,13,Supervised learning I,GFC (for SM)
+STAT540,lecture-14,Wed,February,27,8,14,Supervised learning II ,SM
+STAT540-Seminar,seminar-7,Wed,February,27,9,8,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
+STAT540,Announcement,Thurs,February,28,8,NA,Part 1 of assignment due,NA
+STAT540,lecture-15,Mon,March,4,9,15,Genome analysis and variant prioritization,Wyeth Wasserman
+STAT540,lecture-16,Wed,March,6,9,16,GWAS,SM
+STAT540-Seminar,seminar-8,Wed,March,6,10,9,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
+STAT540,lecture-17,Mon,March,11,10,17,xQTL analysis,SM
+STAT540,lecture-18,Wed,March,13,10,18,Cellular heterogeneity,SM
+STAT540,Announcement,Wed,March,13,10,NA, Project progress report due,NA
+STAT540-Seminar,seminar-9,Wed,March,13,11,10,Pathway analysis for methylation and gene expression data,TA
+STAT540,lecture-19,Mon,March,18,11,19,Gene set analysis,PP
+STAT540,lecture-20,Wed,March,20,11,20,Gene networks and function prediction,PP
+STAT540-Seminar,seminar-10,Wed,March,20,12,NA,"Supervised learning, cross-validation, variable selection",TA
+STAT540,Announcement,Thurs,March,21,11,NA,Part 2 of assignment due,NA
+STAT540,lecture-21,Mon,March,25,12,21,Mendelian Randomization and Causality,GFC
+STAT540,lecture-22,Wed,March,27,12,22,Multi-omic analysis,SM
+STAT540-Seminar,seminar-11,Wed,March,27,13,NA,Group project work,TA
+STAT540,Break,Mon,April,1,14,NA,Family Day,NA
+STAT540-Seminar,seminar-12,Wed,April,3,15,NA,Group project work,TA
+STAT540,Announcement,Wed,April,3,14,24,Poster session,NA
+STAT540,Announcement,Thurs,April,4,14,24,Individual report due,NA

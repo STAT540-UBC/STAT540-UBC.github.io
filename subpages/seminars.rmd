@@ -20,8 +20,8 @@ GitHubUsername = ""
 GitHubPassword = ""
 
 githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
-seminarPathInInstructorsOnly = 'seminars/seminars_winter_2017'
-seminarPathGithubIO = 'seminars/seminars_winter_2017'
+seminarPathInInstructorsOnly = 'seminars/seminars_winter_2019'
+seminarPathGithubIO = 'seminars/seminars_winter_2019'
 
 unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
 system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
@@ -30,14 +30,14 @@ file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithub
 unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
 
 # Import schedule
-rawdat <- read.csv(file.path("../course-admin", "schedule_2018.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat <- read.csv(file.path("../course-admin", "schedule_2019.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
 
 # Seminar meetings 
 rawdat_sm <- rawdat[rawdat$course == "STAT540-Seminar",]
 
 sdat <- rawdat_sm %>%
-  mutate(ugly_date = ISOdate(2016, match(month, month.name), day),
+  mutate(ugly_date = ISOdate(2019, match(month, month.name), day),
          date = sprintf("%s-%02d %s",
                         months(ugly_date, abbreviate = TRUE),
                         day, dow))
