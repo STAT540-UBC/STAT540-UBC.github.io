@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -88,6 +90,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -152,7 +157,7 @@ $(document).ready(function () {
 
 <div id="statistical-methods-for-high-dimensional-biology" class="section level1">
 <h1>Statistical Methods for High Dimensional Biology</h1>
-<p><span style="color: red"><strong>Next deadline: form groups and finish initial project proposals -Jan 24th, 2018</strong></span></p>
+<p><span style="color: red"><strong>Next deadline: Initial project proposals due - Jan 23rd, 2019</strong></span></p>
 <div id="ubc-stat-540" class="section level3">
 <h3>UBC STAT 540</h3>
 <p>STAT 540 is a 3 credit course with a mandatory computing seminar.</p>
@@ -160,7 +165,7 @@ $(document).ready(function () {
 </div>
 <div id="time-and-location" class="section level3">
 <h3>Time and Location</h3>
-<p>03 January 2018 - 04 April 2018</p>
+<p>02 January 2019 - 03 April 2019</p>
 <div id="lecture-sec-201" class="section level4">
 <h4>Lecture (Sec 201)</h4>
 <p><strong>Time</strong>: Mon Wed 9:30 - 11am</p>
@@ -169,16 +174,16 @@ $(document).ready(function () {
 <div id="seminar-computing-lab-s2a-registration-is-required" class="section level4">
 <h4>Seminar / computing lab (S2A) – REGISTRATION IS REQUIRED!</h4>
 <p><strong>Time</strong>: every Wednesday 11am - 1pm. The TAs will remain in the lab until 1pm for general office hours.</p>
-<p><strong>Location</strong>: Orchard Commons 4076</p>
+<p><strong>Location</strong>: Hugh Dempster Pavillion 201</p>
 </div>
 </div>
 <div id="learning-objectives" class="section level3">
 <h3>Learning objectives:</h3>
 <ul>
-<li>explore and visualize genomics data</li>
-<li>apply tailored statitical methods for high dimensional biology data</li>
-<li>make your work reproducible, reusable, and shareable</li>
-<li>work with real data in a collaborative model</li>
+<li>Explore and visualize genomics data</li>
+<li>Apply tailored statitical methods for high dimensional biology data</li>
+<li>Make your work reproducible, reusable, and shareable</li>
+<li>Work with real data in a collaborative model</li>
 </ul>
 </div>
 <div id="selected-topics" class="section level3">
@@ -201,6 +206,9 @@ $(document).ready(function () {
 <p>The course organization on GitHub: <a href="https://github.com/STAT540-UBC" class="uri">https://github.com/STAT540-UBC</a></p>
 <p>Repo that creates this website: <a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io" class="uri">https://github.com/STAT540-UBC/STAT540-UBC.github.io</a></p>
 <p>Repo that supports the Discussion forum: <a href="https://github.com/STAT540-UBC/Discussion" class="uri">https://github.com/STAT540-UBC/Discussion</a></p>
+</div>
+<div id="assignment-timeline" class="section level3">
+<h3>Assignment Timeline</h3>
 </div>
 </div>
 
