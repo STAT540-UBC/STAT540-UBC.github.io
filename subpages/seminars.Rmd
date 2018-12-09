@@ -1,0 +1,99 @@
+---
+title: "Seminars"
+output:
+  html_document:
+    includes:
+      before_body: ../include/nav.html
+      after_body: ../include/nothing.html
+---
+
+
+```{r include = FALSE}
+library(dplyr)
+library(stringr)
+library(glue)
+library(here)
+```
+
+```{r include = FALSE}
+GitHubUsername = ""
+GitHubPassword = ""
+
+githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
+seminarPathInInstructorsOnly = 'seminars/seminars_winter_2019'
+seminarPathGithubIO = 'seminars/seminars_winter_2019'
+
+unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
+system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
+dir.create(dirname(here(seminarPathGithubIO)),showWarnings = FALSE,recursive = TRUE)
+file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithubIO)),recursive = TRUE)
+unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
+
+# Import schedule
+rawdat <- read.csv(file.path("../course-admin", "schedule_2019.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat$course <- as.factor(rawdat$course)
+
+# Seminar meetings 
+rawdat_sm <- rawdat[rawdat$course == "STAT540-Seminar",]
+
+sdat <- rawdat_sm %>%
+  mutate(ugly_date = ISOdate(2019, match(month, month.name), day),
+         date = sprintf("%s-%02d %s",
+                        months(ugly_date, abbreviate = TRUE),
+                        day, dow))
+sdat %>% head(3)
+
+## link to the page of any seminar where such exists
+smdat <-
+  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
+             stringsAsFactors = FALSE)
+smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
+smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
+
+# sdat <- sdat %>% left_join(smdat, by="lect")
+
+#seminar 00 from STAT545
+
+#separate links to seminar 01 parts
+#sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
+
+
+html_exists = Negate(is.na)(sdat$html)
+
+sdat$lect[html_exists] <-
+  str_replace(sdat$lect[html_exists],
+              pattern="(^seminar-.*)", replacement='<a href="LINK">\\1</a>')
+sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], 
+                                      "LINK", 
+                                      file.path(githubLink,'tree/master',
+                                                str_replace(sdat$html[html_exists],'\\.\\.','')
+                                                ))
+
+dat_sm <- sdat %>% split(sdat$course)
+dat_sm <- lapply(dat_sm, 'rownames<-', NULL)
+```
+
+
+<!-- unholy hack to make following two tables less wide and the same wide -->
+<style type="text/css">
+table {
+   max-width: 70%;
+}
+</style>
+
+### Seminars
+
+**Time**: Wed 11am - 1pm
+
+**Location**: Hugh Dempster Pavillion 201
+
+```{r results = 'asis', echo = FALSE}
+knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor))
+```
+
+**Supplemental materials** 
+
+  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf) | R bootcamp -  Getting Started with R, PDF
+  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx) | R bootcamp - Getting Started with R, worksheet
+  * [seminar 0b](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0b/seminar0b.html) Molecular biology review
+  * [seminar 0b quiz](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform) Check your understanding - Molecular biology quiz

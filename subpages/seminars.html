@@ -155,66 +155,118 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>Time</strong>: Wed 11pm - 1pm (welcome to come after class around 11am)</p>
+<!-- unholy hack to make following two tables less wide and the same wide -->
+<style type="text/css">
+table {
+   max-width: 70%;
+}
+</style>
+<div id="seminars" class="section level3">
+<h3>Seminars</h3>
+<p><strong>Time</strong>: Wed 11am - 1pm</p>
 <p><strong>Location</strong>: Hugh Dempster Pavillion 201</p>
-<div id="self-guided-seminars" class="section level3">
-<h3>Self-guided seminars</h3>
-<p><strong>Seminar 00</strong></p>
-<p>Work on your own to set up and learn more about R and RStudio. We will borrow some material from <a href="https://stat545-ubc.github.io/topics.html">STAT 545A Exploratory Analysis</a> (by Professor Jenny Bryan).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">date</th>
+<th align="left">lect</th>
+<th align="left">raw_notes</th>
+<th align="left">instructor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Jan-02 Wed</td>
+<td align="left">seminar-1</td>
+<td align="left">Introduction to version control, Git, GitHub</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-09 Wed</td>
+<td align="left">seminar-2a</td>
+<td align="left">Introduction to Markdown, Knitr</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-09 Wed</td>
+<td align="left">seminar-2b</td>
+<td align="left">R graphics – ggplot2, lattice</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-16 Wed</td>
+<td align="left">seminar-2c</td>
+<td align="left">Getting your hands dirty with R – simulate data and do some statistics</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-23 Wed</td>
+<td align="left">seminar-3</td>
+<td align="left">Load and analyze some gene expression data – data aggregation with dplyr</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-30 Wed</td>
+<td align="left">seminar-4</td>
+<td align="left">Two group testing, fitting and interpreting linear models</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-06 Wed</td>
+<td align="left">seminar-5</td>
+<td align="left">RNA-seq: from beginning to end – BAM to count data (optional)</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-13 Wed</td>
+<td align="left">seminar-6</td>
+<td align="left">Dimensionality reduction and data visualization – clustering, PCA, t-sne</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-27 Wed</td>
+<td align="left">seminar-7</td>
+<td align="left">Methylation analysis I – e.g., investigating cell type heterogeneity</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-06 Wed</td>
+<td align="left">seminar-8</td>
+<td align="left">eQTL (or mQTL) analysis – finding cis variants per gene, testing for association</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-13 Wed</td>
+<td align="left">seminar-9</td>
+<td align="left">Pathway analysis for methylation and gene expression data</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-20 Wed</td>
+<td align="left">seminar-10</td>
+<td align="left">Supervised learning, cross-validation, variable selection</td>
+<td align="left">TA</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-27 Wed</td>
+<td align="left">seminar-11</td>
+<td align="left">Group project work</td>
+<td align="left">TA</td>
+</tr>
+<tr class="even">
+<td align="left">Apr-03 Wed</td>
+<td align="left">seminar-12</td>
+<td align="left">Group project work</td>
+<td align="left">TA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supplemental materials</strong></p>
 <ul>
-<li><a href="https://stat545-ubc.github.io/block000_r-rstudio-install.html">seminar 00a</a> | R, RStudio Set Up, borrowed from STAT 545A</li>
-<li><a href="https://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html">seminar 00b</a> | Basics of R/RStudio, workspaces, and projects, borrowed from STAT 545A</li>
-<li><a href="https://stat545-ubc.github.io/block006_care-feeding-data.html">seminar 00c</a> | Basic care and feeding of data in R, borrowed from STAT 545A</li>
-<li><a href="https://stat545-ubc.github.io/block004_basic-r-objects.html">seminar 00d</a> | R objects (beyond data.frames) and indexing, borrowed from STAT 545A</li>
-</ul>
-<p><strong>Seminar 01</strong></p>
-<ul>
-<li><a href="https://stat545-ubc.github.io/git01_git-install.html">seminar 01a</a> | Getting ready to use GitHub in STAT540, borrowed from STAT545A</li>
-<li><a href="sm01b_gitIntro-basic-data-exploration.html">seminar 01b</a> | Git(Hub) intro &amp; Explore a small gene expression dataset</li>
-<li><a href="sm01c_biology-intro-2015.pdf">seminar 01c</a> | Molecular biology/genetics 101 (from 2015)</li>
-<li><a href="sm01d_biology-intro-2016.pdf">seminar 01d</a> | Molecular biology/genetics presentation by Marjan</li>
-</ul>
-<p><strong>Seminar 02</strong></p>
-<ul>
-<li><a href="seminarsm02a_rMarkdown.html">seminar 02a</a> | Learn how to use rMarkdown</li>
-<li><a href="sm02b_introProbCltLln.html">seminar 02b</a> | Learn more about R while you simulate data and play with probability</li>
-<li><a href="sm02c_playing-with-probability.html">seminar 02c</a> | More about simulation and probabilities</li>
-</ul>
-<p><strong>Seminar 03</strong></p>
-<ul>
-<li><a href="sm03a_repoOrganization.html">seminar 03a</a> | Learn how to organize and submit to your repository</li>
-<li><a href="sm03b_ggplot2.html">seminar 03b</a> | Learn how to plot with ggplot2</li>
-<li><a href="sm03c_lattice.html">seminar 03c</a> | Learn how to plot with lattice</li>
-</ul>
-<p><strong>Seminar 04</strong></p>
-<ul>
-<li><a href="sm04a_dataAggTwoGrp.html">seminar 04a</a> | Get introduced to two group testing</li>
-<li><a href="sm04b_dataAggregation.html">seminar 04b</a> | A start on data aggregation</li>
-</ul>
-<p><strong>Seminar 05</strong></p>
-<ul>
-<li><a href="sm05_lowDimLinMod.html">seminar 05</a> | Learn how to be a pro with univariate linear modelling</li>
-</ul>
-<p><strong>Seminar 06</strong></p>
-<ul>
-<li><a href="sm06_highVolumeLinearModelling.html">seminar 06</a> | High volume linear modelling</li>
-</ul>
-<p><strong>Seminar 07</strong></p>
-<ul>
-<li><a href="sm07_RNA-seq-bam.html">seminar 07a</a> | optional: Getting read counts</li>
-<li><a href="sm07_RNA-seq.html">seminar 07b</a> | RNA-seq - Differential Expression Analysis</li>
-</ul>
-<p><strong>Seminar 08</strong></p>
-<ul>
-<li><a href="sm08_methylation.html">seminar 08</a> | Methylation</li>
-</ul>
-<p><strong>Seminar 09</strong></p>
-<ul>
-<li><a href="sm09_clustering-pca.html">seminar 09</a> | Cluster analysis and PCA</li>
-</ul>
-<p><strong>Seminar 10</strong></p>
-<ul>
-<li><a href="sm10_classification.html">seminar 10</a> | Classification</li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf">seminar 0a</a> | R bootcamp - Getting Started with R, PDF</li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx">seminar 0a</a> | R bootcamp - Getting Started with R, worksheet</li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0b/seminar0b.html">seminar 0b</a> Molecular biology review</li>
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform">seminar 0b quiz</a> Check your understanding - Molecular biology quiz</li>
 </ul>
 </div>
 

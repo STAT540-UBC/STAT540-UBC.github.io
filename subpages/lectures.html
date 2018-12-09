@@ -155,36 +155,203 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>Time</strong>: Mon Wed 9:30 - 11am</p>
-<p><strong>Location</strong>: ESB 2012</p>
-<p><strong>Lecture notes</strong>:</p>
-<ul>
-<li><a href="lect01_course-intro.pdf">Lecture 01</a> Introduction to the course. Introduction to high dimensional biology.</li>
-<li><a href="lect02.pdf">Lecture 02</a> Overview / review of probability and statistical inference (1 of 2)</li>
-<li><a href="lect03_introToStatInf-endProbBasics-genInfReview.pdf">Lecture 03</a> Overview / review of probability and statistical inference (2 of 2)</li>
-<li><a href="lect04_exploration.pdf">Lecture 04</a> Exploratory high dimesional data analysis</li>
-<li><a href="lect05_dataCleaning-qualityControl.pdf">Lecture 05</a> Data QC and preprocessing</li>
-<li><a href="lect06_two-groups.pdf">Lecture 06</a> Statistical inference: two group comparisons, e.g. differential expression analysis</li>
-<li><a href="lect07_beyondTwoGroups.pdf">Lecture 07</a> Statistical inference: more than two groups –&gt; linear models</li>
-<li><a href="lect08_moreThanOneCatCovariate-linModGreatestHits.pdf">Lecture 08</a> Statistical inference: linear models with 2 categorical covariates, greatest hits of linear models inference</li>
-<li><a href="lect09_quantCovariate-manyLineModAtOnce.pdf">Lecture 09</a> Statistical inference: linear models including a quantitative covariate, fitting many linear models at once</li>
-<li><a href="lect10_limma.pdf">Lecture 10</a> Large scale inference: Empirical Bayes, limma</li>
-<li><a href="lect11_multipleTesting.pdf">Lecture 11</a> Large scale inference: multiple testing</li>
-<li><a href="multipleTestingSummary.pdf">Lecture 11-summary</a> Multiple testing: summary</li>
-<li><a href="lect12_RNAseqI.pdf">Lecture 12</a> Analysis of RNA-Seq data (1 of 2)</li>
-<li><a href="lect13_RNAseqII.pdf">Lecture 13</a> Analysis of RNA-Seq data (2 of 2)</li>
-<li><a href="lect14_PCA.pdf">Lecture 14</a> Principal component analysis</li>
-<li><a href="lect15_Methylation_Presentation_2015.pdf">Lecture 15</a> Analysis of epigenetic data, focus on methylation</li>
-<li><a href="lect16_clustering.pdf">Lecture 16</a> Cluster analysis</li>
-<li><a href="lect17_supervised-learning.pdf">Lecture 17</a> Classification</li>
-<li><a href="lect18_supervised-learning-II.pdf">Lecture 18</a> Supervised learning part II: classification, overfitt, and CV</li>
-<li><a href="lect19_regularization.pdf">Lecture 19</a> Model and variable selection.</li>
-<li><a href="lect20_function1.pdf">Lecture 20</a> Analysis of gene function (1 of 2): Gene set analysis</li>
-<li><a href="lect21_function2.pdf">Lecture 21</a> Analysis of gene function (2 of 2)</li>
-<li>[Lecture 22a] (lect22a_ssl.pptx) Semi-supervised learning</li>
-<li>[Lecture 22b] (lect22b_resampling.pdf) Resampling, permutation testing, and the bootstrap</li>
-<li>[Lecture 23] Guest lecture: Dr. Sohrab Shah</li>
-</ul>
+<!-- unholy hack to make following two tables less wide and the same wide -->
+<style type="text/css">
+table {
+   max-width: 70%;
+}
+</style>
+<div id="class-meetings-and-schedule" class="section level3">
+<h3>Class meetings and schedule</h3>
+<p><strong>Time</strong> : Mon Wed 9:30 - 11am</p>
+<p><strong>Location</strong> : ESB 2012</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">date</th>
+<th align="left">notes</th>
+<th align="left">instructor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Jan-02 Wed</td>
+<td align="left"><a href="../lectures/lect01_intro.pdf">lecture-1</a>: Course intro</td>
+<td align="left">GC</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-07 Mon</td>
+<td align="left"><a href="../lectures/lect02_mobiomethods.pdf">lecture-2</a>: Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq</td>
+<td align="left">GC</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-09 Wed</td>
+<td align="left"><a href="../lectures/lect03_explore.pdf">lecture-3</a>: Exploratory data analysis, QC</td>
+<td align="left">GC</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-14 Mon</td>
+<td align="left"><a href="../lectures/lect04_2017.pdf">lecture-4</a>: Stats Philosophy &amp; Math/stat background</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-16 Wed</td>
+<td align="left"><a href="../lectures/lect05_2018.pdf">lecture-5</a>: Statistical Inference - two groups</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-16 Wed</td>
+<td align="left">Warm up assignmnent due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-21 Mon</td>
+<td align="left"><a href="../lectures/lect06_2018.pdf">lecture-6</a>: Statistical Inference - linear regression and ANOVA</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-23 Wed</td>
+<td align="left"><a href="../lectures/lect07_2018.pdf">lecture-7</a>: Statistical inference - linear models (more than two groups, and interaction testing)</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-23 Wed</td>
+<td align="left">form groups and finish initial project proposals</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Jan-28 Mon</td>
+<td align="left"><a href="../lectures/lect08_2018.pdf">lecture-8</a>: Statistical inference - multiple testing &amp; non-parametric</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan-30 Wed</td>
+<td align="left"><a href="../lectures/lect09_2018.pdf">lecture-9</a>: Batch effects, resampling, and non-parametric tests</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-04 Mon</td>
+<td align="left"><a href="../lectures/lect10_2018.pdf">lecture-10</a>: Application of statistical inference to RNA-seq I</td>
+<td align="left">GC</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-06 Wed</td>
+<td align="left">lecture-11: Application of statistical inference to RNA-seq II</td>
+<td align="left">GC</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-11 Mon</td>
+<td align="left">No class; Family Day</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-13 Wed</td>
+<td align="left"><a href="../lectures/lect12_2018.pdf">lecture-12</a>: Machine Learning Intro: Unsupervised learning (PCA + Clustering)</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-13 Wed</td>
+<td align="left">Final project proposal due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-18 Mon</td>
+<td align="left">Midterm Break</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-20 Wed</td>
+<td align="left">Midterm Break</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-25 Thurs</td>
+<td align="left">Paper Critique Due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-27 Mon</td>
+<td align="left"><a href="../lectures/lect13_2018.pdf">lecture-13</a>: Supervised learning I</td>
+<td align="left">GFC (for SM)</td>
+</tr>
+<tr class="odd">
+<td align="left">Feb-27 Wed</td>
+<td align="left"><a href="../lectures/lect14_2018.pdf">lecture-14</a>: Supervised learning II</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Feb-28 Thurs</td>
+<td align="left">Part 1 of assignment due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-04 Mon</td>
+<td align="left"><a href="../lectures/lect15_2018.pdf">lecture-15</a>: Genome analysis and variant prioritization</td>
+<td align="left">Wyeth Wasserman</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-06 Wed</td>
+<td align="left"><a href="../lectures/lect16_2018.pdf">lecture-16</a>: GWAS</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-11 Mon</td>
+<td align="left"><a href="../lectures/lect17_2018.pdf">lecture-17</a>: xQTL analysis</td>
+<td align="left">SM</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-13 Wed</td>
+<td align="left"><a href="../lectures/lect18_2018.pdf">lecture-18</a>: Cellular heterogeneity</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-13 Wed</td>
+<td align="left">Project progress report due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-18 Mon</td>
+<td align="left"><a href="../lectures/lect19-2018.pdf">lecture-19</a>: Gene set analysis</td>
+<td align="left">PP</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-20 Wed</td>
+<td align="left"><a href="../lectures/lect20-2018.pdf">lecture-20</a>: Gene networks and function prediction</td>
+<td align="left">PP</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-21 Thurs</td>
+<td align="left">Part 2 of assignment due</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar-25 Mon</td>
+<td align="left"><a href="../lectures/lect21_2018.pdf">lecture-21</a>: Mendelian Randomization and Causality</td>
+<td align="left">GFC</td>
+</tr>
+<tr class="even">
+<td align="left">Mar-27 Wed</td>
+<td align="left"><a href="../lectures/lect22_2018.pdf">lecture-22</a>: Multi-omic analysis</td>
+<td align="left">SM</td>
+</tr>
+<tr class="odd">
+<td align="left">Apr-01 Mon</td>
+<td align="left">Family Day</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Apr-03 Wed</td>
+<td align="left">Poster session</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Apr-04 Thurs</td>
+<td align="left">Individual report due</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 

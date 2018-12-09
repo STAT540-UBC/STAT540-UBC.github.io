@@ -1,0 +1,3 @@
+# Feedback and Proposed Changes
+* Note about installing package tidyverse, a lot of these packages are installed by default in rstudio, and they are not the most up-to-date version, see instruction in seminar
+* It may be best for students to reinstall the most updated version of R for their operating system, as the version shipped with Rstudio may install out-of-date packages that are incompatible with each other

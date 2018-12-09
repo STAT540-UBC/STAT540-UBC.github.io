@@ -35,9 +35,9 @@ Officially none BUT here in reality ...
 
 Students may ask for extensions with a documented excuse (like: computer caught on fire, sickness). No "I just need more time" extensions.
 
-**Seminar completion (9%)**
+**Seminar completion (10%)**
 
-- Submit "deliverable" for seminars 1,2,3,4,6, and 10
+- Submit "deliverable" for seminars 1, 2, 3, 4, and 6
 - Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
 - 1.5pt per deliverable 
 
@@ -48,7 +48,7 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 - <span style="color: red">Due date: **Jan 16, 2019**</span>
 - Late penalty: -1 point per day
 
-**Paper critique (6%)**
+**Paper critique (5%)**
 
 - Summarize and critique 1 paper - 6 points
 - Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
@@ -77,8 +77,8 @@ Students may ask for extensions with a documented excuse (like: computer caught 
     - <span style="color: red">**April 3, 2019**</span>: GitHub repository
     - <span style="color: red">**April 4, 2019**</span>: Individual report deadline
 - Grading and deliverable 
-    - Primary deliverable is a poster. Each student also produces a short report 
-    - Planning + project + poster session - 50 points 
+    - Primary deliverable is a presentation. Each student also produces a short report 
+    - Planning + project + presentation session - 50 points 
 - Tip: try to form a group of diverse talents
 - [More information on group project](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project) 
 
