@@ -48,18 +48,8 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 assn <- read.csv("../course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content, start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
@@ -79,18 +69,8 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 assn <- read.csv("../course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content,start,Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
@@ -112,22 +92,12 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 assn <- read.csv("../course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
+kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
 ```
 
 **Homework (30%)**: 
@@ -142,22 +112,12 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 assn <- read.csv("../course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Category == "Individual Assignment") %>% select(-Category))
+kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-Up") %>% select(-Category))
 ```
 
 - Late penalty: -2.5 points per day
@@ -181,18 +141,8 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 assn <- read.csv("../course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))

@@ -66,18 +66,8 @@ Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discuss
 suppressPackageStartupMessages(library(tidyverse))
 assn <- read.csv("course-admin/assn_2019.csv")
 assn <- assn %>% 
-  select(content,start, style) %>%
+  select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
-  mutate(
-    Category = ifelse(
-      grepl("pink",style),
-      "Individual Assignment",
-    ifelse(grepl("lavender",style),
-      "Group Project",
-    ifelse(grepl("aqua",style),
-           "Paper Critique",
-    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
-  select(-style) %>% 
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
