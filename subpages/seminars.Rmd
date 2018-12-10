@@ -50,12 +50,12 @@ smdat <-
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
 
-# sdat <- sdat %>% left_join(smdat, by="lect")
+ sdat <- sdat %>% left_join(smdat, by="lect")
 
-#seminar 00 from STAT545
+##seminar 00 from STAT545
 
 #separate links to seminar 01 parts
-#sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
+sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
 
 
 html_exists = Negate(is.na)(sdat$html)
