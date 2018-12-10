@@ -40,7 +40,9 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 - Submit "deliverable" for seminars 1, 2, 3, 4, and 6
 - Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
 - 2pts per deliverable 
+
 **Dates:**
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
@@ -63,12 +65,15 @@ assn <- assn %>%
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
 kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
 ```
+
 **Warm-up Assignment (5%)**
 
 - The assignment is worth 5 points.
 - tests basic knowledge of GitHub, R and Rmarkdown
 - Late penalty: -1 point per day
+
 **Dates:**
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
@@ -91,6 +96,7 @@ assn <- assn %>%
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
 kable(assn %>% filter(Category == "Warm-Up") %>% select(-Category))
 ```
+
 **Paper critique (5%)**
 
 - Summarize and critique 1 paper - 6 points
@@ -98,7 +104,9 @@ kable(assn %>% filter(Category == "Warm-Up") %>% select(-Category))
 - Instruction on the paper critiques will be posted shortly
 - [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
 - Late penalty: -1 points per day
+
 **Dates:**
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
@@ -126,7 +134,9 @@ kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
 
 - The assignment is worth 30 points. 
 - Involves detailed analysis of real data using R 
+
 **Dates:**
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
@@ -163,7 +173,9 @@ kable(assn %>% filter(Category == "Individual Assignment") %>% select(-Category)
     - Presentation 
     - GitHub repository
     - Individual report deadline
+
 **Dates:**
+
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
@@ -186,6 +198,7 @@ assn <- assn %>%
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
 kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
 ``` 
+
 - Grading and deliverable 
     - Primary deliverable is a presentation. Each student also produces a short report 
     - Planning + project + presentation session - 50 points 

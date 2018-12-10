@@ -159,6 +159,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
      - Click "Submit new issue". You're done! Congratulations!
 
 ### Assignment Timeline
+
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 assn <- read.csv("../course-admin/assn_2019.csv")
