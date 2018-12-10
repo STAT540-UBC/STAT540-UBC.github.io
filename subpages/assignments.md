@@ -112,7 +112,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
 * You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
 * All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
 
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstnmae_STAT540_2018`). Do not use branches or other repositories.
+**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2018`). Do not use branches or other repositories.
   
 **Set-up your private GitHub repo for homework**
 

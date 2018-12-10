@@ -97,3 +97,12 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
   * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx) | R bootcamp - Getting Started with R, worksheet
   * [seminar 0b](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0b/seminar0b.html) Molecular biology review
   * [seminar 0b quiz](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform) Check your understanding - Molecular biology quiz
+
+### Assignment Timeline
+
+```{r,echo=FALSE}
+library(timevis)
+
+assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+timevis(assignment_data)
+```

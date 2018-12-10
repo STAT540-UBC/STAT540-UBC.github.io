@@ -99,3 +99,11 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 
 
+### Assignment Timeline
+
+```{r,echo=FALSE}
+library(timevis)
+
+assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+timevis(assignment_data)
+```

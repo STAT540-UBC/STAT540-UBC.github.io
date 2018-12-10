@@ -2,7 +2,11 @@
 all: index.html subpages/announcements.html subpages/people.html \
 	subpages/assignments.html subpages/seminars.html \
 	subpages/lectures.html subpages/syllabus.html
-
+	
+shallow: index.html subpages/announcements.html subpages/people.html \
+	subpages/assignments.html  \
+	subpages/lectures.html subpages/syllabus.html
+	
 deps: include/nav.html include/nothing.html
 
 %.html: %.Rmd deps
