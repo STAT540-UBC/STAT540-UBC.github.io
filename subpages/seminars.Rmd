@@ -104,5 +104,6 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
 library(timevis)
 
 assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```

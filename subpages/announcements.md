@@ -7,12 +7,6 @@ output:
       after_body: ../include/nothing.html
 ---
 
-##<span style="color: red">Earn a bonus 1%!</span>
-
-<span style="color: red">We are dedicated to improving the learning experience for STAT540 and would love your help in doing so!
-Please submit your highly appreciated feedback for this course by completing our own course feedback evaluation: https://docs.google.com/forms/d/e/1FAIpQLSc6cEZcamhrDTCKUGyEby48tcgkPe5sPn1BkCWw73Wn7uiOBw/viewform. Upon completion, you'll be given a link and password to a survey to submit your name and claim your bonus one percent (1%) for the STAT540 course!
-NOTE: THIS SURVEY IS ANONYMOUS</span>
-
 ### Late penalty for homework submission
 All the late penalty information is posted along with the assignments in the syllabus page. 
 
@@ -38,8 +32,3 @@ Please complete [this survey](https://goo.gl/forms/NzMRW87Ccmfmc6x13) as soon as
 ### Seminar 1 
 
 **Important:** Please read and follow through the seminar 1 materials on the [seminars page](https://stat540-ubc.github.io/subpages/seminars.html) as much as possible before Wednesday, January 4, to ensure a productive seminar session. Please also install [R and R-studio](https://www.rstudio.com/products/rstudio/download/) if you haven't done so. 
-
-### Extra materials for Lecture 3
-
-The supporting material for Lecture 3 on data exploration are now available, [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/examples/exploration-examples).
-

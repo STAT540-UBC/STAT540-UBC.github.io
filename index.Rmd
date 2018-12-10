@@ -67,6 +67,7 @@ Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discuss
 library(timevis)
 
 assignment_data <- read.csv("course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 

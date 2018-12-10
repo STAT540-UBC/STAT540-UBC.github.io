@@ -164,5 +164,15 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - In the description of the issue, tag all TAs by including the text `@STAT540-UBC/ta_2018`, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
 
+### Assignment Timeline
+
+```{r,echo=FALSE}
+library(timevis)
+
+assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+timevis(assignment_data)
+```
+
 > If you're concerned that something hasn't gone right with the submission, send Emma, Julia and Ogan (emmagraham@cmmt.ubc.ca, julia.anstett@alumni.ubc.ca, ogan.mancarci@msl.ubc.ca) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
 
