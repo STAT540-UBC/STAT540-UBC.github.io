@@ -27,7 +27,7 @@ If you didn't complete the survey, please send one of the TAs an email or let us
 
 ### Survey 
 
-Please complete [this survey](https://goo.gl/forms/NzMRW87Ccmfmc6x13) as soon as you see this post so we can set up a repo for you! :)  
+Please complete [this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiBRaNrNk5PEY87nLkEPjZ60BcdTMUU0JAQRyMkkNsg/viewform?usp=sf_link) as soon as you see this post so we can set up a repo for you! :)  
 
 ### Seminar 1 
 

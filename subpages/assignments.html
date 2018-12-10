@@ -274,7 +274,7 @@ $(document).ready(function () {
 </ul>
 <p><strong>R Markdown</strong></p>
 <ul>
-<li>Write your homework in R Markdown. The file extension should be <code>.rmd</code>.</li>
+<li>Write your homework in R Markdown. The file extension should be <code>.Rmd</code>.</li>
 <li>Recommendation: Create a skeleton of your report by starting with the Markdown file that creates the assignment itself! You can take some things away (unnecessary detail) and add others (R chunks) to morph this into your homework solution.
 <ul>
 <li>You’ll have these files if you are using Git(Hub) to keep a current copy of the whole course repository. Or, from the links above, click on “Raw” to get raw Markdown and save to a local file.</li>
@@ -286,7 +286,7 @@ $(document).ready(function () {
 <ul>
 <li>RStudio’s “Knit HTML” button will do this. Your .md file is a intermediate file that can be read nicely on GitHub.</li>
 <li>Alternatively, use <code>knit2html()</code> from the <code>knitr</code> package in the R Console or in an R script.</li>
-<li>To run from the shell or in a Makefile, use something like <code>Rscript -e &quot;knitr::knit2html('hw01_lastname-firstnmae.rmd')&quot;</code></li>
+<li>To run from the shell or in a Makefile, use something like <code>Rscript -e &quot;knitr::knit2html('hw01_lastname-firstnmae.Rmd')&quot;</code></li>
 </ul></li>
 <li>Notice that, by default, any figures created are placed into a <code>figures/</code> subdirectory. The intermediate Markdown file links to these and, therefore, requires them to present your full report. By default, the figures are base64 encoded and <em>embedded</em> into the HTML, which, therefore, is self-contained.</li>
 </ul>
@@ -295,7 +295,7 @@ $(document).ready(function () {
 <p>This is rather specific to STAT 540 and may not necessarily reflect your workflow in the future and in other contexts.</p>
 </blockquote>
 <ul>
-<li>Commit the main R markdown (<code>.rmd</code>) file that constitutes your solution. Commit early, commit often!</li>
+<li>Commit the main R markdown (<code>.Rmd</code>) file that constitutes your solution. Commit early, commit often!</li>
 <li>Do not commit the input data to your repository.
 <ul>
 <li>Locally, you are of course encouraged to keep the file in some logical place within the homework assignment’s directory. But list the names of such data files in your top-level <a href="http://git-scm.com/docs/gitignore"><code>.gitignore</code> file</a>, so that Git ignores it. We do this so that TAs don’t end up with 50 copies of the input data when they mark your work.</li>
@@ -422,13 +422,13 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<div id="htmlwidget-0b2b8ce444b537e9072c" class="timevis html-widget" style="width:672px;height:480px;">
+<div id="htmlwidget-819d3030eb3f466e3d59" class="timevis html-widget" style="width:672px;height:480px;">
 <div class="btn-group zoom-menu">
 <button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
 <button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-0b2b8ce444b537e9072c">{"x":{"items":[{"id":" 1","content":"Warm-Up","start":"2019-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":" 2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":" 3","content":"Q1-3","start":"2019-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":" 4","content":"Q4-5","start":"2019-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":" 5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 7","content":"Project Progress Report","start":"2019-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 8","content":"Presentation Session","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 9","content":"Github Repo","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-04 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-11 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-18 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-01-25 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-02-15 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-819d3030eb3f466e3d59">{"x":{"items":[{"id":" 1","content":"Warm-Up","start":"2019-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":" 2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":" 3","content":"Q1-3","start":"2019-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":" 4","content":"Q4-5","start":"2019-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":" 5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 7","content":"Project Progress Report","start":"2019-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 8","content":"Presentation Session","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":" 9","content":"Github Repo","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-04 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-11 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-18 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-01-25 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-02-15 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script>
 <blockquote>
 <p>If you’re concerned that something hasn’t gone right with the submission, send Emma, Julia and Ogan (<a href="mailto:emmagraham@cmmt.ubc.ca">emmagraham@cmmt.ubc.ca</a>, <a href="mailto:julia.anstett@alumni.ubc.ca">julia.anstett@alumni.ubc.ca</a>, <a href="mailto:ogan.mancarci@msl.ubc.ca">ogan.mancarci@msl.ubc.ca</a>) an e-mail with your assignment attached. <strong>Note</strong>: this is <em>only</em> an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.</p>
 </blockquote>

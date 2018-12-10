@@ -74,7 +74,7 @@ assn <- assn %>%
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Category == "Warm-Up") %>% select(-Category))
+kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
 ```
 
 **Paper critique (5%)**
@@ -97,7 +97,7 @@ assn <- assn %>%
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
+kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
 ```
 
 **Homework (30%)**: 
