@@ -61,10 +61,33 @@ Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.gith
 
 Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
+### Major deadlines
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+assn <- read.csv("course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+knitr::kable(assn)
+```
+
 ### Assignment Timeline
 
 ```{r,echo=FALSE}
-library(timevis)
+suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("course-admin/assn_2019.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")

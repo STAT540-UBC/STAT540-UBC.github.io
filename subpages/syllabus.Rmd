@@ -39,43 +39,153 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 
 - Submit "deliverable" for seminars 1, 2, 3, 4, and 6
 - Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
-- 1.5pt per deliverable 
-
+- 2pts per deliverable 
+**Dates:**
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
+```
 **Warm-up Assignment (5%)**
 
 - The assignment is worth 5 points.
 - tests basic knowledge of GitHub, R and Rmarkdown
-- <span style="color: red">Due date: **Jan 16, 2019**</span>
 - Late penalty: -1 point per day
-
+**Dates:**
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Warm-Up") %>% select(-Category))
+```
 **Paper critique (5%)**
 
 - Summarize and critique 1 paper - 6 points
 - Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
 - Instruction on the paper critiques will be posted shortly
-- <span style="color: red">Due date: **Feb 24, 2019**</span>
 - [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
 - Late penalty: -1 points per day
+**Dates:**
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
+```
 
 **Homework (30%)**: 
 
 - The assignment is worth 30 points. 
 - Involves detailed analysis of real data using R 
-- <span style="color: red">Due date for questions 1 - 3: **February 28, 2019**</span>
-- <span style="color: red">Due date for questions 4 - 5: **Mar 23, 2019**</span>
+**Dates:**
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Individual Assignment") %>% select(-Category))
+```
+
 - Late penalty: -2.5 points per day
 
 **Group project (50%)**: 
 
 - A data analysis group project that will allow you to apply the techniques covered in class
-- Important dates: 
-    - <span style="color: red">**Now - January 23, 2019**</span>: Pitch your ideas, find an idea, form a 4-5 people group 
-    - <span style="color: red">**January 23, 2019**</span>: Finish the initial project proposal
-    - <span style="color: red">**February 13, 2019**</span>: Finalize the one page project proposal 
-    - <span style="color: red">**March 13, 2019**</span>: Progress report
-    - <span style="color: red">**April 3, 2019**</span>: Poster session 
-    - <span style="color: red">**April 3, 2019**</span>: GitHub repository
-    - <span style="color: red">**April 4, 2019**</span>: Individual report deadline
+- Important events: 
+    - Pitch your ideas, find an idea, form a 4-5 people group 
+    - Finish the initial project proposal
+    - Finalize the one page project proposal 
+    - Progress report
+    - Presentation 
+    - GitHub repository
+    - Individual report deadline
+**Dates:**
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, style) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(
+    Category = ifelse(
+      grepl("pink",style),
+      "Individual Assignment",
+    ifelse(grepl("lavender",style),
+      "Group Project",
+    ifelse(grepl("aqua",style),
+           "Paper Critique",
+    ifelse(grepl("gold",style),"Warm-Up", "Seminar"))))) %>%
+  select(-style) %>% 
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
+``` 
 - Grading and deliverable 
     - Primary deliverable is a presentation. Each student also produces a short report 
     - Planning + project + presentation session - 50 points 
@@ -102,7 +212,7 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 ### Assignment Timeline
 
 ```{r,echo=FALSE}
-library(timevis)
+suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")

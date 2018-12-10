@@ -61,13 +61,34 @@ Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.gith
 
 Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
+### Major deadlines
+
+Assignment                            Due Date               Category              
+------------------------------------  ---------------------  ----------------------
+Seminar 1                             Fri 04 January 2019    Seminar               
+Seminar 2a&b                          Fri 11 January 2019    Seminar               
+Warm-Up                               Wed 16 January 2019    Warm-Up               
+Seminar 2c                            Fri 18 January 2019    Seminar               
+Project Groups and Initial Proposal   Wed 23 January 2019    Group Project         
+Seminar 3                             Fri 25 January 2019    Seminar               
+Seminar 4                             Fri 01 February 2019   Seminar               
+Finalized Project Proposal            Wed 13 February 2019   Group Project         
+Seminar 6                             Fri 15 February 2019   Seminar               
+Paper Critique                        Wed 20 February 2019   Paper Critique        
+Q1-3                                  Thu 28 February 2019   Individual Assignment 
+Project Progress Report               Wed 13 March 2019      Group Project         
+Q4-5                                  Mon 25 March 2019      Individual Assignment 
+Presentation Session                  Wed 03 April 2019      Group Project         
+Github Repo                           Wed 03 April 2019      Group Project         
+Individual Report                     Thu 04 April 2019      Group Project         
+
 ### Assignment Timeline
 
-<!--html_preserve--><div id="htmlwidget-05e062f158afb9a61ebe" class="timevis html-widget" style="width:672px;height:480px;">
+<!--html_preserve--><div id="htmlwidget-71584f7ae3f24e20aaf3" class="timevis html-widget" style="width:672px;height:480px;">
 <div class="btn-group zoom-menu">
 <button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
 <button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-05e062f158afb9a61ebe">{"x":{"items":[{"id":" 1","content":"Warm-Up ","start":"2019-01-16 23:59:00","style":"background-color: gold;"},{"id":" 2","content":"Paper Critique","start":"2019-02-20 23:59:00","style":"background-color: aqua;"},{"id":" 3","content":"Q1-3","start":"2019-02-28 23:59:00","style":"background-color: pink;"},{"id":" 4","content":"Q4-5","start":"2019-03-23 23:59:00","style":"background-color: pink;"},{"id":" 5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","style":"background-color: lavender;"},{"id":" 6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","style":"background-color: lavender;"},{"id":" 7","content":"Project Progress Report","start":"2019-03-13 23:59:00","style":"background-color: lavender;"},{"id":" 8","content":"Presentation Session","start":"2019-04-03 23:59:00","style":"background-color: lavender;"},{"id":" 9","content":"Github Repo","start":"2019-04-03 23:59:00","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-04 23:59:00","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-11 23:59:00","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-18 23:59:00","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-01-25 23:59:00","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-01 23:59:00","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-02-15 23:59:00","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<script type="application/json" data-for="htmlwidget-71584f7ae3f24e20aaf3">{"x":{"items":[{"id":" 1","content":"Warm-Up ","start":"2019-01-16 23:59:00","style":"background-color: gold;"},{"id":" 2","content":"Paper Critique","start":"2019-02-20 23:59:00","style":"background-color: aqua;"},{"id":" 3","content":"Q1-3","start":"2019-02-28 23:59:00","style":"background-color: pink;"},{"id":" 4","content":"Q4-5","start":"2019-03-25 23:59:00","style":"background-color: pink;"},{"id":" 5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","style":"background-color: lavender;"},{"id":" 6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","style":"background-color: lavender;"},{"id":" 7","content":"Project Progress Report","start":"2019-03-13 23:59:00","style":"background-color: lavender;"},{"id":" 8","content":"Presentation Session","start":"2019-04-03 23:59:00","style":"background-color: lavender;"},{"id":" 9","content":"Github Repo","start":"2019-04-03 23:59:00","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-04 23:59:00","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-11 23:59:00","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-18 23:59:00","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-01-25 23:59:00","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-01 23:59:00","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-02-15 23:59:00","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
