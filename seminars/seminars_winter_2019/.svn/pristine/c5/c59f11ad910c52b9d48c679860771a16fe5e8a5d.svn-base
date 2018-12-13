@@ -30,19 +30,19 @@ Watch this [video](https://git-scm.com/video/what-is-version-control) for some G
 
 ### Why Git? (excerpt from [section 1.1 of Happy Git and GitHub for the useR](http://happygitwithr.com/big-picture.html#why-git))
 
-Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files â called a repository â in a sane, highly structured way. If you have no idea what Iâm talking about, think of it as the âTrack Changesâ features from Microsoft Word on steroids.
+Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a sane, highly structured way. If you have no idea what I’m talking about, think of it as the “Track Changes” features from Microsoft Word on steroids.
 
 Git has been re-purposed by the data science community. In addition to using it for source code, we use it to manage the motley collection of files that make up typical data analytical projects, which often consist of data, figures, reports, and, yes, source code.
 
 ### Why GitHub? (excerpt from [section 1.2 of Happy Git and GitHub for the useR](http://happygitwithr.com/big-picture.html#why-github))
 
-This is where hosting services like GitHub, Bitbucket, and GitLab come in. They provide a home for your Git-based projects on the internet. If you have no idea what Iâm talking about, think of it as DropBox but much, much better. The remote host acts as a distribution channel or clearinghouse for your Git-managed project. It allows other people to see your stuff, sync up with you, and perhaps even make changes. These hosting providers improve upon traditional Unix Git servers with well-designed web-based interfaces.
+This is where hosting services like GitHub, Bitbucket, and GitLab come in. They provide a home for your Git-based projects on the internet. If you have no idea what I’m talking about, think of it as DropBox but much, much better. The remote host acts as a distribution channel or clearinghouse for your Git-managed project. It allows other people to see your stuff, sync up with you, and perhaps even make changes. These hosting providers improve upon traditional Unix Git servers with well-designed web-based interfaces.
 
 But be careful, while GitHub and many other services are great for tracking files, they may not always have the capacity to store large amounts of data. GiHhub recommends that repositories are under the size of 1GB (see this github [help](https://help.github.com/articles/what-is-my-disk-quota/) page). More importantly, GitHub doesn't allow for files larger than 100MB in size (see [Working with large files](https://help.github.com/articles/working-with-large-files/)).
 
-Even for private solo projects, itâs a good idea to push your work to a remote location for peace of mind. Why? Because itâs fairly easy to screw up your local Git repository, especially when youâre new at this. The good news is that often only the Git infrastructure is borked up. Your files are just fine! Which makes your Git pickle all the more frustrating. There are official Git solutions to these problems, but they might require expertise and patience you canât access at 3a.m. If youâve recently pushed your work to GitHub, itâs easy to grab a fresh copy, patch things up with the changes that only exist locally, and get on with your life.
+Even for private solo projects, it’s a good idea to push your work to a remote location for peace of mind. Why? Because it’s fairly easy to screw up your local Git repository, especially when you’re new at this. The good news is that often only the Git infrastructure is borked up. Your files are just fine! Which makes your Git pickle all the more frustrating. There are official Git solutions to these problems, but they might require expertise and patience you can’t access at 3a.m. If you’ve recently pushed your work to GitHub, it’s easy to grab a fresh copy, patch things up with the changes that only exist locally, and get on with your life.
 
-We target GitHub â not Bitbucket or GitLab â for the sake of specificity. However, all the big-picture principles and even some mechanics will carry over to these alternative hosting platforms.
+We target GitHub – not Bitbucket or GitLab – for the sake of specificity. However, all the big-picture principles and even some mechanics will carry over to these alternative hosting platforms.
 
 ### Wait, so what is what, exactly?
 
@@ -61,7 +61,7 @@ Before we can start using Git, your computer must be equipped with the appropria
 
 ### 1. Install Git (contains excerpts from [Ch. 7 of Happy Git and GitHub for the useR](http://happygitwithr.com/install-git.html))
 
-You need Git, so you can use it at the command line and so RStudio can call it. If thereâs any chance itâs installed already, verify that, rejoice, and skip this step. Otherwise, find installation instructions below for your operating system.
+You need Git, so you can use it at the command line and so RStudio can call it. If there’s any chance it’s installed already, verify that, rejoice, and skip this step. Otherwise, find installation instructions below for your operating system.
 
 #### Git already installed?
 
@@ -72,13 +72,13 @@ git --version
 ## git version 2.11.0 (Apple Git-81)
 ```
 
-If you are successful, thatâs great! You have Git already. No need to install! Move on.
+If you are successful, that’s great! You have Git already. No need to install! Move on.
 
 If, instead, you see something more like git: command not found, keep reading.
 
 #### Install Git for Windows people
 
-Install [Git for Windows](https://git-for-windows.github.io/), previously known as msysgit or âGit Bashâ, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing. You may accept all the default settings during installation.
+Install [Git for Windows](https://git-for-windows.github.io/), previously known as msysgit or “Git Bash”, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing. You may accept all the default settings during installation.
 
 -   This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the Bash shell will be useful as you venture outside of R/RStudio.
 -   This also leaves you with a Git client, though not a very good one.
@@ -106,11 +106,11 @@ git --version
 git config
 ```
 
-Accept the offer! Click on âInstallâ.
+Accept the offer! Click on “Install”.
 
 #### Install Git for Linux people
 
-Install Git via your distroâs package manager.
+Install Git via your distro’s package manager.
 
 Ubuntu or Debian Linux:
 
@@ -132,12 +132,12 @@ I hope by this point in the course, you all have a GitHub account already. If no
 
 A few tips on selecting a username, which sadly tend to contradict each other:
 
--   Incorporate your actual name! People like to know who theyâre dealing with. Also makes your username easier for people to guess or remember.
+-   Incorporate your actual name! People like to know who they’re dealing with. Also makes your username easier for people to guess or remember.
 -   Reuse your username from other contexts, e.g., Twitter or Slack. But, of course, someone with no GitHub activity will probably be squatting on that.
 -   Pick a username you will be comfortable revealing to your future boss.
 -   Shorter is better than longer.
 -   Be as unique as possible in as few characters as possible. In some settings GitHub auto-completes or suggests usernames.
--   Make it timeless. Donât highlight your current university, employer, or place of residence.
+-   Make it timeless. Don’t highlight your current university, employer, or place of residence.
 -   Avoid words laden with special meaning in programming. In my first inept efforts to script around the GitHub API, I assigned lots of issues to the guy with username NA because my vector of GitHub usernames contained missing values. A variant of Little Bobby Tables.
 
 You can change your username later, but better to get this right the first time.
@@ -177,7 +177,7 @@ ls -al ~/.ssh
 
 If you see a pair of files like id\_rsa.pub and id\_rsa, **you have a key pair already**. You can skip to the section about adding a key to the ssh-agent.
 
-If you are told .ssh doesnât exist, you donât have SSH keys! Keep reading to create them.
+If you are told .ssh doesn’t exist, you don’t have SSH keys! Keep reading to create them.
 
 #### Create SSH key pair
 
@@ -236,7 +236,7 @@ jenny@2015-mbp ~ $ eval "$(ssh-agent -s)"
 Agent pid 95727
 ```
 
-Add your key. If you set a passphrase, youâll be challenged for it here. Give it.
+Add your key. If you set a passphrase, you’ll be challenged for it here. Give it.
 
 ``` r
 jenny@2015-mbp ~ $ ssh-add ~/.ssh/id_rsa
@@ -262,9 +262,9 @@ In the user settings sidebar, click SSH and GPG keys.
 
 Click New SSH key.
 
-In the âTitleâ field, add a descriptive label for the new key. For example, if youâre using a personal Mac, you might call this key âPersonal MacBook Airâ.
+In the “Title” field, add a descriptive label for the new key. For example, if you’re using a personal Mac, you might call this key “Personal MacBook Air”.
 
-Paste your key into the âKeyâ field.
+Paste your key into the “Key” field.
 
 Click Add SSH key.
 
@@ -313,7 +313,7 @@ Make sure you have the latest version of RStudio before you start.
 
 In RStudio, start a new Project:
 
--   File &gt; New Project &gt; Version Control &gt; Git. In the ârepository URLâ paste the URL of your new GitHub repository. It will be something like this <git@github.com>:echu113/testing-repository.git.
+-   File &gt; New Project &gt; Version Control &gt; Git. In the “repository URL” paste the URL of your new GitHub repository. It will be something like this <git@github.com>:echu113/testing-repository.git.
 
 ![Create new project screenshot](create_new_rstudio_project.png)
 
@@ -323,11 +323,11 @@ You can obtain this URL from your GitHub repository website. See below. Make sur
 
 Do you NOT see an option to get the Project from Version Control? Go to [chapter 14 of Happy Git and GitHub for the useR](http://happygitwithr.com/rstudio-see-git.html) for tips on how to help RStudio find Git.
 
-Take charge of â or at least notice! â the local directory for the Project. A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in ~/Desktop/git\_temp.
+Take charge of – or at least notice! – the local directory for the Project. A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in ~/Desktop/git\_temp.
 
 Check "Open in new session" so that RStudio will open your new project in a new window.
 
-Click âCreate Projectâ.
+Click “Create Project”.
 
 Confirm that a new directory has been created with the project directory name you specified. The directory now contains a .Rproj file. This is the RStudio project file. We will subsequently push this file to the remote repository.
 
@@ -442,9 +442,9 @@ Final recommendations (excerpt from [Ch. 26 of Happy Git and GitHub for the useR
 
 -   Commit early and often.
 -   Push to a remote, like GitHub, often.
--   The state of things on GitHub is your new âworst case scenarioâ.
+-   The state of things on GitHub is your new “worst case scenario”.
 -   If you really screw things up locally, copy all the files (or the ones that have changed) to a safe place.
--   Usually your files are JUST FINE. But it is easy to goof up the Git infrastructure when youâre new at this. And it can be hard to get that straightened out on your own.
+-   Usually your files are JUST FINE. But it is easy to goof up the Git infrastructure when you’re new at this. And it can be hard to get that straightened out on your own.
 -   Rename the existing local repo as a temporary measure, i.e. before you do something radical, like delete it.
 -   Clone the repo from GitHub to your local machine. You are back to a happy state.
 -   Copy all relevant files back over from your safe space. The ones whose updated state you need to commit.
