@@ -93,7 +93,7 @@ You can read Github's [security](https://help.github.com/articles/github-securit
 
 ### Group makeup
 
-Groups should have 4 to 6 members. We strongly encourage that groups be diverse in terms of backgrounds. In practice, this probably means the students should registered in a mix of programs/departments. All groups and group projects must be approved by the instructors.
+Groups should have 4 members. We strongly encourage that groups be diverse in terms of backgrounds. In practice, this probably means the students should registered in a mix of programs/departments. All groups and group projects must be approved by the instructors.
 
 --------------
     
