@@ -61,7 +61,7 @@ Your group progress report entitled `progress_report.md`.
 - What are your primary results? Were you able to answer your hypothesis? Did you have any positive results? If no, postulate a discussion as to why that may be. Provide plots and/or tables to present your results.
 - List some challenges that you encountered? How will you address them?
 
-Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 13th, 2019_</span>.
+Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by the due date. 
 
 ## GitHub repository (20 pts)
 
@@ -78,10 +78,10 @@ Example of a group repository:
 
 **Analysis and results (10 pts)**
 
-- Think of it as a technical report of your poster. Add brief comments and text throughout explaining the aim and conclusions of each part. You do not need to talk about all the analysis you have done but make sure you are addressing the important files, such as “inputs” (e.g. the dataset(s) you analyzed) and “outputs” (e.g. plain text files of your key statistical results or PDFs of your main figures)
+- Think of it as a technical report of your presentation. Add brief comments and text throughout explaining the aim and conclusions of each part. You do not need to talk about all the analysis you have done but make sure you are addressing the important files, such as “inputs” (e.g. the dataset(s) you analyzed) and “outputs” (e.g. plain text files of your key statistical results or PDFs of your main figures)
 - Make sure your code is readable and could be run by instructors. So, it is necessary to provide valid addresses for the files you use in your scripts. Add comments for different chunks of your code and document it.
 
-You do not need to open an issue and tag TAs for this. Just make sure that your last commit is by <span style="color: red">_April 03, 2019_</span>
+You do not need to open an issue and tag TAs for this. Just make sure that your last commit is by the date of the first presentation
 
 
 ## Poster (20 pts)
@@ -115,7 +115,7 @@ A one-page individual report as `individual_report.md` should be in your individ
 - What have you learned from this group project? 
 - Any other comments on how the group project could have been structured differently (i.e. delivery requirements, assessment") 
 
-Please provide a link to your `individual_report.md` file in your private repository `README.md`. This is not a group-level deliverable so every student should submit it by linking it in an issue with name Individual report of [your private repository name], provide the revision SHA and tag the TAs by <span style="color: red">_April 4th, 2019_</span>.
+Please provide a link to your `individual_report.md` file in your private repository `README.md`. This is not a group-level deliverable so every student should submit it by linking it in an issue with name Individual report of [your private repository name], provide the revision SHA and tag the TAs by the due date 
 
 Example of a personal repository
 
