@@ -17,7 +17,7 @@ Officially none BUT here in reality ...
 **Biology**: 
 
 - No requirements, but you are expected to learn things like the difference between a DNA and RNA and a gene and a genome
-- See [Seminar-0c](../seminars/seminars_winters_2019/seminar0c/sm01e_biology-intro-2017.pdf) 
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master//seminars/seminars_winter_2019/seminar0c/sm01e_biology-intro-2017.pdf) 
 
 **R**: 
 
