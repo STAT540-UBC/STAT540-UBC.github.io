@@ -1,0 +1,78 @@
+---
+title: "Paper review guidelines"
+author: "Jasper Wong"
+date: "January 8, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal
+
+---
+
+To practice your ability to go through a paper, identify the biological problem that the authors want to address and critique how they chose to approach this question. Since this course is based around statistical methods of high dimensional biology, we want you to review their methods of analyses and think about ways in which it could be improved/modified and the extent to which they are able to address their biological questions with their given data/analyses.
+
+## Paper in question:
+
+---
+
+[Gene Expression by Mouse Inner Ear Hair Cells during Development](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
+
+## Where do I start?
+
+---
+
+Read the title and abstract. Try to identify:
+
+ * The biological problem that the authors are trying to address.
+ * The biological model they are using to address this problem.
+ * The datasets/methods they are using.
+ * The main finding of the paper.
+
+Read through the introduction:
+
+ * What's the biology of the system?
+ * What kind of model are they using?
+ * What's the point of this study?
+ * What do they want to know? (expression of select genes, methylation, transcription factor binding sites?)
+ 
+Briefly look at the methods:
+
+ * It will look like a jumble of text if you are not familiar with the techniques here. Try to understand what kind of models were being used (human, mouse, llama?), what technique was conducted to generate their dataset (ChIP-seq, RNA-seq, WGBS, microarray?), what statistical methods were used on this dataset (clustering, FDR-cutoffs, ANOVA?).
+ 
+Read through the results:
+
+ * What is being compared? (i.e. condition A vs condition B)
+ * What were some of the key results that were found? (ex. what genes were identified? What do these genes do?)
+ * How does this relate back to the biology? (i.e. how does this relate to the question that was being asked?)
+ 
+Briefly understand the discussion:
+
+ * How did the authors interpret these findings? Do you agree with this?
+
+
+## Deliverables:
+
+---
+
+In four sections, present:
+
+**1) A brief review of the goal, findings and conclusion of the paper.**
+
+   What's the biological problem (from abstract/introduction)? What did the authors do (introduction/methods)? Briefly, what are some of their key findings (results)? Taken together, what did the authors conclude from these results?
+
+**2) A list (or mentioning) of the related datasets/databases and data types used in the study. In the case of datasets, provide some details of the data matrix and meta data.**
+
+   What kind of dataset was used/generated in this study? How was it generated? What does the dataset represent (i.e. groups, conditions, timepoints, cell types, mouse strains)?
+
+**3) A brief review of the analytical steps in the paper with more details on some selected parts which are relevant to the course materials. You don’t need to understand all of the analysis, but should be able to identify the key analysis/method used to answer the question the paper is intended to answer. **
+
+   What kind of analyses were used on this dataset? What is their clustering method? How do they control for variation between/within groups? 
+   
+
+**4) Some comments and critiques about the analytical steps, alternative suggestions or improvements. **
+
+   This is where you add your own opinions on their methods. Do you agree with how they interpreted their findings? Do you see any gene function/network analyses? 
