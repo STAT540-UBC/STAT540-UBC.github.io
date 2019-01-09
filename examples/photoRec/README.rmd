@@ -1,0 +1,94 @@
+The `photoRec` dataset
+=================================================================
+
+The aim of the study was to "generate gene expression profiles of purified photoreceptors at distinct developmental stages and from different genetic backgrounds". The experimental units were mice and the microarray platform was Affymetrix mouse genomic expression array 430 2.0.
+
+For more information on this study, please refer to the 2006 publication:
+
+<http://www.ncbi.nlm.nih.gov/pubmed/16505381>
+
+The data is also directly accessible from GEO:
+
+<http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE4051>
+
+TO DO: can we track down provenance of the files we start with? And/or can we start over with data from a link above and preserve the entire process?
+
+There are two main sources of information in the `data` directory.
+
+1. The gene expression data itself. The `GSE4051_data_RAW.txt` file contains expression values of 29949 probes from photoreceptor cells in 39 mice samples. A "cleaned" version, where the columns = variables have been rearranged rationally, is given in `GSE4051_data.tsv`. See the script `code/02_cleanData.R` for details.
+
+2. The metadata file `GSE4051_design_RAW.txt` describes the experimental condition for each sample. Gene expression was studied at 5 different developmental stages: day 16 of embryonic development (E16), postnatal days 2,6 and 10 (P2, P6 and p10) as well as 4 weeks (`4_weeks`). Each of these 5 experimental conditions was studied in wild type mice and Nrl knockout mice. A "cleaned" version, with variables renamed and row order rationalized w/r/t developmental stage, is given in `GSE4051_design.tsv`. The same info is preserved in two R-specific formats in files `GSE4051_design_DPUT.txt` and `GSE4051_design.rds`. These files have an advantage over the plain text delimited file because, upon import, the levels of the developmental stage factor will be in chronological order (not alphabetical). See the script `code/01_cleanDesign.R` for details.
+
+There are several derived datasets, created from processing the above.
+
+`GSE4051_MINI.txt` holds data for 3 randomly selected probesets, renamed for fun, transposed into convenient column variables and stored together in a data.frame with the experimental condition information for each sample. See the script `code/03_createMiniDataset.R` for how it was created.
+
+TO DO: discuss differential expression analysis
+
+TO DO: use diff exp analysis to pick 3 more interesting probesets for a new mini dataset
+
+### Reading the raw data and design
+
+WARNING: It is your responsibility to make sure the working directory is set to where these files live or to edit paths accordingly below!
+
+__Raw__ data and design:
+
+```{r}
+prDat <- read.table("data/GSE4051_data_RAW.txt",
+                    sep = "\t", header = T, row.names = 1)
+str(prDat, max.level = 0)
+prDes <- read.table("data/GSE4051_design_RAW.txt",
+                    sep = "\t", header = T, row.names = 1)
+str(prDes)
+```
+
+Do columns of the data match the rows of the design?
+
+```{r}
+head(cbind(names(prDat), rownames(prDes)))
+```
+
+Heck, no! That would be too easy and transparent. Watch out for such things!
+
+
+### Reading the cleaned data and design
+
+__Cleaned__ data and design (saved in various formats):
+
+```{r}
+prDat <- read.table("data/GSE4051_data.tsv")
+str(prDat, max.level = 0)
+prDes <- read.table("data/GSE4051_design.tsv", header = TRUE, as.is = 1)
+str(prDes)
+head(cbind(names(prDat), prDes$sidChar))
+identical(names(prDat), prDes$sidChar)
+```
+
+In the above case, note that the factor levels for `devStage` and `gType` may not be as you want. Wild type ('wt') is not the reference level and the developmental stages are not in chronological order. Set explicitly or import the design from a format that preserves factor levels, i.e. from a cleaned design written to file via `dput()` or `saveRDS()`.
+
+### Reading the design with sane factor levels
+
+```{r}
+prDes <- dget("data/GSE4051_design_DPUT.txt")
+str(prDes)
+prDes <- readRDS("data/GSE4051_design.rds")
+str(prDes)
+```
+
+### Loading and getting to know the mini dataset:
+
+The usual problem with factor level order occurs here:
+
+```{r}
+kDat <- read.delim("data/GSE4051_MINI.tsv")
+str(kDat)
+```
+
+Importing from these R-specific formats preserves factor levels:
+
+```{r}
+kDat <- dget("data/GSE4051_MINI_DPUT.txt")
+str(kDat)
+kDat <- readRDS("data/GSE4051_MINI.rds")
+str(kDat)
+```

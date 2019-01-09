@@ -1,0 +1,183 @@
+---
+title: "Syllabus"
+output:
+  html_document:
+    includes:
+      before_body: ../include/nav.html
+      after_body: ../include/nothing.html
+    toc: true
+---
+
+### Prerequisites and useful skills
+
+Officially none BUT here in reality ...
+
+**Statistics**: You should have already taken university level introductory statistics course.
+
+**Biology**: 
+
+- No requirements, but you are expected to learn things like the difference between a DNA and RNA and a gene and a genome
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master//seminars/seminars_winter_2019/seminar0c/sm01e_biology-intro-2017.pdf) 
+
+**R**: 
+
+- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R. 
+- Start now by installing R and the HIGHLY RECOMMENDED "integrated development environment" (IDE) RStudio! 
+- Best set-up: be able to run R on your own computer and bring your own laptop to each seminar.
+- If you are new to R, check out [this blog post on getting started with R](http://santina.me/r/2015/12/15/Get-started-with-R.html). 
+
+**Others:** 
+
+- You'll need to know how to use [Git](https://stat545-ubc.github.io/git01_git-install.html) and GitHub. 
+- We'll soon learn about [using Rmarkdown](https://stat540-ubc.github.io/seminars/sm02a_rMarkdown.html) to generate reports, and you'll be using that a lot in this course. 
+
+### Evaluation
+
+Students may ask for extensions with a documented excuse (like: computer caught on fire, sickness). No "I just need more time" extensions.
+
+**Seminar completion (10%)**
+
+- Submit "deliverable" for seminars 1, 2, 3, 4, and 6
+- Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
+- 2pts per deliverable 
+
+**Dates:**
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content, start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
+```
+
+**Warm-up Assignment (5%)**
+
+- The assignment is worth 5 points.
+- tests basic knowledge of GitHub, R and Rmarkdown
+- Late penalty: -1 point per day
+
+**Dates:**
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start,Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
+```
+
+**Paper critique (5%)**
+
+- Summarize and critique 1 paper - 6 points
+- Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
+- Instruction on the paper critiques will be posted shortly
+- [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
+- Late penalty: -1 points per day
+
+**Dates:**
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
+```
+
+**Homework (30%)**: 
+
+- The assignment is worth 30 points. 
+- Involves detailed analysis of real data using R 
+
+**Dates:**
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-Up") %>% select(-Category))
+```
+
+- Late penalty: -2.5 points per day
+
+**Group project (50%)**: 
+
+- A data analysis group project that will allow you to apply the techniques covered in class
+- Important events: 
+    - Pitch your ideas, find an idea, form a 4-5 people group 
+    - Finish the initial project proposal
+    - Finalize the one page project proposal 
+    - Progress report
+    - Presentation 
+    - GitHub repository
+    - Individual report deadline
+
+**Dates:**
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- assn %>% 
+  select(content,start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
+``` 
+
+- Grading and deliverable 
+    - Primary deliverable is a presentation. Each student also produces a short report 
+    - Planning + project + presentation session - 50 points 
+- Tip: try to form a group of diverse talents
+- [More information on group project](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project) 
+
+
+### Schedule  
+
+**Class mettings** 
+
+- Time : Mon Wed 9:30 - 11am
+- Location: ESB 2012
+- See [Lectures](lectures.html) for lecture materials, schedule, and deadlines 
+
+**Seminars**
+
+- Time : Wed 11pm - 1pm
+- Location: Hugh Dempster Pavillion 201
+- See [Seminars](seminars.html) for schedule and seminar materials 
+- We strongly recommend reading the seminar materials prior to attending each seminar. 
+
+
+### Assignment Timeline
+
+```{r,echo=FALSE}
+suppressPackageStartupMessages(library(timevis))
+
+assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+timevis(assignment_data)
+```

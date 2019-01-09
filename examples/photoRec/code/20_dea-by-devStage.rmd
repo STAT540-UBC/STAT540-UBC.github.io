@@ -1,0 +1,280 @@
+`photoRec` data: differential expression analysis by developmental stage
+========================================================
+
+```{r include = FALSE}
+opts_chunk$set(tidy = FALSE)
+```
+
+Walks through differential expression analysis with developmental stage as the covariate. Enacts for all probesets at once via `lm()`, exploiting R's built-in ability to fit multiple linear models at once, and via the `lmFit()` function from `limma`. Uses homegrown code to provide missing functionality for extracting info from fitted multivariate regression objects. Does *ad hoc* comparisons of *en masse* results with hand-crafted analysis of individual probesets. Compares output from `lm()` and `limma`. Demonstrates I know how to get whatever I want from the output returned by `lmFit()`.
+
+```{r include = FALSE}
+library(lattice)
+library(limma)
+```
+
+### Load the data and the design
+
+```{r}
+prDes <- readRDS("../data/GSE4051_design.rds")
+prDat <- read.table("../data/GSE4051_data.tsv")
+str(prDes)
+with(prDes, table(devStage, gType))
+str(prDat, max.level = 0)
+head(subset(prDat, select = 1:5))
+```
+
+### `limma`, probeset-specific fits
+
+`limma` requires the user to construct the model matrix, i.e. to "dummy out" the categorical covariate. Then the `lmFit()` function fits a linear model (one-way ANOVA) in this case for each gene, where the response is gene expression and the covariate is developmental stage.
+
+```{r}
+(dmDevStage <- model.matrix(~ devStage, prDes))
+colnames(dmDevStage) <- levels(prDes$devStage)
+fitDevStage <- lmFit(prDat, dmDevStage)
+```
+
+The `coef` component of the `lmFit()` output gives the estimated coefficients. One row per probeset, one column per level of `devStage`. Column 1 is the intercept, associated with `devStage = E16`. Columns 2 through 5 are the effects of subsequent timepoints or developmental stages.
+
+```{r}
+head(fitDevStage$coef)
+str(fitDevStage$coef)
+```
+
+The covariance of the estimated coefficients is $\sigma^{2} (X^{T}X)^{-1}$. Since the design matrix $X$ is the same for all probesets, that part of the covariance is global. Let's verify that we understand what the `stdev.unscaled` component of the `lmFit()` output is.
+
+```{r}
+head(fitDevStage$stdev.unscaled)
+sqrt(diag(solve(t(dmDevStage) %*% dmDevStage)))
+```
+
+Gene-specific estimates of residual standard deviation are given in `sigma`.
+
+```{r}
+head(fitDevStage$sigma)
+```
+
+Again, since the design matrix is the same for all probesets, the residual degrees of freedom are also the same. Specifically they are $n$ minus the number of parameters in the model.
+```{r}
+head(fitDevStage$df.residual)
+```
+
+At the top of page 62 in 2013 Jan 04 limma User's Guide, it says "The ordinary t-statistics can be recovered by ...". Let's do that.
+
+```{r}
+head(fitDevStage$coef/fitDevStage$stdev.unscaled/fitDevStage$sigma)
+```
+
+### Spot check a `limma` fit with a hand-crafted one
+
+Let's focus on the data for the first probeset.
+```{r}
+## work with the first probeset
+jDat <- data.frame(devStage = prDes$devStage,
+                   gExp = unlist(prDat[1, ]))
+lmRes <- lm(gExp ~ devStage, jDat)
+```
+
+Verify the coefficient estimates are empirical means and differences between such means and that they match those produced by `lmFit()` in `limma`.
+```{r}
+(foo <- with(jDat, tapply(gExp, devStage, mean)))
+foo[-1] <- foo[-1] - foo[1]
+data.frame(simpleAvgs = foo, handcraft = coef(lmRes),
+           limma = fitDevStage$coef[1, ])
+```
+
+Let's check that the estimated standard errors and t statistics agree.
+```{r}
+data.frame(handcraft = summary(lmRes)$coef[ , "Std. Error"],
+           limma = fitDevStage$sigma[1] * fitDevStage$stdev.unscaled[1, ])
+limma_t_stat <- (fitDevStage$coef/fitDevStage$stdev.unscaled/
+                   fitDevStage$sigma)[1, ]
+data.frame(handcraft = summary(lmRes)$coef[ , "t value"],
+           limma = limma_t_stat)
+```
+
+### Use built-in `lm()` to fit the probeset-specific models
+
+The build-in function `lm()` can actually do multivariate regression and, with in-house code from Rick White, we can extract the information we need from these fitted models. Strangely, base R does not include many of the standard functions one needs to extract output from a fitted model for `mlm` objects, as opposed to `lm` objects.
+
+The responses must be in a matrix, not a data.frame, with one column per response.
+```{r}
+prMat <- t(as.matrix(prDat))
+devStage <- prDes$devStage        # lesser of two evils
+rFit <- lm(prMat ~ devStage)
+```
+
+Here's where we use our homegrown code to provide missing functionality, such as a `summary` method for objects of class `mlm`. __WARNING__: The call to `summary()` will hang if you have not loaded the file sourced below.
+
+```{r}
+source("80_anova-mlm.r")
+rfSumm <- summary(rFit)
+rfSumm # shows info on first 2 fits, by default
+print(rfSumm, show = c(2, 4555, 29403)) # show gives more flexibility
+```
+
+This summary object is a list, with components for estimated coefficients, various overall statistics, and the residuals.
+
+```{r}
+str(rfSumm, max.level = 1)
+str(rfSumm$Coef)
+```
+
+The `Coefficients` component is a 3-dimensional array with one row per probeset and one column per parameter. The third dimension is 4, accomodating the estimate, standard error, t statistic and p-value for the parameters estimated for each probeset.
+
+```{r}
+str(rfSumm$FullModelStats)
+head(rfSumm$FullModelStats)
+```
+
+The `FullModelStats` component is an $n$ by 5 matrix, one row per probeset, columns providing various statistics related to the whole model (vs. individual parameters).
+
+### Check that built-in `lm()` and `lmFit()` from `limma` give same results
+
+The estimated coefficients are stored in a transposed fashion by `lm()`, relative to `lmFit()`. There are differences in the naming convention as well. But after finessing these minor issues, we can test for equality of estimated coefficients.
+```{r}
+str(estCoef_lm <- t(coef(rFit)))
+colnames(estCoef_lm) <- levels(prDes$devStage)
+str(coef(fitDevStage))
+all.equal(estCoef_lm, coef(fitDevStage))
+```
+
+We can similarly check for agreement with respect to estimated standard errors.
+```{r}
+str(estSe_lm <- rfSumm$Coef[ , , "Std. Error"])
+colnames(estSe_lm) <- levels(prDes$devStage)
+str(fitDevStage$sigma * fitDevStage$stdev.unscaled)
+all.equal(estSe_lm, fitDevStage$sigma * fitDevStage$stdev.unscaled)
+```
+
+Check for agreement with respect to t statistics.
+```{r}
+str(tStat_lm <- rfSumm$Coef[ , , "t value"])
+colnames(tStat_lm) <- levels(prDes$devStage)
+str(tStat_lmFit <- coef(fitDevStage) /
+      (fitDevStage$sigma * fitDevStage$stdev.unscaled))
+all.equal(tStat_lm, tStat_lmFit)
+```
+
+Check for agreement with respect to estimated residual variance.
+```{r}
+str(ssq_lm <- deviance(rFit) / df.residual(rFit))
+str(ssq_lmRick <- rfSumm$Full[ , "Res. SE"] ^ 2)
+str(ssq_lmFit <- fitDevStage$sigma ^ 2)
+all.equal(ssq_lm, ssq_lmFit)
+all.equal(ssq_lm, ssq_lmRick)
+```
+
+### Progressing to the Empirical Bayes phase of `limma` analysis
+
+This is where we use Empirical Bayes methods to borrow strength across the probsets with respect to estimating gene expression variability.
+
+First note that various quantities are undefined or `NULL` when working with the "plain vanilla" linear model results from `lmFit()`.
+
+```{r}
+head(fitDevStage$F)
+fitDevStage$s2.prior
+fitDevStage$df.prior
+head(fitDevStage$var.prior)
+head(fitDevStage$t)
+```
+
+Here's where the magic happens
+
+```{r}
+ebFitDevStage <- eBayes(fitDevStage)
+```
+
+Note that the estimated coefficients have NOT changed.
+
+```{r}
+head(cbind(coef(ebFitDevStage), coef(fitDevStage)))
+all.equal(coef(ebFitDevStage), coef(fitDevStage))
+```
+
+Here are the mean of the inverse Chisquare prior for the gene-specific variances and the associated degrees of freedom.
+
+```{r}
+ebFitDevStage$s2.prior
+ebFitDevStage$df.prior
+```
+
+A few comparisons of plain vanilla `lm()` results, obtained through various methods, and `limma` results after the Empirical Bayes step.
+
+```{r}
+## estimated residual variance
+head(cbind(rFit1 = deviance(rFit)/df.residual(rFit),
+           rFit2 = rfSumm$Full[ , "Res. SE"] ^ 2,
+           limma = fitDevStage$sigma ^ 2,
+           ebLimma = ebFitDevStage$s2.post))
+
+## t statistics for P2
+head(cbind(rFit = rfSumm$Coef[ , "devStageP2", "t value"],
+           limma = coef(fitDevStage)[ , "P2"] /
+             (fitDevStage$sigma * fitDevStage$stdev.unscaled[ , "P2"]),
+           ebLimma = ebFitDevStage$t[ , "P2"]))
+
+## pvalues for P10
+head(cbind(rFit = rfSumm$Coef[ , "devStageP10", "Pr(>|t|)"],
+           ebLimma = ebFitDevStage$p.value[ , "P10"]))
+```
+
+### Inspecting a few hits
+
+`topTable()` is a useful `limma` function for sorting the genes/probesets based on the fits. By default, it returns the top 10 with respect to the B-statistic (the log-odds of DE, I believe).
+
+```{r}
+(hits <- topTable(ebFitDevStage))
+(getMe <- rownames(hits)[1:6])
+jDat <- t(prDat[getMe, ])
+jDat <- data.frame(gExp = as.vector(jDat),
+                   probeset = rep(colnames(jDat),
+                   each = nrow(jDat)))
+kDat <- data.frame(prDes, jDat)
+str(kDat)
+
+stripplot(gExp ~ devStage | probeset, kDat,
+          type = c('p', 'a'), grid = TRUE)
+
+stripplot(gExp ~ devStage | probeset, kDat,
+          groups = devStage, auto.key = TRUE)
+
+```
+
+### Inspecting a few non-hits
+
+Looking for non-hits, to use as examples in, e.g., lecture.
+
+```{r}
+n <- nrow(prDat)
+nonhits <- topTable(ebFitDevStage, n = Inf)[(n - 5):n, ]
+(getMe <- rownames(nonhits)[1:6])
+jDat <- t(prDat[getMe, ])
+jDat <- data.frame(gExp = as.vector(jDat),
+                   probeset = rep(colnames(jDat),
+                                  each = nrow(jDat)))
+kDat <- data.frame(prDes, jDat)
+str(kDat)
+stripplot(gExp ~ devStage | probeset, kDat,
+          type = c('p', 'a'), grid = TRUE,
+          group = gType)
+```
+
+Although I found these probesets by looking for non-hits, what I seem to have gotten is just probesets for which there is an interaction between developmental stage and genotype. This is pathological behavior which comes from ignoring an important predictor, namely, genotype. I am paying for oversimplifying.
+
+I will try again, using the overall F test as a screening tool. This is a wee bit more successful.
+
+```{r}
+(getMe <- which(rank( (rfSumm$FullModelStats)[ , "Fstat"]) <= 10))
+jDat <- t(prDat[getMe, ])
+jDat <- data.frame(gExp = as.vector(jDat),
+                   probeset = rep(colnames(jDat),
+                                  each = nrow(jDat)))
+kDat <- data.frame(prDes, jDat)
+str(kDat)
+stripplot(gExp ~ devStage | probeset, kDat,
+          type = c('p', 'a'), grid = TRUE, group = gType)
+## 1447281_at is super boring, row 21057
+## 1443184_at also nice, row 18898
+```
+
+

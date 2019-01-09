@@ -1,0 +1,406 @@
+---
+title: "Exploratory data analysis example for STAT 540"
+author: Paul Pavlidis (paul@msl.ubc.ca)
+date: January 2018
+output: 
+  html_document
+---
+
+This material was prepared as an companion to a lecture on Data Exploration and Quality Control for [STAT 540](https://stat540-ubc.github.io/) It demonstrates a number of data visualization/plotting methods along with some approaches to exploring a genomics data set. Often I show more then one way to do the same thing; so not everything here was shown in the lecture. And some of this might not make sense unless you refer to the lecture notes.
+
+To run the code, you'll need these packages:
+
+```{r installations, eval=F}
+# Not run by default
+install.packages('tidyverse')
+#install.packages('ComplexHeatmap') # not available for R 3.4.3
+install.packages('GGally')
+install.packages('here')
+install.packages('Biobase')
+
+#install.packages('pheatmap')
+install.packages("devtools")
+library(devtools)
+install_github("raivokolde/pheatmap") # to get the na_col setting.
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(plyr)
+library(ggplot2)
+library(RColorBrewer)
+#library(ComplexHeatmap) not available for latest R versions.
+#library(circlize)
+library(GGally)
+library(here)
+library(Biobase)
+#library(hexbin)
+library(pheatmap)
+# Set up color scheme for heatmaps
+bcols<-colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
+
+# Set some defaults for ggplot2.
+theme_set(theme_bw())
+theme_update(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+```
+
+## Load data
+
+Many of the examples use data from [Gompers et al., 2017](https://www.ncbi.nlm.nih.gov/pubmed/28671691). In this experiment, RNA-seq was performed on tissue from mice from two different genotypes, 5 developmental stages, and both sexes. The primary interest was the effect of genotype ("Group"), in which normal (wild-type) mice were compared to mice engineered to have one defective (mutant) copy of a particular gene (Chd8).
+
+I obtained GSE99331_Gompers_logRPKM_Matrix.txt.gz from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE99331)  (supplementary file). From the filename, it's apparent this is supposed to be log-transformed RPKM. According to paper there is supposed to be 26 mutant and 18 WT. The paper refers to 11,936 genes "robustly expressed".
+
+```{r load}
+d<-read.table(gzfile(here::here("GSE99331_Gompers_logRPKM_Matrix.txt.gz")), header=T, row.names=1)
+# Drop the prefixes on the sample names since they aren't used. These have the format X12.5.2.2.1.{part we want that also contains '.'} - partly due to R mangling.
+names(d)<-sub("^X[0-9]+\\.([0-9]+\\.)+", names(d), replacement="")
+
+```
+
+The supplement of the paper provides a file, [nn.4592-S4.xls](https://www.nature.com/articles/nn.4592) that has the sample information. I opened it in Excel and saved as a CSV file (warning: Excel is famous for mangling data, like turning gene names into dates). The sample names don't exactly match the ones in the GEO file (see code above that fixes this). Also I am recoding and renaming variables.
+
+```{r loadmeta}
+m<-read.csv(here::here("nn.4592-S4.csv"), stringsAsFactors = F)
+row.names(m)<-m$Sample.ID
+m<-m[,-c(1)]
+
+# check our two dfs are in the same order
+all(row.names(m) == names(d))
+
+# Do some renaming and recoding
+names(m)<-c("Sample", "DPC", "Sex", "Group", "SeqRun", "MappedReads", "FeatureCounts")
+m$Sex<-factor(m$Sex)
+m$Group<-factor(m$Group)
+m$Sex=recode(m$Sex, `1`="M", `2`="F")
+m$Group=recode(m$Group, `1`="WT", `2`="Mu")
+m$SeqRun=factor(m$SeqRun)
+# I considered treating DPC as a factor. But I decided to just use factor(m$DPC) when I need to
+#m$DPC=factor(m$DPC)
+#m$DPC=relevel(m$DPC,ref = "12.5")
+```
+
+## Organizing the data
+
+Combine the metadata and data into a single structure, tidyverse style to play nice with ggplot2. Data frames in tidyverse are "tibbles". I re-loaded the file to show how its best done from scratch (at least, to the best of my knowledge).
+
+```{r melt}
+dx<-read.delim(gzfile(here::here("GSE99331_Gompers_logRPKM_Matrix.txt.gz")), stringsAsFactors = F, sep='\t')
+names(dx)<-sub("^X[0-9]+\\.([0-9]+\\.)+", names(dx), replacement="")
+dmelt<-as.tibble(gather(dx, key="Sample", value="Expression", -c(Gene)  ))
+dmelt<-as.tibble(join(dmelt, m, by="Sample"))
+```
+
+Another good way to organize the data is to use an ExpressionSet (eSet). I'll not use this now as it clutters up the code more than necessary for a beginner's example. But here is how it is done.
+
+```{r eset, eval=F}
+deset<-Biobase::ExpressionSet(as.matrix(d), phenoData = AnnotatedDataFrame(m))
+# then we can do stuff like
+exprs(deset)[1:10,1:10]
+head(exprs(deset)[,deset$DPC==77.0])
+pData(deset)$DPC
+```
+
+## Initial inspection 
+
+Some very basic looks at the data.
+
+```{r}
+dim(d)
+names(d)
+head(row.names(d))
+tail(row.names(d))
+
+# check some random row names
+row.names(d)[sample(nrow(d), 10)]
+
+# What's the range of values?
+range(d)
+# With the eset I would do range(exprs(deset))
+# With the tibble I would use range(dmelt$Expression)
+
+# any missing values?
+any(is.na(d))
+```
+
+This shows several things:
+
+* The data look log-transformed as expected; presumably base is 2.
+* There are 44 samples as expected
+* The number of genes (rows) doesn't match any of the values mentioned in the paper (at least not obviously); it's not clear if this is all the data or filtered somehow.
+* The rows are the gene symbols, and the rows seem to be in lexicographic order
+* Names of samples are not very meaningful, but that's okay.
+* No missing values (as usual, for RNA-seq data)
+
+For the sample information we can look at the distributions of some of the features:
+
+```{r }
+table(m$Sex)
+table(m$Group)
+table(m$DPC)
+table(m$SeqRun)
+```
+
+Let's dig a little deeper: compare these features to each other.
+
+```{r metapairs}
+# examine the meta-data. I don't know a good way to do this in base R - ggpairs is very nice. 
+# The m[,-1] is to omit the sample name, which is part of the tibble. If you see warnings about 'binwidth' don't worry.
+GGally::ggpairs(m[,-1], aes(color=Group, alpha=0.4))
+
+```
+
+This is informative about the study design and reveals a few issues. 
+
+* Mapped reads varies with the batches.
+* Sex is not very well balanced. For example, all but one of the adults is male. But not a big deal.
+* There is a batch confound: Each stage (age) was run in separate batches (17.5 was split in two batches). This is confirmed by looking at the meta-data directly (RStudio `View(m)` and:
+
+```{r}
+# Looking closer at the Batch-Stage confound
+table(m$SeqRun,m$DPC)
+```
+
+The batch confound is the most concerning issue so far, but at least the Group is not confounded with batch. We'll come back to this.
+
+We'll now move on to the main data.
+
+## Simple plots of just one row/column of data
+
+```{r}
+# Examples of simple plots of one column and one row. Used in previous lecture.
+plot(d[,1], pch='.', ylab="Expression", xlab="Row")
+plot(t(d[100,]), pch=20, ylab="Expression", xlab="Column")
+```
+
+## Density plots
+
+### Base R graphics
+
+```{r densityplots}
+plot(density(as.matrix(d)))
+boxplot(d, pch='.')
+plot(0,xlim=c(-8,14), ylim=c(0,0.25), xlab="Expression level", type="n", ylab="Density", main="All samples and total")
+apply(d, 2, function(x) { lines(density(x), col="grey") })
+lines(density(as.matrix(d)), xlab="Expression level",  lwd=2)
+```
+
+### ggplot2 version
+
+```{r ggplotdensity, fig.width=5, fig.height=4}
+ggplot(dmelt, aes(Expression)) + geom_density() + theme(axis.text.x = element_blank())
+
+# boxplot.To show sample names use element_text(angle = 90, hjust = 1) instead of element_blank()
+ggplot(dmelt, aes(Sample, Expression)) + geom_boxplot() + theme(axis.text.x = element_blank())
+
+# Overlaid plots
+ggplot() + geom_density(data=dmelt, aes(Expression, group=Sample, color="Group"), color="grey") + geom_density(data=dmelt, aes(Expression), color="black", size=1.5)
+```
+
+## Histograms
+
+Demonstrating base and ggplot2 versions.
+
+```{r histograms, fig.width=5, fig.height=4}
+hist(d[,1], breaks=50, xlab="Expression", main="All data")
+#ggplot:
+ggplot(dmelt, aes(Expression)) + geom_histogram(binwidth = 0.2) + ggtitle("All data")
+
+# ggplot, just one sample
+ggplot(dmelt[dmelt$Sample == "Sample_ANAN001A",], aes(Expression)) + geom_histogram(binwidth = 0.2) + ggtitle("Sample_ANAN001A")
+```
+
+### Histograms vs density plots for bounded data
+
+I don't recommend using density plots when you have bounded data, especially if you care about what happens near the edges of the domain:
+
+```{r boundeddatahist, fig.width=8, fig.height=4}
+par(mfrow=c(1,2))
+j<-runif(1000)
+hist(j, xlab="value", main="Samples from unif(0,1) dist.", breaks=50)
+plot(density(j), xlab="value", main="Samples from unif(0,1) dist.")
+dev.off()
+```
+
+This will be relevant to topics such as inspecting distributions of p-values.
+
+## Violin plot
+
+```{r violin, fig.width=5, fig.height=4}
+ggplot(dmelt, aes(Sample, Expression, color=Group)) + geom_violin(aes(fill=Group))  + theme(axis.text.x = element_blank())
+```
+
+This give the impression that the data are already at least somewhat normalized, but not quantile normalized since they don't have the exact same distribution (quantile normalization is explained later in the course). I'm going to just leave it this way for now.
+
+So far it looks good - no obvious major problems (ignoring the batch confound)
+
+## Expression of Chd8
+
+In the paper they say Chd8 was the top differentially-expressed gene. What does this look like? Again showing both base and ggplot2 way.
+
+```{r chd8, fig.width=5, fig.height=4}
+plot(t(d["Chd8",]), pch=20, ylab="Expression", xlab="Sample", main="Expression of Chd8")
+
+# that's not stratified by anything so let's try a couple more things.
+# Note that R like to make boxplots by default.  Also showing behaviour using DPC as a factor
+plot(t(d["Chd8",]) ~ factor(m$DPC), ylab="Expression", xlab="DPC (as factor)", main="Expression of Chd8" )
+
+# Boxlots aren't good for small numbers of points, so specify type="p".
+plot(t(d["Chd8",]) ~ m$DPC, type="p", pch=20, ylab="Expression", xlab="DPC (days)", main="Expression of Chd8", col=m$Group)
+#  Adding a legend is not worth it in base graphics, it's too painful IMO. Use ggplot2.
+
+## ggplot version. Note how I subset.
+ggplot(subset(dmelt, subset = Gene == "Chd8"), aes(factor(DPC), Expression, color=Group))  + geom_point( size=2 ) + ggtitle("Expression of Chd8") 
+
+```
+
+The effect of the mutation wouldn't be obvious at all if we didn't color by group. But this agrees with the paper (Figure 1d). It also looks like Chd8 expression drops with developmental stage (this was also noted in the paper), though we must keep in mind there is a confound with "SeqRun" (batch).
+
+## Scatter plots
+
+```{r scatter, fig.width=5, fig.height=4}
+# first pass: points are too big and ugly
+plot(d[,1], d[,2], xlab="Sample 1", ylab="Sample 2", main="Using default glyphs")
+
+# better but still have overplotting:
+plot(d[,1], d[,2], pch='.', xlab="Sample 1", ylab="Sample 2", main="Using smaller glyphs")
+
+# With ggplot
+ggplot(d, aes(Sample_ANAN001A, Sample_ANAN001G)) + geom_point( alpha=1 ) + ggtitle("alpha=1")
+ggplot(d, aes(Sample_ANAN001A, Sample_ANAN001G)) + geom_point( alpha=1/20) + ggtitle("alpha=1/20")
+```
+ 
+Another way to solve the overplotting problem is to use a two-dimensional density plot. A common way to do this is with "hexbin" (old) or "geom_hex".
+
+```{r hexbin, fig.width=5, fig.height=4}
+# To avoid overplotting we are best off with ggplot2, but a quick alternative is hexbin
+# Here is the original hexbin. But the ggplot version is preferred.
+#plot(hexbin(d[,1], d[,2]))
+
+# ggplot version
+ggplot(d, aes(Sample_ANAN001A, Sample_ANAN001G)) + geom_hex(bins=100)
+
+```
+
+We can make many scatter plots at once (pairs plot). This is often useful but can get unwieldy - beyond about 10x10 it won't really work.
+
+```{r pairs, fig.width=5, fig.height=5}
+pairs(d[,4:15], pch='.')
+
+# really not any better for this situation and it's even slower than base::pairs
+GGally::ggpairs(d[,4:15], lower=list(continuous=wrap(ggally_points, size=0.5, alpha=0.1))) 
+# trick that's good to use sometimes - to speed things up: randomly subsample the data.
+n<-2000
+GGally::ggpairs(d[sample(nrow(d), n), 4:15], lower=list(continuous=wrap(ggally_points, size=0.5, alpha=0.1)), title=paste("Sampling",n,"points") )
+```
+
+### Log transformation
+
+It's worth a little digression to note that taking logarithms is often important in visualization (and analysis, for that matter). The data we're using is already log-transformed, so for this section I de-log (exponentiate) it.
+
+```{r taking_logs, fig.width=5}
+plot(2^d[,1], 2^d[,2], pch=20, cex=0.75, col="blue", xlab="Sample 1", ylab="Sample 2", main="de-logged data")
+```
+
+An even more striking illustration is what happens if we don't take logs when we look at the distribution.
+
+```{r taking_logs2, fig.width=5}
+hist(2^d, xlab="Expression (de-logged)", main="Expression distribution of whole data set", breaks=50)
+```
+
+Whenever you see a plot like this, you just know you can't leave it like that! You have to take logs (or something).
+
+Frequently when taking logs you will run into the problem of what to do with non-positive values (zeros, in particular). Just add a small constant. For data like this, adding 0.1 won't change it at all (it's not necessary here, just making it explicit).
+
+```{r logswithfudge, fig.width=5, fig.height=4}
+f<-0.1
+hist(log2(2^d+f), breaks=50, xlab=paste("Expression (log2( RPKM +",  f, "))"), main="Expression distribution of whole data set")
+```
+
+## Heatmaps
+
+A heatmap of just a little data. Running this multiple times shows different random rows.
+
+```{r}
+# This code selects 'nr' random rows, and then scales (z-scores). base::scale operates on columns, so we have to use t() twice.
+nr=50
+hd<-t(scale(t(as.matrix(d[sample(nrow(d), nr),]))))
+# then we clip at +/- 3 (demonstrating some basic data manipulation using the '[' operator)
+clip=3
+hd[hd< -clip]<--clip
+hd[hd>clip]<-clip
+# As it happens for these data scale/clip doesn't matter that much (try it yourself). I'm allowing the rows to be clustered, but I don't want the column order to be altered.
+heatmap(hd, Colv=NA,  scale=NULL, cexCol=0.5, cexRow=0.5, col=bcols)
+```
+
+Because random genes show patterns related to DPC, it is obvious that this is a very strong signal (but remember there is a batch confound).
+
+## Checking correctness of metadata through sex-specific genes. 
+
+A common way to assess the correctness of genomics or genetics data is to make use of the fact that some genes are expressed in only one sex. If a data set contains samples from both males and females, then we can assess whether the data lines up with expectations. Mixups in published data sets are [suprisingly common](https://f1000research.com/articles/5-2103/). Good marker genes for sex include Xist and Uty (there are others).
+
+There are a variety of ways we could do this. First I'll show a heatmap.
+
+```{r}
+# We need to subset the data for the genes we want, and rearrange the data so Males and Females are grouped together for easier visualization. I'm using the order() function to do this.
+pheatmap(d[c("Xist", "Uty"), order(m$Sex)], color=bcols, border_color=NA, cluster_rows=F, cluster_cols=F, annotation_col=data.frame(row.names = names(d),   Sex=m$Sex, DPC=factor(m$DPC), Group = m$Group)[order(m$Sex),], main="Sex markers", fontsize=8)
+```
+
+We can clearly see a problem here - Xist is higly expressed in some of the samples annotated as "male", and Uty is highly expressed in some of the annotated "females", and _vice versa_. To help confirm this (and demonstrate another useful kind of plot):
+
+```{r}
+stripchart(t(d["Xist",]) ~ m$Sex, cex=2, pch=21, ylab="Annotated sex", xlab="Xist expression")
+
+## ggplot version. Instead of geom_point, I'm using geom_jitter to avoid overplotting.
+ggplot(subset(dmelt, subset = Gene == "Xist"), aes(Sex, Expression, color=Sex))  + geom_jitter(width=0.05, height=0, size=3 ) + ggtitle("Expression of Xist") + labs(x="Annotated sex" )
+# not shown: similar plots for Uty.
+```
+
+After some further checking by hand, and an email exchange with the senior author of the paper, I determined that for the P0 animals, sex was coded as M=2 and F=1 rather than M=1 and F=2 as done for the rest of the data. It doesn't seem likely this affected other aspects such as Chd8 genotype.
+
+*For now* I am not going to fix this but of course in any further analysis we need to do so.
+
+## Sample-sample correlations
+
+Next we look at the sample-sample correlation. We are expecting to see a strong pattern, because we see clear DPC-related patterns in random genes.
+
+```{r samplecor}
+cc<-data.frame(cor(d), row.names = names(d))
+names(cc)<-names(d)
+diag(cc)<-NA
+range(cc, na.rm=T)
+
+# base heatmap
+heatmap(as.matrix(cc), sym=T, Rowv=NA, Colv=NA, col=bcols, main="Base heatmap")
+
+# this package not available for latest R versions
+# complexheatmaps. Setting colors for the annotations is painful, and the choices it makes if you don't set them yourself tend to be terrible.
+#Heatmap(cc, col=bcols, cluster_rows = FALSE, cluster_columns = FALSE, top_annotation = HeatmapAnnotation(data.frame(Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC))), row_names_gp = gpar(fontsize = 8), column_names_gp = gpar(fontsize = 8), column_title="ComplexHeatmap")
+
+# pheatmap - easier to use but no ability to control the na.color! (except in dev version)
+pheatmap(cc, color=bcols, border_color=NA, cluster_rows=F, cluster_cols=F, annotation_col=data.frame(row.names = names(d), Group = m$Group, Batch=m$SeqRun, DPC=factor(m$DPC)), main="pheatmap", fontsize=8, na_col="grey")
+
+# how bad is this potential outlier? Correlations are like 0.95 while others are like 0.98.
+round(cor(d[,m$DPC == "77"]),3)
+
+```
+
+As expected, we see strong shifts across the developmental stages. The range of correlations is from 0.35 to 0.99, which is quite extreme - obviously the expression state is very different between adult and early embryo (The lowest values are from comparing the e12.5 to adult). The correlations seem to drop over increasing spans of developmental time. Also I notice that for the 17.5 day embryos, which were run in two batches, we don't see any obvious difference.
+
+Overall this makes me less worried about the batch confound - the dominant signals look biological. While it's not ideal, for this data set we're going to be mostly interested in the effect of Chd8 mutation, not the effects of time, so it's not a big concern.
+
+I also notice that one of the adult samples seems to be a bit of an outlier - sample Chd8.adult.S23. Inspecting the metadata, this is the sample that has by far the highest number of mapped reads (especially compared to other adult samples); otherwise nothing special about it. Let's look at it a bit more.
+
+```{r inspectoutlier}
+pairs(d[,c("Chd8.adult.S23", "Sample_ANAN001A","Chd8.e14.S12" ,"Chd8.e17.5.6_S163","Chd8.adult.S24" )], pch='.')
+
+## ggplot2 version (used to able to do with ggplot2::plotmatrix, but that's gone)
+ggpairs(d[,c("Chd8.adult.S23", "Sample_ANAN001A","Chd8.e14.S12" ,"Chd8.e17.5.6_S163","Chd8.adult.S24" )], lower=list(continuous=wrap("points", alpha=0.2, size=0.1)))
+
+```
+
+Conclusion: this "outlier" isn't very worrying and might be improved if we perform additional normalization later. I'd keep this sample.
+
+The end!
+

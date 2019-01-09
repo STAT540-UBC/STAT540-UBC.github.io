@@ -1,0 +1,34 @@
+.timevis.html-widget {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timevis.html-widget .vis-background .vis-minor.vis-odd {
+  background: #fdfdfd;
+}
+.timevis.html-widget .vis-major {
+  font-weight: bold;
+}
+.timevis.html-widget .zoom-menu {
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 15;
+}
+.timevis.html-widget .zoom-menu[data-show-zoom] {
+  display: block;
+}
+.timevis.html-widget .zoom-menu .btn {
+  color: #333;
+  font-family: arial;
+  font-size: 18px;
+  line-height: 1.3333333;
+  text-shadow: none;
+  border-radius: 6px;
+  border: 1px solid #CCC;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  background: #FDFDFD;
+  box-shadow: 0 0 2px #ddd;
+}

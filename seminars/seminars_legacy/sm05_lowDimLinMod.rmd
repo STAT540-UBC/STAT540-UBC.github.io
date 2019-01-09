@@ -1,0 +1,312 @@
+---
+output:
+  html_document:
+    keep_md: yes
+---
+Fitting and interpreting linear models (low volume)
+======================================================================
+
+Contributors: Jenny Bryan, Dean Attali, W. Evan Durno
+
+```{r include = FALSE}
+## once I upgrade knitr, "no tidy" will be the default and I can delete this
+#opts_chunk$set(tidy = FALSE)
+```
+
+We will start providing less code now, since you should be generating more yourself now. Worst case, you can consult previous seminars, lectures, and your neighbor if you get stuck. Take advantage of R documentation and RStudio's facilities for accessing it.
+
+You are also strongly encouraged to retain and develop your R code in a script.
+
+## Brief pause to load the `photoRec` data and necessary packages
+
+> Remember you may need to edit the file paths below, to reflect your working directory and local file storage choices.
+
+```{r}
+library(lattice) # if you don't already have this loaded ...
+library(ggplot2) # we'll make figures with both
+library(reshape2) # for the function melt
+prDat <- read.table("../examples/photoRec/data/GSE4051_data.tsv")
+str(prDat, max.level = 0)
+prDes <- readRDS("../examples/photoRec/data/GSE4051_design.rds")
+str(prDes)
+```
+
+## Write a function to prepare a mini-dataset for a small number of genes
+
+We will be working at a low-volume today and thus will need the data for one (or maybe several) genes represented in a analysis- and visualization-friendly data.frame. Write a function that takes as input the Affymetrix probeset ID(s) and gives as output a data.frame. More details and hints given below, so read this whole section before you dive in.
+
+```{r, echo=FALSE}
+prepareData <- function(myGenes) {
+    miniDat <- t(prDat[myGenes, ])
+    miniDat <- suppressWarnings(data.frame(gExp = as.vector(miniDat),
+                          gene = rep(colnames(miniDat), each = nrow(miniDat))))
+    miniDat <- suppressWarnings(data.frame(prDes, miniDat))
+    miniDat
+}
+```
+
+I called my function `prepareData`, though you can choose any name you like. Here's a demonstration of it in action. Write your own function that takes the same input and gives the same output. (Big-picture, long-term, this foreshadows a popular software development process known as [test-driven development](http://en.wikipedia.org/wiki/Test-driven_development)).
+
+```{r}
+(luckyGenes <- c("1419655_at","1438815_at"))
+jDat <- prepareData(luckyGenes)
+str(jDat)
+head(jDat)
+tail(jDat)
+```
+
+Helpful info and tips:
+
+  * The gene expression data for one gene is given in one row of `prDat`.
+  * One row of a data.frame is still a data.frame (!), which is a list, remember? `unlist()` and `as.vector()` can be handy when converting a list or array to an atomic vector.
+  * Recycling can help you.
+  
+To be more sure your function is working, see if your data.frame yields the same figure as this one. Don't worry if our color schemes are different. You should use the same probe IDs (at least this once) to make it easy to compare.
+
+```{r}
+stripplot(gExp ~ devStage | gene, jDat,
+          group = gType, jitter.data = TRUE,
+          auto.key = TRUE, type = c('p', 'a'), grid = TRUE)
+```
+
+```{r include = FALSE, echo = FALSE, eval = FALSE}
+## an alternative function supplied by Dean Attali
+## https://gist.github.com/daattali/8857443#file-preparedata-r
+# output a data frame with only data from the input genes
+prepareData <- function(.genes) {
+  # step 1: transpose the data matrix
+  prDatT <- as.data.frame(t(prDat))
+  
+  # step 2: retain only the columns corresponding to genes we're interested in
+  colNumsKeep <- which(colnames(prDatT) %in% .genes)
+  prDatT <- prDatT[, colNumsKeep, drop = F]
+  
+  # step 3: add the sample id info to each row
+  prDatT$sidChar <- row.names(prDatT)
+  
+  # step 4: "melt" the dataframe from wide format to long format
+  # this will achieve having just two columns for every sample: gene, and expression
+  prDatT <- melt(prDatT,
+                 id.vars = c("sidChar"),
+                 measure.vars = .genes,
+                 variable.name = "gene",
+                 value.name = "gExp")
+  
+  # step 5: combine the gene/expression data with the metadata per sample
+  prDatT <- merge(prDes, prDatT)
+  
+  # done!
+  return(prDatT)
+}
+```
+
+## Write a function to stripplot a mini-dataset
+
+You will probably make lots of these plots. Why not write a function for this? You've already got the code you need above, but you are welcome to use slightly different arguments or make it easier to specify various aspects of the figure 'on the fly'. Here's my function in action:
+
+```{r, echo=FALSE}
+makeStripplot <- function(myData, ...) {
+  stripplot(gExp ~ devStage | gene, myData,
+            group = gType, jitter.data = TRUE,
+            auto.key = TRUE, type = c('p', 'a'), grid = TRUE, ...)
+}
+```
+
+```{r, echo=FALSE}
+## here is a ggplot2 version supplied by Dean Attali
+# note the ggplot version does NOT accept the extra parameters
+# assumes that the dataframe has columns "devStage", "gExp", "gType"
+makeStripplotGg <- function(.data) {
+  p <- ggplot(.data, aes(x = devStage, y = gExp, color = gType, group = gType))
+  p <- p + geom_line(stat = "summary", fun.y = mean)
+  p <- p + geom_point(position = position_jitter(width = .2))
+  p <- p + facet_wrap(~ gene)  
+  print(p)
+  }
+```
+```{r}
+makeStripplot(jDat)
+makeStripplot(jDat, pch = 17, cex = 3) # fugly, but proves I've got control!
+## use student-supplied function based on ggplot2
+makeStripplotGg(jDat)
+```
+
+The ability to change plotting symbol and size is __purely optional__ and don't let that stress you out.
+
+You can use both of your functions together and create a minidatset and plot it all at once:
+```{r}
+makeStripplot(newDat <- prepareData("1456341_a_at"))
+str(newDat)
+head(newDat)
+```
+
+Helpful info and tips:
+
+  * When a plot does not appear and you think it should, try surrounding it with `print()`. This may be necessary inside functions, loops, etc.
+  * If you can't or don't want to anticipate all the arguments you'd like to pass to, e.g. `stripplot()`, use the special function argument `...` to leave yourself flexibility.
+  
+## Do a two-sample t-test
+
+Let's test for a difference in expected gene expression for probeset "1456341\_a\_at" at developmental stage P2 vs. 4 weeks post-natal (ignoring genotype, i.e. lump the wild types and knockouts together). Let's assume a common variance in the two groups.
+
+Here's what I get:
+```{r, echo=FALSE}
+t.test(gExp ~ devStage, newDat, 
+       subset = devStage %in% c("P2", "4_weeks"),
+       var.equal = TRUE)
+```
+
+Helpful info and tips:
+
+  * `subset()` is a handy function for subsetting a data.frame. Many functions also offer a `subset =` argument.
+
+## Fit a linear model with a categorical covariate
+
+In other words, do "one-way ANOVA".
+
+Focus on probeset "1438786\_a\_at". Here's what the data should look like:
+
+```{r, echo=FALSE}
+makeStripplot(mDat <- prepareData("1438786_a_at"))
+```
+
+Let's focus just on the wild type data for now. Model expression as a function of the devStage factor. Here's what the fit tells us:
+```{r, echo=FALSE}
+mFit <- lm(gExp ~ devStage, mDat, subset = gType == "wt")
+summary(mFit)
+```
+Vet your inferential results: does the intercept look plausible given the plot? How about the `devStageP2` effect, etc.?
+
+## Perform inference for a contrast
+
+The "W" shape of the expression profile for "1438786\_a\_at" means that the expression values for developmental stages P2 and P10 are quite similar. We could formally test whether the P2 and P10 effects are equal or, equivalently, whether their difference is equal to zero.
+
+First extract the parameter estimates from the linear model you fit above. You did save the fit, right? If not, edit your code to do so and re-run that bit. Hint: the `coef()` function will pull parameter estimates out of a wide array of fitted model objects in R.
+```{r, echo=FALSE}
+coef(mFit)
+```
+Now you need to construct the contrast matrix to form the difference between the P2 and P10 effects. I called mine `contMat`. Hint: it's OK for a matrix to have just one row.
+```{r, echo=FALSE}
+contMat <- matrix(c(0, 1, 0, -1, 0), nrow = 1)
+```
+```{r}
+(obsDiff <- contMat %*% coef(mFit))
+```
+Let's check that this really is the observed difference in sample mean for the wild type mice, P2 vs. P10.
+```{r}
+(sampMeans <- aggregate(gExp ~ devStage, mDat, FUN = mean,
+                        subset = gType == "wt"))
+with(sampMeans, gExp[devStage == "P2"] - gExp[devStage == "P10"])
+```
+Yes! Agrees with the observed difference we computed by multiplying our contrast matrix and the estimated parameters. If you don't get agreement, you have a problem ... probably with your contrast matrix.
+
+
+```{r include = FALSE, eval = FALSE, echo = FALSE}
+## Here's `plyr` code for computing the sample means.
+library(plyr)
+ddply(subset(mDat, gType == 'wt'), ~ devStage, summarize, gExp = mean(gExp))
+```
+
+Now we need the (estimated) standard error for our contrast. The variance-covariance matrix of the parameters estimated in the original model can be obtained with `vcov()` and is equal to $(X^{T}X)^{-1}\hat{\sigma}^{2}$. 
+```{r}
+vcov(mFit)
+```
+Let's check that this is really true. If we take the diagonal elements and take their square root, they should be exactly equal to the standard errors reported for out original model. Are they?
+```{r}
+summary(mFit)$coefficients[ , "Std. Error"]
+sqrt(diag(vcov(mFit)))
+```
+Yes! Note for the future that you can get the typical matrix of inferential results from most fitted model objects for further computing like so:
+```{r}
+summary(mFit)$coefficients
+```
+Returning to our test of the P2 vs. P10 contrast, recall that the variance-covariance matrix of a contrast obtained as $C\hat{\alpha}$ is $C(X^{T}X)^{-1}C^{T}\hat{\sigma}^{2}$.
+```{r}
+(estSe <- contMat %*% vcov(mFit) %*% t(contMat))
+```
+Now we form a test statistic as an observed effect divided by its estimated standard error:
+```{r}
+(testStat <- obsDiff/estSe)
+```
+Under the null hypothesis that the contrast equals zero, i.e. there is no true difference in mean for expression at P2 and P10 in wild type mice for this gene, the test statistic has a $t$ distribution with $n - p = 20 - 5 = 15$ degrees of freedom. We compute a two-sided p-value and we're done.
+```{r}
+2 * pt(abs(testStat), df = df.residual(mFit), lower.tail = FALSE)
+```
+Not surprisingly, this p-value is rather large and thus we have insufficient evidence to conclude a significant difference.
+
+## Fit a linear model with two categorical covariates
+
+Let's focus on probeset "1448690_at". Use your functions to prepare the data and plot it. I'm calling mine `oDat`.
+```{r}
+makeStripplot(oDat <- prepareData("1448690_at"))
+str(oDat)
+```
+Fit a linear model with covariates `gType` and `devStage` and include their interactions. I'm calling mine `oFitBig` and here's an excerpt of the report you should get.
+```{r, echo=FALSE}
+oFitBig <- lm(gExp ~ gType * devStage, oDat)
+```
+```{r}
+summary(oFitBig)$coef
+```
+Vet the results. Is the intercept plausible? How about the various effects? Do the ones with small p-values, e.g. meeting a conventional cut-off of 0.05, look 'real' to you?
+
+Fit a related, smaller model with the same covariates, but this time omit the interaction. I'm calling mine `oFitSmall` and here's an excerpt of the report you should get.
+```{r, echo=FALSE}
+oFitSmall <- lm(gExp ~ gType + devStage, oDat)
+```
+```{r}
+summary(oFitSmall)$coef
+```
+Now let's determine if the interaction terms are truly necessary. From the plot, the case for interaction seems very weak. This can be assessed with an F test that essentially looks at the reduction in the sum of squared residuals due to using a larger, more complicated model and determines if it is "big enough" given the number of additional parameters used. Recall the `anova()` function can take two fitted models, one nested within the other, and perform this test. (`anova()` can also be used on a single model to assess significance of terms, but remember the problem with the standard `anova()` function and unbalanced data. See references given in lecture for remedies.)
+```{r, echo=FALSE}
+anova(oFitSmall, oFitBig)
+```
+With a p-value awfully close to one, we confirm that, no, there is no evidence for interaction in this particular case.
+
+If you'd like to get a more exciting result, take a look at probeset "1429225_at". Here are my plots, excerpts from the fitted model reports, and the F test for interaction. See if you can duplicate this.
+
+```{r, echo=FALSE}
+makeStripplot(pDat <- prepareData("1429225_at"), cex = 2)
+pFitBig <- lm(gExp ~ gType * devStage, pDat)
+summary(pFitBig)$coef
+pFitSmall <- lm(gExp ~ gType + devStage, pDat)
+summary(pFitSmall)$coef
+anova(pFitSmall, pFitBig)
+```
+
+Not surprisingly, the interaction here is highly statistically significant.
+
+## Take-home problems
+
+First, load the `1438786_a_at` expression data and call it `mDat`. It has been preprepared for you to download.
+```{r}
+mDat = read.table("../examples/photoRec/data/mDat.tsv",header=T,sep="\t",row.names=1)
+```
+
+  1. Estimate the effect of `devStage` on `mDat` with a linear model by using `lm()`. You will want to use the following formula: `gExp ~ devStage`. What stages are significantly different from `4_weeks`? Use `summary()` to get your results.
+  2. Run the exact same test on `mDat` values with genotype "NrlKO". What are the differences between this test and the last one?
+  3. Fit a linear model of the expression of `1438786_a_at` as a linear model of `devStage` and `gType` without interactions. Use the following formula: `gExp ~ devStage + gType`.
+  4. Fit a linear model of the expression of `1438786_a_at` as a linear model of `devStage` and `gType` with interactions. Use the following formula `gExp ~ devStage * gType`. Is this model different from the model without interctions?
+  5. Run an anova comparing the models from questions 3 and 4. Are the models significantly different?
+  6. We are now going to create a batch effect and control for it in our analysis using a blocking variable. Run the following code block to create a new data set, `bDat`, with a batch effect. 
+```{r eval=FALSE}
+batches = as.character( rep(c("batch1","batch2"),20)[1:39] )
+batchEffect = rep( c(0,4),20 )[1:39]
+bDat = mDat
+bDat$gExp = bDat$gExp + batchEffect 
+summary( lm( gExp ~ devStage * gType , data=bDat ) )
+```
+  How has the batch effect changed the result of the test? How is it different from the result of question 4? 
+
+  7. Fit a new linear model with the formula `gExp ~ devStage * gType + batches` using `data=bDat`. How is this similar to the results of question 4? In this case, `batches` is our blocking variable. By including `batches` in the model we can estimate the effect of contamination in our data caused by the difference in batches and get back to testing hypotheses we're really interested in, like the effect of knockouts!
+  8. Run an `anova` comparing the two formulae `gExp ~ devStage + gType + batches` and `gExp ~ devStage * gType + batches`. How are these results similar to that of question 5?
+
+## Ideas for further work (not take-home problems)
+
+We wrote functions to prepare and plot data for more than 1 gene. But when we started fitting models and conducting tests, we only worked with 1 gene at a time. Can you use data aggregation strategies from last week to do some of the same work for small sets of genes?
+
+In lecture we also experimented with a quantitative version of devStage, which we called `age`. This opens the door to modelling with a quantitative covariate. Can you fit linear and quadratic models to the expression data for one or several genes?
+
+I noticed that the 4 week developmental stage generally posed a difficult fitting problem for the quadratic model where we regressed expression on age. I think it is simply too far separated in time to be easily modelled quantitatively with the other 4 developmental stages. It would be interesting to drop the 4 week data and revisit this dataset with linear and quadratic models.
+
+Today we used `lattice`'s `type = 'a'` argument to get a "connect-the-dots" representation of sample means, which coincide with the model fits from ANOVA-type models. But the ability to use built-in automagic tools for overlaying the fit dies off once you start to consider more flexible models, like those involving `age`, especially in the presence of a second categorical covariate, like genotype. In your graphing environment of choice -- base or `lattice` or `ggplot2` -- start to figure out how you can add fitted regression curves to your scatterplots. It is definitely easiest to do this in base graphics but if you're going to get good at `lattice` or `ggplot2` then by all means start to tinker there.   

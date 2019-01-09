@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Evan" />
+
+
+<title>How to organize your repository</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat540-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="announcements"><a href="announcements.html">Announcements</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="lectures"><a href="lectures.html">Lectures</a></li>
+      <li class="seminars"><a href="seminars.html">Seminars</a></li>
+      <li class="assignments"><a href="assignments.html">Assignments</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">How to organize your repository</h1>
+<h4 class="author"><em>Evan</em></h4>
+</div>
+
+
+<p>We would like you to submit your homework and seminars via your assigned Github repository. Because Github can visualize Markdown files and R Markdown (see <a href="http://stat540-ubc.github.io/sm02a_rMarkdown.html">this link</a>), we want you submit content as md and Rmd files. However, it is important that your repository remain easy to navigate. You may use the default “README.md” to stylize your repository’s homepage.</p>
+<div id="how-to-make-md-files-from-rmd-files" class="section level3">
+<h3>How to make md files from Rmd files</h3>
+<p>Some versions of R Studio will automatically generate md files from Rmd files when you click “knit”. However, some versions discard of the md after using it as an intermediary step. To enable md file retention, click on the little gear next to “knit”, go to “Advanced”, and check “Keep markdown source file”.</p>
+</div>
+<div id="general-layout" class="section level3">
+<h3>General layout</h3>
+<p>The basic repository layout consists of a homepage which has links to seminars and homework rendered Markdown files. An example can be found <a href="https://github.com/wdurnoUBC/testRepo/tree/cd11f4d359294451a4cb6a89e38d9026e6721580">here</a>.</p>
+</div>
+<div id="how-to-make-links" class="section level3">
+<h3>How to make links</h3>
+<p>The one most important Rmd syntax you must learn to stay organized is how to write URL links. In-text, one may write the following to create a link.</p>
+<pre><code>[link name](URL)</code></pre>
+</div>
+<div id="be-creative" class="section level3">
+<h3>Be creative!</h3>
+<p>I encourage you to be creative with your repository and use it to demonstrate your learning! However, please keep it organized so that everyone’s work may be graded efficiently.</p>
+</div>
+<div id="getting-started" class="section level3">
+<h3>Getting started</h3>
+<ul>
+<li>If you need help learning how to <strong>write R Markdown</strong> and turn it into Markdown, you can find a tutorial<a href="http://stat545-ubc.github.io/block007_first-use-rmarkdown.html">here</a>.</li>
+<li>If you need help learning how to <strong>interact with your online repository via Git</strong>, you can find a tutorial <a href="http://stat545-ubc.github.io/git07_git-usage.html">here</a>.</li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/howToRStudioGitWindows.pdf">Connecting R Studio to Git on Windows</a></li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/howToRStudioGitMac.pdf">Connecting R Studio to Git on Mac</a></li>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/howToRStudioGitUbuntu.pdf">Connecting R Studio to Git on Ubunutu</a></li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

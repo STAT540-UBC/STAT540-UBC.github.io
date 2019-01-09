@@ -1,0 +1,530 @@
+Introduction to R graphics - 'lattice' version
+======================================================================
+
+Contributors: Jenny Bryan, Katayoon Kasaian, Gloria Li
+
+### `lattice` and the R graphics landscape
+
+See [R graphics: base vs. lattice vs. ggplot2][base_lattice_ggplot2] for an overview of the R graphics landscape and links to good reference material. 
+
+This seminar will primarily draw on functions in the add-on package `lattice`, which is included in all binary distributions of R. For more detailed information on `lattice`, see links to this book: _Lattice: Multivariate Data Visualization with R_ by Deepayan Sarkar on Jenny's [resource](http://www.stat.ubc.ca/~jenny/resources.html) page.
+
+The `ggplot2` package is another highly recommended graphics system.
+
+If you have not loaded `lattice` already, do it now:
+
+```{r}
+library(lattice)
+```
+
+> Remember you may need to edit the file paths below, to reflect your working directory and local file storage choices.
+
+### `photoRec` dataset
+
+We will work with a mouse dataset, containing "gene expression profiles of purified photoreceptors at distinct developmental stages and from different genetic backgrounds". The microarray platform was Affymetrix mouse genomic expression array 430 2.0. For more information on what we'll call the `photoRec` dataset, read the [README](../examples/photoRec/README.html) file.
+
+The full data matrix contains expression data for almost 30K genes/probesets! At first, we will work with a small friendly excerpt. In short, here's the pre-processing we've done for you:
+
+  * Grab gene expression data for 3 probesets; these are *rows* in the original data matrix.
+  * Transpose this data, i.e. reshape into 3 columns or variables, and store in a `data.frame`.
+  * Glue these together with information about genotype and developmental stage of the samples, i.e. add more columns or variables.
+  * Replace the arcane Affymetrix probeset names with arbitrary Pokemon attacks to make it easier to talk about results and figures below. We will just talk about these as if they are genes.
+
+We load this mini dataset from a saved R object, in order to preserve factor levels that were set rationally (and non-alphabetically) during data cleaning and pre-processing. FYI, the plain text version is available in the file [GSE4051_MINI.txt](../examples/photoRec/data/GSE4051_MINI.txt). 
+
+```{r include = FALSE}
+# this is how the data is actually loaded 
+library(RCurl)
+URL = getURL("https://raw.githubusercontent.com/jennybc/stat540_2014/master/examples/photoRec/data/GSE4051_MINI.tsv")
+kDat = read.table(text=URL,header=T)
+```
+
+```{r eval = FALSE}
+# if you wanted or needed to access plain text version, do something like this:
+# kDat <- read.table("../data/photoRec/GSE4051_MINI.txt",
+#                    header = TRUE, row.names = 1) 
+
+# I load from an R-specific file format that retains factor levels
+kDat <- readRDS("../examples/photoRec/data/GSE4051_MINI.rds")
+```
+```{r}
+str(kDat)
+table(kDat$devStage)
+table(kDat$gType)
+with(kDat, table(devStage, gType))
+```
+
+We see there are `r nrow(kDat)` samples (rows or observations). We have
+
+  * sample ID character (sidChar): a string recording sample ID
+  * sample ID number (sidNum): integers between 1 and `r nrow(kDat)`
+  * developmental stage of the mouse (devStage): a factor with levels E16 (day 16 of embryonic development), P2 (postnatal day 2), P6 (postnatal day 6), P10 (postnatal day 10), 4_weeks (4 weeks postnatal)
+  * genotype of the mouse (gType): wt (wild type) or NrlKO (gene Nrl has been knocked out)
+  * gene expression level (in some abstract unit-less sense) for crabHammer, eggBomb, and poisonFang
+
+It's pretty clear the intent was to have 4 mice at each combination of genotype and developmental stage, but there was some mishap for the embryonic knockouts, i.e. E16-NrlKO, where we only have data from 3 mice.
+
+### Scatterplots
+
+The most important plot type is arguably the scatterplot. The `lattice` function for this is `xyplot()`. Let's plot the expression data for two of these genes against each other using the `lattice` function `xyplot()`.
+
+```{r}
+xyplot(eggBomb ~ crabHammer, kDat)
+```
+
+> If you want to save your figures to a file, see instructions [here][file_output]. 
+
+`lattice` graphing functions, like many other functions in R, utilize a special formula syntax and that is what is expected as the first inputted argument. The general form is `y ~ x`, read as "y twiddle x". Here it requests that the first variable, eggBomb, be associated with the y direction and the second, crabHammer, be associated with x. The second argument `kDat` specifies the `data.frame` where the variables eggBomb and crabHammer can be found. It is being matched against the formal argument `data` by its position. As with the formula syntax, the use of a `data` argument, usually in the second position, is common in R, though sadly not universal. Take advantage of it whenever you can! 
+
+You try: request a scatterplot of the variable poisonFang against crabHammer.
+
+Let's imagine that crabHammer is somehow a natural explanatory variable or predictor (weird here, I admit, but go with me) and eggBomb and poisonFang are natural response variables. We might want to see both responses plotted against crabHammer _at the same
+time_. Here is a first way to do so, using a bit of a cheat known as the "extended formula interface" in `lattice`.
+<!--(cite/link to that bit of the sarkar book).--> 
+
+```{r}
+xyplot(eggBomb + poisonFang ~ crabHammer, kDat,
+       auto.key = TRUE)
+```
+
+The `+` sign between the two response variables is, in this context,
+purely artificial, i.e. we don't literally add them up and scatterplot
+the sum against crabHammer. Read it as "and". We've added `auto.key =
+TRUE` which produces the legend at the top and is a great
+convenience. Custom legends are absolutely possible but don't go there
+until you need to!
+
+What if we want each response to have it's own scatterplot, but we
+want to put them side-by-side for comparison?
+
+```{r}
+xyplot(eggBomb + poisonFang ~ crabHammer, kDat,
+       outer = TRUE, grid = TRUE)
+```
+
+The addition of `outer = TRUE` has caused the information to be
+presented in two _panels_, which is the `lattice` term for the
+individual plotting cells. The addition of a background grid, via
+`grid = TRUE`, is a great help for viewers who want to make
+comparisons across panels.
+
+What if we'd like to know which points are from the wild type mice
+versus the Nrl knockouts?
+
+```{r}
+xyplot(eggBomb + poisonFang ~ crabHammer, kDat,
+       outer = TRUE, grid = TRUE,
+       groups = gType, auto.key = TRUE)
+```
+
+The addition of `groups = gType` is what gave us the visual cues for
+genotype and our old friend `auto.key = TRUE` is back. To create a
+comparable figure with base R graphics would take _much more_ than one
+call, consisting of a mere ~100 characters. We could tweet this. This sort of "win" is typical and it's why R users who are serious about their figures generally use `lattice` and/or
+`ggplot2`.
+
+The more proper way to make this last figure requires us to reshape the data. The lattice paradigm is for __panels__ to correspond to a __level of a factor__ or to a unique combination of levels of two or more factors. 
+
+Since reshaping is a topic in and of itself, we present the reshaping code without explanation here.
+<!--link to future reshaping module-->
+```{r}
+nDat <-
+    with(kDat,
+         data.frame(sidChar, sidNum, devStage, gType, crabHammer,
+                    probeset = factor(rep(c("eggBomb", "poisonFang"), each = nrow(kDat))),
+                    geneExp = c(eggBomb, poisonFang)))
+str(nDat)
+```
+
+Our reshaped dataset `nDat` has 78 observations of 7 variables,
+whereas `kDat` had 39 = 78 / 2 observations of 7 variables. The
+variables sidChar, sidNum, devStage, gType, and crabHammer have simply been
+repeated twice, resulting 39 * 2 = 78 rows. The variables eggBomb and
+poisonFang have been concatenated into a new variable geneExp with a
+new factor probeset identifying which gene the data is for.
+
+Now we can make the previous plot with more canonical `lattice`
+syntax, i.e. this workflow and way of thinking will serve you better
+in the future:
+
+```{r}
+xyplot(geneExp ~ crabHammer | probeset, nDat,
+       grid = TRUE,
+       groups = gType, auto.key = TRUE)
+```
+
+We are using another feature of the formula syntax, `y ~ x | z`, which
+requests a scatterplot of y versus x for each level of the factor
+z. In general, in `lattice` plots the use of the vertical bar `|`
+requests individual plots in _panels_ for each value of the factor
+specified on the right.
+
+You try: Remake this plot but instead of conveying genotype via
+color, show developmental stage.
+
+### Stripplot
+
+The next set of figures we will make requires yet more data reshaping,
+which is a substantial background task in many analyses. We drop the
+idea of crabHammer being a predictor and eggBomb and poisonFang being
+responses and we just treat them all equivalently.
+
+```{r}
+oDat <-
+    with(kDat,
+         data.frame(sidChar, sidNum, devStage, gType,
+                    probeset = factor(rep(c("crabHammer", "eggBomb",
+                    "poisonFang"), each = nrow(kDat))),
+                    geneExp = c(crabHammer, eggBomb, poisonFang)))
+str(oDat)
+```
+
+Our newly reshaped version of `kDat`, named `oDat`, has 39 * 3 =
+117 observations but is otherwise very similar to `nDat`.
+
+A stripplot is a univariate scatterplot. Let's inspect the gene
+expression data, plain and simple.
+
+```{r}
+stripplot(~ geneExp, oDat)
+```
+
+Pretty boring and slightly nonsensical! We had to start
+somewhere. Let's split things out for the three different genes.
+
+```{r}
+stripplot(probeset ~ geneExp, oDat)
+```
+
+Sometimes, it can help to add jitter, a small bit of meaningless noise, in the horizontal position.
+
+```{r}
+stripplot(probeset ~ geneExp, oDat, jitter.data = TRUE)
+```
+
+Notice that all the data is presented in _one panel_ but with the
+different genes corresponding to different locations in the y
+direction. What if we want to put the different genes in different
+panels?
+
+<!--_TO DO: make these shorter!_-->
+
+```{r}
+stripplot(~ geneExp | probeset, oDat,
+          layout = c(nlevels(oDat$probeset), 1))
+```
+
+What if we want to see information about wild type versus Nrl knockout?
+
+```{r}
+stripplot(~ geneExp| probeset, oDat, 
+          layout = c(nlevels(oDat$probeset), 1),
+          groups = gType, auto.key = TRUE)
+```
+
+Let's start exploring gene expression changes over the course of
+development.
+
+```{r}
+stripplot(geneExp ~ devStage, oDat)
+```
+
+Retaining one panel per gene ....
+
+```{r}
+stripplot(geneExp ~ devStage | probeset, oDat, 
+          layout = c(nlevels(oDat$probeset), 1))
+```
+
+Adding back the genotype information ....
+
+```{r}
+stripplot(geneExp ~ devStage | probeset, oDat, 
+          layout = c(nlevels(oDat$probeset), 1),
+          groups = gType, auto.key = TRUE)
+```
+
+Adding averages
+
+```{r}
+stripplot(geneExp ~ devStage | probeset, oDat, 
+          layout = c(nlevels(oDat$probeset), 1),
+          groups = gType, auto.key = TRUE, grid = TRUE,
+          type = c('p', 'a'))
+```
+
+The argument 'type' can be used to add a variety of enhancements. Type is specified as a vector (through the use of 'c'). The option 'p' in the above example specifies the data as points on the plot, 'a' refers to getting the average of each category and joining them by a line (other summaries can be requested too). Some of the other options include 'l' for joining points by lines, 'b' for both points and lines, 'r' for adding the fit from a simple linear regression and 'smooth' for adding a nonparametric "smooth" fitted curve.
+
+### Densityplot
+
+Here's a nice alternative to histograms!
+
+```{r}
+densityplot(~ geneExp, oDat)
+```
+
+The vertical bar works as usual.
+
+```{r}
+densityplot(~ geneExp | gType, oDat,
+            grid = TRUE)
+```
+
+`groups` works as usual -- a real advantage over histogram.
+
+```{r}
+densityplot(~ geneExp, oDat,
+            groups = gType, auto.key = TRUE)
+```
+
+The argument 'bw' specifies the _bandwidth_ or the spread of the underlying Gaussian distributions. It controls how smooth this smoothed histogram will be. Though `densityplot()` has a sensible default, you can always specify directly if you wish. The argument 'n' controls the number of points at which the kernel density estimate is evaluated. It is easy to confuse this with the usual use of 'n' to denote sample size, so beware. If your density looks jaggedy, try increasing 'n'.
+
+```{r}
+jBw <- 0.2
+jn <- 400
+densityplot(~ geneExp, oDat,
+            groups = gType, auto.key = TRUE,
+            bw = jBw, n = jn,
+            main = paste("bw =", jBw, ", n =", jn))
+```
+
+You try: use `densityplot()` to explore the gene expression distribution by gene and/or developmental stage. Play with 'bw' and 'n' if you like.
+
+### Boxplot
+There is also a time and place for boxplots, obtained with the `lattice` function `bwplot()` for "box-and-whiskers plot".
+
+```{r}
+bwplot(geneExp ~ devStage, oDat)
+```
+
+The vertical bar `|` still works ....
+
+```{r}
+bwplot(geneExp ~ devStage | gType, oDat)
+```
+
+A violinplot is a hybrid of densityplot and histogram.
+
+```{r}
+bwplot(geneExp ~ devStage, oDat,
+       panel = panel.violin)
+```
+
+This is our first explicit glimpse of how a panel function might be
+specified to some non-default value. More on that can be found in Sarkar's book and the STAT545A materials.
+
+### Heatmaps
+
+Now we need a larger dataset. Let's load the real full data matrix and experimental design now.
+
+The experimental data, i.e. covariate information for the samples, is available in plain text form in the file [GSE4051_design.tsv](../examples/photoRec/data/GSE4051_design.tsv) but you will notice below that we prefer to load it from a RDS file for better factor levels. 
+
+```{r include = FALSE}
+URL = getURL("https://raw.githubusercontent.com/jennybc/stat540_2014/master/examples/photoRec/data/GSE4051_data.tsv")
+prDat = read.table(text=URL,header=T)
+URL = getURL("https://raw.githubusercontent.com/jennybc/stat540_2014/master/examples/photoRec/data/GSE4051_design.tsv")
+prDes = read.table(text=URL,header=T)
+```
+
+```{r eval = FALSE}
+prDat <- read.table("../examples/photoRec/data/GSE4051_data.tsv")
+```
+```{r}
+str(prDat, max.level = 0)
+```
+## loads an object named 'prDes'
+```{r eval = FALSE}
+prDes <- readRDS("../examples/photoRec/data/GSE4051_design.rds")
+```
+```{r}
+str(prDes)
+```
+
+Let's draw 50 probesets at random -- but in a repeatable way! 
+
+```{r}
+set.seed(1)
+(yo <- sample(1:nrow(prDat), size = 50))
+hDat <- prDat[yo, ]
+str(hDat)
+```
+
+The functions for heatmapping expect a _matrix_ not a data.frame, so
+we will convert `hDat` and also transpose for a nicer heatmap
+orientation below. I also give the samples more informative names that
+capture genotype and developmental stage.
+
+```{r}
+hDat <- as.matrix(t(hDat))
+rownames(hDat) <- with(prDes,
+                       paste(devStage, gType, sidChar, sep="_"))
+str(hDat)
+```
+
+The basic built-in function for heatmapping is `heatmap()`. Warning:
+these Oscar Mayer / McDonald's colors are awful.
+
+```{r}
+heatmap(hDat, Rowv = NA, Colv = NA, scale="none", margins = c(5, 8))
+```
+
+Some of the other built-in color schemes aren't quite as likely to make your
+eyes bleed ...
+
+```{r}
+heatmap(hDat, Rowv = NA, Colv = NA, col = cm.colors(256),
+        scale="none", margins = c(5, 8))
+```
+
+But long-term it is good to learn how to take control of the color
+scheme. To help with that, we load the package `RColorBrewer` that has
+some useful pre-selected palettes I often use as the basis for a
+variety of color tasks.
+
+If the package is not already installed, install it
+```{r, eval=FALSE}
+install.packages("RColorBrewer")
+```
+Then load it and take a look at the palettes it offers.
+```{r}
+library(RColorBrewer)
+display.brewer.all()
+```
+
+Warning: this will seem arcane. To map a small number of colors into a ramp or palette suitable for encoding a quantitative variable as colors, the function `colorRampPalette()` is useful. Its somewhat surprising return value is a _function_ itself that takes a number `n` as input and returns a correspondingly sized color ramp. Here I prepare to use a subdued gray palette and also a more stimulating pale blue to purple palette.
+
+```{r}
+jGraysFun <- colorRampPalette(brewer.pal(n = 9, "Greys"))
+jBuPuFun <- colorRampPalette(brewer.pal(n = 9, "BuPu"))
+```
+
+Let's revisit the first heatmap in grays....
+
+```{r}
+heatmap(hDat, Rowv = NA, Colv = NA, scale="none", margins = c(5, 8),
+        col = jGraysFun(256))
+```
+
+and the blue-purple palette.
+
+```{r}
+heatmap(hDat, Rowv = NA, Colv = NA, scale="none", margins = c(5, 8),
+        col = jBuPuFun(256))
+```
+
+By specifying `Rowv = NA, Colv = NA, scale = "none"`, we have been
+suppressing some rather common heatmap features -- the inclusion of
+row and column dendrograms and the normalization of the data. Let's
+look at the heatmap as it would be rendered by default.
+
+```{r}
+heatmap(hDat, margins = c(5, 8), col = jBuPuFun(256))
+```
+
+Now we allow scaling within column:
+
+```{r}
+heatmap(hDat, col = jBuPuFun(256), margins = c(5, 8), scale=c("column"))
+```
+
+Finally we try out another popular heatmapping function `heatmap.2()`
+from the `gplots` package. This adds an automatic color legend, which
+helps you determine what each color extreme actually means. If you need to install the package do this:
+```{r, eval=FALSE}
+install.packages("gplots")
+```
+Then you'll need to load it before you can use `heatmap.2()`:
+```{r, eval=TRUE, message = FALSE}
+library(gplots)
+heatmap.2(hDat, col = jGraysFun, trace = "none")
+heatmap.2(hDat, col = jBuPuFun, trace = "none")
+```
+
+### Overplotting
+
+Now that we've loaded the main dataset we can also explore high-volume scatterplotting and the solutions to overplotting. First let's pick two samples at random to plot against each other.
+
+```{r}
+set.seed(924)
+(yo <- sample(1:ncol(prDat), size = 2))
+y <- prDat[[yo[1]]]
+z <- prDat[[yo[2]]]
+str(y)
+str(z)
+xyplot(y ~ z, asp = 1)
+```
+
+See the giant dark point cloud of death? What's going on in there? Who knows. The overplotting is potentially hiding information about the joint distribution. Also, these plots use up lots of ink when printing and take a long time to load if you're giving a talk. Stop using plain vanilla scatterplot tools for very high-volume plots. The superior alternatives divide the plane into small neighborhoods and shade them according to how many points fall there.
+
+The base package `graphics` ('base' meaning always installed, always loaded) offers the `smoothScatter()` function which shades the plane according to a 2D kernel density estimate.
+
+```{r}
+smoothScatter(y ~ z, asp = 1)
+```
+You can see that we *were* missing some information in the dark cloud above. There is one main clump of data, concentrated around (6, 6) and then petering out diagonally up the x = y line. There's arguably a second, smaller clump of data on a steeper line running through the points ~(10, 8) and ~(14, 14).
+
+The `xyplot()` function in lattice can produce a similar plot by specifying a `smoothScatter`-type of *panel function*.
+```{r}
+xyplot(y ~ z, asp = 1, panel = panel.smoothScatter, nbin = 150)
+```
+
+The add-on package `hexbin` implements hexagonal binning. Basically the plane is divided into hexagons and shaded as described above. Install it if you need to.
+```{r, eval=FALSE}
+install.packages("hexbin")
+```
+```{r}
+library(hexbin)
+hexbinplot(y ~ z)
+```
+
+### Plot matrix  
+Finally, if you want to plot several variables against each other, i.e. create a scatterplot matrix, there are several functions for that.
+
+  * base graphics offers `pairs()`
+  * `lattice` offers `splom()` for __s__catter__plo__t __m__atrix
+  * `hexbin` offers `hexplom()`
+  * `ggplot2` offers `plotmatrix()`
+
+We need to take a slightly larger sample of columns now.
+
+```{r}
+set.seed(3)
+(yo <- sample(1:ncol(prDat), size = 4))
+pairDat <- subset(prDat, select = yo)
+str(pairDat)
+```
+
+Using the base function `pairs()` ... You will notice this is a bit slow and we get the usual awful dark point clouds.
+```{r}
+pairs(pairDat)
+```
+
+However, `pairs()` can be combined with `smoothScatter()` for a better result. Somewhat faster and definitely better looking, more informative.
+
+```{r}
+pairs(pairDat,
+      panel = function(...) smoothScatter(..., add=TRUE))
+```
+
+Here's `splom()` from `lattice`, first using the default, non-high-volume panel function.
+```{r}
+splom(pairDat)
+```
+
+Here's `splom()` from `lattice` again, but using a `smoothScatter`-type panel function. Much faster! More informative!
+```{r}
+splom(pairDat, panel = panel.smoothScatter, raster = TRUE)
+```
+Finally, here's `hexplom()`.
+```{r}
+hexplom(pairDat)
+```
+
+### Take-home problem
+
+The full `photoRec` dataset has `r ncol(prDat)` samples and `r nrow(prDat)` probesets. Using Lattice, choose 2 ... or 20 ... or 200 random probesets/genes and look for gene expression differences between the two genotypes, wild type versus knockout. Make use of the graphing techniques discussed this week such as scatter plots, data heatmaps, correlation heatmaps, etc. Share questions, success, failure on the Github-based discussion forum.
+
+
+[base_lattice_ggplot2]: http://www.stat.ubc.ca/~jenny/STAT545A/block90_baseLatticeGgplot2.html
+[file_output]: http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html
+

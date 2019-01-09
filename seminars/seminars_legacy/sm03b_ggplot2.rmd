@@ -1,0 +1,442 @@
+Introduction to R graphics - `ggplot2` version
+======================================================================
+
+Original Contributors: Gloria Li, Dean Attali (heatmap). Modified by Alice Zhu.
+
+```{r include = FALSE}
+## once I upgrade knitr, "no tidy" will be the default and I can delete this
+#opts_chunk$set(tidy = FALSE)
+```
+
+This seminar will primarily draw on functions in the add-on package `ggplot2`. This package is quite different from base R graphics; it implements the __Grammar of Graphics__, i.e. _gg_. It might seem daunting at first, but don't worry, once you get used to this idea, it is a fairly easy way to construct complex graphics. 
+
+If you have not done so already, install this package: 
+
+```{r eval = FALSE}
+# if you haven't installed ggplot2, type:
+# install.packages("ggplot2")
+```
+
+and load it:
+
+```{r}
+library(ggplot2)
+```
+
+## Basic concepts
+
+* __Layer__: The most important concept of `ggplot2` is that graphics are built of different _layers_. This includes anything from the data used, the coordinate system, the axis labels, the plot's title etc. This layered grammar is perhaps the most powerful feature of `ggplot2`. It allows us to build complex graphics by adding more and more layers to the basic graphics while each layer is simple enough to construct. Layers can contain one or more components such as data and aesthetic mapping, geometries, statistics, scaling etc. We will talk about some most common components next.  
+
+* __Aesthetics__: They are graphic elements mapped to data defined by `aes()`. Some of the common aesthetics we usually define are: x-y positions, color, size, shape, linetype etc. Beginners are usually easily confused between aesthetics and geometries. An easy way to distinguish is that you are always trying to assign (_map_) __data__ to some graphic elements in aesthetics, while in geometries you don't feed in any information on the data. It will become clear with some examples later
+
+* __Geometries__: These are the actual graphic elements used to plot, like points / lines / bars etc. These functions usually start with `geom_` and their names are usually self-explanatory. You can also specify color and other graphic elements in these functions, but it will be a single value that's applied to the entire data. Here is a simple way to see what geometries functions are available: 
+
+```{r}
+apropos("^geom_")
+```
+
+* __Statistics__: These provide a simple and powerful way to summarize your data and present calculated statistics on the plot, like add a regression line, a smoothed curve, calculate density curve etc. For a full list, see below. You can see some of the functions look very similar to some `geom` functions. Indeed these two categories are not mutually exclusive. Some `geom` functions implemented statistical calculation and `stat` functions also come with default geometries.  
+
+```{r}
+apropos("^stat_")
+```
+
+* __Scale__: Another powerful feature to alter the default scale to x-y axes, e.g. do a log transformation, instead of the traditional 2-step approach of transforming the data first and then plot it. You can also do more advanced customization to features like color, fill, etc. with these functions. Functions available are
+
+```{r}
+apropos("^scale_")
+```
+
+* __Facetting__: This is very similar to the use of `|` in `lattice` to create separate panels according to some factor. There are two functions: `facet_wrap` for separating on one factor, and `facet_grid` for using two factors. We will cover some examples later. 
+
+As you can see, there are a lot of functions available in `ggplot2`. We can only cover some most frequently used ones in this seminar. Check out R help file if you want more information on some particular functions. For more detailed information on `ggplot2`, see links to this book: _ggplot2: Elegant Graphics for Data Analysis_ by Hadley Wickham on Jenny's [resource](http://www.stat.ubc.ca/~jenny/resources.html) page. 
+
+Now, let's try to recreate some of the `lattice` plots with `ggplot2`. 
+
+> Remember you may need to edit the file paths below, to reflect your working directory and local file storage choices.
+
+We will still work with the `photoRec` dataset, containing "gene expression profiles of purified photoreceptors at distinct developmental stages and from different genetic backgrounds". If you need a reminder of what this dataset contains, read the [README](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/examples/photoRec) file.
+
+We load this mini dataset from a saved R object, in order to preserve factor levels that were set rationally (and non-alphabetically) during data cleaning and pre-processing. This rds file could be retrieved from [HERE](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/photoRec/data/GSE4051_MINI.rds). Save this rds file in your current working directory.
+
+```{r}
+# you may need to modify the file name inside readRDS() in order to access your saved rds
+# file, such as adding the subdirectory name where it is stored
+kDat <- readRDS("GSE4051_MINI.rds")
+str(kDat)
+table(kDat$devStage)
+table(kDat$gType)
+with(kDat, table(devStage, gType))
+```
+
+We see there are 39 samples (rows or observations). We have
+
+  * sample ID character (`sidChar`): a string recording sample ID
+  * sample ID number (`sidNum`): integers between 1 and 39
+  * developmental stage of the mouse (`devStage`): a factor with levels E16 (day 16 of embryonic development), P2 (postnatal day 2), P6 (postnatal day 6), P10 (postnatal day 10), 4_weeks (4 weeks postnatal)
+  * genotype of the mouse (`gType`): wt (wild type) or NrlKO (gene Nrl has been knocked out)
+  * gene expression level (`gExp`), in some abstract unit-less sense, for 3 randomly selected probesets or genes, with fictional names `crabHammer`, `eggBomb`, and `poisonFang`
+
+It's pretty clear the intent was to have 4 mice at each combination of genotype and developmental stage, but there was some mishap for the embryonic knockouts, i.e. E16-NrlKO, where we only have data from 3 mice.
+
+## qplot
+`qplot` is a function in `ggplot2` for quick plots. Its usage is very similar to the `plot` functions, so people who are used to base graphics can pick it up in no time. Here, let's see a quick example of scatter plots with qplot. 
+
+```{r}
+qplot(crabHammer, eggBomb, data = kDat)
+```
+
+> With `qplot`, you can quickly generate plots while still be able to use more powerful `ggplot2` features with `geom` and `stat` arguments. See `?qplot` for details. But for more sophisticated plots and improved readability, it'd be better to use the _layer-by-layer_ approach below. 
+
+## Scatterplots
+First thing we do for all `ggplot2` plots is to specify the data layer with `ggplot()`, i.e. the data.frame we are using. Here we can also specify the aesthetics by mapping _crabHammer_ and _eggBomb_ to x and y positions, respectively. 
+
+```{r}
+p <- ggplot(kDat, aes(x = crabHammer, y = eggBomb))
+str(p)
+# if type print(p), nothing will print yet!
+```
+
+Note that unlike base graphics, `ggplot2` returns a list that you can manipulate and you can view the plot by printing this R object out. 
+
+Also, you can see if we try to print it out now, we get an error. This is because for this data layer, we only specified the data we will use, but we actually haven't specify anything about what plot to create yet. 
+
+Now let's add a geometries layer for simple scatter plot. We use `+` to add new layers. 
+
+```{r}
+(p  <- p + geom_point())
+```
+
+> Each layer in `ggplot2` is essentially a function. It has its own arguments that you can specify for customization. For convenience, we will mostly use the default in this seminar but you can refer to the R help file for more detailed usage. 
+
+Sometimes, it's useful to add statistics layers to the plot, for example a smoothing line. 
+
+```{r}
+(p <- p + stat_smooth())
+```
+
+> Here the default of `stat_smooth()` function is to use _loess_, a local regression model, and a shaded ribbon for standard error. 
+
+Also, we can customize some default settings like the grey background, the axis labels and the title by adding even more layers. 
+
+```{r}
+(p <- p + theme_bw() + 
+   xlab("Expression of crabHammer") + 
+   ylab("Expression of eggBomb") + 
+   ggtitle("Scatterplot for expression levels"))
+```
+
+We can build very complicated plots by adding more layers gradually until we are satisfied. 
+
+Now let's plot both eggBomb and poisonFang against crabHammer as we did with `lattice`. This again involves some reshaping of the data. 
+
+```{r}
+nDat <-
+    with(kDat,
+         data.frame(sidChar, sidNum, devStage, gType, crabHammer,
+                    probeset = factor(rep(c("eggBomb", "poisonFang"),
+                                          each = nrow(kDat))),
+                    geneExp = c(eggBomb, poisonFang)))
+str(nDat)
+```
+
+Let's see what happens if we specify the color in geometries. 
+
+```{r}
+# If you type the following code, you will see error: object 'probeset' not found
+#(p <- ggplot(nDat, aes(crabHammer, geneExp)) +
+#   geom_point(color = probeset))
+```
+
+This is a common mistake beginners on `ggplot2` make, especially those who come from  base graphics. This is an important difference between __setting__ a graphic element and __mapping__ some data to the graphic element. When setting graphic elements like color or size in *geom_* functions, that setting applies to _all_ data. If you want to use different graphic settings for different groups, you need to _map_ that group information to the graphic element inside `aes` function. 
+
+```{r}
+(p <- ggplot(nDat, aes(crabHammer, geneExp, color = probeset)) + 
+   geom_point())
+## or the next statement works too
+(p <- ggplot(nDat, aes(crabHammer, geneExp)) +
+   geom_point(aes(color = probeset)))
+```
+
+Let's try adding a smoothing line now. 
+
+```{r}
+(p <- ggplot(nDat, aes(crabHammer, geneExp, color = probeset)) + 
+   geom_point() + 
+   stat_smooth(se = F))
+```
+
+> `se = F` will turn off the display of standard error ribbon. 
+
+Note in this new layer, a smoothing line was calculated and plotted for _the two different genes_. This is because when we map a categorical variables to an aesthetic as we did with `color = probeset`, we are also defining groups. And by default, groups specified in the _data layer_ will be __inherited__ by all other layers, but those specified in other layers, like a geometries layer, will not. We can overrule this by specifying another aesthetics in the new layer. 
+
+```{r}
+(p <- ggplot(nDat, aes(crabHammer, geneExp, color = probeset)) + 
+   geom_point() + 
+   stat_smooth(se = F, aes(group = 1)))
+```
+
+If we want to plot `poisonFang ~ crabHammer` and `eggBomb ~ crabHammer` in separated panels, we can use facetting. 
+
+```{r}
+(p <- ggplot(nDat, aes(crabHammer, geneExp)) + 
+   geom_point() + 
+   facet_wrap(~ probeset))
+```
+
+> For separating panels with two variables, see `facet_grid()`. 
+
+We can also distinguish wild type and Nrl knockouts by using different colors. 
+
+```{r}
+(p <- ggplot(nDat, aes(crabHammer, geneExp, color = gType)) + 
+   geom_point() + 
+   facet_wrap(~ probeset))
+```
+
+You try: Remake this plot but instead of conveying genotype via color, show developmental stage.
+
+## Stripplot
+
+Stripplots in `ggplot2` still use `geom_point()`, just one of its coordinates is mapped to a `factor` rather then a quantitative variable. We will continue using the examples in the `lattice` seminar. First reshape the dataset so `probeset` will be a factor specifying the gene we are measuring. 
+
+```{r}
+oDat <-
+  with(kDat,
+       data.frame(sidChar, sidNum, devStage, gType,
+                  probeset = factor(rep(c("crabHammer", "eggBomb",
+                                          "poisonFang"), each = nrow(kDat))),
+                  geneExp = c(crabHammer, eggBomb, poisonFang)))
+str(oDat)
+```
+
+Then let's plot the expression level of each gene. 
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp, probeset)) + 
+   geom_point())
+```
+
+We can also add jitter. 
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp, probeset)) + 
+   geom_point(position = position_jitter(height = 0.1)))
+```
+
+Now let's explore gene expression changes over the course of development.
+
+```{r}
+(p <- ggplot(oDat, aes(devStage, geneExp)) + 
+   geom_point())
+```
+
+Show different genes in separate panels. 
+
+```{r}
+(p <- p + facet_wrap(~ probeset))
+```
+
+Add genotype information. 
+
+```{r}
+(p <- p + aes(color = gType))
+```
+
+Add averages with `stat_summary`. 
+
+```{r}
+(p <- p + stat_summary(fun.y = mean, geom = "point", shape = 4, size = 4))
+```
+
+> The argument `fun.y` will use the function you feed in, in this case `mean`, to summarize y values for every `x`. Alternatively, you can use `fun.data` if you want summary on the entire dataset. 
+
+## Density plots
+There are two functions `ggplot2` uses for density plots: `geom_density` and `stat_density`. Their default outputs have slightly different flavors. 
+<!-- Are there any actual differences between this two functions? -->
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp)) + 
+   geom_density())
+```
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp)) + 
+   stat_density(geom = "line", position = "identity"))
+```
+
+If you want a more similar presentation to the one we created with `lattice`, i.e. adding data points at the bottom etc.: 
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp)) + 
+   stat_density(geom = "line", position = "identity") + 
+   geom_point(aes(y = 0.05), position = position_jitter(height = 0.005)))
+```
+
+Change bandwidth with `adjust` argument in `stat_density`. 
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp)) + 
+   stat_density(geom = "line", position = "identity", adjust = 0.5) + 
+   geom_point(aes(y = 0.05), position = position_jitter(height = 0.005)))
+```
+
+Separate panels for different genotype. 
+
+```{r}
+(p <- p + facet_wrap(~ gType))
+```
+
+Or different colors for different genotype. 
+
+```{r}
+(p <- ggplot(oDat, aes(geneExp, color = gType)) + 
+   stat_density(geom = "line", position = "identity") + 
+   geom_point(aes(y = 0.05), position = position_jitter(height = 0.005)))
+```
+
+You try: use density plot to explore the gene expression distribution developmental stage. Play with 'adjust' if you like.
+
+## Boxplot
+
+The `geom_boxplot` function is available for boxplots in `ggplot2`. 
+
+```{r}
+(p <- ggplot(oDat, aes(devStage, geneExp)) + 
+   geom_boxplot())
+```
+
+Separate two genotypes. 
+
+```{r} 
+(p <- p + facet_wrap(~ gType))
+```
+
+A violinplot is a hybrid of densityplot and histogram.
+
+```{r}
+(p <- ggplot(oDat, aes(devStage, geneExp)) + 
+   geom_violin())
+```
+
+## Overplotting and plot matrix
+Now let's load the full data matrix and see how `ggplot2` deals with it.The tsv
+file could be retrieved from [HERE](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/photoRec/data/GSE4051_data.tsv). The design rds file can be retrieved from [HERE](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/photoRec/data/GSE4051_design.rds). Again, save this tsv and rds file in your current working directory, and navigate to the folder where it is stored:
+
+```{r}
+prDat <- read.table("GSE4051_data.tsv")
+str(prDat, max.level = 0)
+## loads an object named 'prDes'
+prDes <- readRDS("GSE4051_design.rds")
+str(prDes)
+```
+
+First let's pick two samples at random to plot against each other.
+
+```{r}
+set.seed(2)
+(yo <- sample(1:ncol(prDat), size = 2))
+bDat <- data.frame(y = prDat[[yo[1]]], z = prDat[[yo[2]]])
+str(bDat)
+
+(p <- ggplot(bDat, aes(z, y)) + 
+   geom_point())
+```
+
+You will notice that `ggplot2` is often slower to produce a figure than `lattice`.
+
+One quick way to get a more informative plot is simply reducing the transparency of the data point with `alpha` argument. It has a somewhat similar effect to `smoothScatter` function. 
+
+```{r}
+(p <- ggplot(bDat, aes(z, y)) + 
+   geom_point(alpha = 0.1))
+```
+
+Another way to present is to use the `density2d` function. The idea is similar to `smoothScatter` plots. 
+
+```{r}
+(p <- ggplot(bDat, aes(z, y)) + 
+   stat_density2d())
+```
+
+It looks a bit weird now, but if you use colors gradient instead of lines, it will make more sense. 
+
+```{r}
+(p <- ggplot(bDat, aes(z, y)) + 
+   stat_density2d(geom = "tile", contour = F, aes(fill = ..density..)) + 
+   scale_fill_gradient(low = "white", high = "blue"))
+```
+
+> Some functions especially `stat` functions return also their own calculated values. You can use these values by calling _..[value name].._, e.g. the use of `fill = ..density..` here. 
+
+`ggplot2` also offers `stat_binhex` function similar to the `hexbin` package. 
+
+```{r}
+# if the following code doesn't work, try first: install.packages("hexbin")
+library(hexbin)
+(p <- ggplot(bDat, aes(z, y)) + 
+   stat_binhex())
+```
+
+For pairwise scatterplots, you can also use the new `ggpairs` function in `GGally`. Again, we need to take a larger sample of columns now. 
+
+```{r}
+set.seed(3)
+(yo <- sample(1:ncol(prDat), size = 4))
+pairDat <- subset(prDat, select = yo)
+str(pairDat)
+```
+
+
+
+```{r}
+# if you haven't installed GGally, type: 
+# install.packages("GGally")
+library(GGally)
+(p <- ggpairs(pairDat))
+```
+
+## Heatmap
+
+> JB note: inserting code provided by student Dean Attali via [this Gist](https://gist.github.com/daattali/8609489)
+
+```{r}
+library(RColorBrewer)
+ 
+# set seed so that we have exactly reproducable results
+set.seed(1)
+ 
+# choose 50 probes out of the 30k to work with
+yo <- sample(1:nrow(prDat), size = 50)
+hDat <- prDat[yo, ]
+colnames(hDat) <- with(prDes, paste(devStage, gType, sidChar, sep = "_"))
+ 
+# transform the data to tall format
+prDatTall <- data.frame(sample = rep(colnames(hDat), each = nrow(hDat)),
+                        probe = rownames(hDat),
+                        expression = unlist(hDat))
+ 
+# create a blue -> purple palette
+jBuPuFun <- colorRampPalette(brewer.pal(n = 9, "BuPu"))
+paletteSize <- 256
+jBuPuPalette <- jBuPuFun(paletteSize)
+ 
+# heatmap!
+ggplot(prDatTall, aes(x = probe, y = sample, fill = expression)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  geom_tile() +
+  scale_fill_gradient2(low = jBuPuPalette[1],
+                       mid = jBuPuPalette[paletteSize/2],
+                       high = jBuPuPalette[paletteSize],
+                       midpoint = (max(prDatTall$expression) +
+                                     min(prDatTall$expression)) / 2,
+                       name = "Expression")
+```
+
+## Take-home problem
+
+The full `photoRec` dataset has 39 samples and 29,949 probesets. Choose 2 ... or 20 ... or 200 random probesets/genes and look for gene expression differences between the two genotypes, wild type versus knockout. Make use of the graphing techniques discussed this week such as scatter plots, box plot, etc. Share questions, success, failure on the Google group.
+
+## Added 2014-03-31
+
+Via Dean Attali: [Extra! Extra! Get Your gridExtra!](http://www.imachordata.com/extra-extra-get-your-gridextra/) blog post on using `gridExtra` to assemble multiple `ggplot2` plots on one "page"

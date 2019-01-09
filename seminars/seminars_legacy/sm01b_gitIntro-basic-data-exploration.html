@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat540-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="lectures"><a href="lectures.html">Lectures</a></li>
+      <li class="seminars"><a href="seminars.html">Seminars</a></li>
+      <li class="assignments"><a href="assignments.html">Assignments</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+
+
+<div id="github-intro" class="section level1">
+<h1>Git(Hub) Intro</h1>
+<p>A quick introduction to Git(Hub) is available <a href="githubPres.pdf">here</a>. We are going to cover this topic further in the next seminar. You can also visit Prof Jenny Bryan’s <a href="https://stat545-ubc.github.io/git01_git-install.html">STAT545A webpage</a> for further details on installation.</p>
+</div>
+<div id="explore-a-small-gene-expression-dataset" class="section level1">
+<h1>Explore a small gene expression dataset</h1>
+<div id="optional-getting-started-advice" class="section level3">
+<h3>Optional getting started advice</h3>
+<p><em>Ignore if you don’t need this bit of support.</em></p>
+<p>This is one in a series of tutorials in which we work with the <code>photoRec</code> dataset. Now is the time to make sure you are working in an appropriate directory on your computer, probably through the use of an <a href="https://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html">RStudio project</a>. To ensure a clean slate, you may wish to clean out your workspace and restart R (both available from the RStudio Session menu, among other methods). Confirm that the new R process has the desired working directory, for example, with the <code>getwd()</code> command or by glancing at the top of RStudio’s Console pane.</p>
+<p>Open a new R script (in RStudio, File &gt; New &gt; R Script). Develop and run your code from there (recommended) or periodicially copy “good” commands from the history. In due course, save this script with a name ending in <code>.r</code> or <code>.R</code>, <strong>containing no spaces or other funny stuff</strong>, and evoking “seminar01” and “data exploration”.</p>
+<p>See <a href="https://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html">R basics, workspace and working directory, RStudio projects</a> if you need some help developing your basic R mojo.</p>
+</div>
+<div id="obtain-the-data-file-gse4051_mini.txt" class="section level3">
+<h3>Obtain the data file <code>GSE4051_MINI.txt</code></h3>
+<p>We will work with a small data excerpt. Please save this file locally, for example, in the directory associated with your RStudio Project:</p>
+<ul>
+<li><a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/photoRec/data/GSE4051_MINI.tsv">https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/photoRec/data/GSE4051_MINI.tsv</a></li>
+</ul>
+</div>
+<div id="the-photorec-data" class="section level3">
+<h3>The <code>photoRec</code> data</h3>
+<p>See the <a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/examples/photoRec"><code>photoRec</code> README</a>.</p>
+<p>Gene expression data from photo receptor cells in mice. Various developmental stages, two genotypes.</p>
+<p>The excerpt we work with here contains gene expression data for 3 genes. Their arcane names have been replaced with 3 randomly selected Pokemon attacks: crabHammer, eggBomb, and poisonFang.</p>
+</div>
+<div id="load-gse4051_mini.txt" class="section level3">
+<h3>Load <code>GSE4051_MINI.txt</code></h3>
+<p>We load the mini gene expression dataset into a <code>data.frame</code>, which is the preferred way to handle tabular data in R.</p>
+<p>If you have not already done so, now is a good time to work through <a href="https://stat545-ubc.github.io/block006_care-feeding-data.html">Basic care and feeding of data in R</a>. The exercises below will test whether your basic understanding of <code>data.frames</code> is developed enough to explore the mini gene expression data we work with here.</p>
+<p>If you are new to R, you’ll want to work through <a href="https://stat545-ubc.github.io/block004_basic-r-objects.html">R objects (beyond data.frames) and indexing</a> at some in the near future as well.</p>
+<p>Read the data from a local file in the current working directory and use <code>str()</code> to get a basic overview of the resulting <code>prDat</code> object:</p>
+<pre class="r"><code>prDat &lt;- read.table(&quot;GSE4051_MINI.txt&quot;, header = TRUE, row.names = 1)</code></pre>
+<p>Does the <code>read.table()</code> command fail for you? If so, have you taken control of your working directory? Have you placed <code>GSE4051_MINI.txt</code> in that directory or edited the <code>read.table()</code> command to reflect its location? Mastering the working directory and filepaths is a surprisingly important part of the learning curve. Submit commands like these to do some troubleshooting:</p>
+<pre class="r"><code>getwd()      # is working directory what you think it should be?
+list.files() # do see GSE4051_MINI.txt sitting there?!?
+setwd()      # use with moderation</code></pre>
+<p>Upon successful import, <code>str()</code> the object as a sanity check:</p>
+<pre class="r"><code>str(prDat)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    39 obs. of  6 variables:
+##  $ sample    : int  20 21 22 23 16 17 6 24 25 26 ...
+##  $ devStage  : Factor w/ 5 levels &quot;4_weeks&quot;,&quot;E16&quot;,..: 2 2 2 2 2 2 2 4 4 4 ...
+##  $ gType     : Factor w/ 2 levels &quot;NrlKO&quot;,&quot;wt&quot;: 2 2 2 2 1 1 1 2 2 2 ...
+##  $ crabHammer: num  10.22 10.02 9.64 9.65 8.58 ...
+##  $ eggBomb   : num  7.46 6.89 6.72 6.53 6.47 ...
+##  $ poisonFang: num  7.37 7.18 7.35 7.04 7.49 ...</code></pre>
+<p>Exercise: Why do we use the <code>header =</code> and <code>row.names =</code> arguments above upon import? Submit the command <em>without</em> these arguments and note any difference in the result. Form the habit of reading error messages <em>carefully</em> and working the problem. Mastering the arguments of <code>read.table()</code> and friends is time well spent.</p>
+</div>
+<div id="basic-exploration-of-prdat" class="section level3">
+<h3>Basic exploration of <code>prDat</code></h3>
+<p>Use R to answer these questions. You could create a script with these questions as comments, then insert actual code to get the answers. You could use RStudio’s “Compile Notebook” command to create a nice little report!</p>
+<p>How many rows are there? Hint: <code>nrow()</code>, <code>dim()</code>.</p>
+<p>How many columns or variables are there? Hint: <code>ncol()</code>, <code>length()</code>, <code>dim()</code>.</p>
+<p>Inspect the first few observations or the last few or a random sample. Hint: <code>head()</code>, <code>tail()</code>, <code>x[i, j]</code> combined with <code>sample()</code>.</p>
+<p>What does row correspond to – different genes or different mice?</p>
+<p>What are the variable names? Hint: <code>names()</code>, <code>dimnames()</code>.</p>
+<p>What “flavor” is each variable, i.e. numeric, character, factor? Hint: <code>str()</code>.</p>
+<p>For <code>sample</code>, do a sanity check that each integer between 1 and the number of rows in the dataset occurs exactly once. Hint: <code>a:b</code>, <code>seq()</code>, <code>seq_len()</code>, <code>sort()</code>, <code>table()</code>, <code>==</code>, <code>all()</code>, <code>all.equal()</code>, <code>identical()</code>.</p>
+<p>For each factor variable, what are the levels? Hint: <code>levels()</code>, <code>str()</code>.</p>
+<p>How many observations do we have for each level of <code>devStage</code>? For <code>gType</code>? Hint: <code>summary()</code>, <code>table()</code>.</p>
+<p>Perform a cross-tabulation of <code>devStage</code> and <code>gType</code>. Hint: <code>table()</code>.</p>
+<p>If you had to take a wild guess, what do you think the <em>intended</em> experimental design was? What actually happened in real life?</p>
+<p>For each quantitative variable, what are the extremes? How about average or median? Hint: <code>min()</code>, <code>max()</code>, <code>range()</code>, <code>summary()</code>, <code>fivenum()</code>, <code>mean()</code>, <code>median()</code>, <code>quantile()</code>.</p>
+</div>
+<div id="indexing-and-subsetting-prdat" class="section level3">
+<h3>Indexing and subsetting <code>prDat</code></h3>
+<p>You’ll definitely need the knowledge in <a href="https://stat545-ubc.github.io/block004_basic-r-objects.html">R objects (beyond data.frames) and indexing</a> now, so go work through it if you need to.</p>
+<p>Create a new data.frame called <code>weeDat</code> only containing observations for which expression of poisonFang is above 7.5.</p>
+<p>For how many observations poisonFang &gt; 7.5? How do they break down by genotype and developmental stage?</p>
+<p>Print the observations with row names “Sample_16” and “Sample_38” to screen, showing only the 3 gene expression variables.</p>
+<p>Which samples have expression of eggBomb less than the 0.10 quantile?</p>
+</div>
+<div id="bonus" class="section level3">
+<h3>Bonus</h3>
+<p>Try solving some of the previous questions using <code>dplyr</code> package.</p>
+</div>
+<div id="answers" class="section level3">
+<h3>Answers!</h3>
+<p>Code for the exercises is shown in the source document that makes this page, but is hidden here. Go read <a href="" title="https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/sm01b_gitIntro-basic-data-exploration.rmd">the R Markdown source</a> if you want to see it.</p>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
