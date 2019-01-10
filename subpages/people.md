@@ -11,12 +11,12 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Paul](peoplePics/paulPavlidis.png) | | ![Amrit](peoplePics/amritSingh.png)  |
-|  Paul Pavlidis  | |  Amrit Singh      |
-|  CHiBi and Psychiatry <paul@chibi.ubc.ca> | |  Pathology and Lab Medicine <Amrit.Singh@hli.ubc.ca> |
-| ![Rob](peoplePics/robBalshaw.png) |  | ![Sara](peoplePics/saram.png) |
-| Rob Balshaw |    | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) (on leave) |
-|  Statistics <robert.balshaw@bccdc.ca> | |  Statistics and Medical Genetics <saram@cs.stanford.edu> |
+| ![Paul](peoplePics/paulPavlidis.png) | | ![Gaby](peoplePics/Gaby_shot.jpg)  |
+|  Paul Pavlidis  | |  Gabriela V. Cohen Freue      |
+|  CHiBi and Psychiatry <paul@chibi.ubc.ca> | |  Statistics <gcohen@stat.ubc.ca> |
+ | ![Sara](peoplePics/saram.png) |
+  | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) (on leave) |
+ |  Statistics and Medical Genetics <saram@cs.stanford.edu> |
 
 
 ## TAs
