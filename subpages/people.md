@@ -23,9 +23,9 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Santina](peoplePics/santinaLin.png) |  | ![Sina](peoplePics/Sina_shot.jpg) |
-| Santina Lin |    | Farnush Farhadi |
-|  Bioinformatics program <hello@santina.me> | |  Bioinformatics program <farnush.farhadi@gmail.com> |
+| ![Will](peoplePics/Empty_shot.jpg) |  | ![Sina](peoplePics/Sina_shot.jpg) |
+| William Casazza |    | Sina Jafarzadeh |
+|  Bioinformatics program <wcasazza@cmmt.ubc.ca> | |  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> |
 
 
 
