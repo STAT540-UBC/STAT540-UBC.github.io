@@ -84,20 +84,19 @@ Example of a group repository:
 You do not need to open an issue and tag TAs for this. Just make sure that your last commit is by the date of the first presentation
 
 
-## Poster (20 pts)
+## Oral presentation (20 pts)
 
-Your poster as `poster.pdf` should be in your root group repo. For all the things you need for your poster, you can create a subdirectory poster and keep your stuff there.
+Your presentation file as `presentation.pdf` should be in your root group repo. For all the things you need for your presentation, you can create a subdirectory and keep your stuff there.
 
-**Poster session**
+**Presentation session**
 
-- We will have a poster session on Wed. Apr 3th, 9:30 AM - 12 pm in the Atrium of the ESB. This is a group-level deliverable so all group members should be present for the poster presentation.
-- You will print your poster in 48’‘(W)x36’’(H) which is the standard conference poster size. Apologies for the cost! If you really need help for that, sometimes supervisors will help especially if your poster could be presented in other academic poster sessions.
+- We will two oral presentation sessions on Mon. Apr 1st and Wed. Apr 3th. This is a group-level deliverable so all group members should be present during the presentation. More details will be provided soon.
 
-**Poster evaluation**
+**Presentation evaluation**
 
-Your poster is evaluated in 5 different categories. You can find the rubric for poster evaluation [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/posterRubric2012.pdf).
+Your presentation is evaluated in 5 different categories. You can find the rubric for presentation evaluation [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/posterRubric2012.pdf).
 
-Please provide a link to your poster.pdf file in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Poster of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_Apr 4th, 2019_</span>.
+Please provide a link to your presentation.pdf file in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_Apr 4th, 2019_</span>.
 
 ## Individual report (8 pts)
 
