@@ -8,7 +8,7 @@ output:
 
 
 # Statistical Methods for High Dimensional Biology
-<span style="color: red">**Next deadline: Initial project proposals due - Jan 23rd, 2019**</span>
+<span style="color: red">**Next deadline: Seminar 1 due - Jan 11rd, 2019**</span>
 
 Please complete <span style="color: blue">[this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiBRaNrNk5PEY87nLkEPjZ60BcdTMUU0JAQRyMkkNsg/viewform?usp=sf_link)</span> as soon as you see this post so we can set up a repo for you! :) 
 
