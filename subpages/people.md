@@ -23,7 +23,7 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Santina](peoplePics/santinaLin.png) |  | ![Farnush](peoplePics/farnushFarhadi.png) |
+| ![Santina](peoplePics/santinaLin.png) |  | ![Sina](peoplePics/Sina_shot.jpg) |
 | Santina Lin |    | Farnush Farhadi |
 |  Bioinformatics program <hello@santina.me> | |  Bioinformatics program <farnush.farhadi@gmail.com> |
 
