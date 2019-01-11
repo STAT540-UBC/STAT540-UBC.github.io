@@ -10,7 +10,7 @@ output:
 
 You will have three individual assignments and one group project: 
 
-- Five( out of 10) in-seminar submissions (10 pts; 2 points each)
+- Five in-seminar submissions (10 pts; 2 points each)
 - One paper review (5 pts) 
 - One practice assignment (5 pts)
 - One statistics 2-part homework (30 pts)
