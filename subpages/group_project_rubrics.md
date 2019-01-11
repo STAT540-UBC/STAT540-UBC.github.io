@@ -90,7 +90,7 @@ Your presentation file as `presentation.pdf` should be in your root group repo. 
 
 **Presentation session**
 
-- We will two oral presentation sessions on Mon. Apr 1st and Wed. Apr 3th. This is a group-level deliverable so all group members should be present during the presentation. More details will be provided soon.
+- We will have two oral presentation sessions on Mon. Apr 1st and Wed. Apr 3rd. This is a group-level deliverable so all group members should be present during the presentation. More details will be provided soon.
 
 **Presentation evaluation**
 
