@@ -11,21 +11,23 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Paul](peoplePics/paulPavlidis.png) | | ![Amrit](peoplePics/amritSingh.png)  |
-|  Paul Pavlidis  | |  Amrit Singh      |
-|  CHiBi and Psychiatry <paul@chibi.ubc.ca> | |  Pathology and Lab Medicine <Amrit.Singh@hli.ubc.ca> |
-| ![Rob](peoplePics/robBalshaw.png) |  | ![Sara](peoplePics/saram.png) |
-| Rob Balshaw |    | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) (on leave) |
-|  Statistics <robert.balshaw@bccdc.ca> | |  Statistics and Medical Genetics <saram@cs.stanford.edu> |
-
-
+ | ![Sara](peoplePics/saram.png) | | ![Gaby](peoplePics/Gaby_shot.jpg)  |
+ | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  Gabriela V. Cohen Freue      |
+ |  Assistant Professor of Statistics & Medical Genetics <saram@stat.ubc.ca> | |  Associate Professor of Statistics <gcohen@stat.ubc.ca> |
+| ![Paul](peoplePics/paulPavlidis.png) | 
+|  Paul Pavlidis  | 
+|  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | 
 ## TAs
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Santina](peoplePics/santinaLin.png) |  | ![Sina](peoplePics/Sina_shot.jpg) |
-| Santina Lin |    | Farnush Farhadi |
-|  Bioinformatics program <hello@santina.me> | |  Bioinformatics program <farnush.farhadi@gmail.com> |
+| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Jasper](peoplePics/Empty_shot.jpg) |
+| Sina Jafarzadeh |    | Jasper Wong |
+|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Microbiology program <jasperwong_123@hotmail.com> |
+ | ![Shams](peoplePics/Empty_shot.jpg) || ![Will](peoplePics/Will_shot.jpg) | 
+   | Shams Bhuiyan || William Casazza | 
+ |  Bioinformatics program <shamsbhuiyan92@gmail.com> | |  Bioinformatics program <wcasazza@cmmt.ubc.ca> |
+
 
 
 

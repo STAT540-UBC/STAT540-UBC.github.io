@@ -10,7 +10,7 @@ output:
 
 You will have three individual assignments and one group project: 
 
-- Ten in-seminar submissions (10 pts)
+- Five in-seminar submissions (10 pts; 2 points each)
 - One paper review (5 pts) 
 - One practice assignment (5 pts)
 - One statistics 2-part homework (30 pts)
@@ -87,7 +87,7 @@ If your project involves using unpublished data, ensure your plans are known to 
 
 #### Privacy of project data
 
-The projects are not made public (other than being on a poster in the lobby of EOS for a few hours). The project report materials are loaded into Github, the secure site we use to manage the course. The course staff and instructors are the only people who have access to the projects other than the other members of the project group. The data used can be uploaded to the project, but this can limited or omitted if there are special concerns about privacy etc. - it's primarily the code and write-up about the results that needs to be provided for evaluation.
+The projects are not made public (other than an oral presentation of your work in front of your classmates). The project report materials are loaded into Github, the secure site we use to manage the course. The course staff and instructors are the only people who have access to the projects other than the other members of the project group. The data used can be uploaded to the project, but this can limited or omitted if there are special concerns about privacy etc. - it's primarily the code and write-up about the results that needs to be provided for evaluation.
 
 You can read Github's [security](https://help.github.com/articles/github-security/) and [privacy](https://help.github.com/articles/github-privacy-statement/) policies.
 
@@ -100,17 +100,17 @@ Groups should have 4 members. We strongly encourage that groups be diverse in te
 ## STAT 540 Homework Submission Instructions
 
 **GitHub**
-You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2018`. We assume that 
+You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2019`. We assume that 
 
 * You've already installed Git and (probably) a Git client.
 * You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
 * All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
 
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2018`). Do not use branches or other repositories.
+**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2019`). Do not use branches or other repositories.
   
 **Set-up your private GitHub repo for homework**
 
-  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2018` now.
+  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2019` now.
   * Make a top-level directory for your assignment, e.g. `Homework`
     - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
   * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
@@ -155,7 +155,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
      - Click on the clipboard icon to copy the revision SHA to your clipboard
     - Click on "Issues", then on "New Issue". Name the issue "Mark homework of *your repository name*".
-    - In the description of the issue, tag all TAs by including the text `@STAT540-UBC/ta_2018`, and paste the revision SHA. You can also include a link to the markdown file as well. 
+    - In the description of the issue, tag all TAs by including the text `@STAT540-UBC/ta_2019`, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
 
 ### Assignment Timeline
@@ -180,5 +180,5 @@ assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 
-> If you're concerned that something hasn't gone right with the submission, send Emma, Julia and Ogan (emmagraham@cmmt.ubc.ca, julia.anstett@alumni.ubc.ca, ogan.mancarci@msl.ubc.ca) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
+> If you're concerned that something hasn't gone right with the submission, send Sina, Jasper and Shams (sjafarzadeh@cmmt.ubc.ca, jjasperwong_123@hotmail.com, shamsbhuiyan92@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
 
