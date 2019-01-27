@@ -21,9 +21,9 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Jasper](peoplePics/Empty_shot.jpg) |
+| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Jasper](peoplePics/Jasper_shot.jpg) |
 | Sina Jafarzadeh |    | Jasper Wong |
-|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Microbiology program <jasperwong_123@hotmail.com> |
+|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Genome Science and Technology (GSAT) program <jasperwong_123@hotmail.com> |
  | ![Shams](peoplePics/Empty_shot.jpg) || ![Will](peoplePics/Will_shot.jpg) | 
    | Shams Bhuiyan || William Casazza | 
  |  Bioinformatics program <shamsbhuiyan92@gmail.com> | |  Bioinformatics program <wcasazza@cmmt.ubc.ca> |
