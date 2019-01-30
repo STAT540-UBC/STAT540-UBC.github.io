@@ -17,7 +17,7 @@ All of the packages you will need are listed below. If you have never used them 
 ``` r
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("GEOquery")
-#bicLite("biomaRt")
+#biocLite("biomaRt")
 library(GEOquery)
 library(biomaRt)
 #install.packages("tidyverse")
@@ -48,7 +48,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## C:\Users\willc\AppData\Local\Temp\RtmpSmAWZQ/GDS507.soft.gz
+    ## /tmp/RtmpSuCHPy/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -96,63 +96,42 @@ str(gds)
     ##   .. .. .. ..$ GSM11815  : num [1:22645] 4254 17996 41679 65391 19030 ...
     ##   .. .. .. ..$ GSM11832  : num [1:22645] 5298 12011 39117 34806 15814 ...
     ##   .. .. .. ..$ GSM12069  : num [1:22645] 4026 10284 38759 31257 16356 ...
-    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28309 9580 ...
+    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28308 9580 ...
     ##   .. .. .. ..$ GSM12101  : num [1:22645] 3566 11048 39634 67448 14274 ...
     ##   .. .. .. ..$ GSM12106  : num [1:22645] 4903 13354 43511 56990 17217 ...
-    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57973 19117 ...
-    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57571 17488 ...
+    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57972 19117 ...
+    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57570 17488 ...
     ##   .. .. .. ..$ GSM12412  : num [1:22645] 5206 16018 22152 29062 14672 ...
     ##   .. .. .. ..$ GSM11810  : num [1:22645] 2757 6077 26661 35141 17733 ...
     ##   .. .. .. ..$ GSM11827  : num [1:22645] 3932 15704 26374 23629 18022 ...
-    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22101 17957 ...
+    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22100 17957 ...
     ##   .. .. .. ..$ GSM12099  : num [1:22645] 3223 11614 24749 21651 15958 ...
     ##   .. .. .. ..$ GSM12269  : num [1:22645] 3640 8460 21937 18551 15800 ...
-    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23497 16686 ...
+    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23496 16686 ...
     ##   .. .. .. ..$ GSM12301  : num [1:22645] 4070 11844 22734 21315 18817 ...
     ##   .. .. .. ..$ GSM12448  : num [1:22645] 3482 9742 25396 28631 17421 ...
-    ##   .. .. .. ..- attr(*, "spec")=List of 2
-    ##   .. .. .. .. ..$ cols   :List of 19
-    ##   .. .. .. .. .. ..$ ID_REF    : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
-    ##   .. .. .. .. .. ..$ IDENTIFIER: list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
-    ##   .. .. .. .. .. ..$ GSM11815  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM11832  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12069  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12083  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12101  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12106  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12274  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12299  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12412  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM11810  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM11827  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12078  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12099  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12269  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12287  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12301  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. .. ..$ GSM12448  : list()
-    ##   .. .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
-    ##   .. .. .. .. ..$ default: list()
-    ##   .. .. .. .. .. ..- attr(*, "class")= chr [1:2] "collector_guess" "collector"
-    ##   .. .. .. .. ..- attr(*, "class")= chr "col_spec"
+    ##   .. .. .. ..- attr(*, "spec")=
+    ##   .. .. .. .. .. cols(
+    ##   .. .. .. .. ..   ID_REF = col_character(),
+    ##   .. .. .. .. ..   IDENTIFIER = col_character(),
+    ##   .. .. .. .. ..   GSM11815 = col_double(),
+    ##   .. .. .. .. ..   GSM11832 = col_double(),
+    ##   .. .. .. .. ..   GSM12069 = col_double(),
+    ##   .. .. .. .. ..   GSM12083 = col_double(),
+    ##   .. .. .. .. ..   GSM12101 = col_double(),
+    ##   .. .. .. .. ..   GSM12106 = col_double(),
+    ##   .. .. .. .. ..   GSM12274 = col_double(),
+    ##   .. .. .. .. ..   GSM12299 = col_double(),
+    ##   .. .. .. .. ..   GSM12412 = col_double(),
+    ##   .. .. .. .. ..   GSM11810 = col_double(),
+    ##   .. .. .. .. ..   GSM11827 = col_double(),
+    ##   .. .. .. .. ..   GSM12078 = col_double(),
+    ##   .. .. .. .. ..   GSM12099 = col_double(),
+    ##   .. .. .. .. ..   GSM12269 = col_double(),
+    ##   .. .. .. .. ..   GSM12287 = col_double(),
+    ##   .. .. .. .. ..   GSM12301 = col_double(),
+    ##   .. .. .. .. ..   GSM12448 = col_double()
+    ##   .. .. .. .. .. )
     ##   ..@ header   :List of 23
     ##   .. ..$ channel_count           : chr "1"
     ##   .. ..$ dataset_id              : chr [1:12] "GDS507" "GDS507" "GDS507" "GDS507" ...
@@ -382,7 +361,7 @@ iris %>%
     ## 4          4.6         3.1          1.5         0.2 setosa 
     ## 5          5           3.6          1.4         0.2 setosa 
     ## 6          5.4         3.9          1.7         0.4 setosa 
-    ## # ... with 1 more variable: Capitalized_names <chr>
+    ## # … with 1 more variable: Capitalized_names <chr>
 
 ``` r
 #summarize the average sepal length and number of rows belonging to each species.
@@ -527,7 +506,7 @@ Another thing we note is that there are multiple probes that map to a specific g
     ##  8 GSM11815 226014_at     66.3
     ##  9 GSM11815 226061_s_at   45.1
     ## 10 GSM11815 226138_s_at   23.3
-    ## # ... with 279,895 more rows
+    ## # … with 279,895 more rows
 
 Now, every gene will only have one value per sample.
 
@@ -578,8 +557,8 @@ full_data %>%
     ## # A tibble: 2 x 2
     ##   disease  mean
     ##   <fct>   <dbl>
-    ## 1 normal   682.
-    ## 2 RCC      658.
+    ## 1 normal   684.
+    ## 2 RCC      657.
 
 Part 3: Graphing expression data
 ================================
@@ -601,7 +580,7 @@ full_data %>%
     ggplot(aes(x = as.factor(chromosome_name), y = Count)) + geom_point()
 ```
 
-![](sm3_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](sm03_data_and_dplyr_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Part 3 Exercise
 ---------------
@@ -621,7 +600,7 @@ full_data %>%
     summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
-    ## # A tibble: 9,365 x 2
+    ## # A tibble: 9,359 x 2
     ##    hgnc_symbol pvalue
     ##    <chr>        <dbl>
     ##  1 A1BG        0.708 
@@ -634,7 +613,7 @@ full_data %>%
     ##  8 AAK1        0.0229
     ##  9 AARS2       0.0416
     ## 10 AASDH       0.0743
-    ## # ... with 9,355 more rows
+    ## # … with 9,349 more rows
 
 Part 4 Exercise - Take home
 ---------------------------

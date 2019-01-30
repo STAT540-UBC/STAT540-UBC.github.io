@@ -18,7 +18,7 @@ All of the packages you will need are listed below. If you have never used them 
 ```{r, results='hide', message=FALSE, warning=FALSE}
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("GEOquery")
-#bicLite("biomaRt")
+#biocLite("biomaRt")
 library(GEOquery)
 library(biomaRt)
 #install.packages("tidyverse")
