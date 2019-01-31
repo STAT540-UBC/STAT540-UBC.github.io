@@ -48,7 +48,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /var/folders/vd/1xkc_6rs1sggb39rk5mkc3r00000h4/T//RtmpvsJJDe/GDS507.soft.gz
+    ## /var/folders/vd/1xkc_6rs1sggb39rk5mkc3r00000h4/T//RtmpkeM2NJ/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -620,8 +620,6 @@ Part 4 Exercise - Take home
 
 ![p-value distribution](pvalue_dist.png)
 
-*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
-
 *Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
 
-*Modify the above code to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding "transcript\_length" as attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
+*Modify the code in part 2 to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding "transcript\_length" as attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
