@@ -215,6 +215,8 @@ data_with_chromosome <- identify_gene_names(new_melted_data) %>%
 
 ## Part 2 Exercise
 
+*Modify the above code to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding  "transcript_length" as  attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
+
 Let's say we're interested in how the average expression of genes on the X chromosome changes between RCC and normal cells. 
 
 The first thing we will do is combine information from the meta data file (meta_data) with our expression table (data_with_chromosome). Then we will use dplyr verbs to first group all samples by disease status, filter out all non-X-chromosome genes, and then calcualte the mean using summarize(). 
@@ -269,9 +271,6 @@ full_data %>%
 
 ![p-value distribution](pvalue_dist.png)
 
+*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
 
 *Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
-
-
-*Modify the code in part 2 to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding  "transcript_length" as  attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
-

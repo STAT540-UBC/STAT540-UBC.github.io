@@ -48,7 +48,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /var/folders/vd/1xkc_6rs1sggb39rk5mkc3r00000h4/T//RtmpkeM2NJ/GDS507.soft.gz
+    ## /tmp/RtmpSuCHPy/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -361,7 +361,7 @@ iris %>%
     ## 4          4.6         3.1          1.5         0.2 setosa 
     ## 5          5           3.6          1.4         0.2 setosa 
     ## 6          5.4         3.9          1.7         0.4 setosa 
-    ## # ... with 1 more variable: Capitalized_names <chr>
+    ## # … with 1 more variable: Capitalized_names <chr>
 
 ``` r
 #summarize the average sepal length and number of rows belonging to each species.
@@ -506,7 +506,7 @@ Another thing we note is that there are multiple probes that map to a specific g
     ##  8 GSM11815 226014_at     66.3
     ##  9 GSM11815 226061_s_at   45.1
     ## 10 GSM11815 226138_s_at   23.3
-    ## # ... with 279,895 more rows
+    ## # … with 279,895 more rows
 
 Now, every gene will only have one value per sample.
 
@@ -533,6 +533,8 @@ data_with_chromosome <- identify_gene_names(new_melted_data) %>%
 
 Part 2 Exercise
 ---------------
+
+*Modify the above code to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding "transcript\_length" as attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
 
 Let's say we're interested in how the average expression of genes on the X chromosome changes between RCC and normal cells.
 
@@ -611,7 +613,7 @@ full_data %>%
     ##  8 AAK1        0.0229
     ##  9 AARS2       0.0416
     ## 10 AASDH       0.0743
-    ## # ... with 9,349 more rows
+    ## # … with 9,349 more rows
 
 Part 4 Exercise - Take home
 ---------------------------
@@ -620,6 +622,6 @@ Part 4 Exercise - Take home
 
 ![p-value distribution](pvalue_dist.png)
 
-*Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
+*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
 
-*Modify the code in part 2 to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding "transcript\_length" as attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
+*Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
