@@ -8,7 +8,7 @@ output:
 
 
 # Statistical Methods for High Dimensional Biology
-<span style="color: red">**Next deadline: Presentation Submission due - April 1st, 2019**</span>
+<span style="color: red"></span>
 
 Please complete <span style="color: blue">[this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiBRaNrNk5PEY87nLkEPjZ60BcdTMUU0JAQRyMkkNsg/viewform?usp=sf_link)</span> as soon as you see this post so we can set up a repo for you! :) 
 
@@ -81,7 +81,7 @@ knitr::kable(assn)
 ```{r,echo=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
-assignment_data <- read.csv("course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data <- read.csv("course-admin/assn_2020.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
