@@ -20,7 +20,7 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 ### Time and Location
 
-02 January 2019 - 03 April 2019
+06 January 2020 - 08 April 2020
 
 #### Lecture (Sec 201)
 
@@ -28,11 +28,11 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 **Location**: ESB 2012
 
-#### Seminar / computing lab (S2A) -- REGISTRATION IS REQUIRED!
+#### Seminar / computing lab (S2B) -- REGISTRATION IS REQUIRED!
 
-**Time**: every Wednesday 11am - 1pm. The TAs will remain in the lab until 1pm for general office hours.
+**Time**: every Monday 12 - 1pm. The TAs will remain in the lab until 1pm for general office hours.
 
-**Location**: Hugh Dempster Pavillion 201
+**Location**: Orchard Commons 4074
 
 ### Learning objectives:
 
@@ -86,11 +86,11 @@ Individual Report                     Thu 04 April 2019      Group Project
 
 ### Assignment Timeline
 
-<!--html_preserve--><div id="htmlwidget-3cba6e4801c030a2f6b7" class="timevis html-widget" style="width:672px;height:480px;">
+<!--html_preserve--><div id="htmlwidget-fb75b7c40da2bc54d3f7" class="timevis html-widget" style="width:672px;height:480px;">
 <div class="btn-group zoom-menu">
 <button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
 <button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-3cba6e4801c030a2f6b7">{"x":{"items":[{"id":"1","content":"Warmup","start":"2019-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":"2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":"3","content":"Q1-3","start":"2019-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"4","content":"Q4-5","start":"2019-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"7","content":"Project Progress Report","start":"2019-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"8","content":"Presentation Submission","start":"2019-04-01 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"9","content":"Github Repo","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-11 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-18 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-25 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-02-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-15 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-03-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<script type="application/json" data-for="htmlwidget-fb75b7c40da2bc54d3f7">{"x":{"items":[{"id":"1","content":"Warmup","start":"2019-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":"2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":"3","content":"Q1-3","start":"2019-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"4","content":"Q4-5","start":"2019-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"7","content":"Project Progress Report","start":"2019-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"8","content":"Presentation Submission","start":"2019-04-01 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"9","content":"Github Repo","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-11 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-18 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-25 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-02-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-15 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-03-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
