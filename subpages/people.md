@@ -11,9 +11,9 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
- | ![Sara](peoplePics/saram.png) | | ![Gaby](peoplePics/Gaby_shot.jpg)  |
- | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  Gabriela V. Cohen Freue      |
- |  Assistant Professor of Statistics & Medical Genetics <saram@stat.ubc.ca> | |  Associate Professor of Statistics <gcohen@stat.ubc.ca> |
+ | ![Sara](peoplePics/saram.png) | | ![Keegan](peoplePics/Keegan_shot.jpg)  |
+ | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  Keegan Korthauer      |
+ |  Assistant Professor of Statistics & Medical Genetics <saram@stat.ubc.ca> | |  Assistant Professor of Statistics  <keegan@stat.ubc.ca> |
 | ![Paul](peoplePics/paulPavlidis.png) | 
 |  Paul Pavlidis  | 
 |  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | 
@@ -21,13 +21,9 @@ output:
 
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Jasper](peoplePics/Jasper_shot.jpg) |
+| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
 | Sina Jafarzadeh |    | Jasper Wong |
-|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Genome Science and Technology (GSAT) program <jasperwong_123@hotmail.com> |
- | ![Shams](peoplePics/Empty_shot.jpg) || ![Will](peoplePics/Will_shot.jpg) | 
-   | Shams Bhuiyan || William Casazza | 
- |  Bioinformatics program <shamsbhuiyan92@gmail.com> | |  Bioinformatics program <wcasazza@cmmt.ubc.ca> |
-
+|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Medical Genetics program <jasperwong_123@hotmail.com> |
 
 
 

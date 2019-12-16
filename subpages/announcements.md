@@ -31,4 +31,4 @@ Please complete [this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiB
 
 ### Seminar 1 
 
-**Important:** Please read and follow through the seminar 1 materials on the [seminars page](https://stat540-ubc.github.io/subpages/seminars.html) as much as possible before Wednesday, January 4, to ensure a productive seminar session. Please also install [R and R-studio](https://www.rstudio.com/products/rstudio/download/) if you haven't done so. 
+**Important:** Please read and follow through the seminar 1 materials on the [seminars page](https://stat540-ubc.github.io/subpages/seminars.html) as much as possible before Monday, January 6, to ensure a productive seminar session. Please also install [R and R-studio](https://www.rstudio.com/products/rstudio/download/) if you haven't done so. 
