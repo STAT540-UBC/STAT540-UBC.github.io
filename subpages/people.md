@@ -22,7 +22,7 @@ output:
 |  |   |  |
 |---------------|---------------|---------------|
 | ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
-| Sina Jafarzadeh |    | Jasper Wong |
+| Sina Jafarzadeh |    | Victor Yuan |
 |  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Medical Genetics program <jasperwong_123@hotmail.com> |
 
 
