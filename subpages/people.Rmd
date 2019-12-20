@@ -12,10 +12,10 @@ output:
 |  |   |  |
 |---------------|---------------|---------------|
  | ![Sara](peoplePics/saram.png) | | ![Keegan](peoplePics/Keegan_shot.jpg)  |
- | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  Keegan Korthauer      |
+ | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  [Keegan Korthauer](https://kkorthauer.org/)      |
  |  Assistant Professor of Statistics & Medical Genetics <saram@stat.ubc.ca> | |  Assistant Professor of Statistics  <keegan@stat.ubc.ca> |
 | ![Paul](peoplePics/paulPavlidis.png) | 
-|  Paul Pavlidis  | 
+|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | 
 |  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | 
 
 ## TAs
@@ -23,8 +23,8 @@ output:
 |  |   |  |
 |---------------|---------------|---------------|
 | ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
-| Sinaa Jafarzadeh |    | Victor Yuan |
-|  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Medical Genetics program <victor.2wy@gmail.ca> |
+| [Sina Jafarzadeh](http://30na.me) |    | [Victor Yuan](https://victor.rbind.io/) |
+|  PhD Student, Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  PhD Candidate, Medical Genetics program <victor.2wy@gmail.ca> |
 
 
 
