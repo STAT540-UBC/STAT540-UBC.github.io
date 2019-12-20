@@ -16,28 +16,28 @@ library(here)
 ```
 
 ```{r include = FALSE}
-GitHubUsername = ""
-GitHubPassword = ""
-
-githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
-seminarPathInInstructorsOnly = 'seminars/seminars_winter_2019'
-seminarPathGithubIO = 'seminars/seminars_winter_2019'
-
-unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
-system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
-dir.create(dirname(here(seminarPathGithubIO)),showWarnings = FALSE,recursive = TRUE)
-file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithubIO)),recursive = TRUE)
-unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
+ GitHubUsername = ""
+ GitHubPassword = ""
+# 
+ githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
+seminarPathInInstructorsOnly = 'seminars/seminars_winter_2020'
+seminarPathGithubIO = 'seminars/seminars_winter_2020'
+# 
+# unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
+# system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
+# dir.create(dirname(here(seminarPathGithubIO)),showWarnings = FALSE,recursive = TRUE)
+# file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithubIO)),recursive = TRUE)
+# unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
 
 # Import schedule
-rawdat <- read.csv(file.path("../course-admin", "schedule_2019.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat <- read.csv(file.path("../course-admin", "schedule_2020.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
 
 # Seminar meetings 
 rawdat_sm <- rawdat[rawdat$course == "STAT540-Seminar",]
 
 sdat <- rawdat_sm %>%
-  mutate(ugly_date = ISOdate(2019, match(month, month.name), day),
+  mutate(ugly_date = ISOdate(2020, match(month, month.name), day),
          date = sprintf("%s-%02d %s",
                         months(ugly_date, abbreviate = TRUE),
                         day, dow))
@@ -102,7 +102,7 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
 ```{r,echo=FALSE}
 library(timevis)
 
-assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data <- read.csv("../course-admin/assn_2020.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
