@@ -17,6 +17,7 @@ output:
 | ![Paul](peoplePics/paulPavlidis.png) | 
 |  Paul Pavlidis  | 
 |  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | 
+
 ## TAs
 
 |  |   |  |
