@@ -67,30 +67,30 @@ Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discuss
 
 Assignment                            Due Date               Category              
 ------------------------------------  ---------------------  ----------------------
-Seminar 1                             Fri 11 January 2019    Seminar               
-Warmup                                Wed 16 January 2019    Individual Assignment 
-Seminar 2a&b                          Fri 18 January 2019    Seminar               
-Project Groups and Initial Proposal   Wed 23 January 2019    Group Project         
-Seminar 2c                            Fri 25 January 2019    Seminar               
-Seminar 3                             Fri 01 February 2019   Seminar               
-Finalized Project Proposal            Wed 13 February 2019   Group Project         
-Seminar 4                             Fri 15 February 2019   Seminar               
 Paper Critique                        Wed 20 February 2019   Paper Critique        
-Q1-3                                  Thu 28 February 2019   Individual Assignment 
-Seminar 6                             Fri 01 March 2019      Seminar               
-Project Progress Report               Wed 13 March 2019      Group Project         
-Q4-5                                  Sat 23 March 2019      Individual Assignment 
-Presentation Submission               Mon 01 April 2019      Group Project         
-Github Repo                           Wed 03 April 2019      Group Project         
+Presentation Submission               Sun 31 March 2019      Group Project         
 Individual Report                     Thu 04 April 2019      Group Project         
+Seminar 1                             Fri 10 January 2020    Seminar               
+Warmup                                Thu 16 January 2020    Individual Assignment 
+Seminar 2a&b                          Fri 17 January 2020    Seminar               
+Project Groups and Initial Proposal   Thu 23 January 2020    Group Project         
+Seminar 2c                            Fri 24 January 2020    Seminar               
+Seminar 3                             Fri 31 January 2020    Seminar               
+Seminar 4                             Fri 07 February 2020   Seminar               
+Finalized Project Proposal            Thu 13 February 2020   Group Project         
+Q1-3                                  Fri 28 February 2020   Individual Assignment 
+Project Progress Report               Fri 13 March 2020      Group Project         
+Seminar 6                             Sat 14 March 2020      Seminar               
+Q4-5                                  Mon 23 March 2020      Individual Assignment 
+Github Repo                           Fri 03 April 2020      Group Project         
 
 ### Assignment Timeline
 
-<!--html_preserve--><div id="htmlwidget-be5afa94ac686c8c697b" class="timevis html-widget" style="width:672px;height:480px;">
+<!--html_preserve--><div id="htmlwidget-a7e14f3fb0eb2c67ab99" class="timevis html-widget" style="width:672px;height:480px;">
 <div class="btn-group zoom-menu">
 <button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
 <button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-be5afa94ac686c8c697b">{"x":{"items":[{"id":"1","content":"Warmup","start":"2019-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":"2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":"3","content":"Q1-3","start":"2019-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"4","content":"Q4-5","start":"2019-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"5","content":"Project Groups and Initial Proposal","start":"2019-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"6","content":"Finalized Project Proposal","start":"2019-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"7","content":"Project Progress Report","start":"2019-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"8","content":"Presentation Submission","start":"2019-04-01 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"9","content":"Github Repo","start":"2019-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2019-01-11 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2019-01-18 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2019-01-25 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2019-02-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2019-02-15 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2019-03-01 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<script type="application/json" data-for="htmlwidget-a7e14f3fb0eb2c67ab99">{"x":{"items":[{"id":"1","content":"Warmup","start":"2020-01-16 23:59:00","Category":"Individual Assignment","style":"background-color: gold;"},{"id":"2","content":"Paper Critique","start":"2019-02-20 23:59:00","Category":"Paper Critique","style":"background-color: aqua;"},{"id":"3","content":"Q1-3","start":"2020-02-28 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"4","content":"Q4-5","start":"2020-03-23 23:59:00","Category":"Individual Assignment","style":"background-color: pink;"},{"id":"5","content":"Project Groups and Initial Proposal","start":"2020-01-23 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"6","content":"Finalized Project Proposal","start":"2020-02-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"7","content":"Project Progress Report","start":"2020-03-13 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"8","content":"Presentation Submission","start":"2019-03-31 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"9","content":"Github Repo","start":"2020-04-03 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"10","content":"Individual Report","start":"2019-04-04 23:59:00","Category":"Group Project","style":"background-color: lavender;"},{"id":"11","content":"Seminar 1","start":"2020-01-10 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"12","content":"Seminar 2a&b","start":"2020-01-17 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"13","content":"Seminar 2c ","start":"2020-01-24 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"14","content":"Seminar 3 ","start":"2020-01-31 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"15","content":"Seminar 4 ","start":"2020-02-07 23:59:00","Category":"Seminar","style":"background-color: palegreen;"},{"id":"16","content":" Seminar 6 ","start":"2020-03-14 23:59:00","Category":"Seminar","style":"background-color: palegreen;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
