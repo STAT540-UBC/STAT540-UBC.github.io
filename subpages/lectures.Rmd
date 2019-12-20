@@ -15,14 +15,14 @@ library(stringr)
 
 ```{r include = FALSE}
 # Import schedule
-rawdat <- read.csv(file.path("../course-admin", "schedule_2019.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat <- read.csv(file.path("../course-admin", "schedule_2020.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
 
 # Class meetings
 rawdat_cm <- rawdat[rawdat$course == "STAT540",]
 
 cdat <- rawdat_cm %>%
-  mutate(ugly_date = ISOdate(2018, match(month, month.name), day),
+  mutate(ugly_date = ISOdate(2020, match(month, month.name), day),
          date = sprintf("%s-%02d %s",
                         months(ugly_date, abbreviate = TRUE),
                         day, dow),
@@ -32,7 +32,7 @@ cdat %>% head(3)
 
 ## link to the class page of any class meetings where such exists
 cmdat <-
-  data.frame(pdf = list.files(path="../lectures", pattern = '^lect.*pdf$', full.names=TRUE),
+  data.frame(pdf = list.files(path="../lectures/lectures_2020", pattern = '^lect.*pdf$', full.names=TRUE),
              stringsAsFactors = FALSE)
 cmdat <- cmdat %>% mutate(lect = str_extract(pdf, "lect[0-9]+"))
 cmdat$lect <- sapply(cmdat$lect, str_replace, pattern="lect0*([0-9]+)", replacement="lecture-\\1")
