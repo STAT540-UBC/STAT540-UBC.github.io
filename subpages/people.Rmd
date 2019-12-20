@@ -23,7 +23,7 @@ output:
 |  |   |  |
 |---------------|---------------|---------------|
 | ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
-| Sina Jafarzadeh |    | Victor Yuan |
+| Sinaa Jafarzadeh |    | Victor Yuan |
 |  Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  Medical Genetics program <victor.2wy@gmail.ca> |
 
 
