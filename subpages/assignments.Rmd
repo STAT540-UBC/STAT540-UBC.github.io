@@ -180,5 +180,5 @@ assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 
-> If you're concerned that something hasn't gone right with the submission, send Sina and Victor (sjafarzadeh@cmmt.ubc.ca and victor.2wy@gmail.ca) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
+> If you're concerned that something hasn't gone right with the submission, send Sina and Victor (sjafarzadeh@cmmt.ubc.ca and victor.2wy@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
 

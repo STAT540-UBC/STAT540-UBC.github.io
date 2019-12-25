@@ -24,7 +24,7 @@ output:
 |---------------|---------------|---------------|
 | ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
 | [Sina Jafarzadeh](http://30na.me) |    | [Victor Yuan](https://victor.rbind.io/) |
-|  PhD Student, Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  PhD Candidate, Medical Genetics program <victor.2wy@gmail.ca> |
+|  PhD Student, Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  PhD Candidate, Medical Genetics program <victor.2wy@gmail.com> |
 
 
 
