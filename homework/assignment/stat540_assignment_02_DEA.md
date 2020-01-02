@@ -1,26 +1,6 @@
 STAT 540 - Assignment 2 - Differential Expression Analysis
 ================
 
-Question 4: Conducting differential expression analysis
--------------------------------------------------------
-
-**4.1**: Remove lowly expressed genes (2 POINT)
-
--   Remove lowly expressed genes by retaining genes that have CPM &gt; 1 in at least as many samples as the *smallest group size* (i.e use table() to identify the number of samples belonging to each treatment group. The *smallest group size* is the smallest number in that table).
--   How many genes are there after filtering?
-
-**4.2**: Construct linear model (2 POINTS)
-
--   Use limma-voom to fit a linear model with cell type, organism part, age and the interaction between age and cell type as covariates (hint: use lmFit, voom and eBayes). Before you do this, reformat the data frame so that gene IDs are row names, and not a column (limma requires the dataset in this format).
-
-**4.3**: Interpret model (3 POINTS)
-
--   For the gene Eva1a, what is the numeric value of the coeffcient of the age term? What does it mean?
--   Write down an equation describing the linear model you specified in 4.2. Hint: your equation should have a term for each column of the design matrix.
--   When you create a linear model, what is the underlying assumptions you are making about the distribution of the data (this question is multiple choice)?
-    1.  All expression values are normally distributed
-    2.  The residuals of the fitted model are normally distributed
-
 Question 5: Evaluating the results
 ----------------------------------
 
