@@ -65,3 +65,21 @@ The levels of the factor `time_point` actually refer to points on a continous ax
 -   When you create a linear model, what is the underlying assumptions you are making about the distribution of the data (this question is multiple choice)?
     1.  All expression values are normally distributed
     2.  The residuals of the fitted model are normally distributed
+    
+### Question 5: Evaluating the results
+----------------------------------
+
+#### 5.1: Quantifying the number of genes differentially expressed (3 POINTS)
+
+-   Using the linear model defined above, determine the number of genes differentially expressed by cell type at an FDR (use adjust.method = "fdr" in topTable()) less than 0.05.
+-   Although an FDR cutoff of 0.05 was used, many of the identified genes have smaller FDRs. By taking an average of the FDR across the set of differentially expressed genes, determine the number of genes that we expect to be false discoveries on average.
+-   Use decideTests() to quantify the number of genes that increase, decrease or don't change by cell type, organism part and age. Which variable is associated with the largest number of differentially expressed genes?
+
+#### 5.2: Interpret the interaction term (2 POINTS)
+
+-   Explain what you are modeling with this interaction term. For a particular gene, what does a signifcant interaction term mean?
+-   For how many probes is the interaction effect significant (FDR less than 0.05)?
+
+#### **Bonus Question** (2 POINTS)
+
+-   Compare your results to those obtained by Scheffer et al (2015). Discuss any discrepancies. List at least three explanations for these discrepancies.
