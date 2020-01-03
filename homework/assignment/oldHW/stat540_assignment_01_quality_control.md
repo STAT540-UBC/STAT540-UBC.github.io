@@ -1,4 +1,4 @@
-STAT 540 - Analysis Assignment - Quality Control and Differential Expression Analysis
+STAT 540 - Assignment 1 - Quality Control
 ================
 
 The dataset used for this assignment has been published by Scheffer et al. in 2015. The raw RNA-Seq reads have been submitted to GEO under the series ID [GSE60019](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60019). Be sure to review the [paper](https://www.ncbi.nlm.nih.gov/pubmed/25904789) to gain some familiarity with the study before you start.
@@ -45,41 +45,18 @@ The levels of the factor `time_point` actually refer to points on a continous ax
 -   Among the factors cell\_type, organism\_part, age, and batch, which one seems to be most strongly correlated with clusters in gene expression data? Hint: Consider using 'cluster\_rows=TRUE' in pheatmap().
 -   There is a sample whose expression values correlate with the samples of the different cell\_type just as well as with the samples of the same cell\_type. Identify this sample by its ID.
 
-### Question 3: Conducting differential expression analysis
+### Question 3: Using PCA to dig deeper
 
-#### 3.1 Remove lowly expressed genes (2 POINTS)
+#### Q3.1 Perform PCA to summarize the samples. (2 POINTS)
 
--   Remove lowly expressed genes by retaining genes that have CPM &gt; 1 in at least as many samples as the *smallest group size* (i.e use table() to identify the number of samples belonging to each treatment group. The *smallest group size* is the smallest number in that table). Each treatment group consists of subjects belong to a unique combination of cell_type and organism part.
+-   Perform PCA. Hint: Use svd() or prcomp() and remember to scale and center the expression data for **all genes** by using scale() and t(). Make sure to turn off scaling and centering in prcomp()!
+-   Make a bar graph showing the amount of variance explained by each PC, where variance explained is on the y axis and each PC is on the x axis
 
--   How many genes are there after filtering?
+#### Q3.2 Confirm your suspicion. Is cell\_type the biggest contributor to variation? (2 POINTS)
 
-#### 3.2 Construct linear model (2 POINTS)
+-   Which PCs seem to be associated with the cell\_type variable? Make scatterplots with celltype on the x axis and a particular PC on the y-axis for PCs 1-3 and and take your best guess based on a visual assessment.
 
--   Use limma to fit a linear model with cell type, organism part, age and the interaction between age and cell type as covariates (hint: use lmFit and eBayes). Use the logCPM value instead of CPM to fit the linear model(why?). Before you do this, reformat the data frame so that gene IDs are row names, and not a column (limma requires the dataset in this format).
+#### Q3.3 Characterizing batch effects. (2 POINTS)
 
-
-#### 3.3: Interpret model (3 POINTS)
-
--   For the gene Eva1a, what is the numeric value of the coeffcient of the age term? What does it mean?
--   Write down an equation describing the linear model you specified in 3.2. Hint: your equation should have a term for each column of the design matrix.
--   When you create a linear model, what is the underlying assumptions you are making about the distribution of the data (this question is multiple choice)?
-    1.  All expression values are normally distributed
-    2.  The residuals of the fitted model are normally distributed
-    
-### Question 4: Evaluating the results
-----------------------------------
-
-#### 4.1: Quantifying the number of genes differentially expressed (3 POINTS)
-
--   Using the linear model defined above, determine the number of genes differentially expressed by cell type at an FDR (use adjust.method = "fdr" in topTable()) less than 0.05.
--   Although an FDR cutoff of 0.05 was used, many of the identified genes have smaller FDRs. By taking an average of the FDR across the set of differentially expressed genes, determine the number of genes that we expect to be false discoveries on average.
--   Use decideTests() to quantify the number of genes that increase, decrease or don't change by cell type, organism part and age. Which variable is associated with the largest number of differentially expressed genes?
-
-#### 4.2: Interpret the interaction term (2 POINTS)
-
--   Explain what you are modeling with this interaction term. For a particular gene, what does a signifcant interaction term mean?
--   For how many probes is the interaction effect significant (FDR less than 0.05)?
-
-#### **Bonus Question** (2 POINTS)
-
--   Compare your results to those obtained by Scheffer et al (2015). Discuss any discrepancies. List at least three explanations for these discrepancies.
+-   Quantitatively assess the association of the batch variable with each PC up to PC10. Hint: Fit a linear model and look at the coefficient of determination (R-Squared)
+-   How much of the variation in PC2 is explained by batch effects? How does that compare with PC1? Hint: Remember the definition of R-squared.
