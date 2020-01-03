@@ -1,4 +1,4 @@
-STAT 540 - Assignment 1 - Quality Control
+STAT 540 - Analysis Assignment - Quality Control and Differential Expression Analysis
 ================
 
 The dataset used for this assignment has been published by Scheffer et al. in 2015. The raw RNA-Seq reads have been submitted to GEO under the series ID [GSE60019](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60019). Be sure to review the [paper](https://www.ncbi.nlm.nih.gov/pubmed/25904789) to gain some familiarity with the study before you start.
