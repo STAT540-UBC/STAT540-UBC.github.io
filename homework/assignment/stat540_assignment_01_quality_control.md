@@ -46,7 +46,6 @@ The levels of the factor `time_point` actually refer to points on a continous ax
 -   There is a sample whose expression values correlate with the samples of the different cell\_type just as well as with the samples of the same cell\_type. Identify this sample by its ID.
 
 ### Question 3: Conducting differential expression analysis
--------------------------------------------------------
 
 #### 3.1 Remove lowly expressed genes (2 POINTS)
 
