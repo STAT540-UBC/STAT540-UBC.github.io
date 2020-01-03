@@ -46,11 +46,12 @@ We have provided [**this guideline**](http://stat540-ubc.github.io/homework/pape
 
 ## Analysis assignment 
 
-This assignment will assess your understanding of the seminar and lecture materials. The assignment is split into two parts. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
+This assignment will assess your understanding of the seminar and lecture materials. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
 
-Questions for Part 1 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_01_quality_control.md). Data for Part 1 is [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/homework/assignment/data). 
+The questions and links to the dataset are avalable [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_analysis_assignment.md).
+<!-- Questions for Part 1 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_01_quality_control.md). Data for Part 1 is [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/homework/assignment/data).  -->
 
-Questions for Part 2 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_02_DEA.md). Part 2 is a continuation of Part 1, so please use the same dataset. 
+<!-- Questions for Part 2 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_02_DEA.md). Part 2 is a continuation of Part 1, so please use the same dataset.  -->
 
 --------------
 

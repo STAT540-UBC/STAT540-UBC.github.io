@@ -17,7 +17,7 @@ Officially none BUT here in reality ...
 **Biology**: 
 
 - No requirements, but you are expected to learn things like the difference between a DNA and RNA and a gene and a genome
-- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master//seminars/seminars_winter_2019/seminar0c/sm01e_biology-intro-2017.pdf) 
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master//seminars/seminars_winter_2020/seminar0c/sm01e_biology-intro-2017.pdf) 
 
 **R**: 
 
@@ -46,7 +46,7 @@ Students may ask for extensions with a documented excuse (like: computer caught 
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- read.csv("../course-admin/assn_2020.csv")
 assn <- assn %>% 
   select(content, start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -67,7 +67,7 @@ kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- read.csv("../course-admin/assn_2020.csv")
 assn <- assn %>% 
   select(content,start,Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -90,7 +90,7 @@ kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- read.csv("../course-admin/assn_2020.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -110,7 +110,7 @@ kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- read.csv("../course-admin/assn_2020.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -139,7 +139,7 @@ kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-U
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2019.csv")
+assn <- read.csv("../course-admin/assn_2020.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -177,7 +177,7 @@ kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
 ```{r,echo=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
-assignment_data <- read.csv("../course-admin/assn_2019.csv",as.is = T,sep = ",")
+assignment_data <- read.csv("../course-admin/assn_2020.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
