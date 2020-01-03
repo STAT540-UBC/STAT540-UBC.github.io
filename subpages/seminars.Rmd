@@ -83,9 +83,9 @@ table {
 
 ### Seminars
 
-**Time**: Wed 11am - 1pm
+**Time**: Monday 12 - 1pm
 
-**Location**: Hugh Dempster Pavillion 201
+**Location**: Orchard Commons 4074
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor))
