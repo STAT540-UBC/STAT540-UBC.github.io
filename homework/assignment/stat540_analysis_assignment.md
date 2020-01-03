@@ -1,6 +1,9 @@
 STAT 540 - Analysis Assignment - Quality Control and Differential Expression Analysis
 ================
 
+*For submitting your assignment, please refer to the section [**STAT 540 Homework Submission Instructions**](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions) on the [**Coursework**](https://stat540-ubc.github.io/subpages/assignments.html) webpage.*
+
+
 The dataset used for this assignment has been published by Scheffer et al. in 2015. The raw RNA-Seq reads have been submitted to GEO under the series ID [GSE60019](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60019). Be sure to review the [paper](https://www.ncbi.nlm.nih.gov/pubmed/25904789) to gain some familiarity with the study before you start.
 
 The transcriptomic data and the samples metadata can be downloaded here: [Samples Metadata](data/gse60019_expression_matrix.RDS), and [Expression Matrix](data/gse60019_experiment_design.RDS).
