@@ -61,24 +61,17 @@ The levels of the factor `time_point` actually refer to points on a continous ax
 #### 3.3: Interpret model (3 POINTS)
 
 -   For the gene Eva1a, what is the numeric value of the coeffcient of the age term? What does it mean?
--   Write down an equation describing the linear model you specified in 3.2. Hint: your equation should have a term for each column of the design matrix.
--   When you create a linear model, what is the underlying assumptions you are making about the distribution of the data (this question is multiple choice)?
-    1.  All expression values are normally distributed
-    2.  The residuals of the fitted model are normally distributed
+
     
 ### Question 4: Evaluating the results
-----------------------------------
 
 #### 4.1: Quantifying the number of genes differentially expressed (3 POINTS)
 
 -   Using the linear model defined above, determine the number of genes differentially expressed by cell type at an FDR (use adjust.method = "fdr" in topTable()) less than 0.05.
--   Although an FDR cutoff of 0.05 was used, many of the identified genes have smaller FDRs. By taking an average of the FDR across the set of differentially expressed genes, determine the number of genes that we expect to be false discoveries on average.
--   Use decideTests() to quantify the number of genes that increase, decrease or don't change by cell type, organism part and age. Which variable is associated with the largest number of differentially expressed genes?
 
 #### 4.2: Interpret the interaction term (2 POINTS)
 
 -   Explain what you are modeling with this interaction term. For a particular gene, what does a signifcant interaction term mean?
--   For how many probes is the interaction effect significant (FDR less than 0.05)?
 
 #### **Bonus Question** (2 POINTS)
 
