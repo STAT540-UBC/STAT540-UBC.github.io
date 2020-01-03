@@ -37,7 +37,7 @@ A one-page proposal as `project_proposal.md`. Please make sure that you have inc
 - For each of the aims, what computational/statistical approaches did you use? (Note: your methodology might change as you are progressing, exploring your data and reading through the literature)
 - Provide references for any sections as needed.
 
-Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by <span style="color: red">_Feb. 13th, 2019_</span>.
+Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by <span style="color: red">_Feb. 13th, 2020_</span>.
 
 ## Progress report (10 pts)
 
@@ -90,13 +90,13 @@ Your presentation file as `presentation.pdf` should be in your root group repo. 
 
 **Presentation session**
 
-- We will have two oral presentation sessions on Mon. Apr 1st and Wed. Apr 3rd. This is a group-level deliverable so all group members should be present during the presentation. More details will be provided soon.
+- We will have  oral presentation sessions on Mon. Apr 1st, Wed. Apr 6th, and Mon. Apr 8th. This is a group-level deliverable so all group members should be present during the presentation. More details will be provided soon.
 
 **Presentation evaluation**
 
 Your presentation is evaluated in 5 different categories. You can find the rubric for presentation evaluation [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/posterRubric2012.pdf).
 
-Please provide a link to your presentation.pdf file in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_Apr 4th, 2019_</span>.
+Please provide a link to your presentation.pdf file in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 31st, 2020_</span>.
 
 ## Individual report (5 pts)
 
