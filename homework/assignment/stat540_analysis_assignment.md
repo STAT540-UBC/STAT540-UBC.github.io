@@ -9,7 +9,7 @@ The raw reads have been mapped and processed into gene expression values using a
 
 ### Question 1: Data Inspection and Basic Manipulation
 
-#### Q1.1 Importing the data and getting familiar with it (1 POINT)
+#### Q1.1 Importing the data and getting familiar with it (2 POINT)
 
 -   Read the datasets into R-Studio.
 -   How many genes are there?
@@ -58,7 +58,7 @@ The levels of the factor `time_point` actually refer to points on a continous ax
 -   Use limma to fit a linear model with cell type, organism part, age and the interaction between age and cell type as covariates (hint: use lmFit and eBayes). Use the logCPM value instead of CPM to fit the linear model(why?). Before you do this, reformat the data frame so that gene IDs are row names, and not a column (limma requires the dataset in this format).
 
 
-#### 3.3: Interpret model (3 POINTS)
+#### 3.3: Interpret model (2 POINTS)
 
 -   For the gene Eva1a, what is the numeric value of the coeffcient of the age term? What does it mean?
 
