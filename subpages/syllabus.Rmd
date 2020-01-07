@@ -166,8 +166,8 @@ kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
 
 **Seminars**
 
-- Time : Wed 11pm - 1pm
-- Location: Hugh Dempster Pavillion 201
+- Time : Mon 12pm - 1pm
+- Location: Orchard Commons 4074
 - See [Seminars](seminars.html) for schedule and seminar materials 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 
