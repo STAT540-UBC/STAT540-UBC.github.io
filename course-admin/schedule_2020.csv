@@ -1,17 +1,18 @@
 course,lect,dow,month,day,week,lecture_num,raw_notes,instructor
 STAT540-Seminar,seminar-1,Mon,January,6,1,1,"Introduction to version control, Git, GitHub",TA
-STAT540-Seminar,seminar-2a&b,Mon,January,13,2,2,"Introduction to Markdown, Knitr/R graphics -- ggplot2, lattice",TA
-STAT540-Seminar,seminar-2c,Mon,January,20,3,3,Getting your hands dirty with R -- simulate data and do some statistics,TA
-STAT540-Seminar,seminar-3,Mon,January,27,4,4,Load and analyze some gene expression data -- data aggregation with dplyr,TA
-STAT540-Seminar,seminar-4,Mon,February,3,5,4,"Two group testing, fitting and interpreting linear models",TA
-STAT540-Seminar,seminar-5,Mon,February,10,6,5,RNA-seq: from beginning to end -- BAM to count data (optional),TA
+STAT540-Seminar,seminar-2a,Mon,January,13,2,2,"Introduction to Markdown, Knitr",TA
+STAT540-Seminar,seminar-2b,Mon,January,13,2,3,"R graphics -- ggplot2, lattice",TA
+STAT540-Seminar,seminar-2c,Mon,January,20,3,4,Getting your hands dirty with R -- simulate data and do some statistics,TA
+STAT540-Seminar,seminar-3,Mon,January,27,4,5,Load and analyze some gene expression data -- data aggregation with dplyr,TA
+STAT540-Seminar,seminar-4,Mon,February,3,5,6,"Two group testing, fitting and interpreting linear models",TA
+STAT540-Seminar,seminar-5,Mon,February,10,6,7,RNA-seq: from beginning to end -- BAM to count data (optional),TA
 STAT540-Seminar,Break,Mon,February,17,7,NA,Family day,
-STAT540-Seminar,seminar-6,Mon,February,24,8,6,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
-STAT540-Seminar,seminar-7,Mon,March,2,9,7,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
-STAT540-Seminar,seminar-8,Mon,March,9,10,8,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
-STAT540-Seminar,seminar-9,Mon,March,16,11,9,Pathway analysis for methylation and gene expression data,TA
-STAT540-Seminar,seminar-10,Mon,March,23,12,10,"Supervised learning, cross-validation, variable selection",TA
-STAT540-Seminar,seminar-11,Mon,March,30,13,11,"Assistance with the Group Project / General office hour",TA
+STAT540-Seminar,seminar-6,Mon,February,24,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
+STAT540-Seminar,seminar-7,Mon,March,2,9,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
+STAT540-Seminar,seminar-8,Mon,March,9,10,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
+STAT540-Seminar,seminar-9,Mon,March,16,11,11,Pathway analysis for methylation and gene expression data,TA
+STAT540-Seminar,seminar-10,Mon,March,23,12,12,"Supervised learning, cross-validation, variable selection",TA
+STAT540-Seminar,seminar-11,Mon,March,30,13,NA,"Assistance with the Group Project / General office hour",TA
 STAT540,lecture-1,Mon,January,6,1,1,Course intro ,Paul P
 STAT540,lecture-2,Wed,January,8,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Paul P
 STAT540,lecture-3,Mon,January,13,2,3,"Exploratory data analysis, QC ",Paul P
