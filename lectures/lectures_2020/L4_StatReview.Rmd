@@ -1,0 +1,902 @@
+---
+title: "<font color=red>Lecture 4 -- Review of Probability and Statistics</font>"
+subtitle: "STAT/BIOF/GSAT 540: Statistical Methods for High Dimensional Biology"
+author: Keegan Korthauer
+date: "2020/01/15 <br><br> <font size=5> Slides by: Sara Mostafavi and Keegan Korthauer </font>"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+layout: true
+
+<big><big>
+
+---
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+
+#  Preview of next 6 lectures
+
+* **2020/01/15 - Lecture 4: Stats Philosophy, Math/stat background & review**
+
+* 2020/01/20 - Lecture 5: Statistical Inference - two group comparisons 
+
+* 2020/01/22 - Lecture 6: Statistical Inference - linear regression and ANOVA
+
+* 2020/01/27 - Lecture 7: Statistical Inference - linear models (more than two groups, and interaction testing)
+
+* 2020/01/29 - Lecture 8: Statistical Inference - continuous model + limma
+
+* 2020/02/03 - Lecture 9: Statistical Inference - multiple testing
+
+---
+
+#  Outline for today
+
+* Intro: Philosophy, goals, and central concepts
+
+* Review: Random Variables, Probability Distributions, Sampling Distribution, Estimation, Inference, CLT, Hypothesis Testing
+
+<div class = "blue">
+Your goals: 
+  <ol>1. be familiar with the terminology</ol>
+  <ol>2. have a clear understanding of the concepts</ol>
+</div>
+---
+
+class: middle
+# <center> What is Statistics?
+
+  
+---
+
+#  Statistics 
+
+* The field of statistics concerns the science of **collecting, analyzing/modeling, interpreting** data and **communicating uncertainty** about the results
+  - Data science and machine learning have enabled application to 'big data'
+  
+* Statistical and computational methods should not be used as generic "recipes" to follow $\rightarrow$ non-robust science
+
+* We aim for:
+  - rigorous understanding to perform routine statistical analysis
+  
+  - solid foundation to follow up on specific topics
+---
+
+
+#  Statistical Inference
+A framework for generating conclusions about a population from noisy data from a sample
+
+<center>
+<img src="L4_StatReview_files/statInference.png" alt="Picture from Dr. Fowler, UW" width="650"/></center>
+
+<small>
+
+* Language of **probability** enables us to make *predictions* and discuss *uncertainty*
+* **Statistical inference** enables us to *understand* the data and make *conclusions*
+* We need both to learn from data
+
+---
+
+#  Review: terminology & basic concepts
+
+* Random variables and their distributions
+
+* Models, parameters, and their estimators
+
+* Central Limit Theorem (CLT)
+
+* Hypothesis Testing
+
+---
+
+#  Variables
+
+<div class = "blue">
+<b>Variable <i>(noun)</i>:</b> an element, feature, or factor that is liable to vary or change
+</div>
+
+* In statistical terminology, a **variable** is an unknown quantity that we'd like to study
+
+* Most research questions can be formulated as 
+>What's the *relationship* between two or more variables?  
+
+---
+
+#  Random variables
+
+<div class = "blue">
+<b>Random Variable (RV):</b> A variable whose value results from the measurement of a quantity that is subject to variation (e.g. the <i>outcome</i> an experiment)
+</div>
+
+  - Examples: a coin flip, a dice throw, the expression level of gene X
+  
+  - An RV has a *probability distribution*
+  
+---
+  
+#  Distributions of RVs
+
+<div class = "blue">
+<b>Probability:</b> A number assigned to an outcome/event that describes the extent to which it is likely to occur
+</div>
+
+  - Must satisfy certain rules (e.g. be between 0 and 1)
+  
+  - Represents the (long-term) *frequency* of an event
+  
+--
+
+<div class = "blue">
+<b>Probability distribution:</b> A mathematical function that maps outcomes/events to probabilities
+</div>  
+  
+---
+
+#  Example experiment: Two coin tosses
+
+.pull-left[
+
+* **Experiment**: Toss two coins
+
+* **Sample space**: set of all possible outcomes <small> ${\normalsize S=\{TT, TH, HT, HH\}}$ </small>
+
+* **Random Variable of interest**: number of heads
+
+
+
+]
+.pull-right[
+
+|       | Outcome  | Number of Heads |
+| :---: |:---------:| :-----------:| 
+| TT    | ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/tails.png) | 0 |
+| TH    | ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/tails.png) | 1 |
+| HT    | ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/heads.png) | 1 |
+| HH    | ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/heads.png) | 2 |
+
+]
+
+---
+
+#  Assigning probability to outcomes
+
+<small>
+
+.pull-left[
+
+* Let:
+
+  * $\omega=$ an outcome 
+
+  * $X(\omega)=$ number of heads in $\omega$
+  
+* Each possible outcome is associated with a probability
+
+* **Event:** A set of outcomes that satisfy some condition
+
+* Each realization of the RV corresponds to an **event** (e.g. $X(\omega)=1$ corresponds to the outcomes $TH$ and $HT$ )
+
+]
+
+.pull-right[
+
+|       | $\omega$  | $X(\omega)$ | Probability |
+| :---: |:---------:| :-----------:| :---------: |
+| TT    | ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/tails.png) | 0 | 0.25 |
+| TH    | ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/tails.png) | 1 | 0.25 |
+| HT    | ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/heads.png) | 1 | 0.25 |
+| HH    | ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/heads.png) | 2 | 0.25 |
+]
+
+---
+
+#  Assigning probability to events
+
+The probability distribution of the Random Variable $X$ tells us how likely each event (number of heads) is to occur in the experiment
+
+
+| Event | $x$ | $P(X=x)$ |
+| :-----------:| :-----------:| :---------: |
+| ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/tails.png) | 0 | 0.25 |
+| ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/tails.png) <big>, ![](L4_StatReview_files/tails.png)![](L4_StatReview_files/heads.png) | 1 | 0.50 |
+| ![](L4_StatReview_files/heads.png)![](L4_StatReview_files/heads.png) | 2 | 0.25 |
+
+
+<small> Note on notation: $P(X=x)$ can also be written as $P_X(x)$
+
+---
+
+#  Two types of random variables
+
+* A **discrete** RV has a countable number of possible values
+  
+  - e.g. throwing dice, genotype measured on a SNP chip
+
+* A **continuous** RV takes on values in an interval of numbers
+
+  - e.g. expression level of a gene, blood glucose level, height of individuals
+  
+---
+
+#  Standard Gaussian (Normal) distribution 
+
+<small>
+
+.pull-left[
+* probability density function:
+$$f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+* Mean $=\mu$
+
+* Standard Deviation $=\sigma$
+
+* For convenience, we write $N(\mu, \sigma^2)$
+
+* When $\mu=0$ and $\sigma=1$, this is the *Standard* Normal distribution $N(0,1)$
+]
+
+.pull-right[
+![](L4_StatReview_files/normal.png)
+]
+
+---
+
+#  Gaussian (Normal) distribution 
+
+<center><img src="L4_StatReview_files/normal2.png" width=650>
+
+<small>
+
+$$\text{Probability density function: }f(x|\mu,\sigma^2) = \phi(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+---
+
+#  Density $\rightarrow$ probability requires integration
+
+```{r echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
+library(ggplot2)
+theme_set(theme_bw())
+x_lower <- -3
+x_upper <- 3
+
+max_height <- max(dnorm(x_lower:x_upper))
+
+ggplot(data.frame(x = c(x_lower, x_upper)), aes(x = x)) + xlim(x_lower, x_upper) + 
+  ylim(0, max_height) +
+  geom_area(stat = "function", fun = dnorm, fill = "blue", alpha = 0.25, xlim = c(-1, 1)) +
+  stat_function(fun = dnorm) + 
+  xlab("x") + 
+  ylab(bquote(phi(x))) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 24),
+        axis.title.y = element_text(face="bold", colour="blue", size = 24)) +
+  geom_vline(xintercept = -1, linetype="dashed", colour="blue") +
+  geom_vline(xintercept = 1, linetype="dashed", colour="blue")
+
+```
+
+---
+
+#  Statistical Inference
+
+* The **parameter space** is the set of all possible values for the parameter
+
+* One major goal: to "figure out" (i.e. estimate) the **parameter values**
+  - i.e. *"fit the model to the data"*
+  
+* The model is a representation that (we hope) approximates the data and (more importantly) the population that the data were sampled from 
+
+* We can then use this model for:
+  - hypothesis testing
+  - prediction 
+  - simulation
+ 
+---
+
+#  Statistical Inference
+
+<center>
+<img src="L4_StatReview_files/statInference.png" alt="Picture from Dr. Fowler, UW" width="700"/></center>
+
+---
+
+#  IID
+
+<small>
+
+* A requirement (assumption) in many settings is that the data are IID: **I**ndependent and **I**dentically **D**istributed
+
+--
+
+* **Identically Distributed**: a set of observations (events) are from the same population (i.e. they have the same underlying probability distribution)
+
+  - e.g. a t-test assumes that under the null, all observations come from the same normal distribution
+
+--
+
+* **Independent**: all samples satisfy the condition $$P(A,B) = P(A)P(B)$$ where $A$ and $B$ are events
+
+  - i.e. the joint probability is the product of the individual event probabilities
+  - The above statement is for two events, but the same definition applies for any number of events
+(without loss of generality for any number of events)
+
+---
+
+#  Violations of independence
+
+* Experimental design is in part about trying to avoid unwanted dependence
+
+* Example of design with violation of independence assumption: 
+
+> Height measurements of individuals sampled from *related* females in a tall family
+
+---
+
+#  Parameters of the normal distribution 
+.pull-left[
+<center><img src="L4_StatReview_files/normal2.png" width=650>
+]
+
+.pull-right[
+$$f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+* Mean $=\mu$
+
+* Standard Deviation $=\sigma$
+
+* For convenience, we write $N(\mu, \sigma^2)$
+
+* Population parameters are unknown
+
+]
+
+---
+
+#  Parameter estimation
+
+<big>
+
+* **Estimator**: A function (or rule) used to estimate a parameter of interest
+
+* **Estimate**: A particular realization (value) of an estimator
+
+---
+
+#  Estimators for normally distributed data
+
+* If we are given a sample of $n$ observations from a normally distributed population, how do we estimate the parameter values $\mu$ and $\sigma$?
+
+* Recall $\mu$ is the mean and $\sigma$ the standard deviation of the distribution
+
+--
+
+$$\hat{\mu} = \bar{x} = \frac{x_1 + x_2 + ... + x_n}{n} =  \frac{1}{n} \sum_{i=1}^n x_i$$
+
+$$\hat{\sigma} = s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}}$$
+
+
+---
+
+#  Estimators vs Parameters 
+
+|   | Estimators | Parameters |  
+| ---- | :---------: | :----------: |
+| Summarize | Sample | Population (ground truth) |
+| Value | Computed from data | Unknown |
+| Notation | $\hat{\theta}$ | $\theta$ |
+
+---
+
+<small>
+
+#  Normal **Mean**: Estimator vs Parameter
+
+|   | Estimator | Parameter |  
+| ---- | :---------: | :----------: |
+| Summarizes |  Sample/data | Population (ground truth) |
+| Value | $\bar{x}=\frac{1}{n} \sum_{i=1}^n x_i$ | Unknown |
+| Notation | $\hat{\mu}$ | $\mu$ |
+
+--
+
+#  Normal **Standard Deviation**: Estimator vs Parameter
+
+|   | Estimator | Parameter |  
+| ---- | :---------: | :----------: |
+| Summarizes |  Sample/data | Population (ground truth) |
+| Value | $s=\sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}}$ | Unknown |
+| Notation | $\hat{\sigma}$ | $\sigma$ |
+
+---
+
+# Estimator for normally distributed data
+
+* Let's say we collected a **sample** from a population we assume to be normal 
+
+* We estimate the mean $\large \hat{\mu}=\bar{x}$
+
+* How good is the estimate?
+
+* The answer depends on:
+
+--
+
+  - sample size
+  
+  - variability of the population 
+
+---
+
+# Sampling distribution
+
+* **Statistic**: any quantity computed from values in a sample 
+
+* Any function (or statistic) of a sample (data) is a random variable
+
+* Thus, any statistic (because it is random) has a probability distribution function $\rightarrow$ specifically, we call this the *sampling distribution*
+
+* Example: the sampling distribution of the mean
+
+---
+
+# Sampling distribution of the mean
+
+The sample mean $\large \bar{x}$ is an RV, so it has associated probability or sampling distribution
+
+<center>
+<img src="L4_StatReview_files/samplingdist.png" width=750>
+</center>
+
+<small><small><a href="http://www.incertitudes.fr/book.pdf" style="color:grey;">Image source: incertitudes.fr/book.pdf</a>
+
+---
+
+# Central Limit Theorem (CLT)
+
+<small>
+By the *Central Limit Theorem (CLT)*, we know that the sampling distribution of the mean is Normal:
+* with mean $\mu_{\bar{X}} = \mu$ and standard deviation $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
+
+<center>
+<img src="L4_StatReview_files/clt.png" width=725>
+</center>
+
+<small><small><a href="http://www.incertitudes.fr/book.pdf" style="color:grey;">Image source: incertitudes.fr/book.pdf</a>
+
+---
+
+# <center> ⚠️ Standard deviation vs Standard error ⚠️
+
+<big>
+
+* The sampling distribution of the mean (by CLT): $$\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$$
+
+--
+
+* The *standard error* of the mean is $\frac{\sigma}{\sqrt{n}}$
+
+--
+
+* The *standard deviation* of $X$ is $\sigma$
+
+---
+
+class: middle
+
+## Estimation of parameters of the sampling distribution of the mean
+
+Just as we estimated $\mu$ and $\sigma$ before, we can estimate $\mu_{\bar{X}}$ and $\sigma_{\bar{X}}$
+
+  - $\hat{\mu}_{\bar{X}} = \hat{\mu} = \bar{x}$
+  
+  - $\hat{\sigma}_{\bar{X}} = \frac{\hat{\sigma}}{\sqrt{n}} = \frac{s}{\sqrt{n}}$
+
+---
+
+# Standard error of the mean
+
+$$\large\hat{\sigma}_{\bar{X}} = \frac{\hat{\sigma}}{\sqrt{n}} = \frac{s}{\sqrt{n}}$$
+* The standard error (SE) of the mean reflects uncertainty about the value of the population mean $\large\mu$
+
+* The CLT assumes a 'large enough' sample: 
+
+  - when the sample size is ~30 or more, the normal distribution is a good approximation for the sampling distribution of the mean
+  
+  - for smaller samples, the SE $\large\frac{s}{\sqrt{n}}$ is an underestimate 
+  
+---
+
+# CLT applies to any population (regardless of distribution)
+
+<small>
+
+Let $\normalsize X_1, X_2, ..., X_n$ be a random sample from a population with a non-normal distribution. If the sample size $\normalsize n$ is sufficiently large, then the sampling distribution of the mean will be approximately normal: $\normalsize \bar{X} \sim N(\mu, \frac{\sigma^2}{n})$
+
+<center><img src="L4_StatReview_files/clt2.png" width=650></center><br><small><small><a href="https://saylordotorg.github.io/text_introductory-statistics/s10-02-the-sampling-distribution-of-t.html" style="color:grey;">Image source: saylordotorg.github.io/text_introductory-statistics</a>
+
+---
+
+# Illustration (n = 3)
+<small>
+
+.pull-left[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+p<- ggplot(data.frame(x = c(0, 1)), aes(x = x)) +
+  geom_line(stat = "function", fun = dbeta, 
+            args = list(shape1=0.5, shape2=0.5),
+            color = "blue", cex=2) + 
+  ggtitle("Distribution of X")+
+  theme(text = element_text(size=20))
+p
+```
+]
+
+.pull-right[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE, warning = FALSE, message=FALSE}
+n <- 3
+set.seed(20200111) # set seed for reproducibility
+x_bar <- colMeans(replicate(100, rbeta(n, 0.5, 0.5)))
+ggplot(data.frame(x = x_bar), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), bins=20) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0.5, sd=sqrt(0.125/n)), color = "pink", cex=2, linetype="dashed") + xlim(0,1) + ggtitle(bquote("Sampling Distribution of "~bar(X)))+
+  theme(text = element_text(size=20))+ xlab(bquote(bar(x)))
+```
+]
+
+On right: dashed pink line is $N(\mu, \sigma^2/n)$
+---
+
+# Illustration (n = 10)
+<small>
+
+.pull-left[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE}
+p
+```
+]
+
+.pull-right[
+```{r, fig.height=6, fig.width=6, fig.align="center",echo=FALSE, warning = FALSE, message=FALSE}
+n <- 10
+set.seed(20200111) # set seed for reproducibility
+x_bar <- colMeans(replicate(100, rbeta(n, 0.5, 0.5)))
+ggplot(data.frame(x = x_bar), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), bins=25) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0.5, sd=sqrt(0.125/n)), color = "pink", cex=2, linetype="dashed") + xlim(0,1)+ ggtitle(bquote("Sampling Distribution of "~bar(X)))+
+  theme(text = element_text(size=20))+ xlab(bquote(bar(x)))
+```
+]
+
+On right: dashed pink line is $N(\mu, \sigma^2/n)$
+
+---
+
+# Illustration (n = 30)
+<small>
+
+.pull-left[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE}
+p
+```
+]
+
+.pull-right[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE, warning = FALSE, message=FALSE}
+n <- 30
+set.seed(20200111) # set seed for reproducibility
+x_bar <- colMeans(replicate(100, rbeta(n, 0.5, 0.5)))
+ggplot(data.frame(x = x_bar), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), bins=35) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0.5, sd=sqrt(0.125/n)), color = "pink", cex=2, linetype="dashed") + xlim(0,1)+ ggtitle(bquote("Sampling Distribution of "~bar(X)))+
+  theme(text = element_text(size=20))
+```
+]
+
+
+On right: dashed pink line is $N(\mu, \sigma^2/n)$
+
+---
+
+# Illustration (n = 100)
+<small>
+
+.pull-left[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE}
+p
+```
+]
+
+.pull-right[
+```{r, fig.height=6, fig.width=6, fig.align="center", echo=FALSE, warning = FALSE, message=FALSE}
+n <- 100
+set.seed(20200111) # set seed for reproducibility
+x_bar <- colMeans(replicate(100, rbeta(n, 0.5, 0.5)))
+ggplot(data.frame(x = x_bar), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), bins=50) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0.5, sd=sqrt(0.125/n)), color = "pink", cex=2, linetype="dashed") + xlim(0,1) + ggtitle(bquote("Sampling Distribution of "~bar(X)))+
+  theme(text = element_text(size=20))+ xlab(bquote(bar(x)))
+```
+]
+
+
+On right: dashed pink line is $N(\mu, \sigma^2/n)$
+
+---
+
+# Hypothesis Testing
+
+
+* **Hypothesis:** A *testable (falsifiable)* idea for explaining a phenomenon
+
+* **Statistical hypothesis:** A hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables
+
+* **Hypothesis Testing:** A formal procedure for determining whether to *accept* or *reject* a statistical hypothesis 
+
+* Requires comparing two hypotheses:
+  
+  - $H_0$: null hypothesis
+  
+  - $H_A$ or $H_1$: alternative hypothesis
+
+---
+
+# Hypothesis Testing: motivating example
+
+
+* The expression level of gene $\normalsize g$ is measured in $\normalsize n$ patients with disease (e.g. cancer), and $\normalsize m$ healthy (control) individuals:
+  - $\normalsize z_1, z_2, ..., z_n$ and $\normalsize y_1, y_2, ..., y_m$
+
+* Is gene $\normalsize g$ is differentially expressed in cancer vs healthy samples?
+  - $\normalsize H_0: \mu_Z = \mu_Y$
+  - $\normalsize H_A: \mu_Z \neq \mu_Y$
+
+* In this setting, hypothesis testing allows us to determine whether observed differences between groups in our data are *significant*
+
+
+---
+
+# Steps in Hypothesis Testing
+
+<big> 
+
+1. Formulate your hypothesis as a statistical hypothesis
+
+2. Define a test statistic (RV) that corresponds to the question. You typically know the expected distribution of the test statistic *under the null*
+
+3. Compute the p-value associated with the observed test statistic under the null distribution $\normalsize p(t | H_0)$
+
+---
+
+# Motivating example (cancer vs healthy gene expression)
+
+```{r, echo=FALSE, fig.height=4.5, fig.width=4.5, show=TRUE}
+
+library(ggplot2)
+theme_set(theme_bw())
+set.seed(78)
+n <- 4
+delta <- 1
+p1 <- ggplot(data.frame(y=c(rnorm(n), rnorm(n,mean=delta)),
+                        Group=c(rep("healthy", n), rep("cancer", n))),
+             aes(x=Group, y=y, color = Group)) +
+  geom_jitter(size=4) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20)) +
+  ylim(-2.75,2.75)+
+    ylab("")+
+  ggtitle("m=n=4")
+  
+set.seed(87)
+p1
+```
+
+---
+
+
+# Motivating example (cancer vs healthy gene expression)
+
+```{r, echo=FALSE, fig.height=4.5, fig.width=9, show=TRUE, messsge=FALSE, warning=FALSE}
+
+library(ggplot2)
+theme_set(theme_bw())
+suppressPackageStartupMessages(library(cowplot))
+set.seed(78)
+
+n <- 8
+delta <- 1
+p2 <- ggplot(data.frame(y=c(rnorm(n), rnorm(n,mean=delta)),
+                        Group=c(rep("healthy", n), rep("cancer", n))),
+             aes(x=Group, y=y, color = Group)) +
+  geom_jitter(size=4) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+
+  ylim(-2.75,2.75)+
+    ylab("")+
+  ggtitle("m=n=8")
+  
+set.seed(87)
+plot_grid(p1, p2, nrow=1)
+```
+
+---
+
+# Motivating example (cancer vs healthy gene expression)
+
+```{r, echo=FALSE, fig.height=4.5, fig.width=13.5, show=TRUE, messsge=FALSE, warning=FALSE}
+
+library(ggplot2)
+theme_set(theme_bw())
+suppressPackageStartupMessages(library(cowplot))
+set.seed(78)
+
+n <- 20
+delta <- 1
+p3 <- ggplot(data.frame(y=c(rnorm(n), rnorm(n,mean=delta)),
+                        Group=c(rep("healthy", n), rep("cancer", n))),
+             aes(x=Group, y=y, color = Group)) +
+  geom_jitter(size=4) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+
+  ylab("")+
+  ylim(-2.75,2.75)+
+  ggtitle("m=n=20")
+
+set.seed(87)  
+plot_grid(p1, p2, p3, nrow=1)
+```
+
+--
+
+All three samples drawn from iid Normal distributions with equal variance and $\mu_Z-\mu_Y=1$
+
+---
+
+# Is there a **significant** difference between the two means?
+
+```{r, echo=FALSE, fig.height=4.5, fig.width=13.5, show=TRUE, messsge=FALSE, warning=FALSE}
+
+library(ggplot2)
+theme_set(theme_bw())
+suppressPackageStartupMessages(library(cowplot))
+set.seed(78)
+
+n <- 4
+delta <- 1
+p1 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(1/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(1/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20)) + 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey")+
+  ggtitle(expression(paste("n=4, ", sigma[X], "=1")))+ ylab("")+ xlab(bquote(bar(X)))
+
+n <- 8
+delta <- 1
+p2 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(1/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(1/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+ 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey")+
+  ggtitle(expression(paste("n=8, ", sigma[X], "=1")))+ ylab("")+ xlab(bquote(bar(X)))
+
+n <- 20
+delta <- 1
+p3 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(1/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(1/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+ 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey")+
+  ggtitle(expression(paste("n=20, ", sigma[X], "=1")))+ 
+  ylab("") + xlab(bquote(bar(X)))
+
+
+n <- 4
+delta <- 1
+p4 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(3/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(3/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20)) + 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey") +
+  ggtitle(expression(paste("n=4, ", sigma[X], "=3")))+ ylab("")+ xlab(bquote(bar(X)))
+
+n <- 8
+delta <- 1
+p5 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(3/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(3/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+ 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey")+
+  ggtitle(expression(paste("n=8, ", sigma[X], "=3")))+ ylab("")+ xlab(bquote(bar(X)))
+
+n <- 20
+delta <- 1
+p6 <- ggplot(data.frame(x = c(-2, 3)), aes(x = x)) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=0, sd=sqrt(3/n)), color = "#F8766D", cex=2) +
+  geom_line(stat = "function", fun = dnorm, args = list(mean=1, sd=sqrt(3/n)), color = "#00BFC4", cex=2) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size=20))+ 
+  geom_vline(xintercept=c(0,1), linetype="dashed", color="grey")+
+  ggtitle(expression(paste("n=20, ", sigma[X], "=3")))+ ylab("")+ xlab(bquote(bar(X)))
+
+set.seed(87)  
+plot_grid(p1, p2, p3, p4, p5, p6, nrow=2)
+```
+
+* Mean difference needs to be put into context of the *spread (standard deviation)* 
+
+* Also depends on the sample size 
+
+---
+
+# t-statistic / t-test
+
+* Measures difference in means, adjusted for spread/standard deviation:
+
+$$\normalsize t=\frac{\bar{z}-\bar{y}}{SE_{\bar{z}-\bar{y}}}$$
+    for $z_1, z_2, ..., z_n$ expression measurements in healthy samples and $y_1, y_2, ..., y_m$ cancer samples
+
+* Standard error estimate for the difference in means:
+
+$$SE_{\bar{z}-\bar{y}} = s_p \sqrt{\frac{1}{n} + \frac{1}{m}} \text{ , where  } s_p^2 = \frac{s^2_z + s^2_y}{(n-1) + (m-1)}$$
+---
+
+# t-test
+
+* From the theory, we know the distribution of our test statistic, if we are willing to make some assumptions
+
+
+* If we assume:
+
+  - Z and Y are normally distributed
+  
+  - Z and Y have equal variance
+  
+Then our t-statistic follows a t distribution with m+n-2 degrees of freedom $$t \sim t_{n+m-2}$$
+
+---
+
+# t distribution
+
+.pull-left[
+<img src="L4_StatReview_files/tdist.png" width=600>
+]
+
+.pull-right[
+* t statistic value tells us how extreme our observed data is relative to the null 
+
+* obtain p-value by computing area to the left and/or right of the t statistic (one-sided vs two-sided)
+
+]
+
+---
+
+# Summary
+
+* Random variables are variables that have an associated probability distribution 
+
+* Any statistic of sampled data is an RV, and hence has an associated probability distribution
+
+* The CLT gives us the sampling distribution of the mean 
+
+* Hypothesis testing gives us a framework to assess a statistical hypothesis under the null
+
+
+
+
+
+
+
