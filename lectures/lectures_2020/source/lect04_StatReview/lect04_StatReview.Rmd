@@ -74,12 +74,14 @@ class: middle
 
 
 #  Statistical Inference
+
+<small> 
+
 A framework for generating conclusions about a population from noisy data from a sample
 
-<center>
-<img src="img/statInference.png" alt="Picture from Dr. Fowler, UW" width="650"/></center>
-
-<small>
+```{r, fig.align="center", echo = FALSE, out.width=650}
+knitr::include_graphics("img/statInference.png")
+```
 
 * Language of **probability** enables us to make *predictions* and discuss *uncertainty*
 * **Statistical inference** enables us to *understand* the data and make *conclusions*
@@ -144,6 +146,10 @@ A framework for generating conclusions about a population from noisy data from a
 
 #  Example experiment: Two coin tosses
 
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(out.width=60)
+```
+
 .pull-left[
 
 * **Experiment**: Toss two coins
@@ -159,10 +165,10 @@ A framework for generating conclusions about a population from noisy data from a
 
 |       | Outcome  | Number of Heads |
 | :---: |:---------:| :-----------:| 
-| TT    | ![](img/tails.png)![](img/tails.png) | 0 |
-| HT    | ![](img/heads.png)![](img/tails.png) | 1 |
-| TH    | ![](img/tails.png)![](img/heads.png) | 1 |
-| HH    | ![](img/heads.png)![](img/heads.png) | 2 |
+| TT    | `r knitr::include_graphics(c("img/tails.png", "img/tails.png"))` | 0 |
+| HT    | `r knitr::include_graphics(c("img/heads.png", "img/tails.png"))` | 1 |
+| TH    | `r knitr::include_graphics(c("img/tails.png", "img/heads.png"))` | 1 |
+| HH    | `r knitr::include_graphics(c("img/heads.png", "img/heads.png"))` | 2 |
 
 ]
 
@@ -192,10 +198,10 @@ A framework for generating conclusions about a population from noisy data from a
 
 |       | $\omega$  | $X(\omega)$ | Probability |
 | :---: |:---------:| :-----------:| :---------: |
-| TT    | ![](img/tails.png)![](img/tails.png) | 0 | 0.25 |
-| HT    | ![](img/heads.png)![](img/tails.png) | 1 | 0.25 |
-| TH    | ![](img/tails.png)![](img/heads.png) | 1 | 0.25 |
-| HH    | ![](img/heads.png)![](img/heads.png) | 2 | 0.25 |
+| TT    | `r knitr::include_graphics(c("img/tails.png", "img/tails.png"))` | 0 | 0.25 |
+| HT    | `r knitr::include_graphics(c("img/heads.png", "img/tails.png"))` | 1 | 0.25 |
+| TH    | `r knitr::include_graphics(c("img/tails.png", "img/heads.png"))` | 1 | 0.25 |
+| HH    | `r knitr::include_graphics(c("img/heads.png", "img/heads.png"))` | 2 | 0.25 |
 ]
 
 ---
@@ -207,9 +213,9 @@ The probability distribution of the Random Variable $X$ tells us how likely each
 
 | Event | $x$ | $P(X=x)$ |
 | :-----------:| :-----------:| :---------: |
-| ![](img/tails.png)![](img/tails.png) | 0 | 0.25 |
-| ![](img/heads.png)![](img/tails.png) <big>, ![](img/tails.png)![](img/heads.png) | 1 | 0.50 |
-| ![](img/heads.png)![](img/heads.png) | 2 | 0.25 |
+| `r knitr::include_graphics(c("img/tails.png", "img/tails.png"))` | 0 | 0.25 |
+| `r knitr::include_graphics(c("img/heads.png", "img/tails.png"))` <big>, `r knitr::include_graphics(c("img/tails.png", "img/heads.png"))` | 1 | 0.50 |
+| `r knitr::include_graphics(c("img/heads.png", "img/heads.png"))` | 2 | 0.25 |
 
 
 <small> Note on notation: $P(X=x)$ can also be written as $P_X(x)$
@@ -246,14 +252,18 @@ $$f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}
 ]
 
 .pull-right[
-![](img/normal.png)
+```{r, out.width=400, echo = FALSE, fig.align="center"}
+knitr::include_graphics("img/normal.png")
+```
 ]
 
 ---
 
 #  Gaussian (Normal) distribution 
 
-<center><img src="img/normal2.png" width=650>
+```{r, out.width=625, echo = FALSE, fig.align="center"}
+knitr::include_graphics("img/normal2.png")
+```
 
 <small>
 
@@ -262,6 +272,10 @@ $$\text{Probability density function: }f(x|\mu,\sigma^2) = \phi(x) = \frac{1}{\s
 ---
 
 #  Density $\rightarrow$ probability requires integration
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(out.width=NULL)
+```
 
 ```{r echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
 library(ggplot2)
@@ -305,8 +319,9 @@ ggplot(data.frame(x = c(x_lower, x_upper)), aes(x = x)) + xlim(x_lower, x_upper)
 
 #  Statistical Inference
 
-<center>
-<img src="img/statInference.png" alt="Picture from Dr. Fowler, UW" width="700"/></center>
+```{r, out.width=625, echo = FALSE, fig.align="center", out.width="700"}
+knitr::include_graphics("img/statInference.png")
+```
 
 ---
 
@@ -344,7 +359,10 @@ ggplot(data.frame(x = c(x_lower, x_upper)), aes(x = x)) + xlim(x_lower, x_upper)
 
 #  Parameters of the normal distribution 
 .pull-left[
-<center><img src="img/normal2.png" width=650>
+```{r, out.width=625, echo = FALSE, fig.align="center", out.width="650"}
+knitr::include_graphics("img/normal2.png")
+```
+
 ]
 
 .pull-right[
@@ -452,9 +470,9 @@ $$\hat{\sigma} = s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}}$$
 
 The sample mean $\large \bar{x}$ is an RV, so it has associated probability or sampling distribution
 
-<center>
-<img src="img/samplingdist.png" width=750>
-</center>
+```{r, out.width=625, echo = FALSE, fig.align="center", out.width="750"}
+knitr::include_graphics("img/samplingdist.png")
+```
 
 <small><small><a href="http://www.incertitudes.fr/book.pdf" style="color:grey;">Image source: incertitudes.fr/book.pdf</a>
 
@@ -466,9 +484,9 @@ The sample mean $\large \bar{x}$ is an RV, so it has associated probability or s
 By the *Central Limit Theorem (CLT)*, we know that the sampling distribution of the mean is Normal:
 * with mean $\mu_{\bar{X}} = \mu$ and standard deviation $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
 
-<center>
-<img src="img/clt.png" width=725>
-</center>
+```{r, out.width=625, echo = FALSE, fig.align="center", out.width="725"}
+knitr::include_graphics("img/clt.png")
+```
 
 <small><small><a href="http://www.incertitudes.fr/book.pdf" style="color:grey;">Image source: incertitudes.fr/book.pdf</a>
 
@@ -521,7 +539,10 @@ $$\large\hat{\sigma}_{\bar{X}} = \frac{\hat{\sigma}}{\sqrt{n}} = \frac{s}{\sqrt{
 
 Let $\normalsize X_1, X_2, ..., X_n$ be a random sample from a population with a non-normal distribution. If the sample size $\normalsize n$ is sufficiently large, then the sampling distribution of the mean will be approximately normal: $\normalsize \bar{X} \sim N(\mu, \frac{\sigma^2}{n})$
 
-<center><img src="img/clt2.png" width=650></center><br><small><small><a href="https://saylordotorg.github.io/text_introductory-statistics/s10-02-the-sampling-distribution-of-t.html" style="color:grey;">Image source: saylordotorg.github.io/text_introductory-statistics</a>
+```{r, echo = FALSE, fig.align="center", out.width="650"}
+knitr::include_graphics("img/clt2.png")
+```
+<small><small><a href="https://saylordotorg.github.io/text_introductory-statistics/s10-02-the-sampling-distribution-of-t.html" style="color:grey;">Image source: saylordotorg.github.io/text_introductory-statistics</a>
 
 ---
 
@@ -873,7 +894,9 @@ Then our t-statistic follows a t distribution with m+n-2 degrees of freedom $$t 
 # t distribution
 
 .pull-left[
-<img src="img/tdist.png" width=600>
+```{r, out.width=625, echo = FALSE, fig.align="center", out.width="600"}
+knitr::include_graphics("img/tdist.png")
+```
 ]
 
 .pull-right[
