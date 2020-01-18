@@ -20,6 +20,13 @@ layout: true
 
 ---
 
+class: middle
+
+## Due to Snow Day, a screencast of this lecture has been made available at: [https://youtu.be/w6bi9PVmzEU](https://youtu.be/w6bi9PVmzEU)
+
+---
+
+
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
