@@ -682,10 +682,8 @@ Using $\alpha=0.05$, since the p-value for the Irs4 test is greater than 0.05, w
 We do not reject H<sub>0</sub>!
 
 ---
-class: center
 
-
-```{r, fig.align="center", echo = FALSE, out.width=850}
+```{r, fig.align="center", echo = FALSE, out.width=800}
 knitr::include_graphics("img/slide23.png")
 ```
 
