@@ -13,7 +13,7 @@ output:
       countIncrementalSlides: false
       ratio: "16:9"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 layout: true
@@ -30,6 +30,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 
 
 ```{r, fig.align="center", echo = FALSE, out.width=650}
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 18))
 knitr::include_graphics("img/statInference.png")
 ```
 <center><small><a href="https://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture1.pdf" style="color:grey;">Image source: Josh Akey's Lecture notes</a></small></center>
@@ -57,7 +58,7 @@ knitr::include_graphics("img/statInference.png")
 knitr::include_graphics("img/paperRef.PNG")
 ```
 
-[Akimoto et al. (2006)]("https://doi.org/10.1073/pnas.0508214103")
+[Akimoto et al. (2006)](https://doi.org/10.1073/pnas.0508214103)
 
 .pull-left[
 - Retina presents a model system for investigating **regulatory networks** underlying neuronal differentiation.
@@ -79,7 +80,7 @@ knitr::include_graphics("img/cellTypes.png")
 
 #  Why a Hypothesis Test?
 <big>
-From the [Akimoto et al. (2006) paper](https://doi.org/10.1073/pnas.0508214103 ): 
+From the [Akimoto et al. (2006) paper](https://doi.org/10.1073/pnas.0508214103): 
 >"we hypothesized that Nrl is the ideal transcription factor to gain insights into gene expression changes ..."
 
 <div class = "blue">
@@ -344,7 +345,7 @@ class: center, middle
 ### "large" relative to the observed variation
 ]
 .pull-right[
-### $\frac{\bar{Y}-\bar{Z}}{\sqrt{V(\bar{Y}-\bar{Z})}}$
+### $\frac{\bar{Y}-\bar{Z}}{\sqrt{Var(\bar{Y}-\bar{Z})}}$
 ]
 
 ``` {r echo=FALSE,fig.height=3, dev='svg'}
@@ -357,22 +358,22 @@ grid.arrange(artMean, nrlMean, nrow = 1)
 
 <small>
 
-* Recall that if $V(Y_i)=\sigma_Y^2$, then $V(\bar{Y})=\frac{\sigma_Y^2}{n_Y}$
+* Recall that if $Var(Y_i)=\sigma_Y^2$, then $Var(\bar{Y})=\frac{\sigma_Y^2}{n_Y}$
 
 * Assume that the random variables within each group are *independent and identically distributed* (iid), and that the groups are independent. More specifically, that
   1. $Y_1, Y_2,..., Y_{n_Y}$ are iid, 
   2. $Z_1, Z_2,..., Z_{n_Z}$ are iid, and
   3. $Y_i, Z_j$ are independent. Then, it follows that
-$$ V(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}$$
+$$ Var(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}$$
 * If we also assume equal population variances:</big> $\sigma_Z^2=\sigma_Y^2=\sigma^2$, then
-$$V(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}=\sigma^2\left[\frac{1}{n_Z}+\frac{1}{n_Y}\right]$$
+$$Var(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}=\sigma^2\left[\frac{1}{n_Z}+\frac{1}{n_Y}\right]$$
 ### But how can we calculate population variance $\sigma$ if it is **unknown**?
 ---
 
 
 ### ...using the sample variances (combined, somehow)!
-```{r echo=FALSE, fig.height=3.5, dev='svg', fig.align="center"}
-grid.arrange(irsMean  + ylim(5, 13), nrlMean + ylim(5, 13), ncol = 1)
+```{r echo=FALSE, fig.height=3, dev='svg', fig.align="center"}
+grid.arrange(irsMean  + ylim(5, 13), nrlMean + ylim(5, 13), ncol = 2)
 ```
 
 ``` {r}
@@ -449,7 +450,7 @@ by(miniDat, miniDat$gene, function(theDat) {
 ```
 
 
-##  The Test Statistic:  <small> $T=\frac{\bar{Z}_n-\bar{Y}_n}{\hat{\sigma}_{Z_n-Y_n}}$</small>
+##  The Test Statistic:  <small> $T=\frac{\bar{Z}_n-\bar{Y}_n}{\hat{\sigma}_{\bar{Z}_n-\bar{Y}_n}}$</small>
 
 <small>
 
@@ -477,7 +478,7 @@ class:middle
 
 ### The test statistic T is a <font color=red>random variable</font> because it's based on our <font color=red>random sample</font>.
 
-### We need a measure of its uncertainty to determine how big T is:
+### We need a measure of its **uncertainty** to determine how big T is:
 > ### If we were to repeat the experiment many times, what's the probability of observing a value of T **as extreme** as the one we observed?
 
 ### We need to have a probability distribution!
@@ -486,6 +487,8 @@ class:middle
 
 
 ### Theory now tells us specific **null distributions** for these test statistics, depending on your assumptions.
+
+Let's call the unknown probability distributions F and G $(Y_i \sim F, \text{ and } Z_i \sim G)$
 
 ### $\large\Rightarrow$ Willing to assume that F and G are normal distributions?
 
@@ -780,7 +783,7 @@ Null distribution of such statistics can be worked out or approximated.
 
 ---
 
-```{r, fig.align="center", echo = FALSE, out.width=750}
+```{r, fig.align="center", echo = FALSE, out.width=850}
 knitr::include_graphics("img/slide32.png")
 ```
 
@@ -788,7 +791,7 @@ knitr::include_graphics("img/slide32.png")
 ```{r echo=FALSE, fig.height=2.5, dev='svg', fig.align="center"}
 options(repr.plot.width=8, repr.plot.height=3)
 
-grid.arrange(irsLim, nrlLim, ncol = 1)
+grid.arrange(irsLim, nrlLim, ncol = 2)
 ```
 ---
 
