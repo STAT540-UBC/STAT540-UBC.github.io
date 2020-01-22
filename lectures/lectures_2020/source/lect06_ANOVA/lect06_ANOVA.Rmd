@@ -45,7 +45,7 @@ ggplot2::update_geom_defaults("point", list(size = 3))
   font-size: 90% !important;
 }
 .smaller2 .remark-code { /*Change made here*/
-  font-size: 85% !important;
+  font-size: 80% !important;
 }
 ```
 
@@ -505,8 +505,8 @@ $$Y_{ij} = \theta+\tau_2 \times x_{ij2} + \tau_3 \times x_{ij3} +\varepsilon_{ij
 1\text{ if } j=2\\
 0 \text{ otherwise}\\
 \end{array}; \; x_{ij3}=\bigg\{\begin{array}{l}
-0\text{ if } j=3\\
-1 \text{ otherwise}\\
+1\text{ if } j=3\\
+0 \text{ otherwise}\\
 \end{array}$$
 
 ### This is why R can estimate all of them with `lm()`
@@ -751,10 +751,10 @@ means.dev %>% mutate(txEffects=cellMeans-cellMeans[1])
 ```
 
 ### We need 4 dummy variables to estimate and test 4 time differences (between 5 time points): 
-> ($x_{P2}$: P2 vs E16, 
+> $x_{P2}$: P2 vs E16, 
 > $x_{P6}$: P6 vs E16,
 > $x_{P10}$: P10 vs E16, 
-> $x_{4W}$: 4W vs E16)
+> $x_{4W}$: 4W vs E16
 
 --
 
@@ -787,7 +787,7 @@ means.dev %>% mutate(txEffects=cellMeans-cellMeans[1])
 <font size=5>
 $H_0: \theta=0$ or $H_0: \mu_{E16}=0$
 
-**Estimate**: $\hat\theta=\hat\mu_{E16}=\bar{Y}_{E16}$
+**Estimate**: $\hat\theta=\hat\mu_{E16}=\bar{Y}_{\cdot E16}$
 ]
 
 .pull-right[
@@ -808,7 +808,7 @@ means.dev %>% mutate(txEffects=cellMeans-cellMeans[1])
 <font size=5>
 $H_0: \tau_{P2}=0$ or $H_0: \mu_{P2}=\mu_{E16}$
 
-**Estimate**: $\hat{\tau}_{P2}=\hat{\mu}_{P2}-\hat{\mu}_{E16}=\bar{Y}_{P2}-\bar{Y}_{E16}$
+**Estimate**: $\hat{\tau}_{P2}=\hat{\mu}_{P2}-\hat{\mu}_{E16}=\bar{Y}_{\cdot P2}-\bar{Y}_{\cdot E16}$
 ]
 .pull-right[
 > we *are* usually interested in testing this hypothesis: change from E16 to 2 days old = 0
@@ -827,7 +827,7 @@ means.dev %>% mutate(txEffects=cellMeans-cellMeans[1])
 <font size=5>
 $H_0: \tau_{4W}=0$ or $H_0: \mu_{4W}=\mu_{E16}$
 
-**Estimate**: $\hat\tau_{4W}=\hat\mu_{4W}-\hat\mu_{E16}=\bar{Y}_{.4W}-\bar{Y}_{.E16}$
+**Estimate**: $\hat\tau_{4W}=\hat\mu_{4W}-\hat\mu_{E16}=\bar{Y}_{\cdot 4W}-\bar{Y}_{\cdot E16}$
 ]
 
 .pull-right[
@@ -890,11 +890,11 @@ $$H_0: \tau_{P2}=\tau_{P6}=\tau_{P10}=\tau_{4W}=0$$
 ## *F*-test and overall significance of one or more covariates
 <big>
   - the *t*-test in linear regression allows us to test single hypotheses:
-      $$H_0 : \tau_i = 0$$
+      $$H_0 : \tau_j = 0$$
       $$H_A : \tau_j \neq 0$$
   - but we often like to test multiple hypotheses *simultaneously*: 
       $$H_0 : \tau_{P2} = \tau_{P6} = \tau_{P10} = \tau_{4W}=0\textrm{ [AND statement]}$$
-      $$H_A : \tau_i \neq 0 \textrm{ for some i [OR statement]}$$ the *F*-test allows us to test such compound tests
+      $$H_A : \tau_j \neq 0 \textrm{ for some j [OR statement]}$$ the *F*-test allows us to test such compound tests
 ---
 
 ## To conclude
