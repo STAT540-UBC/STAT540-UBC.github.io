@@ -16,9 +16,11 @@ The objectives for this lecture will be to
 All of the packages you will need are listed below. If you have never used them before, you will need to install them using the commented lines above the library() command. 
 
 ```{r, results='hide', message=FALSE, warning=FALSE}
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("GEOquery")
-#biocLite("biomaRt")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#
+#BiocManager::install("GEOquery")
+#BiocManager::install("biomaRt")
 library(GEOquery)
 library(biomaRt)
 #install.packages("tidyverse")
