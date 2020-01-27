@@ -32,13 +32,20 @@ cdat %>% head(3)
 
 ## link to the class page of any class meetings where such exists
 cmdat <-
-  data.frame(pdf = list.files(path="../lectures/lectures_2020", pattern = '^lect.*pdf$', full.names=TRUE),
+  data.frame(pdf = list.files(path="../lectures/lectures_2020", pattern = '^lect.*pdf', full.names=TRUE),
+             stringsAsFactors = FALSE)
+cmdath <-
+  data.frame(html = list.files(path="../lectures/lectures_2020", pattern = '^lect.*html', full.names=TRUE),
              stringsAsFactors = FALSE)
 cmdat <- cmdat %>% mutate(lect = str_extract(pdf, "lect[0-9]+"))
 cmdat$lect <- sapply(cmdat$lect, str_replace, pattern="lect0*([0-9]+)", replacement="lecture-\\1")
+cmdath <- cmdath %>% mutate(lect = str_extract(html, "lect[0-9]+"))
+cmdath$lect <- sapply(cmdath$lect, str_replace, pattern="lect0*([0-9]+)", replacement="lecture-\\1")
 cdat <- cdat %>% left_join(cmdat, by="lect")
+cdat <- cdat %>% left_join(cmdath, by="lect")
 
 pdf_exists <- Negate(is.na)(cdat$pdf)
+html_exists <- Negate(is.na)(cdat$html)
 
 # Insert placeholder link to notes 
 cdat$notes[pdf_exists] <-
@@ -46,6 +53,9 @@ cdat$notes[pdf_exists] <-
               "(lecture-[0-9]+)|(lecture-[1-9]+)", '<a href="LINK">\\1</a>')
 # Replace placeholder "LINK" which pdf file names 
 cdat$notes[pdf_exists] <- str_replace(cdat$notes[which(pdf_exists)], "LINK", cdat$pdf[which(pdf_exists)])
+
+# Append notes field with link to html if it exists
+cdat$notes[html_exists] <- paste0(cdat$notes[which(html_exists)], " [[html](", cdat$html[which(html_exists)], ")]")
 
 # Insert MATLAB code link 
 cdat$notes <- str_replace(cdat$notes, "MATLAB code", '[MATLAB code](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/lectures/multipleTestingProblemMATLABCode.m)')
@@ -68,6 +78,8 @@ table {
 **Time** : Mon Wed 9:30 - 11am
 
 **Location** : ESB 2012
+
+**Supplemental Files**: Source files for lectures created using Rmarkdown can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/lectures/lectures_2020/source) 
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat_cm[["STAT540"]] %>% select(date, notes, instructor))

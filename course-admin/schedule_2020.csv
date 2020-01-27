@@ -1,41 +1,42 @@
 course,lect,dow,month,day,week,lecture_num,raw_notes,instructor
 STAT540-Seminar,seminar-1,Mon,January,6,1,1,"Introduction to version control, Git, GitHub",TA
 STAT540-Seminar,seminar-2a,Mon,January,13,2,2,"Introduction to Markdown, Knitr",TA
-STAT540-Seminar,seminar-2b,Mon,January,20,3,3,"R graphics -- ggplot2, lattice",TA
-STAT540-Seminar,seminar-2c,Mon,January,27,4,4,Getting your hands dirty with R -- simulate data and do some statistics,TA
-STAT540-Seminar,seminar-3,Mon,February,3,5,4,Load and analyze some gene expression data -- data aggregation with dplyr,TA
-STAT540-Seminar,seminar-4,Mon,February,10,6,5,"Two group testing, fitting and interpreting linear models",TA
+STAT540-Seminar,seminar-2b,Mon,January,13,2,3,"R graphics -- ggplot2, lattice",TA
+STAT540-Seminar,seminar-2c,Mon,January,20,3,4,Getting your hands dirty with R -- simulate data and do some statistics,TA
+STAT540-Seminar,seminar-3,Mon,January,27,4,5,Load and analyze some gene expression data -- data aggregation with dplyr,TA
+STAT540-Seminar,seminar-4,Mon,February,3,5,6,"Two group testing, fitting and interpreting linear models",TA
+STAT540-Seminar,seminar-5,Mon,February,10,6,7,RNA-seq: from beginning to end -- BAM to count data (optional),TA
 STAT540-Seminar,Break,Mon,February,17,7,NA,Family day,
-STAT540-Seminar,seminar-5,Mon,February,24,8,6,RNA-seq: from beginning to end -- BAM to count data (optional),TA
-STAT540-Seminar,seminar-6,Mon,March,2,9,7,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
-STAT540-Seminar,seminar-7,Mon,March,9,10,8,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
-STAT540-Seminar,seminar-8,Mon,March,16,11,9,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
-STAT540-Seminar,seminar-9,Mon,March,23,12,10,Pathway analysis for methylation and gene expression data,TA
-STAT540-Seminar,seminar-10,Mon,March,30,13,11,"Supervised learning, cross-validation, variable selection",TA
+STAT540-Seminar,seminar-6,Mon,February,24,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
+STAT540-Seminar,seminar-7,Mon,March,2,9,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
+STAT540-Seminar,seminar-8,Mon,March,9,10,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
+STAT540-Seminar,seminar-9,Mon,March,16,11,11,Pathway analysis for methylation and gene expression data,TA
+STAT540-Seminar,seminar-10,Mon,March,23,12,12,"Supervised learning, cross-validation, variable selection",TA
+STAT540-Seminar,seminar-11,Mon,March,30,13,NA,Assistance with the Group Project / General office hour,TA
 STAT540,lecture-1,Mon,January,6,1,1,Course intro ,Paul P
 STAT540,lecture-2,Wed,January,8,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Paul P
 STAT540,lecture-3,Mon,January,13,2,3,"Exploratory data analysis, QC ",Paul P
-STAT540,lecture-4,Wed,January,15,2,4,Stats Philosophy & Math/stat background,KK
-STAT540,lecture-5,Mon,January,20,3,5,Statistical Inference - two groups,KK
-STAT540,lecture-6,Wed,January,22,3,6,Statistical Inference - linear regression and ANOVA,KK
-STAT540,lecture-7,Mon,January,27,4,7,"Statistical Inference - linear models (more than two groups, and interaction testing)",KK
-STAT540,lecture-8,Wed,January,29,4,8,Statistical Inference - continuous model + limma,KK
-STAT540,lecture-9,Mon,February,3,5,9,Statistica inference - multiple testing,KK
-STAT540,lecture-10,Wed,February,5,5,10,normalization and batch effects (cellular heterogeneity),SM
+STAT540,lecture-4,Wed,January,15,2,4,Stats Philosophy & Math/stat background,Keegan K
+STAT540,lecture-5,Mon,January,20,3,5,Statistical Inference - two groups,Keegan K
+STAT540,lecture-6,Wed,January,22,3,6,Statistical Inference - linear regression and ANOVA,Keegan K
+STAT540,lecture-7,Mon,January,27,4,7,"Statistical Inference - linear models (more than two groups, and interaction testing)",Keegan K
+STAT540,lecture-8,Wed,January,29,4,8,Statistical Inference - continuous model + limma,Keegan K
+STAT540,lecture-9,Mon,February,3,5,9,Statistical inference - multiple testing,Keegan K
+STAT540,lecture-10,Wed,February,5,5,10,normalization and batch effects (cellular heterogeneity),Sara M
 STAT540,lecture-11,Mon,February,10,6,11,Application of statistical inference to RNA-seq I,Paul P
 STAT540,lecture-12,Wed,February,12,6,12,Application of statistical inference to RNA-seq II,Paul P
 STAT540,Break,Mon,February,17,7,NA,Family day,NA
 STAT540,Break,Wed,February,19,7,NA,Spring break,NA
-STAT540,lecture-13,Mon,February,24,8,13,Unsupervised learning I,SM
-STAT540,lecture-14,Wed,February,26,8,14,Unsupervised learning II,SM
+STAT540,lecture-13,Mon,February,24,8,13,Unsupervised learning I,Sara M
+STAT540,lecture-14,Wed,February,26,8,14,Unsupervised learning II,Sara M
 STAT540,lecture-15,Mon,March,2,9,15,Single cell RNA-Seq data,Geoff
 STAT540,lecture-16,Wed,March,4,9,16,Single cell RNA-Seq data,Geoff
-STAT540,lecture-17,Mon,March,9,10,17,DNA methylation,KK
+STAT540,lecture-17,Mon,March,9,10,17,DNA methylation,Keegan K
 STAT540,lecture-18,Wed,March,11,10,18,Gene set analysis,Paul P
 STAT540,lecture-19,Mon,March,16,11,19,Gene networks and function prediction,Paul P
-STAT540,lecture-20,Wed,March,18,11,20,Supervised I - logistic regression & regularization,SM
-STAT540,lecture-21,Mon,March,23,12,21,Supervised II + NN,SM
-STAT540,lecture-22,Wed,March,25,12,22,TBA,SM
+STAT540,lecture-20,Wed,March,18,11,20,Supervised I - logistic regression & regularization,Sara M
+STAT540,lecture-21,Mon,March,23,12,21,Supervised II + NN,Sara M
+STAT540,lecture-22,Wed,March,25,12,22,TBA,Sara M
 STAT540,lecture-23,Mon,March,30,13,23,Guest lecture ,TBA
 STAT540,lecture-24,Wed,April,1,13,24,Oral presentation,
 STAT540,lecture-25,Mon,April,6,14,25,Oral presentation,
