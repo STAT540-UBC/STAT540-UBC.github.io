@@ -1,10 +1,10 @@
 ---
 title: "Seminar 3 - Data aggregation with dplyr"
-author: "Emma Graham"
+author: "Emma Graham, Victor Yuan"
 output: github_document
 ---
 
---- 
+
 **update Jan 27th, 2020, 12:10PM** 
 
 The following sections are to be submitted for marks:
@@ -13,8 +13,7 @@ The following sections are to be submitted for marks:
 - Part 3 Exercise
 - Part 4 Exercise
 
----
-
+# Objectives
 
 The objectives for this lecture will be to
 

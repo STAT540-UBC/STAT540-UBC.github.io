@@ -1,6 +1,16 @@
 Seminar 3 - Data aggregation with dplyr
 ================
-Emma Graham
+Emma Graham, Victor Yuan
+
+**update Jan 27th, 2020, 12:10PM**
+
+The following sections are to be submitted for marks:
+
+  - Part 2 Exercise
+  - Part 3 Exercise
+  - Part 4 Exercise
+
+# Objectives
 
 The objectives for this lecture will be to
 
@@ -68,7 +78,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## C:\Users\victo\AppData\Local\Temp\Rtmpwf322M/GDS507.soft.gz
+    ## C:\Users\victo\AppData\Local\Temp\RtmpIJKn2b/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
