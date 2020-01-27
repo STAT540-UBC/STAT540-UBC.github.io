@@ -4,6 +4,18 @@ author: "Emma Graham"
 output: github_document
 ---
 
+--- 
+**update Jan 27th, 2020, 12:10PM** 
+
+The following sections are to be submitted for marks:
+
+- Part 2 Exercise
+- Part 3 Exercise
+- Part 4 Exercise
+
+---
+
+
 The objectives for this lecture will be to
 
 -  Understand that some freely available genomic, transcriptomic and proteomic data can be accessed through the Gene Expression Omnibus server (GEO)
@@ -11,7 +23,7 @@ The objectives for this lecture will be to
 -  Use dplyr verbs in conjunction with ggplot2
 -  Run a t-test and isolate the results in a table
 
-#Part 1 - Accessing data using GEOquery
+# Part 1 - Accessing data using GEOquery
 
 All of the packages you will need are listed below. If you have never used them before, you will need to install them using the commented lines above the library() command. 
 
@@ -267,7 +279,7 @@ full_data %>%
 	summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
-##Part 4 Exercise - Take home
+## Part 4 Exercise - Take home
 
 *Make a density plot using geom_density() graph of the p-value distributions of the above t-test. It should look like this:*
 

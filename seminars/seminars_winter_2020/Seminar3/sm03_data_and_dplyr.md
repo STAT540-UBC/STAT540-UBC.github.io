@@ -12,7 +12,7 @@ The objectives for this lecture will be to
   - Use dplyr verbs in conjunction with ggplot2
   - Run a t-test and isolate the results in a table
 
-\#Part 1 - Accessing data using GEOquery
+# Part 1 - Accessing data using GEOquery
 
 All of the packages you will need are listed below. If you have never
 used them before, you will need to install them using the commented
@@ -68,7 +68,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## C:\Users\victo\AppData\Local\Temp\RtmpWCep3K/GDS507.soft.gz
+    ## C:\Users\victo\AppData\Local\Temp\Rtmpwf322M/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -706,7 +706,7 @@ full_data %>%
     ## 10 AASDH       0.0743
     ## # ... with 9,226 more rows
 
-\#\#Part 4 Exercise - Take home
+## Part 4 Exercise - Take home
 
 *Make a density plot using geom\_density() graph of the p-value
 distributions of the above t-test. It should look like this:*
