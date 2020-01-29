@@ -1,23 +1,39 @@
 Seminar 3 - Data aggregation with dplyr
 ================
-Emma Graham
+Emma Graham, Victor Yuan
+
+**update Jan 27th, 2020, 12:10PM**
+
+The following sections are to be submitted for marks:
+
+  - Part 2 Exercise
+  - Part 3 Exercise
+  - Part 4 Exercise
+
+# Objectives
 
 The objectives for this lecture will be to
 
--   Understand that some freely available genomic, transcriptomic and proteomic data can be accessed through the Gene Expression Omnibus server (GEO)
--   Download gene expression datasets using GEOquery and explore the data using dplyr verbs
--   Use dplyr verbs in conjunction with ggplot2
--   Run a t-test and isolate the results in a table
+  - Understand that some freely available genomic, transcriptomic and
+    proteomic data can be accessed through the Gene Expression Omnibus
+    server (GEO)
+  - Download gene expression datasets using GEOquery and explore the
+    data using dplyr verbs
+  - Use dplyr verbs in conjunction with ggplot2
+  - Run a t-test and isolate the results in a table
 
-Part 1 - Accessing data using GEOquery
-======================================
+# Part 1 - Accessing data using GEOquery
 
-All of the packages you will need are listed below. If you have never used them before, you will need to install them using the commented lines above the library() command.
+All of the packages you will need are listed below. If you have never
+used them before, you will need to install them using the commented
+lines above the library() command.
 
 ``` r
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("GEOquery")
-#biocLite("biomaRt")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#
+#BiocManager::install("GEOquery")
+#BiocManager::install("biomaRt")
 library(GEOquery)
 library(biomaRt)
 #install.packages("tidyverse")
@@ -28,19 +44,33 @@ library(data.table)
 library(reshape2)
 ```
 
-A variety of freely available gene expression data is available through the Gene Expression Omnibus (GEO) server. Most of these datasets have associated papers in which they detail data acquisition and analysis methods.
+A variety of freely available gene expression data is available through
+the Gene Expression Omnibus (GEO) server. Most of these datasets have
+associated papers in which they detail data acquisition and analysis
+methods.
 
-To simplify things for its users, GEO has four basic entitys that act as containers for different types of data. The four main types are:
+To simplify things for its users, GEO has four basic entitys that act as
+containers for different types of data. The four main types are:
 
-**GSM** - stores data associated with a single sample, and additional info about how the data was collected
+**GSM** - stores data associated with a single sample, and additional
+info about how the data was collected
 
-**GSE** - stores information about each sample, as well as overall experiment info
+**GSE** - stores information about each sample, as well as overall
+experiment info
 
-**GPL** - stores platform info (i.e the machine used to collect the data)
+**GPL** - stores platform info (i.e the machine used to collect the
+data)
 
-**GDS** - stores curated matrices that are GSM objects in an "analysis-ready" format
+**GDS** - stores curated matrices that are GSM objects in an
+“analysis-ready” format
 
-The first thing we are going to do is download a dataset from the Gene Expression Omnibus (GEO) repository using the GEOquery package. This experiment is exploring gene expression differences between renal cell carcinoma cells (RCC) and adjacent normal cells using an Affymetric array. We are going to download data in the GDS format, as it is already in a nice table for us. Note: you can download any type of GEO data you want using the getGEO function.
+The first thing we are going to do is download a dataset from the Gene
+Expression Omnibus (GEO) repository using the GEOquery package. This
+experiment is exploring gene expression differences between renal cell
+carcinoma cells (RCC) and adjacent normal cells using an Affymetric
+array. We are going to download data in the GDS format, as it is already
+in a nice table for us. Note: you can download any type of GEO data you
+want using the getGEO function.
 
 ``` r
 gds <- getGEO("GDS507")
@@ -48,7 +78,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /tmp/RtmpSuCHPy/GDS507.soft.gz
+    ## C:\Users\victo\AppData\Local\Temp\RtmpIJKn2b/GDS507.soft.gz
 
     ## Parsed with column specification:
     ## cols(
@@ -96,18 +126,18 @@ str(gds)
     ##   .. .. .. ..$ GSM11815  : num [1:22645] 4254 17996 41679 65391 19030 ...
     ##   .. .. .. ..$ GSM11832  : num [1:22645] 5298 12011 39117 34806 15814 ...
     ##   .. .. .. ..$ GSM12069  : num [1:22645] 4026 10284 38759 31257 16356 ...
-    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28308 9580 ...
+    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28309 9580 ...
     ##   .. .. .. ..$ GSM12101  : num [1:22645] 3566 11048 39634 67448 14274 ...
     ##   .. .. .. ..$ GSM12106  : num [1:22645] 4903 13354 43511 56990 17217 ...
-    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57972 19117 ...
-    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57570 17488 ...
+    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57973 19117 ...
+    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57571 17488 ...
     ##   .. .. .. ..$ GSM12412  : num [1:22645] 5206 16018 22152 29062 14672 ...
     ##   .. .. .. ..$ GSM11810  : num [1:22645] 2757 6077 26661 35141 17733 ...
     ##   .. .. .. ..$ GSM11827  : num [1:22645] 3932 15704 26374 23629 18022 ...
-    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22100 17957 ...
+    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22101 17957 ...
     ##   .. .. .. ..$ GSM12099  : num [1:22645] 3223 11614 24749 21651 15958 ...
     ##   .. .. .. ..$ GSM12269  : num [1:22645] 3640 8460 21937 18551 15800 ...
-    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23496 16686 ...
+    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23497 16686 ...
     ##   .. .. .. ..$ GSM12301  : num [1:22645] 4070 11844 22734 21315 18817 ...
     ##   .. .. .. ..$ GSM12448  : num [1:22645] 3482 9742 25396 28631 17421 ...
     ##   .. .. .. ..- attr(*, "spec")=
@@ -157,9 +187,13 @@ str(gds)
     ##   .. ..$ value_type              : chr "count"
     ##   .. ..$ web_link                : chr "http://www.ncbi.nlm.nih.gov/geo"
 
-You can see that the GDS object has many different slots in which to put data. For example, our GDS file has a slot for information about the machine (@GPL), meta data and actual gene expression (@data.table) and information about the experiment and its authors (@header).
+You can see that the GDS object has many different slots in which to put
+data. For example, our GDS file has a slot for information about the
+machine (@GPL), meta data and actual gene expression (@data.table) and
+information about the experiment and its authors (@header).
 
-The first thing we want to do is extract a meta data table, and a gene expression table.
+The first thing we want to do is extract a meta data table, and a gene
+expression table.
 
 ``` r
 meta_data <- data.frame(Sample = gds@dataTable@columns$sample, disease = gds@dataTable@columns$disease.state)
@@ -168,10 +202,10 @@ meta_data <- data.frame(Sample = gds@dataTable@columns$sample, disease = gds@dat
 gds_data <- gds@dataTable@table
 ```
 
-Part 2 - Exploring a gene expression dataset
-============================================
+# Part 2 - Exploring a gene expression dataset
 
-Let's peak at the data to see its structure using head(). This gives us the first few rows of the dataset.
+Let’s peak at the data to see its structure using head(). This gives us
+the first few rows of the dataset.
 
 ``` r
 head(gds_data)
@@ -211,11 +245,17 @@ ncol(gds_data)
 
     ## [1] 19
 
-In our data frame, the first two columns correspond to gene names. ID\_REF refers to the probe name. IDENTIFIER refers to the gene name to which this probe maps. The remaining columns contain expression values for the 17 samples. In summary, we have an array with dimensions 22645 x 19 (row x column).
+In our data frame, the first two columns correspond to gene names.
+ID\_REF refers to the probe name. IDENTIFIER refers to the gene name to
+which this probe maps. The remaining columns contain expression values
+for the 17 samples. In summary, we have an array with dimensions 22645 x
+19 (row x column).
 
-Notice that some gene names are duplicated, because there are multiple probes that map to the same gene. We will deal with this later!
+Notice that some gene names are duplicated, because there are multiple
+probes that map to the same gene. We will deal with this later\!
 
-Now we can start exploring the dataset a bit. Just for fun - let's compute the average count in each sample.
+Now we can start exploring the dataset a bit. Just for fun - let’s
+compute the average count in each sample.
 
 We will do this using a function called apply() in base R.
 
@@ -231,11 +271,15 @@ apply(gds_data[,-c(1, 2)], 2, median)
     ## GSM12448 
     ##    264.3
 
-apply() is useful, but it is limited in that it can only operate on rows, columns, or individual elements of a dataframe directly. More complex operations get get cumbersome.
+apply() is useful, but it is limited in that it can only operate on
+rows, columns, or individual elements of a dataframe directly. More
+complex operations get get cumbersome.
 
-One more versatile set of tools are the **dplyr verbs**. These are a set of functions designed for easy manipulation of data.
+One more versatile set of tools are the **dplyr verbs**. These are a set
+of functions designed for easy manipulation of data.
 
-They are: **filter** - extract rows that meet certain criteria from data frame
+They are: **filter** - extract rows that meet certain criteria from data
+frame
 
 **select** - extract columns that meet certain criteria from data frame
 
@@ -243,17 +287,31 @@ They are: **filter** - extract rows that meet certain criteria from data frame
 
 **arrange** - arrange the data in descending or ascending order
 
-**group\_by** - group rows by descriptors (e.g. group all "control" patients together)
+**group\_by** - group rows by descriptors (e.g. group all “control”
+patients together)
 
-**summarize** - summarize certain statistics from the data (i.e mean, median, mode, number of samples)
+**summarize** - summarize certain statistics from the data (i.e mean,
+median, mode, number of samples)
 
-**join** - a set of methods to combine two tidy datasets, roughly corresponding to typical notions of database joins, see the [join page](https://dplyr.tidyverse.org/reference/join.html) of the tidyverse reference for more information
+**join** - a set of methods to combine two tidy datasets, roughly
+corresponding to typical notions of database joins, see the [join
+page](https://dplyr.tidyverse.org/reference/join.html) of the tidyverse
+reference for more information
 
-Most, if not all, of these operations are available in the `data.table` package, albeit in a less readable syntax. This package was developed to quickly read, write, and manipulate large amounts of data. If you plan to work with large sets of features, it may be helpful to consider learning this framework as well. See the [Introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) vignette for more information.
+Most, if not all, of these operations are available in the `data.table`
+package, albeit in a less readable syntax. This package was developed to
+quickly read, write, and manipulate large amounts of data. If you plan
+to work with large sets of features, it may be helpful to consider
+learning this framework as well. See the [Introduction to
+data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+vignette for more information.
 
-An important thing to know about the dplyr verbs, and data.table for that matter) is that they will only work on data frames that meet certain structural criteria. Namely, each variable must be in its own column. In data science, we call this "tidy" data.
+An important thing to know about the dplyr verbs, and data.table for
+that matter) is that they will only work on data frames that meet
+certain structural criteria. Namely, each variable must be in its own
+column. In data science, we call this “tidy” data.
 
-Let's look at a few small datasets that are "tidy".
+Let’s look at a few small datasets that are “tidy”.
 
 ``` r
 head(iris) #data describing flower parts for several species
@@ -291,9 +349,14 @@ head(band_instruments) #Instruments of the above band members
 
 The iris dataset contains information about certain species of flowers.
 
-As you can see, each variable has its own column, and each row is an instance of that variable. There are no rownames. We can now use dplyr verbs to manipulate the data.
+As you can see, each variable has its own column, and each row is an
+instance of that variable. There are no rownames. We can now use dplyr
+verbs to manipulate the data.
 
-These verbs can be used together in a sequence of functions with the "pipe" operator. R will interpret the output of the previous function as the input to the subsequent function when you put the "pipe" operator ( %&gt;% ) inbetween the functions.
+These verbs can be used together in a sequence of functions with the
+“pipe” operator. R will interpret the output of the previous function
+as the input to the subsequent function when you put the “pipe” operator
+( %\>% ) inbetween the functions.
 
 ``` r
 #select all rows with sepal length greater than 5. 
@@ -361,7 +424,7 @@ iris %>%
     ## 4          4.6         3.1          1.5         0.2 setosa 
     ## 5          5           3.6          1.4         0.2 setosa 
     ## 6          5.4         3.9          1.7         0.4 setosa 
-    ## # … with 1 more variable: Capitalized_names <chr>
+    ## # ... with 1 more variable: Capitalized_names <chr>
 
 ``` r
 #summarize the average sepal length and number of rows belonging to each species.
@@ -434,9 +497,12 @@ band_members %>% full_join(band_instruments)
     ## 3 Paul  Beatles bass  
     ## 4 Keith <NA>    guitar
 
-Now let's apply these functions to our gene expression dataset!
+Now let’s apply these functions to our gene expression dataset\!
 
-One problem: our dataset is not "tidy". Rather, it's arranged like an excel spreadsheet. While intuitive for us to read, dplyr does not like this very much. So, we have to change it. Luckily, the melt() function from the reshape2 package helps out with that.
+One problem: our dataset is not “tidy”. Rather, it’s arranged like an
+excel spreadsheet. While intuitive for us to read, dplyr does not like
+this very much. So, we have to change it. Luckily, the melt() function
+from the reshape2 package helps out with that.
 
 ``` r
 melted_data <- melt(gds_data, id.vars = c("ID_REF", "IDENTIFIER"), var = "Sample")
@@ -451,11 +517,19 @@ head(melted_data)
     ## 5   200004_at     EIF4G2 GSM11815 19030.1
     ## 6   200005_at      EIF3D GSM11815  8824.5
 
-It's hard to describe what this function does. You can see that the first ~20,000 rows will correspond to data from the first column that's not listed in id.vars (GSM11815), and the next group of rows will correspond to data from the second column. You can think of this function as "melting down" a dataset into its simplest form. I would suggest reading [this](http://seananderson.ca/2013/10/19/reshape.html) for more information about what the melt function does.
+It’s hard to describe what this function does. You can see that the
+first \~20,000 rows will correspond to data from the first column that’s
+not listed in id.vars (GSM11815), and the next group of rows will
+correspond to data from the second column. You can think of this
+function as “melting down” a dataset into its simplest form. I would
+suggest reading [this](http://seananderson.ca/2013/10/19/reshape.html)
+for more information about what the melt function does.
 
-Now we have four columns, each one corresponding to a variable: the probe name, the gene name, the sample name and the count.
+Now we have four columns, each one corresponding to a variable: the
+probe name, the gene name, the sample name and the count.
 
-We can do a lot of stuff with this setup! Let's calculate the mean gene expression per sample.
+We can do a lot of stuff with this setup\! Let’s calculate the mean gene
+expression per sample.
 
 ``` r
 melted_data %>% 
@@ -484,7 +558,12 @@ melted_data %>%
     ## 16 GSM12301  770.
     ## 17 GSM12448  757.
 
-Another thing we note is that there are multiple probes that map to a specific gene. In a real life analysis workflow, there are multiple ways to deal with this. Some popular options include picking the probe with the highest expression, or taking the mean/median of all probes' expression. For simplicity, we will use summarize() to take the mean of each probe's expression.
+Another thing we note is that there are multiple probes that map to a
+specific gene. In a real life analysis workflow, there are multiple ways
+to deal with this. Some popular options include picking the probe with
+the highest expression, or taking the mean/median of all probes’
+expression. For simplicity, we will use summarize() to take the mean of
+each probe’s expression.
 
 ``` r
 (new_melted_data <- melted_data %>% 
@@ -493,7 +572,7 @@ Another thing we note is that there are multiple probes that map to a specific g
 ```
 
     ## # A tibble: 279,905 x 3
-    ## # Groups:   Sample [?]
+    ## # Groups:   Sample [17]
     ##    Sample   IDENTIFIER   Count
     ##    <fct>    <chr>        <dbl>
     ##  1 GSM11815 --Control   8139. 
@@ -506,15 +585,22 @@ Another thing we note is that there are multiple probes that map to a specific g
     ##  8 GSM11815 226014_at     66.3
     ##  9 GSM11815 226061_s_at   45.1
     ## 10 GSM11815 226138_s_at   23.3
-    ## # … with 279,895 more rows
+    ## # ... with 279,895 more rows
 
 Now, every gene will only have one value per sample.
 
-Now that we are more familiar with dplyr verbs, we can explore how to access information about genes we are interested in.
+Now that we are more familiar with dplyr verbs, we can explore how to
+access information about genes we are interested in.
 
-The biomaRt package is very useful in this regard. It accesses the ensembl database of gene names and annotations (ensembl.org). biomaRt can help us convert ensemble ids (eg. ENSGXXXXX) into HGNC symbols (i.e BRCA1), for example, along with a host of other things.
+The biomaRt package is very useful in this regard. It accesses the
+ensembl database of gene names and annotations (ensembl.org). biomaRt
+can help us convert ensemble ids (eg. ENSGXXXXX) into HGNC symbols (i.e
+BRCA1), for example, along with a host of other things.
 
-Say we want to learn more about the gene expression on a particular chromosome, across all samples. We can use biomaRt to look up the chromosomal location of each gene. Read the biomaRt manual for more detailed explanation of the following bit of code.
+Say we want to learn more about the gene expression on a particular
+chromosome, across all samples. We can use biomaRt to look up the
+chromosomal location of each gene. Read the biomaRt manual for more
+detailed explanation of the following bit of code.
 
 ``` r
 #open connection between biomaRt and R. 
@@ -531,14 +617,22 @@ data_with_chromosome <- identify_gene_names(new_melted_data) %>%
     filter(chromosome_name %in% c(1:23, "X", "Y"))
 ```
 
-Part 2 Exercise
----------------
+## Part 2 Exercise
 
-*Modify the above code to also identify the length of each gene captured in the dataset we have been working with in the above exercises. This can be done by adding "transcript\_length" as attribute in getBM function. You should end up with an extra column for "transcript length". We will use this number later.*
+*Modify the above code to also identify the length of each gene captured
+in the dataset we have been working with in the above exercises. This
+can be done by adding “transcript\_length” as attribute in getBM
+function. You should end up with an extra column for “transcript
+length”. We will use this number later.*
 
-Let's say we're interested in how the average expression of genes on the X chromosome changes between RCC and normal cells.
+Let’s say we’re interested in how the average expression of genes on the
+X chromosome changes between RCC and normal cells.
 
-The first thing we will do is combine information from the meta data file (meta\_data) with our expression table (data\_with\_chromosome). Then we will use dplyr verbs to first group all samples by disease status, filter out all non-X-chromosome genes, and then calcualte the mean using summarize().
+The first thing we will do is combine information from the meta data
+file (meta\_data) with our expression table (data\_with\_chromosome).
+Then we will use dplyr verbs to first group all samples by disease
+status, filter out all non-X-chromosome genes, and then calcualte the
+mean using summarize().
 
 ``` r
 full_data <- left_join(data_with_chromosome, meta_data, by = "Sample")
@@ -557,15 +651,15 @@ full_data %>%
     ## # A tibble: 2 x 2
     ##   disease  mean
     ##   <fct>   <dbl>
-    ## 1 normal   684.
-    ## 2 RCC      657.
+    ## 1 normal   686.
+    ## 2 RCC      658.
 
-Part 3: Graphing expression data
-================================
+# Part 3: Graphing expression data
 
-What if we want to graph our count data? Time for ggplot!
+What if we want to graph our count data? Time for ggplot\!
 
-Because we can't graph all of the probes, let's choose a random sampling of 100.
+Because we can’t graph all of the probes, let’s choose a random sampling
+of 100.
 
 ``` r
 #choose random number between 1 and however many genes we have. 
@@ -580,19 +674,26 @@ full_data %>%
     ggplot(aes(x = as.factor(chromosome_name), y = Count)) + geom_point()
 ```
 
-![](sm03_data_and_dplyr_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](sm03_data_and_dplyr_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
-Part 3 Exercise
----------------
+## Part 3 Exercise
 
-*By adding one additional function to the code above, calculate the sum of all counts in each sample and divide each expression value by that sum (hint: use mutate). Remember, you can add multiple new columns using mutate by separating each column with a comma (i.e mutate(x = c("a", "b"), y = c("d", "c"))). Plot this new transformed column.*
+*By adding one additional function to the code above, calculate the sum
+of all counts in each sample and divide each expression value by that
+sum (hint: use mutate). Remember, you can add multiple new columns using
+mutate by separating each column with a comma (i.e mutate(x = c(“a”,
+“b”), y = c(“d”, “c”))). Plot this new transformed column.*
 
-Part 4 - Analyzing the results of statistical tests
-===================================================
+# Part 4 - Analyzing the results of statistical tests
 
-Being able to graph these results is useful, but what we really want to do is run statistical tests on the data. There are a variety of ways to do that which will be explored in subsequent lectures. But in this seminar we will focus on doing this using dplyr.
+Being able to graph these results is useful, but what we really want to
+do is run statistical tests on the data. There are a variety of ways to
+do that which will be explored in subsequent lectures. But in this
+seminar we will focus on doing this using dplyr.
 
-In this case, we want to identify the genes that are differentially expressed between the normal and RCC samples. We will use summarize() to perform a t-test for each gene.
+In this case, we want to identify the genes that are differentially
+expressed between the normal and RCC samples. We will use summarize() to
+perform a t-test for each gene.
 
 ``` r
 full_data %>% 
@@ -600,7 +701,7 @@ full_data %>%
     summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
-    ## # A tibble: 9,359 x 2
+    ## # A tibble: 9,236 x 2
     ##    hgnc_symbol pvalue
     ##    <chr>        <dbl>
     ##  1 A1BG        0.708 
@@ -613,15 +714,17 @@ full_data %>%
     ##  8 AAK1        0.0229
     ##  9 AARS2       0.0416
     ## 10 AASDH       0.0743
-    ## # … with 9,349 more rows
+    ## # ... with 9,226 more rows
 
-Part 4 Exercise - Take home
----------------------------
+## Part 4 Exercise - Take home
 
-*Make a density plot using geom\_density() graph of the p-value distributions of the above t-test. It should look like this:*
+*Make a density plot using geom\_density() graph of the p-value
+distributions of the above t-test. It should look like this:*
 
 ![p-value distribution](pvalue_dist.png)
 
-*Note that if you acquired transcript lengths, you should NOT be using that data frame for this task. Can you see why?*
+*Note that if you acquired transcript lengths, you should NOT be using
+that data frame for this task. Can you see why?*
 
-*Also, extract a data frame of all genes with p-values lower than 0.05. Finally, extract the name of the gene with the lowest p-value.*
+*Also, extract a data frame of all genes with p-values lower than 0.05.
+Finally, extract the name of the gene with the lowest p-value.*
