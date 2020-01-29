@@ -613,7 +613,7 @@ It's not clear that genotype affects the intercept or the slope
 | Model | Example | # params (df) | RSS |
 | ----- | ------- | ------------- | ---- |
 | small | gExp ~ Age | $p_{small}=2$ | $RSS_{small}$ |
-| big | gExp ~ Age * gType | $p_{small}=4$ | $RSS_{big}$|
+| big | gExp ~ Age * gType | $p_{big}=4$ | $RSS_{big}$|
 
 <small>
 
@@ -678,7 +678,7 @@ $$Var(\boldsymbol\varepsilon_g) = \sigma^2_g$$
 Estimated error variance:
 $$\hat{\sigma}^2_g = s^2_g = \frac{1}{n-p}\hat{\boldsymbol\varepsilon_g}^T\hat{\boldsymbol\varepsilon_g}$$
 Estimated variance of parameter estimates:
-$$\hat{Var}(\hat{\boldsymbol\alpha}) =  (\mathbf{X}^T\mathbf{X})^{-1}  s^2_g = V s^2_g$$
+$$\hat{Var}(\hat{\boldsymbol\alpha_g}) =  (\mathbf{X}^T\mathbf{X})^{-1}  s^2_g = V s^2_g$$
 $V$ is the "unscaled covariance", and is the same for all genes! 
 
 ---
