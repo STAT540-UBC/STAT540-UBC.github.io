@@ -9,14 +9,14 @@ STAT540-Seminar,seminar-5,Mon,February,10,6,7,RNA-seq: from beginning to end -- 
 STAT540-Seminar,Break,Mon,February,17,7,NA,Family day,
 STAT540-Seminar,seminar-6,Mon,February,24,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",TA
 STAT540-Seminar,office hours,Mon,March,2,NA,NA,Assistance with the Group Project / General office hour,TA
-
+,,,,,,,,
 STAT540-Seminar,seminar-7,Mon,March,9,10,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",TA
-
+,,,,,,,,
 STAT540-Seminar,seminar-8,Mon,March,16,11,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",TA
 STAT540-Seminar,seminar-9,Mon,March,23,12,11,Pathway analysis for methylation and gene expression data,TA
 STAT540-Seminar,seminar-10,Mon,March,30,13,12,"Supervised learning, cross-validation, variable selection",TA
-
-
+,,,,,,,,
+,,,,,,,,
 STAT540,lecture-1,Mon,January,6,1,1,Course intro ,Paul P
 STAT540,lecture-2,Wed,January,8,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Paul P
 STAT540,lecture-3,Mon,January,13,2,3,"Exploratory data analysis, QC ",Paul P
@@ -31,10 +31,10 @@ STAT540,lecture-11,Mon,February,10,6,11,Application of statistical inference to 
 STAT540,lecture-12,Wed,February,12,6,12,Application of statistical inference to RNA-seq II,Paul P
 STAT540,Break,Mon,February,17,7,NA,Family day,NA
 STAT540,Break,Wed,February,19,7,NA,Spring break,NA
-STAT540,lecture-13,Mon,February,24,8,13,Unsupervised learning I,Sara M
+STAT540,lecture-13,Mon,February,24,8,13,Principal Component Analysis (PCA),Sara M
 STAT540,lecture-14,Wed,February,26,8,14,Single cell RNA-Seq data,Geoff
 STAT540,lecture-15,Mon,March,2,9,15,Single cell RNA-Seq data,Geoff
-STAT540,lecture-16,Wed,March,4,9,16,Unsupervised learning II,Sara M
+STAT540,lecture-16,Wed,March,4,9,16,Cluster Analysis,Sara M
 STAT540,lecture-17,Mon,March,9,10,17,DNA methylation,Keegan K
 STAT540,lecture-18,Wed,March,11,10,18,Gene set analysis,Paul P
 STAT540,lecture-19,Mon,March,16,11,19,Gene networks and function prediction,Paul P
