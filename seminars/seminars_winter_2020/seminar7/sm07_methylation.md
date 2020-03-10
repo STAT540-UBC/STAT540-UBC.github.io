@@ -52,7 +52,7 @@ As you can see, the datasets we got are large lists including Beta values as wel
 **IMPORTANT NOTE:** Due to many factors (like server load, your internet connection, and more) downloading the following large dataset from GEO may take a considerable amount of time. To make your life easier a pre-formatted version of the data has been made available at [this](https://www.dropbox.com/s/vkijisly8zwxkk9/methyl_ALL.Rdata?dl=0) link. Just download it and place it next to your rmd file to be able to finish the assignment without waiting to download data from GEO.
 
 ``` r
-if(file.exists("methyl_ALL.RData")){ # if previously downloaded
+if(file.exists("methyl_ALL.Rdata")){ # if previously downloaded
   load("methyl_ALL.RData")
 } else { # if downloading for the first time
   GSE39141 <- getGEO('GSE39141')
