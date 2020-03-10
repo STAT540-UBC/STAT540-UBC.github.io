@@ -53,7 +53,7 @@ As you can see, the datasets we got are large lists including Beta values as wel
 
 ``` r
 if(file.exists("methyl_ALL.Rdata")){ # if previously downloaded
-  load("methyl_ALL.RData")
+  load("methyl_ALL.Rdata")
 } else { # if downloading for the first time
   GSE39141 <- getGEO('GSE39141')
   show(GSE39141) ## 33 samples (29 ALL and 4 healthy B cells)
