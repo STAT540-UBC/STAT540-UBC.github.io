@@ -125,7 +125,7 @@ A one-page individual report as `individual_report.md` should be in your individ
 
 **Answer to one question specific to your project**
 
-We will ask each group one question about some aspects of their project. Each student should answer to the question **individually** in the individual report.
+We will ask each group one question about some aspects of their project. Each student should answer the question **individually** in the individual report.
 
 
 
