@@ -3,9 +3,11 @@ title: "Group project rubrics"
 output:
   html_document:
     includes:
-      before_body: ../include/nav.html
       after_body: ../include/nothing.html
-    toc: true
+      before_body: ../include/nav.html
+    toc: yes
+  pdf_document:
+    toc: yes
 ---
 
 This page contains more specific requirements for each project deliverable as well as their points breakdown.
@@ -110,12 +112,15 @@ Your submitted presentation is evaluated in 5 different categories. You can find
 ## Individual report (5 pts)
 
 A one-page individual report as `individual_report.md` should be in your individual private repository. It includes:
-**A concise summary of contributions of each group member (2 pts)**
+
+
+**A concise summary of contributions of each group member (1 pts)**
 
 - Describes the tasks and contributions of each of your group members
 - Do you think the task assignments were fairly assigned and appropriate given each member’s background and skills? If no, how would you change it?
 
-**Your specific contributions and comments (3 pts)**
+
+**Your specific contributions and comments (1 pts)**
 
 - Explain what are your contributions to the project?
 - What worked well and what did not? What was the most challenging or rewarding moment during your group project?
@@ -123,9 +128,10 @@ A one-page individual report as `individual_report.md` should be in your individ
 - What have you learned from this group project? 
 - Any other comments on how the group project could have been structured differently (i.e. delivery requirements, assessment") 
 
-**Answer to one question specific to your project**
 
-We will ask each group one question about some aspects of their project. Each member of the group should answer the question **individually** in the individual report.
+**Answer to one question specific to your project (3 points)**
+
+- We will ask each group one question about some aspects of their project. Each member of the group should answer the question **individually** in the individual report.
 
 
 
