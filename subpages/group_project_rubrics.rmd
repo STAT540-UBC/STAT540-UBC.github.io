@@ -123,7 +123,8 @@ A one-page individual report as `individual_report.md` should be in your individ
 - What have you learned from this group project? 
 - Any other comments on how the group project could have been structured differently (i.e. delivery requirements, assessment") 
 
-**Question specific to the material in your presentation**
+**Answer to one question specific to your project**
+
 We will ask each group one question about some aspects of their project. Each student should answer to the question **individually** in the individual report.
 
 
