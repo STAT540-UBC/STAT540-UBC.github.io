@@ -89,7 +89,7 @@ Due to the situation with COVID-19, we will not have oral presentation sessions 
 
 - a presentation file (.PPTX) similar to the slides you would have presented in the class if the presentations were not cancelled.
 
-- a .DOCX text file in which you explain the material in your persentation slides.
+- a .DOCX text file in which you explain the material in your presentation slides.
 
 
 The volume of materials in your presentation (e.g. number of pages) should be appropriate for a 15 minutes oral presentation (even though you are not going to present orally anymore). 
@@ -124,7 +124,7 @@ A one-page individual report as `individual_report.md` should be in your individ
 - Any other comments on how the group project could have been structured differently (i.e. delivery requirements, assessment") 
 
 **Question specific to the material in your presentation**
-We will ask each group one question about some aspects of their project. Each student should asnwer to the question **individually** in the individual report.
+We will ask each group one question about some aspects of their project. Each student should answer to the question **individually** in the individual report.
 
 
 
