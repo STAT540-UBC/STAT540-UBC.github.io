@@ -87,15 +87,15 @@ You do not need to open an issue and tag TAs for this. Just make sure that your 
 ## Oral presentation (20 pts)
 Due to the situation with COVID-19, we will not have oral presentation sessions anymore. Instead, we ask you to post the following files to your group repository:
 
-- a PPTX file containing slides explaining your project (similar to the slides you would have presented in the class if the presentations were not cancelled.).
+- a presentation file (.PPTX) similar to the slides you would have presented in the class if the presentations were not cancelled.
 
-- a DOCX text file in which you explain the material in your slides.
-
-
-Please set the volume of materials in your presentation (e.g. number of pages) appropriate for a 15 minutes oral presentation (even though you are not going to present orally anymore).
+- a .DOCX text file in which you explain the material in your persentation slides.
 
 
-Your presentation files as `presentation.PPTX` and `presentation_document.DOCX` should be in your root group repo. For all the things you need for your presentation, you can create a subdirectory and keep your stuff there. Please provide a link to your `presentation.PPTX` and `presentation_document.DOCX` files in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 31st, 2020_</span>.
+The volume of materials in your presentation (e.g. number of pages) should be appropriate for a 15 minutes oral presentation (even though you are not going to present orally anymore). 
+
+
+Your presentation files ( `presentation.PPTX` and `presentation_document.DOCX`) should be in your root group repo. For all the things you need for your presentation, you can create a subdirectory and keep your stuff there. Please provide a link to your `presentation.PPTX` and `presentation_document.DOCX` files in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 31st, 2020_</span>.
 
 
 <!-- **Presentation session** -->
@@ -125,7 +125,7 @@ A one-page individual report as `individual_report.md` should be in your individ
 
 **Question specific to the material in your presentation**
 We will ask each group one question about some aspects of their project. Each student should asnwer to the question **individually** in the individual report.
-The quality of your answers would affect your Oral presentation mark. 
+
 
 
 Please provide a link to your `individual_report.md` file in your private repository `README.md`. This is not a group-level deliverable so every student should submit it by linking it in an issue with name Individual report of [your private repository name], provide the revision SHA and tag the TAs by the due date 
