@@ -161,13 +161,13 @@ kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
 **Class mettings** 
 
 - Time : Mon Wed 9:30 - 11am
-- Location: ESB 2012
+- Location: Online - Meeting links and recordings posted in Canvas
 - See [Lectures](lectures.html) for lecture materials, schedule, and deadlines 
 
 **Seminars**
 
-- Time : Mon 12pm - 1pm
-- Location: Orchard Commons 4074
+- Time : Wed 12pm - 1pm
+- Location: Online - Meeting links posted in Canvas
 - See [Seminars](seminars.html) for schedule and seminar materials 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 

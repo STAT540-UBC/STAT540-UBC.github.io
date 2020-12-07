@@ -39,9 +39,9 @@ A one-page proposal as `project_proposal.md`. Please make sure that you have inc
 - For each of the aims, what computational/statistical approaches did you use? (Note: your methodology might change as you are progressing, exploring your data and reading through the literature)
 - Provide references for any sections as needed.
 
-Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by <span style="color: red">_Feb. 13th, 2020_</span>.
+Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by the due date.
 
-## Progress report (10 pts)
+## Progress report (8 pts)
 
 Your group progress report entitled `progress_report.md`.
 
@@ -51,7 +51,7 @@ Your group progress report entitled `progress_report.md`.
 - Have you decided to do a different analysis than what was mentioned in your proposal? If so, Why?
 - Are there any changes in task assignments of group members?
 
-**What is the progress of the analyses (5 pts.)**
+**What is the progress of the analyses (4 pts.)**
 
 - Since your initial proposal, you should have decided more concretely on what methods to use for each step of your analyses, and employed some of those methods.
 - Briefly and concisely explain your methodology and progress for the aims you have investigated so far. Which parts were modified and which parts remained the same?
@@ -59,9 +59,11 @@ Your group progress report entitled `progress_report.md`.
 - Provide the links to any markdown reports within your repo to refer to the relevant analysis. 
 - Provide references.
 
-**Results (3 pts.)**
-- What are your primary results? Were you able to answer your hypothesis? Did you have any positive results? If no, postulate a discussion as to why that may be. Provide plots and/or tables to present your results.
-- List some challenges that you encountered? How will you address them?
+**Results (2 pts.)**
+
+- What are your primary results? 
+- Were you able to answer your hypothesis? Did you have any positive results? If no, postulate a discussion as to why that may be. Provide plots and/or tables to present your results.
+- List some challenges that you have encountered or anticipate. How will you address them?
 
 Please provide a link to your `progress_report.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repo can call it "Progress report of [group name]"", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by the due date. 
 
@@ -97,7 +99,7 @@ Due to the situation with COVID-19, we will not have oral presentation sessions 
 The volume of materials in your presentation (e.g.the number of pages) should be appropriate for a 15 minutes oral presentation (even though you are not going to present orally anymore). 
 
 
-Your presentation files ( `presentation.PPTX` and `presentation_document.DOCX`) should be in your root group repo. For all the things you need for your presentation, you can create a subdirectory and keep your stuff there. Please provide a link to your `presentation.PPTX` and `presentation_document.DOCX` files in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by <span style="color: red">_March 31st, 2020_</span>.
+Your presentation files ( `presentation.PPTX` and `presentation_document.DOCX`) should be in your root group repo. For all the things you need for your presentation, you can create a subdirectory and keep your stuff there. Please provide a link to your `presentation.PPTX` and `presentation_document.DOCX` files in your group repo `README.md`. This is a group-level deliverable so one of your group member should submit it by linking it in an issue with name "Presentation of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project by the due date.
 
 
 <!-- **Presentation session** -->
@@ -106,33 +108,40 @@ Your presentation files ( `presentation.PPTX` and `presentation_document.DOCX`) 
 
 **Presentation evaluation**
 
-Your submitted presentation is evaluated in 5 different categories. You can find the rubric for presentation evaluation [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/posterRubric2012.pdf).
+Your oral presentation is evaluated in 4 major categories:
+
+1. Background/introduction
+2. Statistical analysis
+3. Quality of presentation
+4. Scientific maturity
+
+You can find the full detailed rubric for presentation evaluation in each of these categories [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/posterRubric2012.pdf).
 
 
-## Individual report (5 pts)
+## Individual report (7 pts)
 
 A one-page individual report as `individual_report.md` should be in your individual private repository. It includes:
 
+**Peer evaluation (2 pts)**
 
-**A concise summary of contributions of each group member (1 pts)**
+- You will be randomly assigned to provide peer feedback for two (2) oral presentations from other teams.
+- Following the presentations, please review and provide constructive feedback using the 4-component [Reflect Inquire Suggest Elevate (RISE) model of peer feedback](https://www.risemodel.com/s/RISE-Model-Peer-EmilyWray.pdf). Include a statement/question for each of the 4 RISE components. 
+- Please copy and paste each of your peer reviews as a discussion post in the discussion repo (so that the teams can receive your feedback), and include links to these posts in this report.
+
+
+**A concise summary of contributions of each group member (2 pts)**
 
 - Describes the tasks and contributions of each of your group members
 - Do you think the task assignments were fairly assigned and appropriate given each member’s background and skills? If no, how would you change it?
 
 
-**Your specific contributions and comments (1 pts)**
+**Your specific contributions and comments (3 pts)**
 
 - Explain what are your contributions to the project?
 - What worked well and what did not? What was the most challenging or rewarding moment during your group project?
 - How did you find having members of different backgrounds for a scientific project? 
 - What have you learned from this group project? 
 - Any other comments on how the group project could have been structured differently (i.e. delivery requirements, assessment") 
-
-
-**Answer to one question specific to your project (3 points)**
-
-- We will ask each group one question about some aspects of their project. Each member of the group should answer the question **individually** in the individual report.
-
 
 
 Please provide a link to your `individual_report.md` file in your private repository `README.md`. This is not a group-level deliverable so every student should submit it by linking it in an issue with name Individual report of [your private repository name], provide the revision SHA and tag the TAs by the due date 

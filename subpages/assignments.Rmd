@@ -16,7 +16,7 @@ You will have three individual assignments and one group project:
 - One statistics homework (30 pts)
 - Final group project (50 pts) which contains multiple parts. 
 
-<font color="red">**Deadlines are all by 11.59 pm of the due date**</font>
+<font color="red">**Deadlines are all by 11:59 pm (Pacific time) on the due date**</font>
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html) 
 
@@ -59,7 +59,7 @@ The questions and links to the dataset are avalable [here](https://github.com/ST
 
 ### Deliverables
 
-See the [**rubrics for project**](group_project_rubrics.html). 
+Deliverables and rubrics for each component of the final group project can be found on the [**rubrics page**](group_project_rubrics.html). 
 
 ### General principles
 
@@ -101,17 +101,17 @@ Groups should have 4 members. We strongly encourage that groups be diverse in te
 ## STAT 540 Homework Submission Instructions
 
 **GitHub**
-You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2020`. We assume that 
+You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2021`. We assume that 
 
 * You've already installed Git and (probably) a Git client.
 * You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
 * All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
 
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2020`). Do not use branches or other repositories.
+**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2021`). Do not use branches or other repositories.
   
 **Set-up your private GitHub repo for homework**
 
-  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2020` now.
+  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2021` now.
   * Make a top-level directory for your assignment, e.g. `Homework`
     - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
   * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
@@ -161,9 +161,9 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
 
 ### Assignment Timeline
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
-assn <- read.csv("../course-admin/assn_2020.csv")
+assn <- read.csv("../course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -173,13 +173,13 @@ assn <- assn %>%
 knitr::kable(assn)
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
-assignment_data <- read.csv("../course-admin/assn_2020.csv",as.is = T,sep = ",")
+assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 
-> If you're concerned that something hasn't gone right with the submission, send Sina and Victor (sjafarzadeh@cmmt.ubc.ca and victor.2wy@gmail.com) an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will pester and work with you until you eventually get it submitted via GitHub.
+> If you're concerned that something hasn't gone right with the submission, send the TAs an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will work with you until you eventually get it submitted via GitHub.
 
