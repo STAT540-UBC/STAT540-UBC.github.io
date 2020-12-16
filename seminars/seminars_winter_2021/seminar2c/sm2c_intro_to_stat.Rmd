@@ -87,7 +87,7 @@ These plots are visualizations of the normal distribution's probability density 
 
 Here are a few more probability density plots for the normal distribution with different means and standard deviations. We recommend that you try running the code line by line so that you understand exactly what happens every step of the way! 
 
-From the code, can you figure out which color corresponds to which set of paramters? (mean & standard deviation)
+From the code, can you figure out which color corresponds to which set of parameters? (mean & standard deviation)
 
 ```{r}
 
