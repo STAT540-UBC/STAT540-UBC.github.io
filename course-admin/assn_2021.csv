@@ -1,0 +1,16 @@
+id,content,start,end,Category,style
+1,Warm-Up,2021-01-21,,Individual Assignment,background-color: gold;
+2,Paper Critique,2021-02-25,,Paper Critique,background-color: aqua;
+3,Analysis Assignment,2021-03-29,,Individual Assignment,background-color: pink;
+4,Project Groups and Initial Proposal,2021-01-28,,Group Project,background-color: lavender;
+5,Finalized Project Proposal,2021-02-18,,Group Project,background-color: lavender;
+6,Project Progress Report,2021-03-19,,Group Project,background-color: lavender;
+7,Presentation Submission,2021-04-06,,Group Project,background-color: lavender;
+8,Github Repo,2021-04-09,,Group Project,background-color: lavender;
+9,Individual Report,2021-04-14,,Group Project,background-color: lavender;
+10,Seminar 1,2021-01-18,,Seminar,background-color: palegreen;
+11,Seminar 2a & 2b,2021-01-25,,Seminar,background-color: palegreen;
+12,Seminar 2c,2021-02-01,,Seminar,background-color: palegreen;
+13,Seminar 3,2021-02-08,,Seminar,background-color: palegreen;
+14,Seminar 4,2021-02-15,,Seminar,background-color: palegreen;
+15,Seminar 6,2021-03-08,,Seminar,background-color: palegreen;

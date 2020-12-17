@@ -20,19 +20,19 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 
 ### Time and Location
 
-06 January 2020 - 08 April 2020
+11 January 2021 - 14 April 2021
 
 #### Lecture (Sec 201)
 
 **Time**: Mon Wed 9:30 - 11am
 
-**Location**: ESB 2012
+**Location**: Online - Meeting links posted in Canvas
 
-#### Seminar / computing lab (S2B) -- REGISTRATION IS REQUIRED!
+#### Seminar / computing lab (Sec S2B) -- REGISTRATION IS REQUIRED!
 
-**Time**: every Monday 12 - 1pm. The TAs will remain in the lab until 1pm for general office hours.
+**Time**: Wed 12 - 1pm. 
 
-**Location**: Orchard Commons 4074
+**Location**: Online - Meeting links posted in Canvas
 
 ### Learning objectives:
 
@@ -61,12 +61,12 @@ The course organization on GitHub: <https://github.com/STAT540-UBC>
 
 Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.github.io>
 
-Repo that supports the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
+Repo that serves as the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
 ### Major deadlines
-```{r, echo=FALSE}
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
-assn <- read.csv("course-admin/assn_2020.csv")
+assn <- read.csv("course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -78,11 +78,16 @@ knitr::kable(assn)
 
 ### Assignment Timeline
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
-assignment_data <- read.csv("course-admin/assn_2020.csv",as.is = T,sep = ",")
+assignment_data <- read.csv("course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 
+### Copyright 
+
+[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+All materials of the course are licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) license.

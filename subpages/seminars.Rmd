@@ -16,28 +16,18 @@ library(here)
 ```
 
 ```{r include = FALSE}
- GitHubUsername = ""
- GitHubPassword = ""
-# 
- githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
-seminarPathInInstructorsOnly = 'seminars/seminars_winter_2020'
-seminarPathGithubIO = 'seminars/seminars_winter_2020'
-# 
-# unlink(here(seminarPathGithubIO), force = TRUE, recursive = TRUE)
-# system(glue('svn checkout --username {GitHubUsername} --password {GitHubPassword} https://github.com/STAT540-UBC/STAT540-instructors-only/trunk/{seminarPathInInstructorsOnly}'))
-# dir.create(dirname(here(seminarPathGithubIO)),showWarnings = FALSE,recursive = TRUE)
-# file.copy(basename(seminarPathInInstructorsOnly), dirname(here(seminarPathGithubIO)),recursive = TRUE)
-# unlink(basename(seminarPathInInstructorsOnly), force =TRUE, recursive = TRUE)
+githubLink = 'https://github.com/STAT540-UBC/STAT540-UBC.github.io'
+seminarPathGithubIO = 'seminars/seminars_winter_2021'
 
 # Import schedule
-rawdat <- read.csv(file.path("../course-admin", "schedule_2020.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
+rawdat <- read.csv(file.path("../course-admin", "schedule_2021.csv"), stringsAsFactors = FALSE, colClasses = list(course = 'factor', dow = 'factor'))
 rawdat$course <- as.factor(rawdat$course)
 
 # Seminar meetings 
 rawdat_sm <- rawdat[rawdat$course == "STAT540-Seminar",]
 
 sdat <- rawdat_sm %>%
-  mutate(ugly_date = ISOdate(2020, match(month, month.name), day),
+  mutate(ugly_date = ISOdate(2021, match(month, month.name), day),
          date = sprintf("%s-%02d %s",
                         months(ugly_date, abbreviate = TRUE),
                         day, dow))
@@ -45,29 +35,37 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', full.names=TRUE,recursive = TRUE),
-             stringsAsFactors = FALSE)
+  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', 
+                               full.names=TRUE,recursive = TRUE),
+                               stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
 
- sdat <- sdat %>% left_join(smdat, by="lect")
+sdat <- sdat %>% left_join(smdat, by="lect")
 
-##seminar 00 from STAT545
-
-#separate links to seminar 01 parts
-sdat$html[sdat$lect=="seminar-1a"] <-c('https://stat545-ubc.github.io/git01_git-install.html')
 
 
 html_exists = Negate(is.na)(sdat$html)
 
+
 sdat$lect[html_exists] <-
   str_replace(sdat$lect[html_exists],
-              pattern="(^seminar-.*)", replacement='<a href="LINK">\\1</a>')
+              pattern="(^seminar-.*)", replacement='[\\1](LINK)')
 sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], 
                                       "LINK", 
                                       file.path(githubLink,'tree/master',
                                                 str_replace(sdat$html[html_exists],'\\.\\.','')
                                                 ))
+
+#sdat$lect[html_exists] <-
+#  str_replace(sdat$lect[html_exists],
+#              pattern="(^seminar-.*)", replacement='<a href="LINK">\\1</a>')
+#sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], 
+#                                      "LINK", 
+#                                      file.path(githubLink,'tree/master',
+#                                                str_replace(sdat$html[html_exists],'\\.\\.','')
+#                                                ))
+sdat$lect <- gsub("https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/", "..", sdat$lect)
 
 dat_sm <- sdat %>% split(sdat$course)
 dat_sm <- lapply(dat_sm, 'rownames<-', NULL)
@@ -83,26 +81,30 @@ table {
 
 ### Seminars
 
-**Time**: Monday 12 - 1pm
+**Time**: Wednesday 12 - 1pm
 
-**Location**: Orchard Commons 4074
+**Location**: Online - Meeting links and recordings posted in Canvas
 
 ```{r results = 'asis', echo = FALSE}
-knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor))
+assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
+seminar_num <- assignment_data$content
+seminar_num[!grepl("Seminar", seminar_num)] <- NA
+seminar_num <- gsub("Seminar ", "", seminar_num)
+seminar_num <- gsub(" &", "", seminar_num)
+
+htmls <- dat_sm[["STAT540-Seminar"]]$html
+htmls <- tolower(sapply(strsplit(htmls, "/"), function(x) if(length(x) > 1){x[[4]]}else{x}))
+htmls <- gsub("seminar", "", htmls)
+htmls <- gsub("10", "X", htmls)
+
+knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor, mode) %>%
+            dplyr::rename(Date=date, Seminar=lect, Topic=raw_notes, Instructor=instructor, Mode=mode), 
+            "html") %>% 
+  kableExtra::kable_styling(full_width = TRUE)
 ```
 
 **Supplemental materials** 
 
-  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf) | R bootcamp -  Getting Started with R, PDF
-  * [seminar 0a](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx) | R bootcamp - Getting Started with R, worksheet
-  * [seminar 0b quiz](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform) Check your understanding - Molecular biology quiz
-
-### Assignment Timeline
-
-```{r,echo=FALSE}
-library(timevis)
-
-assignment_data <- read.csv("../course-admin/assn_2020.csv",as.is = T,sep = ",")
-assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-timevis(assignment_data)
-```
+  * seminar 0a | Getting Started with R ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf), [Worksheet](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx))
+  * seminar 0b | Molecular Biology Intro ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf), [Quiz to check your understanding](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform))
+  
