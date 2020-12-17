@@ -1,73 +1,109 @@
 ---
 title: "Syllabus"
+subtitle: "STAT/BIOF/GSAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021)"
 output:
   html_document:
     includes:
       before_body: ../include/nav.html
       after_body: ../include/nothing.html
     toc: true
+toc-title: "Contents"
 ---
 
-### Prerequisites and useful skills
+## Land acknowledgement
 
-Officially none BUT here in reality ...
+We respectfully recognize that the University of British Columbia Vancouver campus is located on the traditional, ancestral, and unceded territory of the xʷməθkʷəy̓əm (Musqueam) people. In our current virtual learning environment, we are coming together from locations throughout Vancouver, BC, Canada, and the world. Please take a moment to learn about the territory you are occupying by visiting [this interactive indigenous land map](https://native-land.ca/).
 
-**Statistics**: You should have already taken university level introductory statistics course.
+## Teaching Team
 
-**Biology**: 
+Virtual office hours listed below are on a drop-in basis (no appointment necessary) and Zoom links will be posted in Canvas. For more info on the Teaching team, including brief bios, see the [People](people.html) page.
 
-- No requirements, but you are expected to learn things like the difference between a DNA and RNA and a gene and a genome
-- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master//seminars/seminars_winter_2020/seminar0c/sm01e_biology-intro-2017.pdf) 
+#### **Instructor**
+Keegan Korthauer, Ph.D (She/Her/Hers)  
+Email: <keegan@stat.ubc.ca>  
+Office hours: will be determined after a class poll of students' availability
+
+#### **Teaching Assistants**
+
+Jenkin Tsui  
+Email: <jenkin.tsui@aya.yale.edu>  
+Office hours: Friday 3-4pm (Pacific time)
+
+Marco Tello Palencia  
+Email: <Marco.TelloPalencia@bcchr.ca>  
+Office hours: Tuesday 10-11am (Pacific time)
+
+#### **Guest Lecturers**
+
+We are also fortunate to have several guest lectures throughout the course. See the [Lecture](lectures.html) schedule and [People](people.html) page for more info.
+
+## Course communication
+
+In the web-oriented setting, it is vital that we have a dedicated plan for how we will communicate throughout the semester.
+
+**General questions**: We encourage you to use the [course Github Discussion repository](https://github.com/STAT540-UBC/Discussion) (you will be granted access after we collect your Github user IDs) for posting questions, so that the message can be seen by the entire teaching team, and so that others in the class who might have the same question can learn from responses. You are also welcome to share your input on questions posted by others. Course announcements will also be posted in this repository, so please check it regularly (and/or subscribe to notifications).
+
+**Private matters**: For private matters, please contact the Teaching team by email (listed above).
+
+**Group work**: In your final project teams, we encourage you to make use of the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
+
+## Schedule  
+
+#### **Lectures** 
+
+- Time : Mon Wed 9:30 - 11am*
+- Location: Online (Zoom) - Meeting links and recordings posted in Canvas
+- *Note that some lectures will be asynchronous/prerecorded - see [Lectures](lectures.html) for lecture materials and schedule 
+
+#### **Seminars**
+
+- Time : Wed 12pm - 1pm
+- Location: Online (Zoom) - Meeting links posted in Canvas
+- See [Seminars](seminars.html) for schedule and seminar materials 
+- We strongly recommend reading the seminar materials prior to attending each seminar. 
+
+
+## Prerequisites and useful skills
+
+This interdisciplinary course requires a broad range of skills at the interface of statistics, molecular biology / genomics, and computing. While you may have some background in one or more of the following areas, you are not expected to be an expert in all. That said, to be successful in the course, you may need to spend a bit more time in the areas that you have less experience in. Although there are no official prerequisites for the course, here is a list of useful skills to bring into the course and/or learn along the way.
+
+**Statistics**: You should have already taken a university level introductory statistics course.
+
+**Biology**: No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome. See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material. 
 
 **R**: 
 
-- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R. 
+- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R or used it in your research 
 - Start now by installing R and the HIGHLY RECOMMENDED "integrated development environment" (IDE) RStudio! 
-- Best set-up: be able to run R on your own computer and bring your own laptop to each seminar.
+- You should be able to run R on your own computer during each seminar
 - If you are new to R, check out [this blog post on getting started with R](http://santina.me/r/2015/12/15/Get-started-with-R.html). 
 
-**Others:** 
+**Other computing tools:** 
 
-- You'll need to know how to use [Git](https://stat545-ubc.github.io/git01_git-install.html) and GitHub. 
+- You'll need to learn how to use [Git](https://stat545-ubc.github.io/git01_git-install.html) and GitHub. 
 - We'll soon learn about [using Rmarkdown](https://stat540-ubc.github.io/seminars/sm02a_rMarkdown.html) to generate reports, and you'll be using that a lot in this course. 
 
-### Evaluation
+## Course-level learning objectives
 
-Students may ask for extensions with a documented excuse (like: computer caught on fire, sickness). No "I just need more time" extensions.
+  * Perform exploratory data analysis and visualize genomics data
+  * Apply tailored statitical methods to answer questions using high dimensional biological data
+  * Make your work reproducible, reusable, and shareable
+  * Work with real data in a collaborative model
 
-**Seminar completion (10%)**
+## Evaluation
 
-- Submit "deliverable" for seminars 1, 2, 3, 4, and 6
-- Deliverable must be submitted by the end of the week seminar is completed (leniency will be given for the first 2 weeks of the course)
-- 2pts per deliverable 
+You will have three individual assignments, five seminar submissions, and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. Students may request extensions with a documented excuse.
 
-**Dates:**
+For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html). For detailed instructions on how to turn in your assignments, see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions).
 
-```{r, echo = FALSE}
+### Warm-up Assignment (5%)
+
+- An introductory assignment designed to assess basic knowledge of GitHub, R and Rmarkdown
+
+```{r, echo = FALSE, warning =  FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2020.csv")
-assn <- assn %>% 
-  select(content, start, Category) %>%
-  rename(Assignment = content, `Due Date` = start) %>%
-  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
-  arrange(`Due Date`) %>% 
-  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
-```
-
-**Warm-up Assignment (5%)**
-
-- The assignment is worth 5 points.
-- tests basic knowledge of GitHub, R and Rmarkdown
-- Late penalty: -1 point per day
-
-**Dates:**
-
-```{r, echo = FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2020.csv")
+assn <- read.csv("../course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start,Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -77,20 +113,35 @@ assn <- assn %>%
 kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
 ```
 
-**Paper critique (5%)**
+### Seminar completion (10%)
 
-- Summarize and critique 1 paper - 6 points
-- Select, read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
-- Instruction on the paper critiques will be posted shortly
-- [Paper critique instruction](https://stat540-ubc.github.io/subpages/assignments.html)
-- Late penalty: -1 points per day
+- You will submit "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6
+- These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research.
+- Each deliverable is due on the Monday following the TA-led session for that seminar
 
-**Dates:**
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning =  FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2020.csv")
+assn <- read.csv("../course-admin/assn_2021.csv")
+assn <- assn %>% 
+  select(content, start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
+```
+
+### Paper critique (5%)
+
+- Read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
+- For detailed instructions, refer to [the course work page](https://stat540-ubc.github.io/subpages/assignments.html#paper-review)
+
+```{r, echo = FALSE, warning =  FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+assn <- read.csv("../course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -100,17 +151,17 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
 ```
 
-**Homework (30%)**: 
+### Analysis assignment (30%) 
 
-- The assignment is worth 30 points. 
-- Involves detailed analysis of real data using R 
+- Involves detailed analysis of real data using R
+- This assignment will assess your ability to understand and apply the methods learned in class 
+- For more detailed instructions, see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#analysis-assignment) and the [markdown document with the questions](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_analysis_assignment.md)
 
-**Dates:**
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning =  FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2020.csv")
+assn <- read.csv("../course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -120,26 +171,25 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-Up") %>% select(-Category))
 ```
 
-- Late penalty: -2.5 points per day
+### Group project (50%): 
 
-**Group project (50%)**: 
-
-- A data analysis group project that will allow you to apply the techniques covered in class
-- Important events: 
-    - Pitch your ideas, find an idea, form a 4-5 people group 
+- A semester-long data analysis group project that will allow you to apply the techniques covered in class to a research question of your choosing
+- Groups of target size of 4 students will be formed at the beginning of the course
+- Important checkpoints during the term (with deliverables): 
     - Finish the initial project proposal
     - Finalize the one page project proposal 
     - Progress report
     - Presentation 
     - GitHub repository
     - Individual report deadline
+- For more details on the project components abd how groups are selected see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project)
+- For detailed grading rubrics of the final project components, see the [final project rubric page](https://stat540-ubc.github.io/subpages/group_project_rubrics.html) and the [final project presentation rubric](https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/homework/posterRubric2012.pdf)
 
-**Dates:**
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
-assn <- read.csv("../course-admin/assn_2020.csv")
+assn <- read.csv("../course-admin/assn_2021.csv")
 assn <- assn %>% 
   select(content,start, Category) %>%
   rename(Assignment = content, `Due Date` = start) %>%
@@ -149,35 +199,29 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Group Project") %>% select(-Category))
 ``` 
 
-- Grading and deliverable 
-    - Primary deliverable is a presentation. Each student also produces a short report 
-    - Planning + project + presentation session - 50 points 
-- Tip: try to form a group of diverse talents
-- [More information on group project](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project) 
+## Academic Integrity
 
+Not only is academic integrity is essential to the successful functioning of our course, but adopting best practices will benefit you in your research practice. Make sure you understand UBC’s definitions of academic misconduct and its consequences. Policy guidelines can be found [here](http://www.calendar.ubc.ca/Vancouver/index.cfm?tree=3,54,111,958).
 
-### Schedule  
+What does academic integrity look like in this course? 
 
-**Class mettings** 
+* **Do your own work**. All individual work that you submit should be completed by you and submitted by you. Do not receive or share completed coursework with students who take the course in another term.
 
-- Time : Mon Wed 9:30 - 11am
-- Location: Online - Meeting links and recordings posted in Canvas
-- See [Lectures](lectures.html) for lecture materials, schedule, and deadlines 
+* **Acknowledge others’ ideas**. Scholars build on the work of others, and give credit accordingly. This refers to both outside sources, such as from the literature, and inside sources, such as from your peers.
 
-**Seminars**
+* **Learn to avoid unintentional plagiarism.** Visit the [Learning Commons’ guide to academic integrity](http://learningcommons.ubc.ca/resource-guides/avoiding-plagiarism/) to help you organize your writing as well as understand how to prevent unintentional plagiarism. 
 
-- Time : Wed 12pm - 1pm
-- Location: Online - Meeting links posted in Canvas
-- See [Seminars](seminars.html) for schedule and seminar materials 
-- We strongly recommend reading the seminar materials prior to attending each seminar. 
+At any time: if you are unsure if a certain type of assistance is authorized, please ask.  
 
+## Resources
 
-### Assignment Timeline
+I strive to provide a learning environment where all students can succeed. Please join me in contributing to a classroom culture where everyone feels valued. If you encounter an issue that presents a barrier to your learning, please reach out to me. You can also contact the Ombudsperson for help: https://ombudsoffice.ubc.ca. If you have a documented disability that affects our learning, you may contact the UBC Centre for Acessibility: https://students.ubc.ca/about-student-services/centre-for-accessibility, and contact me as soon as possible if you may require accommodation options for course work.
 
-```{r,echo=FALSE}
-suppressPackageStartupMessages(library(timevis))
+Your mental health and wellbeing impacts your academic performance. Sometimes it is possible to manage challenges on your own, while other times you may need support. UBC is committed to providing student mental health and wellbeing resources, strategies, and services that help you achieve your goals. Visit https://students.ubc.ca/health for more information.
 
-assignment_data <- read.csv("../course-admin/assn_2020.csv",as.is = T,sep = ",")
-assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-timevis(assignment_data)
-```
+## Copyright 
+
+[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+All materials of the course are licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) license.
+

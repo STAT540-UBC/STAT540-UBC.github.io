@@ -5,43 +5,80 @@ output:
     includes:
       before_body: ../include/nav.html
       after_body: ../include/nothing.html
+classoption:
+- twocolumn
 ---
 
-## Instructors
 
+## Instructor
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;"}
+
+::: {}
+![Keegan](peoplePics/Keegan_shot.jpg){width=45%}
+<br>[Keegan Korthauer](https://kkorthauer.org/)
+<br>Assistant Professor of Statistics
+<br><keegan@stat.ubc.ca>
+<br>Pronouns: She/her/hers
+:::
+
+
+::: {}
+Keegan is an Assistant Professor in the Department of Statistics at UBC and an Investigator at the BC Children's Hospital Research Institute. She grew up and studied in the United States before moving to Vancouver in 2019. Her research is focused on developing and applying statistical and computational tools for the analysis of high-throughput sequencing data, with the ultimate goal of uncovering new molecular signals in cancer, child health, and development. Her hobbies include running, hiking, board gaming, and playing with her two cats (who may make an appearance during lectures!). 
+:::
+
+::::
+
+
+
+## Teaching Assistants 
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;"}
+
+::: {}
+![Jenkin](peoplePics/jenkinTsui.jpg){width=65%}
+<br>Jenkin Tsui
+<br>PhD Student, Bioinformatics
+<br><jenkin.tsui@aya.yale.edu>
+<br>Pronouns: He/Him/His
+:::
+
+
+::: {}
+Jenkin is a Ph.D. student in Bioinformatics at UBC and he is a researcher at BC Cancer Research Centre. He grew up in Hong Kong and Calgary and studied and researched in East Coast Canada/United States and Japan before moving to Vancouver in 2020. His research is focused on developing Bayesian methods for analyzing spatial expression data, with the ultimate goal to understand cancer heterogeneity and cell-to-cell interactions. His hobbies include hiking, Japanese cooking, photography, and interior design.
+:::
+
+::::
+
+&nbsp;
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;"}
+
+::: {}
+![Marco](peoplePics/marcoTello.jpg){width=50%}
+<br>Marco Tello
+<br>MSc Student, Bioinformatics
+<br><Marco.TelloPalencia@bcchr.ca>
+<br>Pronouns: He/Him/His
+:::
+
+
+::: {}
+Marco is an M.Sc. student in Bioinformatics, and he works at BC Children's Hospital Research Institute. He finished the undergraduate program in Genomic Sciences from the Autonomous University of Mexico (UNAM) before joining the Korthauer Lab in 2020. Marco has always been interested in gene regulation dynamics; his current work is focused on unraveling the effects of DNA methylation in gene expression using publicly available data. In his free time, Marco likes painting, swimming, and playing videogames/boardgames.
+:::
+
+::::
+
+## Guest Lecturers
 |  |   |  |
 |---------------|---------------|---------------|
- | ![Sara](peoplePics/saram.png) | | ![Keegan](peoplePics/Keegan_shot.jpg)  |
- | [Sara Mostafavi](http://www.stat.ubc.ca/~saram/) | |  [Keegan Korthauer](https://kkorthauer.org/)      |
- |  Assistant Professor of Statistics & Medical Genetics <saram@stat.ubc.ca> | |  Assistant Professor of Statistics  <keegan@stat.ubc.ca> |
-| ![Paul](peoplePics/paulPavlidis.png) | 
-|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | 
-|  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | 
-
-## TAs
-
-|  |   |  |
-|---------------|---------------|---------------|
-| ![Sina](peoplePics/Sina_shot.jpg) |  | ![Victor](peoplePics/Victor_shot.png) |
-| [Sina Jafarzadeh](http://30na.me) |    | [Victor Yuan](https://victor.rbind.io/) |
-|  PhD Student, Bioinformatics program <sjafarzadeh@cmmt.ubc.ca> | |  PhD Candidate, Medical Genetics program <victor.2wy@gmail.com> |
+| ![Paul](peoplePics/paulPavlidis.jpg){width=60%} | | ![Youngjin](peoplePics/youngjinPark.png){width=60%} |
+|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | | [Youngjin Park](https://ypark.github.io/) |
+|  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | | Assistant Professor of Pathology and Statistics <ypp@stat.ubc.ca> |
+|  &nbsp; |  &nbsp; | &nbsp;  |
+ | ![Jessica](peoplePics/jessicaDennis.jpg){width=60%} | | ![Sarah](peoplePics/sarahMerrill.jpg){width=60%}  |
+ | [Jessica Dennis](www.dennislab.ca) | |  Sarah Merrill |
+ |  Assistant Professor of Medical Genetics <Jessica.Dennis@bcchr.ca> | |  Postdoctoral Fellow, Kobor Lab  <sarah.merrill@bcchr.ca> |
 
 
 
-<!-- [Sara Mostafavi](http://www.stat.ubc.ca/~saram/), lead instructor
-
-  * Statistics and Medical Genetics
-  * <saram@cs.stanford.edu>
-  
-Paul Pavlidis, instructor
-  
-  * CHiBi and Psychiatry
-  * <paul@chibi.ubc.ca>
-  
-Marjan Farahbod, TA
-
-  * <marjan.farahbod@gmail.com>
-  
-Santina Lin, TA
-
-  * <hello@santina.me> -->

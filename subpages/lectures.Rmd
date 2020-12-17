@@ -92,5 +92,7 @@ table {
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat_cm[["STAT540"]] %>% select(date, notes, instructor, mode) %>%
-  dplyr::rename(Date=date, Topic=notes, Instructor=instructor, Mode=mode))
+  dplyr::rename(Date=date, Topic=notes, Instructor=instructor, Mode=mode),
+  "html") %>% 
+  kableExtra::kable_styling(full_width = TRUE)
 ```

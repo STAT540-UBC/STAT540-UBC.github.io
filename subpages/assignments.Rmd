@@ -8,15 +8,15 @@ output:
     toc: 3
 ---
 
-You will have three individual assignments and one group project: 
+You will have three individual assignments, five seminar submissions, and one group project: 
 
-- Five in-seminar submissions (10 pts; 2 points each)
-- One paper review (5 pts) 
-- One practice assignment (5 pts)
-- One statistics homework (30 pts)
-- Final group project (50 pts) which contains multiple parts. 
+- One warm-up assignment (5%)
+- Five in-seminar submissions (10% total; 2% each)
+- One paper review (5%) 
+- One analysis assignment (30%)
+- Final group project (50%) which contains multiple parts. 
 
-<font color="red">**Deadlines are all by 11:59 pm (Pacific time) on the due date**</font>
+<font color="red">**Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalize 10% per day/partial day**</font>
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html) 
 
@@ -98,7 +98,7 @@ Groups should have 4 members. We strongly encourage that groups be diverse in te
 
 --------------
     
-## STAT 540 Homework Submission Instructions
+## STAT 540 Course Work Submission Instructions
 
 **GitHub**
 You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2021`. We assume that 
@@ -109,7 +109,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
 
 **IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2021`). Do not use branches or other repositories.
   
-**Set-up your private GitHub repo for homework**
+**Set-up your private GitHub repo for course work**
 
   * We're talking about the repo `zz_lastname-firstnmae_STAT540_2021` now.
   * Make a top-level directory for your assignment, e.g. `Homework`
@@ -145,7 +145,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
   * Push closer to the submission date.
   * __Never ever__ edit the Markdown or HTML "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
 
-**How to "turn in" your homework**
+**How to "turn in" your work**
 
   * Make sure you have 
     - Saved all the files associated with your solution locally.
