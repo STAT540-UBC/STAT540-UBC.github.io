@@ -86,7 +86,7 @@ This interdisciplinary course requires a broad range of skills at the interface 
 ## Course-level learning objectives
 
   * Perform exploratory data analysis and visualize genomics data
-  * Apply tailored statitical methods to answer questions using high dimensional biological data
+  * Apply tailored statistical methods to answer questions using high dimensional biological data
   * Make your work reproducible, reusable, and shareable
   * Work with real data in a collaborative model
 

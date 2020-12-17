@@ -37,7 +37,7 @@ Cross-listed as STAT 540, BIOF 540, GSAT 540
 ### Learning objectives:
 
   * Explore and visualize genomics data
-  * Apply tailored statitical methods for high dimensional biology data
+  * Apply tailored statistical methods for high dimensional biology data
   * Make your work reproducible, reusable, and shareable
   * Work with real data in a collaborative model
 
