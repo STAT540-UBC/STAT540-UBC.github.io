@@ -3,12 +3,11 @@ output:
   html_document:
     includes:
       before_body: include/nav.html
-      after_body: include/nothing.html
+      after_body: include/license-footer.html
 ---
 
 
 # Statistical Methods for High Dimensional Biology
-<span style="color: red"></span>
 
 Please complete <span style="color: blue">[this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiBRaNrNk5PEY87nLkEPjZ60BcdTMUU0JAQRyMkkNsg/viewform?usp=sf_link)</span> as soon as you see this post so we can set up a repo for you! :) 
 
@@ -86,8 +85,4 @@ assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
 timevis(assignment_data)
 ```
 
-### Copyright 
 
-[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
-
-All materials of the course are licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) license.
