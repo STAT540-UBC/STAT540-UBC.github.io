@@ -15,7 +15,7 @@ classoption:
 :::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;"}
 
 ::: {}
-![Keegan](peoplePics/Keegan_shot.jpg){width=45%}
+![Keegan](peoplePics/Keegan_shot.jpg){width=55%}
 <br>[Keegan Korthauer](https://kkorthauer.org/)
 <br>Assistant Professor of Statistics
 <br><keegan@stat.ubc.ca>
