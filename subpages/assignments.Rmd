@@ -16,12 +16,12 @@ You will have three individual assignments, five seminar submissions, and one gr
 - One analysis assignment (30%)
 - Final group project (50%) which contains multiple parts. 
 
-<font color="red">**Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalize 10% per day/partial day**</font>
+<font color="red">**Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalize 10% per day/partial day.** If you anticipate having trouble meeting a deadline, or need to request an extension please reach out via email.</font>
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html) 
 
 
-## Assignment Timeline
+## Timeline Overview
 
 ```{r, echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -35,12 +35,16 @@ assn <- assn %>%
 knitr::kable(assn)
 ```
 
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag to slide date range. Reload the page to reset the view to include all due dates.
+
+
 ```{r,echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-timevis(assignment_data)
+timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
+        height=300)
 ```
 
 # Assignment details

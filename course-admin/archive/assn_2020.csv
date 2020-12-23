@@ -1,0 +1,16 @@
+id,content,start,end,Category,style
+1,Warm-Up,2020-01-16,,Individual Assignment,background-color: gold;
+2,Paper Critique,2020-02-20,,Paper Critique,background-color: aqua;
+3,Analysis Assignment,2020-03-23,,Individual Assignment,background-color: pink;
+4,Project Groups and Initial Proposal,2020-01-23,,Group Project,background-color: lavender;
+5,Finalized Project Proposal,2020-02-13,,Group Project,background-color: lavender;
+6,Project Progress Report,2020-03-13,,Group Project,background-color: lavender;
+7,Presentation Submission,2020-03-31,,Group Project,background-color: lavender;
+8,Github Repo,2020-04-03,,Group Project,background-color: lavender;
+9,Individual Report,2020-04-04,,Group Project,background-color: lavender;
+10,Seminar 1,2020-01-10,,Seminar,background-color: palegreen;
+11,Seminar 2a&b,2020-01-17,,Seminar,background-color: palegreen;
+12,Seminar 2c ,2020-01-24,,Seminar,background-color: palegreen;
+13,Seminar 3 ,2020-01-31,,Seminar,background-color: palegreen;
+14,Seminar 4 ,2020-02-07,,Seminar,background-color: palegreen;
+15, Seminar 6 ,2020-02-28,,Seminar,background-color: palegreen;

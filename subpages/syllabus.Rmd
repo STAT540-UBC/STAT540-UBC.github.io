@@ -108,9 +108,22 @@ This interdisciplinary course requires a broad range of skills at the interface 
 
 ## Evaluation
 
-You will have three individual assignments, five seminar submissions, and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. Students may request extensions with a documented excuse.
+You will have three individual assignments, five seminar submissions, and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. If you anticipate having trouble meeting a deadline, or need to request an extension please reach out via email. 
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html). For detailed instructions on how to turn in your assignments, see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions).
+
+### Timeline overview 
+
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag to slide date range. Reload the page to reset the view to include all due dates.
+
+```{r,echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(timevis))
+
+assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
+        height=300)
+```
 
 ### Warm-up Assignment (5%)
 
@@ -228,6 +241,15 @@ What does academic integrity look like in this course?
 * **Learn to avoid unintentional plagiarism.** Visit the [Learning Commons’ guide to academic integrity](http://learningcommons.ubc.ca/resource-guides/avoiding-plagiarism/) to help you organize your writing as well as understand how to prevent unintentional plagiarism. 
 
 At any time: if you are unsure if a certain type of assistance is authorized, please ask.  
+
+## Video Etiquette & Privacy
+
+During synchronous lecture and class sessions, please observe the following guidelines to help foster a productive learning environment:
+
+* Please note that synchronous sessions and their recordings will not be made available to anyone outside the course
+* If your environment is suitable and you are comfortable doing so, please turn your cameras on
+* Please keep your microphone muted when you aren't speaking to minimize background noise 
+* Please make use of the chat feature to ask questions or make comments - the TAs will be monitoring this space
 
 ## Resources
 
