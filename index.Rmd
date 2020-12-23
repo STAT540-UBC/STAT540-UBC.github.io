@@ -1,4 +1,6 @@
 ---
+title: "STAT 540 Home"
+subtitle: "Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021)"
 output:
   html_document:
     includes:
@@ -6,83 +8,28 @@ output:
       after_body: include/license-footer.html
 ---
 
+## Welcome!
 
-# Statistical Methods for High Dimensional Biology
+#### <span style="color: red;">Notice 23 December 2020: Please complete <span style="color: blue">[this survey](https://forms.gle/J6uvQ7JqQJb93QAe7)</span> as soon as you see this notice so we can give you access to the course resources on GitHub!</span>
 
-Please complete <span style="color: blue">[this survey](https://docs.google.com/forms/d/e/1FAIpQLSd8WlRLiBRaNrNk5PEY87nLkEPjZ60BcdTMUU0JAQRyMkkNsg/viewform?usp=sf_link)</span> as soon as you see this post so we can set up a repo for you! :) 
+## Course Website Contents
 
-### UBC STAT 540
+For course information, please see the following pages (also accessible via the navigation bar at the top of each page):
 
-STAT 540 is a 3 credit course with a mandatory computing seminar.
+  * [Syllabus](subpages/syllabus.html)
+  
+  * [Lectures](subpages/lectures.html): lecture topics, schedule, and notes
+  
+  * [Seminars](subpages/seminars.html): seminar topics, schedule, and materials
+  
+  * [Course work](subpages/assignments.html): assignment details, due dates, and rubrics
+  
+  * [People](subpages/people.html): teaching team info
 
-Cross-listed as STAT 540, BIOF 540, GSAT 540
+## Additional Resources
 
-### Time and Location
+* The course organization on GitHub: <https://github.com/STAT540-UBC>  
 
-11 January 2021 - 14 April 2021
+* Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
-#### Lecture (Sec 201)
-
-**Time**: Mon Wed 9:30 - 11am
-
-**Location**: Online - Meeting links posted in Canvas
-
-#### Seminar / computing lab (Sec S2B) -- REGISTRATION IS REQUIRED!
-
-**Time**: Wed 12 - 1pm. 
-
-**Location**: Online - Meeting links posted in Canvas
-
-### Learning objectives:
-
-  * Explore and visualize genomics data
-  * Apply tailored statistical methods for high dimensional biology data
-  * Make your work reproducible, reusable, and shareable
-  * Work with real data in a collaborative model
-
-### Selected topics
-
-  * Exploration, visualization, and quality assessment of high dimensional genomics data
-  * Large scale statistical inference
-  * Analysis of microarray, RNASeq, and epigenetics data
-  * Principal component analysis (PCA)
-  * Cluster analysis
-  * Cross validation
-  * Model selection for classification and linear regression models
-  * Gene function and gene set analysis
-  * Resampling and the bootstrap
-
-### More info?
-
-Use the navigation bar above!
-
-The course organization on GitHub: <https://github.com/STAT540-UBC>  
-
-Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.github.io>
-
-Repo that serves as the Discussion forum: <https://github.com/STAT540-UBC/Discussion>
-
-### Major deadlines
-```{r, echo=FALSE,warning=FALSE, message=FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-assn <- read.csv("course-admin/assn_2021.csv")
-assn <- assn %>% 
-  select(content,start, Category) %>%
-  rename(Assignment = content, `Due Date` = start) %>%
-  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
-  arrange(`Due Date`) %>% 
-  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-knitr::kable(assn)
-```
-
-### Assignment Timeline
-
-```{r,echo=FALSE, warning=FALSE, message=FALSE}
-suppressPackageStartupMessages(library(timevis))
-
-assignment_data <- read.csv("course-admin/assn_2021.csv",as.is = T,sep = ",")
-assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-timevis(assignment_data)
-```
-
-
+* Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.github.io>

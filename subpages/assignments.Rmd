@@ -20,6 +20,31 @@ You will have three individual assignments, five seminar submissions, and one gr
 
 For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html) 
 
+
+## Assignment Timeline
+
+```{r, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+assn <- read.csv("../course-admin/assn_2021.csv")
+assn <- assn %>% 
+  select(content,start, Category) %>%
+  rename(Assignment = content, `Due Date` = start) %>%
+  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
+  arrange(`Due Date`) %>% 
+  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
+knitr::kable(assn)
+```
+
+```{r,echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(timevis))
+
+assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+timevis(assignment_data)
+```
+
+# Assignment details
+
 ## Practice assignment
 This is a warm-up for your future assignment. Once you have completed it, you will have set-up for the class and have a better understanding of how to set up your repository, pushing files to GitHub, writing markdown, and using R to do simple analyses. 
 
@@ -158,28 +183,6 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - Click on "Issues", then on "New Issue". Name the issue "Mark homework of *your repository name*".
     - In the description of the issue, tag all TAs, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
-
-### Assignment Timeline
-
-```{r, echo=FALSE, warning=FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-assn <- read.csv("../course-admin/assn_2021.csv")
-assn <- assn %>% 
-  select(content,start, Category) %>%
-  rename(Assignment = content, `Due Date` = start) %>%
-  mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
-  arrange(`Due Date`) %>% 
-  mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-knitr::kable(assn)
-```
-
-```{r,echo=FALSE, warning=FALSE}
-suppressPackageStartupMessages(library(timevis))
-
-assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
-assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-timevis(assignment_data)
-```
 
 > If you're concerned that something hasn't gone right with the submission, send the TAs an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will work with you until you eventually get it submitted via GitHub.
 

@@ -25,6 +25,8 @@ classoption:
 
 ::: {}
 Keegan is an Assistant Professor in the Department of Statistics at UBC and an Investigator at the BC Children's Hospital Research Institute. She grew up and studied in the United States before moving to Vancouver in 2019. Her research is focused on developing and applying statistical and computational tools for the analysis of high-throughput sequencing data, with the ultimate goal of uncovering new molecular signals in cancer, child health, and development. Her hobbies include running, hiking, board gaming, and playing with her two cats (who may make an appearance during lectures!). 
+
+You may feel free to address her as "Keegan" or "Dr. Korthauer". 
 :::
 
 ::::
