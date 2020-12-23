@@ -3,7 +3,7 @@ output: github_document
 ---
 
 # STAT 540 - Seminar 2a: Introduction to R Markdown
-
+# Chrckingcommit Rsession
 ## Learning Objectives
 
 By the end of this seminar, you should
