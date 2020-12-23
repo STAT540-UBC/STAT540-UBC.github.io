@@ -115,7 +115,7 @@ Your oral presentation is evaluated in 4 major categories:
 3. Quality of presentation
 4. Scientific maturity
 
-You can find the full detailed rubric for presentation evaluation in each of these categories [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/posterRubric2012.pdf).
+You can find the full detailed rubric for presentation evaluation in each of these categories [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/ProjectPresentationRubric.pdf).
 
 
 ## Individual report (7 pts)

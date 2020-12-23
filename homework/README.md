@@ -1,11 +1,14 @@
 STAT540 Homework
 =====================
 
-This directory contains homework sources:
+This directory contains assignment information:
 
-* [Homework](homework/homework.md): Exploration, quality, and differential expression. Due March 18nd, 2015.
+* [Practice Assignment](practice_assignment/practice_assignment.Rmd)
 
-* [Paper critique](paper_critique/PRguideline.md). You'll be writing two of these. The first one is due on February 22 and the other one is due on April 1.
+* [Paper critique](paper_critique/PRguideline.md)
 
+* [Analysis assignment](analysis_assignment/stat540_analysis_assignment.md)
 
-Instructions on how to submit your homework can be found in the Assignments tab of the course page. 
+* [Project presentation rubric](ProjectPresentationRubric.pdf)
+
+Due dates for all assignments and instructions on how to submit can be found on the [Course work tab of the course webpage](https://stat540-ubc.github.io/subpages/assignments.html). 
