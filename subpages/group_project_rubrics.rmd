@@ -3,7 +3,7 @@ title: "Group project rubrics"
 output:
   html_document:
     includes:
-      after_body: ../include/nothing.html
+      after_body: ../include/license-footer.html
       before_body: ../include/nav.html
     toc: yes
   pdf_document:

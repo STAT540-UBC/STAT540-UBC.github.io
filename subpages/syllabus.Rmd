@@ -1,6 +1,6 @@
 ---
 title: "Syllabus"
-subtitle: "STAT/BIOF/GSAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021)"
+subtitle: "STAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021) <br> STAT 540 is a 3 credit course with a mandatory computing seminar <br> Cross-listed as STAT 540, BIOF 540, GSAT 540 "
 output:
   html_document:
     includes:
@@ -19,7 +19,8 @@ We respectfully recognize that the University of British Columbia Vancouver camp
 Virtual office hours listed below are on a drop-in basis (no appointment necessary) and Zoom links will be posted in Canvas. For more info on the Teaching team, including brief bios, see the [People](people.html) page.
 
 #### **Instructor**
-Keegan Korthauer, Ph.D (She/Her/Hers)  
+
+Keegan Korthauer, Ph.D (She/Her/Hers)
 Email: <keegan@stat.ubc.ca>  
 Office hours: will be determined after a class poll of students' availability
 
@@ -49,13 +50,13 @@ In the web-oriented setting, it is vital that we have a dedicated plan for how w
 
 ## Schedule  
 
-#### **Lectures** 
+#### **Lectures** (Sec 201)
 
 - Time : Mon Wed 9:30 - 11am*
 - Location: Online (Zoom) - Meeting links and recordings posted in Canvas
 - *Note that some lectures will be asynchronous/prerecorded - see [Lectures](lectures.html) for lecture materials and schedule 
 
-#### **Seminars**
+#### **Seminars** (Sec S2B) 
 
 - Time : Wed 12pm - 1pm
 - Location: Online (Zoom) - Meeting links posted in Canvas
@@ -89,6 +90,21 @@ This interdisciplinary course requires a broad range of skills at the interface 
   * Apply tailored statistical methods to answer questions using high dimensional biological data
   * Make your work reproducible, reusable, and shareable
   * Work with real data in a collaborative model
+
+## Selected topics 
+
+  * Basics of molecular genetics/genomics and data collection assays (methods)
+  * Basic probability and math foundations
+  * Exploratory data analysis and data quality control
+  * Normalization, batch correction
+  * Basic statistical inference (“one gene at a time”) – linear models
+  * Large-scale inference (“genome-wide”) – multiple testing
+  * Analysis of microarray, RNASeq, and epigenetics data
+  * Principal Component Analysis and Clustering (unsupervised machine learning)
+  * Classification and cross validation (supervised machine learning)
+  * Gene set analysis and gene networks
+  * Genome-wide association analysis (GWAS) 
+  * Guest lectures on special topics: Single-cell RNA-seq, Causal Inference in Genomics, & Polygenic Risk Scores and Phenome-Wide Association Studies
 
 ## Evaluation
 
@@ -224,4 +240,3 @@ Your mental health and wellbeing impacts your academic performance. Sometimes it
 [![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 All materials of the course are licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) license.
-

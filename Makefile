@@ -1,12 +1,12 @@
 .PHONY: all
 
 # run 'make' or 'make all' to render all webpages
-all: index.html subpages/announcements.html subpages/people.html \
+all: index.html subpages/people.html \
 	subpages/assignments.html subpages/seminars.html \
 	subpages/lectures.html subpages/syllabus.html subpages/group_project_rubrics.html
 
 # run 'make shallow' to render all webpages EXCEPT the seminars page	
-shallow: index.html subpages/announcements.html subpages/people.html \
+shallow: index.html subpages/people.html \
 	subpages/assignments.html  \
 	subpages/lectures.html subpages/syllabus.html subpages/group_project_rubrics.html
 
