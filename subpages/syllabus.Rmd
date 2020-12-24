@@ -64,25 +64,39 @@ In the web-oriented setting, it is vital that we have a dedicated plan for how w
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 
 
-## Prerequisites and useful skills
+## Prerequisites and Resources
 
 This interdisciplinary course requires a broad range of skills at the interface of statistics, molecular biology / genomics, and computing. While you may have some background in one or more of the following areas, you are not expected to be an expert in all. That said, to be successful in the course, you may need to spend a bit more time in the areas that you have less experience in. Although there are no official prerequisites for the course, here is a list of useful skills to bring into the course and/or learn along the way.
 
-**Statistics**: You should have already taken a university level introductory statistics course.
+**Statistics**: 
 
-**Biology**: No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome. See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material. 
+- You should have already taken a university level introductory statistics course. 
+- [This free online book "Modern Statistics for Modern Biology" by Susan Holmes and Wolfgang Huber](http://web.stanford.edu/class/bios221/book/) is a great reference for introduction or review of many of the concepts that are relevant for this course.
+
+**Biology**: 
+
+- No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome. 
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material. 
+- No matter your prior experience, when you come across a new biological concept during the course or in your research, you might need to spend a bit of time 'learning as you go' - this is expected and something I still do regularly in my day-to-day research!
 
 **R**: 
 
-- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R or used it in your research 
-- Start now by installing R and the HIGHLY RECOMMENDED "integrated development environment" (IDE) RStudio! 
-- You should be able to run R on your own computer during each seminar
-- If you are new to R, check out [this blog post on getting started with R](http://santina.me/r/2015/12/15/Get-started-with-R.html). 
-
+- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R or used it in your research.
+- Start now by installing [R](https://cran.r-project.org/) and the HIGHLY RECOMMENDED "integrated development environment" (IDE) [RStudio](https://rstudio.com/products/rstudio/download/) - both are free and open source. 
+- You should be able to run R on your own computer during each seminar session.
+- If you are new to R, check out [this blog post on getting started with R](http://santina.me/Get-started-with-R/).
+- [This free online book "Introduction to Data Science" by Rafael Irizarry](https://rafalab.github.io/dsbook/) is also a great resource for getting more in-depth with R, programming basics, and the tidyverse. In particular see Chapters 1-5:
+  - [Chapter 1: Getting Started with R and R Studio](https://rafalab.github.io/dsbook/getting-started.html)
+  - [Chapter 2: R Basics](https://rafalab.github.io/dsbook/r-basics.html)
+  - [Chapter 3: Programming Basics](https://rafalab.github.io/dsbook/programming-basics.html)
+  - [Chapter 4: The tidyverse](https://rafalab.github.io/dsbook/tidyverse.html)
+  - [Chapter 5: Importing data](https://rafalab.github.io/dsbook/importing-data.html)
+  
 **Other computing tools:** 
 
-- You'll need to learn how to use [Git](https://stat545-ubc.github.io/git01_git-install.html) and GitHub. 
-- We'll soon learn about [using Rmarkdown](https://stat540-ubc.github.io/seminars/sm02a_rMarkdown.html) to generate reports, and you'll be using that a lot in this course. 
+- In this course we'll be using the version control software [Git](https://en.wikipedia.org/wiki/Git) and its web-based hosting and collaborative platform [GitHub](https://en.wikipedia.org/wiki/GitHub). 
+- [The online resource "Happy Git and GitHub for the useR" from Jenny Bryan](https://happygitwithr.com/) is a great reference for these tools as we learn them.
+- We'll soon learn about using [R markdown](https://rmarkdown.rstudio.com/) to generate readable and reproducible reports with code and text, and you'll be using that a lot in this course - see [Chapter 18 of the 'Happy Git' resource: "Test drive R markdown"](https://happygitwithr.com/rmd-test-drive.html).
 
 ## Course-level learning objectives
 
@@ -251,7 +265,7 @@ During synchronous lecture and class sessions, please observe the following guid
 * Please keep your microphone muted when you aren't speaking to minimize background noise 
 * Please make use of the chat feature to ask questions or make comments - the TAs will be monitoring this space
 
-## Resources
+## Learning Environment & Support
 
 I strive to provide a learning environment where all students can succeed. Please join me in contributing to a classroom culture where everyone feels valued. If you encounter an issue that presents a barrier to your learning, please reach out to me. You can also contact the Ombudsperson for help: https://ombudsoffice.ubc.ca. If you have a documented disability that affects our learning, you may contact the UBC Centre for Acessibility: https://students.ubc.ca/about-student-services/centre-for-accessibility, and contact me as soon as possible if you may require accommodation options for course work.
 

@@ -87,18 +87,6 @@ The grade point values for each question are listed right in the assignment.
 
 ## Final group project (50%)
 
-### Deliverables
-
-Details and grading rubrics for each component of the final group project can be found on the [**rubrics page**](group_project_rubrics.html).
-
-* [Project groups & Initial Proposal (0%)](group_project_rubrics.html#project-groups-initial-proposal-0-pts)
-* [Proposal (5%)](group_project_rubrics.html#proposal-5-pts)
-* [Progress report (8%)](group_project_rubrics.html#progress-report-8-pts)
-* [GitHub repository (10%)](group_project_rubrics.html#github-repository-10-pts)
-* [Oral presentation (20%)](group_project_rubrics.html#oral-presentation-20-pts) - A Detailed rubric can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/ProjectPresentationRubric.pdf)
-* [Individual report (7%)](group_project_rubrics.html#individual-report-7-pts)
-
-
 ### General principles
 
 Identify a biological question of interest and a relevant dataset. Develop and apply a statistical approach that allows you to use the dataset to answer the question.
@@ -134,9 +122,21 @@ You can read Github's [security](https://help.github.com/articles/github-securit
 
 Groups will be formed by the instructional team following the results of an in class survey, and posted in the Discussion repo. Groups will have a target size of 4 members. Groups will be formed with priority for diversity in terms of backgrounds. In practice, this probably means the team members come from a mix of programs/departments. We will try to honour requests for working with specific team mates, and you may come talk to us immediately after receiving group assignments if you'd like to make a change.
 
+### Deliverables
+
+Details and grading rubrics for each component of the final group project can be found on the [**Group project rubrics page**](group_project_rubrics.html).
+
+* [Project groups & Initial Proposal (0%)](group_project_rubrics.html#project-groups-initial-proposal-0-pts)
+* [Proposal (5%)](group_project_rubrics.html#proposal-5-pts)
+* [Progress report (8%)](group_project_rubrics.html#progress-report-8-pts)
+* [GitHub repository (10%)](group_project_rubrics.html#github-repository-10-pts)
+* [Oral presentation (20%)](group_project_rubrics.html#oral-presentation-20-pts) - A Detailed rubric can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/ProjectPresentationRubric.pdf)
+* [Individual report (7%)](group_project_rubrics.html#individual-report-7-pts)
+
+
 --------------
     
-## STAT 540 Course Work Submission Instructions
+# STAT 540 Course Work Submission Instructions
 
 **GitHub**
 You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2021`. We assume that 
