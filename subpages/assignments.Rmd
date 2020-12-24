@@ -35,7 +35,7 @@ assn <- assn %>%
 knitr::kable(assn)
 ```
 
-Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag to slide date range. Reload the page to reset the view to include all due dates.
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag horizontally to slide date range and vertically to view all items. Reload the page to reset the view to include all due dates.
 
 
 ```{r,echo=FALSE, warning=FALSE}
@@ -43,6 +43,8 @@ suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+assignment_data$end <- ifelse(assignment_data$end != "",
+                              paste0(assignment_data$end, " 23:59:00"), NA)
 timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
         height=300)
 ```

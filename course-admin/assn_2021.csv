@@ -14,3 +14,4 @@ id,content,start,end,Category,style
 13,Seminar 3,2021-02-08,,Seminar,background-color: palegreen;
 14,Seminar 4,2021-02-15,,Seminar,background-color: palegreen;
 15,Seminar 6,2021-03-08,,Seminar,background-color: palegreen;
+16,Oral Presentations,2021-04-07,2021-04-14,Group Project,background-color: #6600ff; color: white;

@@ -10,8 +10,6 @@ output:
 toc-title: "Contents"
 ---
 
-<big>
-
 ## Land acknowledgement
 
 We respectfully recognize that the University of British Columbia Vancouver campus is located on the traditional, ancestral, and unceded territory of the xʷməθkʷəy̓əm (Musqueam) people. In our current virtual learning environment, we are coming together from locations throughout Vancouver, BC, Canada, and the world. Please take a moment to learn about the territory you are occupying by visiting [this interactive indigenous land map](https://native-land.ca/).
@@ -130,17 +128,19 @@ For help on your homework mechanics, please see this list of [assignment tips](a
 
 ### Timeline overview 
 
-Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag to slide date range. Reload the page to reset the view to include all due dates.
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag horizontally to slide date range and vertically to view all items. Reload the page to reset the view to include all due dates.
+
 
 ```{r,echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+assignment_data$end <- ifelse(assignment_data$end != "",
+                              paste0(assignment_data$end, " 23:59:00"), NA)
 timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
         height=300)
 ```
-
 ### [Practice Assignment (5%)](assignments.html#practice-assignment-5)
 
 - An introductory assignment designed to assess basic knowledge of GitHub, R and Rmarkdown
