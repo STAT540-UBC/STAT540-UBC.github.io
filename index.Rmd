@@ -16,7 +16,7 @@ output:
 
 For course information, please see the following pages (also accessible via the navigation bar at the top of each page):
 
-  * [Syllabus](subpages/syllabus.html)
+  * [Syllabus](subpages/syllabus.html): course info, policies, resources, and more
   
   * [Lectures](subpages/lectures.html): lecture topics, schedule, and notes
   
@@ -27,6 +27,8 @@ For course information, please see the following pages (also accessible via the 
   * [People](subpages/people.html): teaching team info
 
 ## Additional Resources
+
+* For useful links to free online textbooks/guides relevant to the course, see the ["Prerequisites & Resources" section of the syllabus](https://stat540-ubc.github.io/subpages/syllabus.html#prerequisites-and-resources)
 
 * The course organization on GitHub: <https://github.com/STAT540-UBC>  
 
