@@ -49,46 +49,55 @@ timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
 
 # Assignment details
 
-## Practice assignment
-This is a warm-up for your future assignment. Once you have completed it, you will have set-up for the class and have a better understanding of how to set up your repository, pushing files to GitHub, writing markdown, and using R to do simple analyses. 
+## Practice assignment (5%)
+
+This is a warm-up for your future assignments. Once you have completed it, you will have set-up for the class and have a better understanding of how to set up your repository, pushing files to GitHub, writing markdown, and using R to do simple analyses. Grade point values are listed in the assignment.
 
 Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/practice_assignment/practice_assignment.md) and start now! 
 
 --------------
 
-## Paper review 
-Each student should review [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/) in a 450-650 word summary/report. The summary should include: 
+## Seminar completion (10%)
 
-1. A brief review of the goal, findings and conclusion of the paper. 
-2. A list (or mentioning) of the related datasets/databases and data types used in the study. In the case of datasets, provide some details of the data matrix and meta data.
-3. A brief review of the analytical steps in the paper with more details on some selected parts which are relevant to the course materials. *You don't need to understand all of the analysis, but should be able to identify the key analysis/method used to answer the question the paper is intended to answer*
-4. Some comments and critiques about the analytical steps, alternative suggestions or improvements. 
+You will submit short "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6. These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research. Each deliverable is weighted equally and is due on the Monday following the TA-led session for that seminar. See the [Seminars page](seminars.html) for the submission materials.
 
-We have provided [**this guideline**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline_2019.html) for this task. The material in the review **should not** be limited to merely answering the questions in the guideline, but rather using them to provide the required items listed above. Example paper reviews are also provided. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper
+## Paper critique (5%)
+Each student should review and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/) in a 450-650 word summary/report. The summary should include: 
 
+1. A brief review of the goal, findings and conclusion of the paper. (1 pt)
+2. A list (or mentioning) of the related datasets/databases and data types used in the study. In the case of datasets, provide some details of the data matrix and meta data. (0.5 pt)
+3. A brief review of the analytical steps in the paper with more details on some selected parts which are relevant to the course materials. *You don't need to understand all of the analysis, but should be able to identify the key analysis/method used to answer the question the paper is intended to answer* (1.5 pt)
+4. Some comments and critiques about the analytical steps, alternative suggestions or improvements. (2 pt)
+
+We have provided [**this guideline**](http://stat540-ubc.github.io/homework/paper\_critique/PRguideline.html) for this task. Here's [another helpful resource](https://github.com/jtleek/readingpapers) on how to read a research paper.
 
 **Delivery:** You should put your paper review files in your individual course repository in .md format (notice that you don't need to write it in .Rmd since you are not going to have any R code in it). You could edit .md files directly from github and therefore can write your full report there, but can also write it in your RStudio and then push it to your repository.
 
-[example paper review](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/paper_critique/paperReviewMarjan.md)
+--------------
+
+## Analysis assignment (30%)
+
+This assignment will assess your understanding of the seminar and lecture materials. Start early because this assignment will take time to fully work through. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials. 
+
+The questions and links to the dataset are avalable [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/analysis_assignment/stat540_analysis_assignment.md).
+
+The grade point values for each question are listed right in the assignment.
 
 --------------
 
-## Analysis assignment 
-
-This assignment will assess your understanding of the seminar and lecture materials. Start early because this assignment will take time to be completed and perfected. Use the issues in the Discussion repo and the seminar time to ask questions. You will find most of the analysis workflow of the assignment in the seminar materials.
-
-The questions and links to the dataset are avalable [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_analysis_assignment.md).
-<!-- Questions for Part 1 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_01_quality_control.md). Data for Part 1 is [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/homework/assignment/data).  -->
-
-<!-- Questions for Part 2 can be downloaded [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/assignment/stat540_assignment_02_DEA.md). Part 2 is a continuation of Part 1, so please use the same dataset.  -->
-
---------------
-
-## Final group project
+## Final group project (50%)
 
 ### Deliverables
 
-Deliverables and rubrics for each component of the final group project can be found on the [**rubrics page**](group_project_rubrics.html). 
+Details and grading rubrics for each component of the final group project can be found on the [**rubrics page**](group_project_rubrics.html).
+
+* [Project groups & Initial Proposal (0%)](group_project_rubrics.html#project-groups-initial-proposal-0-pts)
+* [Proposal (5%)](group_project_rubrics.html#proposal-5-pts)
+* [Progress report (8%)](group_project_rubrics.html#progress-report-8-pts)
+* [GitHub repository (10%)](group_project_rubrics.html#github-repository-10-pts)
+* [Oral presentation (20%)](group_project_rubrics.html#oral-presentation-20-pts) - A Detailed rubric can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/ProjectPresentationRubric.pdf)
+* [Individual report (7%)](group_project_rubrics.html#individual-report-7-pts)
+
 
 ### General principles
 
@@ -123,7 +132,7 @@ You can read Github's [security](https://help.github.com/articles/github-securit
 
 ### Group makeup
 
-Groups should have 4 members. We strongly encourage that groups be diverse in terms of backgrounds. In practice, this probably means the students should registered in a mix of programs/departments. All groups and group projects must be approved by the instructors.
+Groups will be formed by the instructional team following the results of an in class survey, and posted in the Discussion repo. Groups will have a target size of 4 members. Groups will be formed with priority for diversity in terms of backgrounds. In practice, this probably means the team members come from a mix of programs/departments. We will try to honour requests for working with specific team mates, and you may come talk to us immediately after receiving group assignments if you'd like to make a change.
 
 --------------
     

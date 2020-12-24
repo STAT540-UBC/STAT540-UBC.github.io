@@ -1,7 +1,6 @@
 ---
 title: "Practice assignment"
 //author: "STAT540 Instructors"
-date: "January 1, 2018"
 output: 
   html_document: 
     keep_md: yes

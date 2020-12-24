@@ -125,7 +125,7 @@ timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
         height=300)
 ```
 
-### Warm-up Assignment (5%)
+### [Practice Assignment (5%)](assignments.html#practice-assignment-5)
 
 - An introductory assignment designed to assess basic knowledge of GitHub, R and Rmarkdown
 
@@ -142,9 +142,9 @@ assn <- assn %>%
 kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
 ```
 
-### Seminar completion (10%)
+### [Seminar completion (10%)](assignments.html#seminar-completion-10)
 
-- You will submit "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6
+- You will submit short "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6
 - These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research.
 - Each deliverable is due on the Monday following the TA-led session for that seminar
 
@@ -162,7 +162,7 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
 ```
 
-### Paper critique (5%)
+### [Paper critique (5%)](assignments.html#paper-critique-5)
 
 - Read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
 - For detailed instructions, refer to [the course work page](https://stat540-ubc.github.io/subpages/assignments.html#paper-review)
@@ -180,7 +180,7 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Paper Critique") %>% select(-Category))
 ```
 
-### Analysis assignment (30%) 
+### [Analysis assignment (30%)](assignments.html#analysis-assignment-30)
 
 - Involves detailed analysis of real data using R
 - This assignment will assess your ability to understand and apply the methods learned in class 
@@ -200,19 +200,19 @@ assn <- assn %>%
 kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-Up") %>% select(-Category))
 ```
 
-### Group project (50%): 
+### [Group project (50%)](assignments.html#final-group-project-50) 
 
 - A semester-long data analysis group project that will allow you to apply the techniques covered in class to a research question of your choosing
 - Groups of target size of 4 students will be formed at the beginning of the course
 - Important checkpoints during the term (with deliverables): 
-    - Finish the initial project proposal
+    - Initial project proposal (one-paragraph)
     - Finalize the one page project proposal 
     - Progress report
-    - Presentation 
+    - 15 minute oral presentation 
     - GitHub repository
     - Individual report deadline
-- For more details on the project components abd how groups are selected see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project)
-- For detailed grading rubrics of the final project components, see the [final project rubric page](https://stat540-ubc.github.io/subpages/group_project_rubrics.html) and the [final project presentation rubric](https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/homework/posterRubric2012.pdf)
+- For more details on the project components and how groups are selected see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#final-group-project)
+- For detailed grading rubrics of the final project components, see the [final project rubric page](https://stat540-ubc.github.io/subpages/group_project_rubrics.html) and the [final project presentation rubric](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/homework/ProjectPresentationRubric.pdf)
 
 
 ```{r, echo = FALSE, warning = FALSE}
