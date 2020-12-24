@@ -6,3 +6,5 @@ output: html_document
 ---
 
 This is the link to the seminar 0b quiz: [here](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform?usp=sf_link)
+
+You should check [these slides](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) before taking the quiz in case you have not read about molecular biology in a while  
