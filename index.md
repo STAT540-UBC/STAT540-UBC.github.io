@@ -1,12 +1,13 @@
 ---
 title: "STAT 540 Home"
-subtitle: "Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021)"
+subtitle: "Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021)</small>"
 output:
   html_document:
     includes:
       before_body: include/nav.html
       after_body: include/license-footer.html
 ---
+
 
 ## Welcome!
 
@@ -35,3 +36,4 @@ For course information, please see the following pages (also accessible via the 
 * Discussion forum: <https://github.com/STAT540-UBC/Discussion>
 
 * Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.github.io>
+

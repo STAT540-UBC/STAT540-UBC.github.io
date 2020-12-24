@@ -1,6 +1,6 @@
 ---
 title: "Syllabus"
-subtitle: "STAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021) <br> STAT 540 is a 3 credit course with a mandatory computing seminar <br> Cross-listed as STAT 540, BIOF 540, GSAT 540 "
+subtitle: "STAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021) <br> STAT 540 is a 3 credit course with a mandatory computing seminar <br> Cross-listed as STAT 540, BIOF 540, GSAT 540 </small>"
 output:
   html_document:
     includes:
@@ -9,6 +9,8 @@ output:
     toc: true
 toc-title: "Contents"
 ---
+
+<big>
 
 ## Land acknowledgement
 
