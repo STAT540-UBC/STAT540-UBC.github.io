@@ -43,10 +43,8 @@ suppressPackageStartupMessages(library(timevis))
 
 assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
-assignment_data$end <- ifelse(assignment_data$end != "",
-                              paste0(assignment_data$end, " 23:59:00"), NA)
 timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
-        height=300)
+        height=375)
 ```
 
 # Assignment details
