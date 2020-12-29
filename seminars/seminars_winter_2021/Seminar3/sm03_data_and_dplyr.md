@@ -10,7 +10,7 @@ The following sections are to be submitted for marks:
   - Part 3 Exercise
   - Part 4 Exercise
 
-# Objectives
+# Learning Objectives
 
 The objectives for this lecture will be to
 
