@@ -1,11 +1,11 @@
 ---
 title: "Seminar 3 - Data aggregation with dplyr"
-author: "Emma Graham, Victor Yuan"
+author: "Jenkin Tsui"
 output: github_document
 ---
 
 
-**update Jan 27th, 2020, 12:10PM** 
+**update Dec 29th, 2020, 12:10PM** 
 
 The following sections are to be submitted for marks:
 
