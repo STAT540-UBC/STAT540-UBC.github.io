@@ -1,6 +1,9 @@
 
 STAT 540 - Seminar 2b: Graphing using ggplot2
 =============================================
+Jenkin Tsui
+
+**update Dec 29th, 2020, 12:10AM**
 
 Learning Objectives
 -------------------
