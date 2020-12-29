@@ -139,21 +139,26 @@ Details and grading rubrics for each component of the final group project can be
 # STAT 540 Course Work Submission Instructions
 
 **GitHub**
+
 You all have a private repository in STAT540-UBC organization account, i.e., the repo `zz_lastname-firstnmae_STAT540_2021`. We assume that 
 
 * You've already installed Git and (probably) a Git client.
 * You can use command line Git and/or your Git client and perhaps even RStudio to push, pull, etc. to/from GitHub. 
-* All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions!
-
-**IMPORTANT NOTE**: use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2021`). Do not use branches or other repositories.
+* All your work is nicely organized in your repository. Your repository needs to include a clear top-level `README.md` that contains links to your work. This is the presentation of your repository and it helps others to find your work and contributions! 
+* Please use the repository within the organization assigned to you to submit all your course work (i.e., the repo `zz_lastname-firstname_STAT540_2021`). Do not use branches or any other repositories.
   
 **Set-up your private GitHub repo for course work**
 
-  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2021` now.
-  * Make a top-level directory for your assignment, e.g. `Homework`
-    - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the 2 directories here.    
+  * We're talking about the repo `zz_lastname-firstnmae_STAT540_2021` now. 
+  * Make directories for each assignment type (e.g. `Practice_Assignment`, `Paper_critique`, `Analysis_Assignment`, `Seminars`, `Project`)
+    - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the new directories here.
+    - These directories may have sub-directories (especially useful for the `Seminars` directory)
   * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 
     - GitHub automatically renders all Markdown files into (pseudo-)HTML when you visit them in a browser. Whenever a *directory* in a repo is visited, if it contains a Markdown file called `README.md`, it will automatically be rendered, effectively serving as a landing or home page.
+  * You will also have a team repository for your group project; more information on organizing this repo (with similar principles) can be found on the [Group Project Rubrics Page](https://stat540-ubc.github.io/subpages/group_project_rubrics.html#github-repository-10-pts)
+    
+![Example of a personal repository directory structure](images/Individual_hw_repo.png)
+
 
 **R Markdown**
 
