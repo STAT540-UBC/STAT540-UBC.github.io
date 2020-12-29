@@ -1,8 +1,8 @@
 Seminar 3 - Data aggregation with dplyr
 ================
-Emma Graham, Victor Yuan
+Jenkin Tsui
 
-**update Jan 27th, 2020, 12:10PM**
+**update Dec 29th, 2020, 12:10AM**
 
 The following sections are to be submitted for marks:
 
