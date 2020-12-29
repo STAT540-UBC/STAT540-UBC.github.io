@@ -4,3 +4,4 @@
 * `left_join` is used twice, once outside of a function (on its own) and it's not explained, added joins and a link to their behavior in where other dpylr verbs are explained
 * added seed to random probe plotting so it's reproducible
 * part 3 exercise wasn't clear on what deliverable was expected, I changed it to say to plot this new column
+* `getBM` function may return errors if the R / Bioconductors versions are not the most up-to-date. To avoid this kind of errors, I added `useCache = FALSE` in the `getBM` function.
