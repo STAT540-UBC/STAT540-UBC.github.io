@@ -1,45 +1,45 @@
 course,lect,dow,month,day,week,lecture_num,raw_notes,instructor,mode
 STAT540-Seminar,seminar-1,Wed,January,13,1,1,"Introduction to version control, Git, GitHub",Jenkin,Synchronous
 STAT540-Seminar,seminar-2a,Wed,January,20,2,2,"Introduction to Markdown, Knitr",Marco,Synchronous
-STAT540-Seminar,seminar-2b,Wed,January,20,2,3,"R graphics -- ggplot2, lattice",Jenkin,Synchronous
-STAT540-Seminar,seminar-2c,Wed,January,27,3,4,Getting your hands dirty with R -- simulate data and do some statistics,Marco,Synchronous
-STAT540-Seminar,seminar-3,Wed,February,3,4,5,Load and analyze some gene expression data -- data aggregation with dplyr,Jenkin,Synchronous
-STAT540-Seminar,seminar-4,Wed,February,10,5,6,"Two group testing, fitting and interpreting linear models",Marco,Synchronous
+STAT540-Seminar,seminar-2b,Wed,January,20,2,3,R graphics -- Intro to ggplot2,Jenkin,Synchronous
+STAT540-Seminar,seminar-3,Wed,January,27,3,4,Getting your hands dirty with R -- simulate data and do some statistics,Marco,Synchronous
+STAT540-Seminar,seminar-4,Wed,February,3,4,5,Load and analyze some gene expression data -- data aggregation with dplyr,Jenkin,Synchronous
+STAT540-Seminar,seminar-5,Wed,February,10,5,6,"Two group testing, fitting and interpreting linear models",Marco,Synchronous
 STAT540-Seminar,No Seminar,Wed,February,17,6,NA,Reading break (no class),,
-STAT540-Seminar,seminar-5,Wed,February,24,7,7,RNA-seq: from beginning to end -- BAM to count data (optional),Jenkin,Synchronous
-STAT540-Seminar,seminar-6,Wed,March,3,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",Marco,Synchronous
+STAT540-Seminar,seminar-6,Wed,February,24,7,7,RNA-seq: from beginning to end -- BAM to count data (optional),Jenkin,Synchronous
+STAT540-Seminar,seminar-7,Wed,March,3,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",Marco,Synchronous
 STAT540-Seminar,No Seminar,Wed,March,10,9,NA,Visit office hours for group project advice,,
-STAT540-Seminar,seminar-7,Wed,March,17,10,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",Jenkin,Synchronous
-STAT540-Seminar,seminar-8,Wed,March,24,11,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",Marco,Synchronous
-STAT540-Seminar,seminar-9,Wed,March,31,12,11,Pathway analysis for methylation and gene expression data,Jenkin,Synchronous
-STAT540-Seminar,seminar-10,Wed,April,5,13,12,"Supervised learning, cross-validation, variable selection",Marco,Synchronous
+STAT540-Seminar,seminar-8,Wed,March,17,10,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",Jenkin,Synchronous
+STAT540-Seminar,seminar-9,Wed,March,24,11,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",Marco,Synchronous
+STAT540-Seminar,seminar-10,Wed,March,31,12,11,Gene set enrichment analysis for methylation and gene expression data,Jenkin,Synchronous
+STAT540-Seminar,seminar-11,Wed,April,5,13,12,"Supervised learning, cross-validation, variable selection",Marco,Synchronous
 ,,,,,,,,,
 ,,,,,,,,,
-STAT540,lecture-1,Mon,January,11,1,1,Course intro ,Keegan,
-STAT540,lecture-2,Wed,January,13,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Keegan,
-STAT540,lecture-3,Mon,January,18,2,3,"Exploratory data analysis, QC ",Keegan,
-STAT540,lecture-4,Wed,January,20,2,4,Stats Philosophy & Math/stat background,Sarah Merrill,
-STAT540,lecture-5,Mon,January,25,3,5,Statistical Inference - two groups,Keegan,
-STAT540,lecture-6,Wed,January,27,3,6,Statistical Inference - linear regression and ANOVA,Keegan,
-STAT540,lecture-7,Mon,February,1,4,7,Statistical Inference - multiple linear regression,Keegan,
-STAT540,lecture-8,Wed,February,3,4,8,Statistical Inference - continuous model + limma,Keegan,
-STAT540,lecture-9,Mon,February,8,5,9,Statistical inference - multiple testing,Keegan,
-STAT540,lecture-10,Wed,February,10,5,10,Normalization and batch effects,Keegan,
-STAT540,lecture-11,Mon,February,15,6,NA,Family day (no class),,
-STAT540,lecture-12,Wed,February,17,6,NA,Reading break (no class),,
-STAT540,Break,Mon,February,22,7,11,Application of statistical inference to RNA-seq I,Keegan,
-STAT540,Break,Wed,February,24,7,12,Application of statistical inference to RNA-seq II,Keegan,
-STAT540,lecture-13,Mon,March,1,8,13,Principal Component Analysis (PCA),Keegan,
-STAT540,lecture-14,Wed,March,3,8,14,Cluster Analysis,Keegan,
-STAT540,lecture-15,Mon,March,8,9,15,Single cell RNA-seq,Youngjin Park,
-STAT540,lecture-16,Wed,March,10,9,16,Supervised Learning I: Regression and Classification,Keegan,
-STAT540,lecture-17,Mon,March,15,10,17,Gene set analysis,Paul Pavlidis,
-STAT540,lecture-18,Wed,March,17,10,18,Gene networks and function prediction,Paul Pavlidis,
-STAT540,lecture-19,Mon,March,22,11,19,Supervised Learning II: Cross Validation and Regularization,Keegan,
-STAT540,lecture-20,Wed,March,24,11,20,Genetics and Genome-Wide Association Studies,Keegan,
-STAT540,lecture-21,Mon,March,29,12,21,Causal inference in genomics,Youngjin Park,
-STAT540,lecture-22,Wed,March,31,12,22,Polygenic risk scores and PWAS,Jessica Dennis,
+STAT540,lecture-1,Mon,January,11,1,1,Course intro ,Keegan,Synchronous
+STAT540,lecture-2,Wed,January,13,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Keegan,Asynchronous
+STAT540,lecture-3,Mon,January,18,2,3,"Exploratory data analysis, QC ",Keegan,Synchronous
+STAT540,lecture-4,Wed,January,20,2,4,Stats Philosophy & Math/stat background,Sarah Merrill,Synchronous
+STAT540,lecture-5,Mon,January,25,3,5,Statistical Inference - two groups,Keegan,Synchronous
+STAT540,lecture-6,Wed,January,27,3,6,Statistical Inference - linear regression and ANOVA,Keegan,Asynchronous
+STAT540,lecture-7,Mon,February,1,4,7,Statistical Inference - multiple linear regression,Keegan,Synchronous
+STAT540,lecture-8,Wed,February,3,4,8,Statistical Inference - continuous model + limma,Keegan,Asynchronous
+STAT540,lecture-9,Mon,February,8,5,9,Statistical inference - multiple testing,Keegan,Synchronous
+STAT540,lecture-10,Wed,February,10,5,10,Normalization and batch effects,Keegan,Asynchronous
+STAT540,Break,Mon,February,15,6,NA,Family day (no class),,
+STAT540,Break,Wed,February,17,6,NA,Reading break (no class),,
+STAT540,lecture-11,Mon,February,22,7,11,Application of statistical inference to RNA-seq I,Keegan,Synchronous
+STAT540,lecture-12,Wed,February,24,7,12,Application of statistical inference to RNA-seq II,Keegan,Asynchronous
+STAT540,lecture-13,Mon,March,1,8,13,Principal Component Analysis (PCA),Keegan,Synchronous
+STAT540,lecture-14,Wed,March,3,8,14,Cluster Analysis,Keegan,Asynchronous
+STAT540,lecture-15,Mon,March,8,9,15,Single cell RNA-seq,Youngjin Park,TBA
+STAT540,lecture-16,Wed,March,10,9,16,Supervised Learning I: Regression and Classification,Keegan,Asynchronous
+STAT540,lecture-17,Mon,March,15,10,17,Gene set analysis,Paul Pavlidis,TBA
+STAT540,lecture-18,Wed,March,17,10,18,Gene networks and function prediction,Paul Pavlidis,TBA
+STAT540,lecture-19,Mon,March,22,11,19,Supervised Learning II: Cross Validation and Regularization,Keegan,Synchronous
+STAT540,lecture-20,Wed,March,24,11,20,Genetics and Genome-Wide Association Studies,Keegan,Asynchronous
+STAT540,lecture-21,Mon,March,29,12,21,Causal inference in genomics,Youngjin Park,TBA
+STAT540,lecture-22,Wed,March,31,12,22,Polygenic risk scores and PWAS,Jessica Dennis,TBA
 STAT540,lecture-23,Mon,April,5,13,NA,Easter Monday (no class),,
-STAT540,lecture-24,Wed,April,7,13,23,Final Project Presentations,,
-STAT540,lecture-25,Mon,April,12,14,24,Final Project Presentations,,
-STAT540,lecture-26,Wed,April,14,14,26,Final Project Presentations,,
+STAT540,lecture-24,Wed,April,7,13,23,Final Project Presentations,,Synchronous
+STAT540,lecture-25,Mon,April,12,14,24,Final Project Presentations,,Synchronous
+STAT540,lecture-26,Wed,April,14,14,26,Final Project Presentations,,Synchronous
