@@ -35,7 +35,7 @@ sdat %>% head(3)
 
 ## link to the page of any seminar where such exists
 smdat <-
-  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', 
+  data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.Rmd)$', 
                                full.names=TRUE,recursive = TRUE),
                                stringsAsFactors = FALSE)
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
@@ -53,7 +53,7 @@ sdat$lect[html_exists] <-
               pattern="(^seminar-.*)", replacement='[\\1](LINK)')
 sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists], 
                                       "LINK", 
-                                      file.path(githubLink,'tree/master',
+                                      file.path(githubLink,'blob/master',
                                                 str_replace(sdat$html[html_exists],'\\.\\.','')
                                                 ))
 
@@ -65,7 +65,7 @@ sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists],
 #                                      file.path(githubLink,'tree/master',
 #                                                str_replace(sdat$html[html_exists],'\\.\\.','')
 #                                                ))
-sdat$lect <- gsub("https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/", "..", sdat$lect)
+sdat$lect <- gsub("https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/", "..", sdat$lect)
 
 dat_sm <- sdat %>% split(sdat$course)
 dat_sm <- lapply(dat_sm, 'rownames<-', NULL)
