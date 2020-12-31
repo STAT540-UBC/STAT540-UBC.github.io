@@ -20,19 +20,19 @@ Virtual office hours listed below are on a drop-in basis (no appointment necessa
 
 #### **Instructor**
 
-Keegan Korthauer, Ph.D (She/Her/Hers)
+Keegan Korthauer, Ph.D (She/Her/Hers)  
 Email: <keegan@stat.ubc.ca>  
-Office hours: will be determined after a class poll of students' availability
+Office hours: will be determined after a class poll of students' availability  
 
 #### **Teaching Assistants**
 
-Jenkin Tsui  
+Jenkin Tsui (He/Him/His)  
 Email: <jenkin.tsui@aya.yale.edu>  
-Office hours: Friday 3-4pm (Pacific time)
+Office hours: Friday 3-4pm (Pacific time)  
 
-Marco Tello Palencia  
+Marco Tello Palencia (He/Him/His)  
 Email: <Marco.TelloPalencia@bcchr.ca>  
-Office hours: Tuesday 10-11am (Pacific time)
+Office hours: Tuesday 10-11am (Pacific time)  
 
 #### **Guest Lecturers**
 
@@ -75,8 +75,10 @@ This interdisciplinary course requires a broad range of skills at the interface 
 
 **Biology**: 
 
-- No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome. 
-- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material. 
+- No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome.
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material.
+- [This free online book "Concepts of Biology" by Fowler, Roush & Wise](https://openstax.org/books/concepts-biology/pages/1-introduction) is a great resource for biological concepts, in particular chapters 6 and 9
+- [This free online book "Biology" by Clark, Douglas & Choi](https://openstax.org/books/biology-2e/pages/1-introduction) goes more in-depth, see Chapters 14, 15, and 16 for material on genetics that is particularly relevant for this course.
 - No matter your prior experience, when you come across a new biological concept during the course or in your research, you might need to spend a bit of time 'learning as you go' - this is expected and something I still do regularly in my day-to-day research!
 
 **R**: 

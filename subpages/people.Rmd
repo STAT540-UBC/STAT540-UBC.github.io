@@ -19,7 +19,8 @@ classoption:
 <br>[Keegan Korthauer](https://kkorthauer.org/)
 <br>Assistant Professor of Statistics
 <br><keegan@stat.ubc.ca>
-<br>Pronouns: She/her/hers
+<br>Pronouns: She/Her/Hers
+<br>Office hours: will be determined after a class poll of students' availability
 :::
 
 
@@ -43,6 +44,7 @@ You may feel free to address her as "Keegan" or "Dr. Korthauer".
 <br>PhD Student, Bioinformatics
 <br><jenkin.tsui@aya.yale.edu>
 <br>Pronouns: He/Him/His
+<br>Office hours: Friday 3-4pm (Pacific time)
 :::
 
 
@@ -62,6 +64,7 @@ Jenkin is a Ph.D. student in Bioinformatics at UBC and he is a researcher at BC 
 <br>MSc Student, Bioinformatics
 <br><Marco.TelloPalencia@bcchr.ca>
 <br>Pronouns: He/Him/His
+<br>Office hours: Tuesday 10-11am (Pacific time)
 :::
 
 
