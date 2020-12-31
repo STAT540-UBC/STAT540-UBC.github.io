@@ -8,10 +8,10 @@ output:
     toc: 3
 ---
 
-You will have three individual assignments, five seminar submissions, and one group project: 
+You will have three individual assignments, six seminar submissions, and one group project: 
 
 - One intro assignment (5%)
-- Five in-seminar submissions (10% total; 2% each)
+- Six in-seminar submissions (10% total; 2% each after dropping the lowest score)
 - One paper review (5%) 
 - One analysis assignment (30%)
 - Final group project (50%) which contains multiple parts. 
@@ -59,7 +59,7 @@ Go to [the intro assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.i
 
 ## Seminar completion (10%)
 
-You will submit short "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6. These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research. Each deliverable is weighted equally and is due on the Monday following the TA-led session for that seminar. See the [Seminars page](seminars.html) for the submission materials.
+You will submit short "deliverables" for six seminars: 1, 2 (split into two parts - Seminar 2a and 2b together count as one deliverable), 3, 4, 5, and 7. These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research. Each of these six Seminar session deliverables is weighted equally, but the lowest score will be dropped (so that the 5 deliverables with highest score will each count for 2% of the final grade). Seminar deliverables are due on the Monday following the TA-led session for that seminar. See the [Seminars page](seminars.html) for the submission materials.
 
 ## Paper critique (5%)
 Each student should review and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/) in a 450-650 word summary/report. The summary should include: 

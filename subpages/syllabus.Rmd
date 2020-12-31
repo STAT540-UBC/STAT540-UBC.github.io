@@ -122,9 +122,11 @@ This interdisciplinary course requires a broad range of skills at the interface 
 
 ## Evaluation
 
-You will have three individual assignments, five seminar submissions, and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. If you anticipate having trouble meeting a deadline, or need to request an extension please reach out via email. 
+You will have three individual assignments, six seminar submissions (one divided into two parts), and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. If you anticipate having trouble meeting a deadline, or need to request an extension please reach out via email. 
 
-For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html). For detailed instructions on how to turn in your assignments, see the [course work page](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions).
+**For more detail on each of these assignments, see the [course work page](https://stat540-ubc.github.io/subpages/assignments)** (the header of each assignment on this page points to the relevant section of the course work page).
+
+For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html). For detailed instructions on how to turn in your assignments, see the [submission instructions on the course work page](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions).
 
 ### Timeline overview 
 
@@ -158,7 +160,8 @@ kable(assn %>% filter(Assignment == "Intro Assignment") %>% select(-Category))
 
 ### [Seminar completion (10%)](assignments.html#seminar-completion-10)
 
-- You will submit short "deliverables" for seminars 1, 2 (split into two parts), 3, 4, and 6
+- You will submit short "deliverables" for seminars 1, 2 (split into two parts - Seminar 2a and 2b together count as one deliverable), 3, 4, 5, and 7
+- Each of these six Seminar session deliverables is weighted equally, but the lowest score will be dropped (so that the 5 deliverables with highest score will each count for 2% of the final grade). 
 - These deliverables give practical experience applying the knowledge that will be helpful on the homework assignment, final project, and (hopefully) your future research.
 - Each deliverable is due on the Monday following the TA-led session for that seminar
 
