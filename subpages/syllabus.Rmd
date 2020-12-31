@@ -139,7 +139,7 @@ timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
         height=375)
 ```
 
-### [Practice Assignment (5%)](assignments.html#practice-assignment-5)
+### [Intro Assignment (5%)](assignments.html#intro-assignment-5)
 
 - An introductory assignment designed to assess basic knowledge of GitHub, R and Rmarkdown
 
@@ -153,7 +153,7 @@ assn <- assn %>%
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Assignment == "Warm-Up") %>% select(-Category))
+kable(assn %>% filter(Assignment == "Intro Assignment") %>% select(-Category))
 ```
 
 ### [Seminar completion (10%)](assignments.html#seminar-completion-10)
@@ -211,7 +211,7 @@ assn <- assn %>%
   mutate(`Due Date` = as.Date(`Due Date`, "%Y-%m-%d")) %>%
   arrange(`Due Date`) %>% 
   mutate(`Due Date` = format(`Due Date`, "%a %d %B %Y"))
-kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Warm-Up") %>% select(-Category))
+kable(assn %>% filter(Category == "Individual Assignment", Assignment != "Intro Assignment") %>% select(-Category))
 ```
 
 ### [Group project (50%)](assignments.html#final-group-project-50) 

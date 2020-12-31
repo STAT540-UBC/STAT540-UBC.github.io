@@ -10,7 +10,7 @@ output:
 
 You will have three individual assignments, five seminar submissions, and one group project: 
 
-- One warm-up assignment (5%)
+- One intro assignment (5%)
 - Five in-seminar submissions (10% total; 2% each)
 - One paper review (5%) 
 - One analysis assignment (30%)
@@ -49,11 +49,11 @@ timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
 
 # Assignment details
 
-## Practice assignment (5%)
+## Intro assignment (5%)
 
-This is a warm-up for your future assignments. Once you have completed it, you will have set-up for the class and have a better understanding of how to set up your repository, pushing files to GitHub, writing markdown, and using R to do simple analyses. Grade point values are listed in the assignment.
+This assignment is designed to give you an introduction to your future assignments. Once you have completed it, you will have set-up for the class and have a better understanding of how to set up your repository, pushing files to GitHub, writing markdown, and using R to do simple analyses. Grade point values are listed in the assignment.
 
-Go to [the practice assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/practice_assignment/practice_assignment.md) and start now! 
+Go to [the intro assignment](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/homework/intro_assignment/intro_assignment.md) and start now! 
 
 --------------
 
@@ -150,7 +150,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
 **Set-up your private GitHub repo for course work**
 
   * We're talking about the repo `zz_lastname-firstnmae_STAT540_2021` now. 
-  * Make directories for each assignment type (e.g. `Practice_Assignment`, `Paper_critique`, `Analysis_Assignment`, `Seminars`, `Project`)
+  * Make directories for each assignment type (e.g. `Intro_Assignment`, `Paper_critique`, `Analysis_Assignment`, `Seminars`, `Project`)
     - We truly mean a [directory or "folder"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that! On your local computer, go to the directory where this Git repository lives. Make the new directories here.
     - These directories may have sub-directories (especially useful for the `Seminars` directory)
   * It is also nice to include a `README.md` inside each of the assignment and seminar directories. 

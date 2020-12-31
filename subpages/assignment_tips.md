@@ -49,8 +49,8 @@ To create the markdown file from Rmarkdown, set the output of the Rmarkdown to "
 ```
 ---
 title: "Homework assignment"
-author: "Santina Lin"
-date: "February 7, 2017"
+author: "Your Name"
+date: "January 18, 2021"
 output: github_document
 ---
 

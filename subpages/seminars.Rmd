@@ -85,6 +85,8 @@ table {
 
 **Location**: Online - Meeting links and recordings posted in Canvas
 
+We strongly recommend reading the seminar materials prior to attending each seminar
+
 ```{r results = 'asis', echo = FALSE}
 assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
 seminar_num <- assignment_data$content
@@ -105,6 +107,6 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
 
 **Supplemental materials** 
 
-  * seminar 0a | Getting Started with R ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2017/seminar0a/getting_started_with_R.pdf), [Worksheet](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2017/seminar0a/Seminar%200a%20-%20Getting%20Started.docx))
+  * seminar 0a | Getting Started with R ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2021/seminar0a/getting_started_with_R.pdf), [Worksheet](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2021/seminar0a/Seminar%200a%20-%20Getting%20Started.docx))
   * seminar 0b | Molecular Biology Intro ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf), [Quiz to check your understanding](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform))
   
