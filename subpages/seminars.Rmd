@@ -65,7 +65,8 @@ sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists],
 #                                      file.path(githubLink,'tree/master',
 #                                                str_replace(sdat$html[html_exists],'\\.\\.','')
 #                                                ))
-sdat$lect <- gsub("https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/", "..", sdat$lect)
+
+#sdat$lect <- gsub("https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/", "..", sdat$lect)
 
 dat_sm <- sdat %>% split(sdat$course)
 dat_sm <- lapply(dat_sm, 'rownames<-', NULL)
