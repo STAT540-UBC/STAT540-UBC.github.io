@@ -109,5 +109,5 @@ knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instr
 **Supplemental materials** 
 
   * seminar 0a | Getting Started with R ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/seminars/seminars_winter_2021/seminar0a/getting_started_with_R.pdf), [Worksheet](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_winter_2021/seminar0a/Seminar%200a%20-%20Getting%20Started.docx))
-  * seminar 0b | Molecular Biology Intro ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf), [Quiz to check your understanding](https://docs.google.com/forms/d/e/1FAIpQLScPUIQ5XsoXXf2vUULoFxPWHtsqyZDzZ39yhfmRGux-gSDQkg/viewform))
+  * seminar 0b | Molecular Biology Intro ([PDF](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf), [Quiz to check your understanding in Canvas - not for a grade](https://canvas.ubc.ca/courses/61673/assignments/785665))
   
