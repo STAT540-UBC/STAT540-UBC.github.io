@@ -55,9 +55,13 @@ pdf_exists <- Negate(is.na)(cdat$pdf)
 html_exists <- Negate(is.na)(cdat$html)
 
 # Insert placeholder link to notes 
+#cdat$notes[pdf_exists] <-
+ # str_replace(cdat$notes[which(pdf_exists)],
+#              "(lecture-[0-9]+)|(lecture-[1-9]+)", '<a href="LINK">\\1</a>')
+
 cdat$notes[pdf_exists] <-
   str_replace(cdat$notes[which(pdf_exists)],
-              "(lecture-[0-9]+)|(lecture-[1-9]+)", '<a href="LINK">\\1</a>')
+              "(lecture-[0-9]+)|(lecture-[1-9]+)", '[\\1](LINK)')
 # Replace placeholder "LINK" which pdf file names
 if (sum(pdf_exists) > 0)
   cdat$notes[pdf_exists] <- str_replace(cdat$notes[which(pdf_exists)], "LINK", cdat$pdf[which(pdf_exists)])

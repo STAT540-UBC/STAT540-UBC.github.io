@@ -15,8 +15,8 @@ STAT540-Seminar,seminar-10,Wed,March,31,12,11,Gene set enrichment analysis for m
 STAT540-Seminar,seminar-11,Wed,April,7,13,12,"Supervised learning, cross-validation, variable selection",Marco,Synchronous
 ,,,,,,,,,
 ,,,,,,,,,
-STAT540,lecture-1,Mon,January,11,1,1,Course intro ,Keegan,Synchronous
-STAT540,lecture-2,Wed,January,13,1,2,"Molecular Biology methods intro: RNA, DNA, methylation, ChiP-Seq",Keegan,Asynchronous
+STAT540,lecture-1,Mon,January,11,1,1,Course intro; Molecular Biology primer,Keegan,Synchronous
+STAT540,lecture-2,Wed,January,13,1,2,"High-dimensional biology intro: RNA, DNA, methylation, ChiP-Seq",Keegan,Asynchronous
 STAT540,lecture-3,Mon,January,18,2,3,"Exploratory data analysis, QC ",Keegan,Synchronous
 STAT540,lecture-4,Wed,January,20,2,4,Stats Philosophy & Math/stat background,Sarah Merrill,Synchronous
 STAT540,lecture-5,Mon,January,25,3,5,Statistical Inference - two groups,Keegan,Synchronous
