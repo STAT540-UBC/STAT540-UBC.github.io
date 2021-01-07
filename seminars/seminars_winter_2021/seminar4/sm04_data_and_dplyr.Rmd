@@ -217,7 +217,7 @@ human = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #function that takes in data frame, and outputs same data frame with associated chromosome annotations.
 identify_gene_names <- function(df){
 	names(df) <- c("Sample", "hgnc_symbol", "Count")
-	names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = unique(df$hgnc_symbol), mart = human)
+	names <- getBM( attributes=c("hgnc_symbol", "chromosome_name") , filters= "hgnc_symbol", values = unique(df$hgnc_symbol), mart = human, useCache = FALSE)
 	left_join(df, names, by = "hgnc_symbol")
 }
 
