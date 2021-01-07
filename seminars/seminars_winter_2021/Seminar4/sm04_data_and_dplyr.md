@@ -651,8 +651,8 @@ full_data %>%
     ## # A tibble: 2 x 2
     ##   disease  mean
     ##   <fct>   <dbl>
-    ## 1 normal   686.
-    ## 2 RCC      658.
+    ## 1 normal   688.
+    ## 2 RCC      659.
 
 # Part 3: Graphing expression data
 
