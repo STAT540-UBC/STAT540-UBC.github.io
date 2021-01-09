@@ -74,6 +74,28 @@ Marco is an M.Sc. student in Bioinformatics, and he works at BC Children's Hospi
 
 ::::
 
+
+&nbsp;
+
+:::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;"}
+
+::: {}
+![Sina](peoplePics/sinaJ2.png){width=55%}
+<br>Sina Jafarzadeh
+<br>MSc Student, Bioinformatics
+<br><jafarzadeh91@gmail.com>
+<br>Pronouns: He/Him/His
+<br>Office hours: Friday 1-2pm (Pacific time)
+:::
+
+
+::: {}
+Sina is an M.Sc. student in Bioinformatics and recently defended his M.Sc. thesis under the supervision of Dr. Sara Mostafavi at BC Children's Hospital Research Institute. He is currently working as a research assistant in Michael Smith Genome Sciences Centre, focusing on generating the functional annotations of transcriptomic data using deep neural networks. Sina grew up in a small town in northern Iran and studied computer science at the Sharif University of Technology (SUT), Tehran, before moving to Canada. Sina also enjoys practicing musical instruments (mostly guitar), going for long walks, and reading non-fictions.
+:::
+
+
+::::
+
 ## Guest Lecturers
 |  |   |  |
 |---------------|---------------|---------------|
