@@ -8,6 +8,14 @@ output:
       after_body: include/license-footer.html
 ---
 
+<head>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="Course website for STAT 540 (Cross-listed in BIOF and GSAT) at UBC. Contents: course syllabus, lecture notes, seminar worksheets, assignments, and teaching team info." />
+  <meta name="twitter:title" content="STAT 540: Statistical Methods for High Dimensional Biology" />
+  <meta name="twitter:site" content="stat540-ubc.github.io" />
+  <meta name="twitter:image" content="https://stat540-ubc.github.io/static/img/stat540-logo-s.png" />
+</head>
+
 
 ## Welcome!
 
