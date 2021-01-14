@@ -295,7 +295,7 @@ If you're interested, check out [this post](http://dont-be-afraid-to-commit.read
 
 ### Overview
 
-The very first thing we will do is create a repository. A repository is simply a directory for your project. It is no different from any other directories on your laptop, except that Git knows about it and keeps a complete historical record of every change that has been "committed". 
+A repository is simply a directory for your project. It is no different from any other directories on your laptop, except that Git knows about it and keeps a complete historical record of every change that has been "committed". 
 
 When a repository is stored on GitHub, it is called the "remote" repository. You can then "clone" this repository onto your laptop. The copy on your laptop is then called the "local" repository. "Pushing" and "pulling" are operations for keeping the local and remote repositories in sync with each other. 
 
@@ -303,7 +303,9 @@ For example, You can modify codes in your "local" repository and then, when read
 
 Don't worry if you don't understand every detail of the workflow just yet. Just get the overall picture for now. You'll gain a much deeper understanding once we start trying things out for real, starting now!
 
-### Create
+### Create 
+
+**Update 14 January 2021** *Skip the create step for this deliverable; instead use the private repo that was created for you (named `zz_Your-Name_STAT540_2021W2`) - refer back to these instructions in your future work when you'd like to create a new repo.* 
 
 To create a repository, go to [GitHub](https://github.com/). If you're logged in, you should see a "New repository" button on your home screen. Click it. 
 
