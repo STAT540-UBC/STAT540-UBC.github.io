@@ -286,6 +286,7 @@ Here are some resources in case you want to learn more.
 * [The Official Documentation on R Markdown](http://rmarkdown.rstudio.com/)
 * [Ch. 19 of Happy Git and GitHub for the useR](http://happygitwithr.com/rmd-test-drive.html)
 * [The R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+* [Other cool HTML options to check](https://bookdown.org/yihui/rmarkdown/html-document.html)
 
 ## Attributions
 
