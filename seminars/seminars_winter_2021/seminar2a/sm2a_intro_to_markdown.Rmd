@@ -265,7 +265,7 @@ Do you see how the markdown is much more useful on GitHub? Internalize that.
 
 ## Part 4: Deliverables
 
-* Show your Markdown files on GitHub to a TA to get checked off for completion. 
+Upload the Rmd and Markdown files generated in this seminar to GitHub.
 
 ## Final notes and some additional resources
 
