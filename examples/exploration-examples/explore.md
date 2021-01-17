@@ -171,7 +171,7 @@ head(d_long)
 ## 6    42452222      37655856
 ```
 
-Another great way to organize the data is to use an [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html). This is the "Bioconductor way" of housing the data and metadata in one object, and has handy accessor functions that subset both types of information at once (e.g. subsetting by sample or gene).
+Another great way to organize the data is to use an [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html). This is the "Bioconductor way" of housing the data and metadata in one object, and has handy accessor functions that subset both types of information at once (e.g. subsetting by sample or gene).
 
 ![](../../lectures/lectures_2021/source/lec03-eda/img/summarizedexperiment.png)
 
@@ -306,8 +306,8 @@ row.names(se)[sample(nrow(se), 10)]
 ```
 
 ```
-##  [1] "Cpox"    "Ptn"     "Drc1"    "Gtf2e1"  "Abca8a"  "Palm"    "Pdcd10" 
-##  [8] "Zfp763"  "Mical2"  "Ccdc177"
+##  [1] "Klhl9"   "Tex30"   "Cnnm1"   "Fam124a" "Rps6ka1" "Sep15"   "Gabpb2" 
+##  [8] "Srsf11"  "Isoc1"   "Slc22a5"
 ```
 
 ```r

@@ -124,7 +124,7 @@ dim(d_long)
 head(d_long)
 ```
 
-Another great way to organize the data is to use an [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html). This is the "Bioconductor way" of housing the data and metadata in one object, and has handy accessor functions that subset both types of information at once (e.g. subsetting by sample or gene).
+Another great way to organize the data is to use an [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html). This is the "Bioconductor way" of housing the data and metadata in one object, and has handy accessor functions that subset both types of information at once (e.g. subsetting by sample or gene).
 
 ![](../../lectures/lectures_2021/source/lec03-eda/img/summarizedexperiment.png)
 
