@@ -198,7 +198,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - Visit your private GitHub repository in a web browser
     - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
      - Click on the clipboard icon to copy the revision SHA to your clipboard
-    - Click on "Issues", then on "New Issue". Name the issue "Mark homework of *your repository name*".
+    - Click on "Issues", then on "New Issue". Name the issue "Mark *the deliverable title* of *your repository name*", e.g. "Mark seminar 1 of zz_lastname-firstname_STAT540_2021W2"
     - In the description of the issue, tag all TAs, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
 
