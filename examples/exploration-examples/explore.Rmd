@@ -443,7 +443,7 @@ hd[hd < -clip]<--clip
 hd[hd > clip]<-clip
 
 # As it happens for these data scale/clip doesn't matter that much (try it yourself). I'm allowing the rows to be clustered, but I don't want the column order to be altered.
-heatmap(hd, Colv=NA,  scale=NULL, cexCol=0.5, cexRow=0.5, col=bcols)
+heatmap(hd, Colv=NA,  scale="none", cexCol=0.5, cexRow=0.5, col=bcols)
 ```
 
 Because random genes show patterns related to DPC, it is obvious that this is a very strong signal (but remember there is also a batch confound).
@@ -498,7 +498,9 @@ After some further checking by hand, and an email exchange with the senior autho
 
 Next we look at the sample-sample correlation. We are expecting to see a strong pattern, because we see clear DPC-related patterns in random genes.
 
-```{r samplecor, width = 5, height = 4}
+Note: In general, I suggest that if the correlations are mostly far from 1 to set the diagonal of the correlation matrix to `NA` so it doesn’t dominate the color space; in general ensure color mapping allows range of values to be distinguished. 
+
+```{r samplecor, fig.width = 5, fig.height = 5}
 cc <- data.frame(cor(d), 
                  row.names = names(d))
 range(cc, na.rm=T)
@@ -512,7 +514,7 @@ heatmap(as.matrix(cc),
 
 And using the `pheatmap` package - more flexible and we can add in annotation bars.
 
-```{r, width = 5, height = 7}
+```{r, fig.width = 10, fig.height = 7}
 pheatmap(cc, color = bcols, 
          border_color = NA, 
          cluster_rows = F, cluster_cols = F, 
@@ -527,7 +529,7 @@ Now using the `ComplexHeatmap` package. This is the most flexible for adding ext
 
 Note that the default color choices for the anntation bars in this package and in `pheatmap` can be less than ideal, but you can specify color palettes (see `RColorBrewer` package).
 
-```{r,  width = 5, height = 7}
+```{r,  fig.width = 10, fig.height = 7}
 Heatmap(as.matrix(cc), col=bcols, 
         cluster_rows = FALSE, cluster_columns = FALSE, 
         top_annotation = HeatmapAnnotation(Group = m$Group,

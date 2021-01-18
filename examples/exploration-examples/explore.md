@@ -306,8 +306,8 @@ row.names(se)[sample(nrow(se), 10)]
 ```
 
 ```
-##  [1] "Klhl9"   "Tex30"   "Cnnm1"   "Fam124a" "Rps6ka1" "Sep15"   "Gabpb2" 
-##  [8] "Srsf11"  "Isoc1"   "Slc22a5"
+##  [1] "Camsap3" "Efna2"   "Eps15"   "Tubb6"   "Rbm18"   "Ep400"   "Emc10"  
+##  [8] "Spock2"  "Inadl"   "Slc29a4"
 ```
 
 ```r
@@ -757,7 +757,7 @@ hd[hd < -clip]<--clip
 hd[hd > clip]<-clip
 
 # As it happens for these data scale/clip doesn't matter that much (try it yourself). I'm allowing the rows to be clustered, but I don't want the column order to be altered.
-heatmap(hd, Colv=NA,  scale=NULL, cexCol=0.5, cexRow=0.5, col=bcols)
+heatmap(hd, Colv=NA,  scale="none", cexCol=0.5, cexRow=0.5, col=bcols)
 ```
 
 ![](explore_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
@@ -822,6 +822,8 @@ After some further checking by hand, and an email exchange with the senior autho
 # Sample-sample correlations
 
 Next we look at the sample-sample correlation. We are expecting to see a strong pattern, because we see clear DPC-related patterns in random genes.
+
+Note: In general, I suggest that if the correlations are mostly far from 1 to set the diagonal of the correlation matrix to `NA` so it doesn’t dominate the color space; in general ensure color mapping allows range of values to be distinguished. 
 
 
 ```r
