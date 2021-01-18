@@ -306,8 +306,9 @@ row.names(se)[sample(nrow(se), 10)]
 ```
 
 ```
-##  [1] "Camsap3" "Efna2"   "Eps15"   "Tubb6"   "Rbm18"   "Ep400"   "Emc10"  
-##  [8] "Spock2"  "Inadl"   "Slc29a4"
+##  [1] "Hdgfrp2"       "Aptx"          "Cramp1l"       "Tspan11"      
+##  [5] "Extl1"         "Enc1"          "Ppp2r2c"       "Ccdc166"      
+##  [9] "2310033P09Rik" "Ppp1cc"
 ```
 
 ```r
@@ -391,11 +392,11 @@ Let's dig a little deeper: compare these features to each other.
 # examine the meta-data. 
 # Omit the sample name/number
 m %>% select(-Number, -Sample) %>%
+  mutate(DPC=as.factor(DPC)) %>%
   ggpairs(aes(color=Group, alpha=0.4))
 ```
 
 ```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -541,7 +542,7 @@ hist(d[,1], breaks=50, xlab="Expression",
 #ggplot:
 d_long %>% filter(Sample == d_long$Sample[1]) %>%
   ggplot(aes(Expression)) + 
-    geom_histogram(binwidth = 0.2) + 
+    geom_histogram(binwidth = 0.4) + 
     ggtitle(paste0("All genes in ",  d_long$Sample[1]))
 ```
 
@@ -687,7 +688,8 @@ We can make many scatter plots at once (pairs plot). This is often useful but ca
 
 
 ```r
-pairs(d[,4:15], pch='.')
+n <- 1000
+pairs(d[sample(nrow(d), n),4:15], pch='.')
 ```
 
 ![](explore_files/figure-html/pairs-1.png)<!-- -->
@@ -696,6 +698,7 @@ Next in ggplot using `ggpairs` from the `GGally` package. Doesn't show the upper
 
 
 ```r
+n <- 1000
 ggpairs(d[,4:15], lower=list(continuous=wrap(ggally_points, size=0.5, alpha=0.1)))
 ```
 
