@@ -43,7 +43,7 @@ ggplot2::update_geom_defaults("point", list(size = 3))
 }
 ```
 
-```{r xaringan-logo, echo=FALSE}
+```{r xaringan-logo, echo=FALSE, show=FALSE, results='hide'}
 # Put placeholder for video for recordings
 
 # If xaringanExtra isn't isntalled, first run:
@@ -162,7 +162,6 @@ dim(m)
 
 # Small but **important** detail
 
-<big>
 
 **Columns of main data matrix should match the rows of the metadata matrix _exactly_**
 - the two objects should represent the same set of samples
@@ -170,8 +169,8 @@ dim(m)
 
 ```{r}
 head(colnames(d))
-head(rownames(m))
-identical(colnames(d), rownames(m))
+head(m$Sample)
+identical(colnames(d), m$Sample)
 ```
 
 ---
@@ -257,7 +256,7 @@ d_long <- d %>%
   gather(key="Sample", value="Expression", -gene)
 
 # join rpkms with meta data (already in long format)
-d_long <- as.tibble(join(d_long, m, by="Sample"))
+d_long <- as_tibble(join(d_long, m, by="Sample"))
 
 dim(d_long)
 
@@ -587,7 +586,7 @@ d_long %>%
 ```{r, fig.width=7, fig.height=6, echo = FALSE}
 # Overlaid plots
 ggplot(data = d_long) + 
-  geom_density(aes(Expression, group=Sample, group="Group"), color="grey") + 
+  geom_density(aes(Expression, group=Sample), color="grey") + 
   geom_density(aes(Expression), color="black", size=1.5) +
   ggtitle("All genes in all samples")
 ```
@@ -696,6 +695,7 @@ ggpairs(d[sample(nrow(d), n),6:11],
 .right-column[
 ```{r, fig.width=12, fig.height=7, message = FALSE, echo = FALSE, fig.align='center'}
 m %>% select(-Number, -Sample) %>%
+  mutate(DPC = as.factor(DPC)) %>%
   ggpairs(aes(color=Group, alpha=0.4))
 ```
 ]
