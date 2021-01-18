@@ -1,4 +1,4 @@
-Seminar 3 - Data aggregation with dplyr
+Seminar 4 - Data aggregation with dplyr
 ================
 Jenkin Tsui
 
@@ -674,7 +674,7 @@ full_data %>%
     ggplot(aes(x = as.factor(chromosome_name), y = Count)) + geom_point()
 ```
 
-![](sm03_data_and_dplyr_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](sm04_data_and_dplyr_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Part 3 Exercise
 

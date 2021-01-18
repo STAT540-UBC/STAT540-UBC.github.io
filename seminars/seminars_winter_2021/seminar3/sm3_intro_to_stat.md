@@ -1,5 +1,5 @@
 
-STAT 540 - Seminar 2c: Getting your hands dirty with R, probability and simulations
+STAT 540 - Seminar 3: Getting your hands dirty with R, probability and simulations
 ===================================================================================
 
 Learning Objectives
@@ -76,7 +76,7 @@ tibble(height = all_possible_heights,
   xlab("height (cm)")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 ### The probability density function
 
@@ -109,7 +109,7 @@ p +
   ylab("f(x)")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 Notice that in R, we can very easily plot the probability density function, simply by using the dnorm() functions. Similar functions are available for other distributions. For example, dunif() for the uniform distribution and dchisq() for the chi-square distribution.
 
@@ -144,7 +144,7 @@ p +
   ylab("f(x)")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ### Simulation vs. perfect distribution
 
@@ -172,7 +172,7 @@ dataFrame %>% ggplot() +
     ylab("")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 You guessed it, we can sample from other distributions using similar functions. For example, runif() is the random number function used to sample from a uniform distribution and rchisq() can be used to sample from the chi-square distribution.
 
@@ -206,7 +206,7 @@ dataFrame %>% ggplot() +
   geom_line(aes(x = x, y = probability), color = "blue")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 Note that it looks absolutely nowhere like the normal distribution. That's what makes the CTL so exciting!
 
@@ -236,7 +236,7 @@ tibble(x = randomChiSqValues) %>%
   geom_density(aes(x = x), color = "blue")
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 So, yes, of course it resembles the chi-square distribution. The values were sampled from it! Nothing too exciting yet...
 
@@ -263,7 +263,7 @@ tibble(x = sampleMeans) %>%
   geom_point(aes(x = x, y = 0), color = "blue", shape = 1, size = 3)
 ```
 
-![](sm2c_intro_to_stat_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](sm3_intro_to_stat_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 ... and TADA. Sample means of random samples generated from the chi-square distribution converges to the normal distribution. How amazing is that?!
 
@@ -282,4 +282,4 @@ For the normal distribution, the three functions correspond to pnorm(), dnorm(),
 Attributions
 ------------
 
-This seminar was developed by [Eric Chu](https://github.com/echu113) with seminar [materials](https://stat540-ubc.github.io/seminars/sm02c_playing-with-probability.html) previously designed by Dr. Jenny Bryan and Alice Zhu.
+This seminar was developed by [Eric Chu](https://github.com/echu113).

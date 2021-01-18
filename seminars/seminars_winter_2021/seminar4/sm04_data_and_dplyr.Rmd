@@ -1,5 +1,5 @@
 ---
-title: "Seminar 3 - Data aggregation with dplyr"
+title: "Seminar 4 - Data aggregation with dplyr"
 author: "Jenkin Tsui"
 output: github_document
 ---

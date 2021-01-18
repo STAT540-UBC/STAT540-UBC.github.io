@@ -241,7 +241,7 @@ legend("topright", c("ALL", "HBC"),
 par(op)
 ```
 
-> Try to regenerate this plot using pheatmap, like we did in Seminar 6.   
+> Try to regenerate this plot using pheatmap, like we did in Seminar 7.   
 
 Next, stripplot of beta values of probes within top 5 CGI hits.   
 

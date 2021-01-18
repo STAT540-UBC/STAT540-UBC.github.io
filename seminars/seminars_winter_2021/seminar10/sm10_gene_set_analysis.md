@@ -1,5 +1,5 @@
 
-STAT 540 - Seminar 9: Geneset Enrichment Analysis
+STAT 540 - Seminar 10: Geneset Enrichment Analysis
 =================================================
 
 Learning Objectives

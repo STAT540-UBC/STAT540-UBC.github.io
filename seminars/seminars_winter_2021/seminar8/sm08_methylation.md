@@ -104,7 +104,7 @@ plotDat <- data.frame(Beta = dat.probeMeans,
 )
 ```
 
-![](sm07_methylation_files/figure-markdown_github/exploratory-1.png)
+![](sm08_methylation_files/figure-markdown_github/exploratory-1.png)
 
 Data Normalization
 ------------------
@@ -148,7 +148,7 @@ plotNorm$Norm <- factor(plotNorm$Norm, levels = c("Before", "After"))
 )
 ```
 
-![](sm07_methylation_files/figure-markdown_github/postNorm-1.png)
+![](sm08_methylation_files/figure-markdown_github/postNorm-1.png)
 
 M values
 --------
@@ -308,7 +308,7 @@ M.CGI.tall$Group <- gsub("_[0-9]+", "", M.CGI.tall$Sample)
    scale_x_discrete(labels = NULL))
 ```
 
-![](sm07_methylation_files/figure-markdown_github/M.CGI.boxplot-1.png)
+![](sm08_methylation_files/figure-markdown_github/M.CGI.boxplot-1.png)
 
 Differential methylation analysis with limma
 --------------------------------------------
@@ -429,7 +429,7 @@ legend("topright", c("ALL", "HBC"),
        col = c("darkgoldenrod1", "forestgreen"), pch = 15)
 ```
 
-![](sm07_methylation_files/figure-markdown_github/heatmap-1.png)
+![](sm08_methylation_files/figure-markdown_github/heatmap-1.png)
 
 ``` r
 par(op)
@@ -460,7 +460,7 @@ beta.DMR5probe.tall$CGI <-
    theme_bw())
 ```
 
-![](sm07_methylation_files/figure-markdown_github/stripplot-1.png)
+![](sm08_methylation_files/figure-markdown_github/stripplot-1.png)
 
 Finally, plot location of differentially methylated probes along each chromosome.
 
@@ -485,7 +485,7 @@ coordDMRprobe$chr <- as.character(coordDMRprobe$chr)
    theme_bw())
 ```
 
-![](sm07_methylation_files/figure-markdown_github/coord-1.png)
+![](sm08_methylation_files/figure-markdown_github/coord-1.png)
 
 Interpretation and functional enrichment analysis
 -------------------------------------------------

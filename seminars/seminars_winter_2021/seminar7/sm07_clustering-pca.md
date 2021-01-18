@@ -1,5 +1,5 @@
 
-Seminar 6: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
+Seminar 7: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
 ================================================================================
 
 Contributors: Gabriela Cohen Freue, Jasleen Grewal, Alice Zhu.
@@ -137,7 +137,7 @@ Now let us see how the gene values are spread across our dataset, with a frequen
 hist(data, col = "gray", main = "GSE70213 - Histogram")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 It appears a lot of genes have values &lt; 1000. What happens if we plot the frequency distribution after Log2 transformation?
 
@@ -147,7 +147,7 @@ It appears a lot of genes have values &lt; 1000. What happens if we plot the fre
 hist(log2(data + 1), col = "gray", main = "GSE70213 log transformed - Histogram")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 Finally, as an additional step to make visualization easier later, we'll rescale the rows in our data object, since we're not interested in absolute differences in expression between genes at the moment. Note that although one can do this step within the `pheatmap()` function, it will not be available for other functions we will use. We can always go back to the original data if we need to.
 
@@ -220,7 +220,7 @@ plot(pr.hc.a, labels = FALSE, main = "Average", xlab = "")
 plot(pr.hc.w, labels = FALSE, main = "Ward", xlab = "")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 ``` r
 par(op)
@@ -253,7 +253,7 @@ pheatmap(data_to_plot, cluster_rows = FALSE, scale = clust_scale, clustering_met
         "grp")])
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 We can also change the colours of the different covariates. As you see, this can help differentiate important variables and the clustering trends.
 
@@ -273,7 +273,7 @@ my_heatmap_obj = pheatmap(data_to_plot, cluster_rows = FALSE, scale = clust_scal
         c("tissue", "genotype", "grp")], annotation_colors = covar_color)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 We can also get clusters from our pheatmap object. We will use the `cutree` function to extract the clusters. Note that we can do this for samples (look at the `tree_col`) or for genes (look at the `tree_row`).
 
@@ -319,7 +319,7 @@ plot(pr.hc.w, labels = prDes$grp, cex = 0.6, main = "Ward showing 10 clusters")
 rect.hclust(pr.hc.w, k = 10)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-15-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ``` r
 par(op)
@@ -459,7 +459,7 @@ op <- par(mar = c(5, 1, 4, 4))
 plot(pr.pam, main = "Silhouette Plot for 5 clusters")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 ``` r
 par(op)
@@ -508,7 +508,7 @@ pheatmap(topDat, cluster_rows = TRUE, scale = "none", clustering_method = "avera
     annotation_colors = covar_color)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
 Or we can plot the heatmap using the `plot` function, after we have made the hclust object....
 
@@ -520,7 +520,7 @@ geneC.hc.a <- hclust(geneC.dis, method = "average")
 plot(geneC.hc.a, labels = FALSE, main = "Hierarchical with Average Linkage", xlab = "")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 As you can see, when there are lots of objects to cluster, the dendrograms are in general not very informative as it is difficult to identify any interesting pattern in the data.
 
@@ -552,7 +552,7 @@ points(kmeans.genes$centers[clusterNum, ], type = "l")
 points(kmeans.genes$centers[clusterNum, ], col = prDes$grp, pch = 20)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 > Improve the plot above adding sample names to the x-axis (e.g., wt\_E16\_1)
 
@@ -595,7 +595,7 @@ plot(seq(1, k_max), aic, xlab = "Number of clusters", ylab = "AIC", pch = 20, ce
     main = "Clustering Samples")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 Same for BIC
 
@@ -614,7 +614,7 @@ plot(seq(1, k_max), bic, xlab = "Number of clusters", ylab = "BIC", pch = 20, ce
     main = "Clustering Samples")
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 > Can you eyeball the optimal 'k' by looking at these plots?
 
@@ -650,7 +650,7 @@ plot(pvc, labels = prDes$grp, cex = 0.6)
 pvrect(pvc, alpha = 0.95)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-27-1.png)
 
 Feature reduction
 -----------------
@@ -672,7 +672,7 @@ pcs <- prcomp(sprDat, center = FALSE, scale = FALSE)
 plot(pcs)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 ``` r
 # append the rotations for the first 10 PCs to the phenodata
@@ -682,7 +682,7 @@ prinComp <- cbind(prDes, pcs$rotation[rownames(prDes), 1:10])
 plot(prinComp[, c("genotype", "tissue", "PC1", "PC2", "PC3")], pch = 19, cex = 0.8)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-2.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-28-2.png)
 
 What does the samples spread look like, as explained by their first 2 principal components?
 
@@ -690,7 +690,7 @@ What does the samples spread look like, as explained by their first 2 principal 
 plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 Is the covariate `tissue` localized in the different clusters we see?
 
@@ -700,7 +700,7 @@ legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$tissue)), pch = 21, pt.
     2, 3, 4, 5))
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 Is the covariate `genotype` localized in the different clusters we see?
 
@@ -710,7 +710,7 @@ legend(list(x = 0.2, y = 0.3), as.character(levels(prDes$genotype)), pch = 21, p
     2, 3, 4, 5))
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 PCA is a useful initial means of analysing any hidden structures in your data. We can also use it to determine how many sources of variance are important, and how the different features interact to produce these sources.
 
@@ -788,7 +788,7 @@ plot(tsne$Y, main = "tsne")
 text(tsne$Y, labels = prDes$grp, col = colors[prDes$grp])
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-1.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-1.png)
 
 ``` r
 tsne_p1 <- Rtsne(unique(t(sprDat)), dims = 2, perplexity = 1, verbose = TRUE, max_iter = 100)
@@ -811,7 +811,7 @@ plot(tsne_p1$Y, main = "tsne")
 text(tsne_p1$Y, labels = prDes$grp, col = colors[prDes$grp])
 ```
 
-![](sm06_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-2.png)
+![](sm07_clustering-pca_files/figure-markdown_github/unnamed-chunk-34-2.png)
 
 Deliverables
 ------------

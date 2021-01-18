@@ -8,7 +8,7 @@ library(knitr)
 library(limma)
 ```
 
-# STAT 540 - Seminar 4: Differential Expression Analysis
+# STAT 540 - Seminar 5: Differential Expression Analysis
 
 ## Learning Objectives
 

@@ -1,5 +1,5 @@
 ---
-title: 'Seminar 5: BAM to count table'
+title: 'Seminar 6: BAM to count table'
 output: github_document
 ---
 
