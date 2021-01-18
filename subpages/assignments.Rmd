@@ -199,7 +199,7 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
     - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
      - Click on the clipboard icon to copy the revision SHA to your clipboard
     - Click on "Issues", then on "New Issue". Name the issue "Mark *the deliverable title* of *your repository name*", e.g. "Mark seminar 1 of zz_lastname-firstname_STAT540_2021W2"
-    - In the description of the issue, tag all TAs, and paste the revision SHA. You can also include a link to the markdown file as well. 
+    - In the description of the issue, tag all TAs with the <font color="red">**@STAT540-UBC/current_tas**</font> tag, and paste the revision SHA. You can also include a link to the markdown file as well. 
      - Click "Submit new issue". You're done! Congratulations!
 
 > If you're concerned that something hasn't gone right with the submission, send the TAs an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will work with you until you eventually get it submitted via GitHub.
