@@ -76,7 +76,7 @@ Using the same data frame, examine the survival rates.
 
 ## 3. Data visualization (1.5pt)
 
-Here you'll practice reading data from a text file and do some graphing. The file ["guinea_pig_tooth_growth.txt"](https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/homework/practice_assignment/guinea_pigs_tooth_growth.txt) is actually the same data as the dataset `ToothGrowth`. You can use `?ToothGrowth` to see what it's about. However, use `read.table` to read this file into a data frame for this question. 
+Here you'll practice reading data from a text file and do some graphing. The file ["guinea_pig_tooth_growth.txt"](guinea_pigs_tooth_growth.txt) is actually the same data as the dataset `ToothGrowth`. You can use `?ToothGrowth` to see what it's about. However, use `read.table` to read this file into a data frame for this question. 
 
 - Create a figure for this dataset (choose whatever graph you'd like!)
 - Explain how your graph is informative: what does it tell you about the result of the experiment? Also explain why you choose to present the data in this way. 
