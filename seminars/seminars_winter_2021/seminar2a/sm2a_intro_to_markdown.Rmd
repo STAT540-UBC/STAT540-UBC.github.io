@@ -265,7 +265,10 @@ Do you see how the markdown is much more useful on GitHub? Internalize that.
 
 ## Part 4: Deliverables
 
-Upload the Rmd and Markdown files generated in this seminar to GitHub.
+1. Save this file ("sm2a_intro_to_markdown.Rmd") in your GitHub Repo.
+2. Made modifications as you see fit, have fun with some Rmd options/features!
+3. Knit your Rmd
+4. Follow the [Submission Instructions](http://stat540-ubc.github.io/subpages/assignments.html) to submit the knitted Rmd. 
 
 ## Final notes and some additional resources
 
