@@ -2,7 +2,7 @@
 output:
   github_document
 ---
-Seminar 6: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
+Seminar 7: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
 ==========================================
 
 Contributors: Gabriela Cohen Freue, Jasleen Grewal, Alice Zhu.  

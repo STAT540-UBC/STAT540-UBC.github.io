@@ -204,7 +204,7 @@ probe_vars = apply(exprsdat, 1 , sd)
 plot(probe_vars~probe_means, xlab="Mean", ylab="Variance")
 ```
 
-![](sm08_eQTL_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](sm09_eQTL_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 Hmmm, do you think this looks symmetrical?
 Now let us log2 transform the data. This helps stabilize the variance of the data by reducing the 'range' of variability in cases where the gene expression can range from very high to very low.
@@ -216,7 +216,7 @@ probe_vars = apply(exprsdat_log, 1 , sd)
 plot(probe_vars~probe_means, xlab="Mean", ylab="Variance")
 ```
 
-![](sm08_eQTL_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](sm09_eQTL_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 Compare this to our previous plot. Is it a bit more 'normal'?
 For the subsequent analysis, we will be using the log transformed expression data to fit our linear models.
@@ -284,7 +284,7 @@ Let us try to visualize the expression values (across our 59 cell lines), for ou
 plot(exprs_random ~ jitter(snp_random), col=(snp_random + 1), xaxt="n", xlab="Genotype", ylab="Expression") ; axis(1, at=c(0:2), labels=c("AA", "AB","BB"))
 ```
 
-![](sm08_eQTL_files/figure-markdown_github/unnamed-chunk-14-1.png)
+![](sm09_eQTL_files/figure-markdown_github/unnamed-chunk-14-1.png)
 
 Now let us overlay this plot with the model we have fit.
 
@@ -292,7 +292,7 @@ Now let us overlay this plot with the model we have fit.
 plot(exprs_random ~ jitter(snp_random), col=(snp_random + 1), xaxt="n", xlab="Genotype", ylab="Expression") ; axis(1, at=c(0:2), labels=c("AA", "AB","BB")); lines(lm_random$fitted ~ snp_random, type="b", pch=15, col="black")
 ```
 
-![](sm08_eQTL_files/figure-markdown_github/unnamed-chunk-15-1.png)
+![](sm09_eQTL_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 Fitting multiple eQTL models
 ----------------------------

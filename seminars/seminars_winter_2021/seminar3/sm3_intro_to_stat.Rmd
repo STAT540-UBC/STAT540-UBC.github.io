@@ -6,7 +6,7 @@ output: github_document
 library(tidyverse)
 ```
 
-# STAT 540 - Seminar 2c: Getting your hands dirty with R, probability and simulations
+# STAT 540 - Seminar 3: Getting your hands dirty with R, probability and simulations
 
 ## Learning Objectives
 
@@ -286,4 +286,4 @@ For the normal distribution, the three functions correspond to pnorm(), dnorm(),
 
 ## Attributions
 
-This seminar was developed by [Eric Chu](https://github.com/echu113) with seminar [materials](https://stat540-ubc.github.io/seminars/sm02c_playing-with-probability.html) previously designed by Dr. Jenny Bryan and Alice Zhu.
+This seminar was developed by [Eric Chu](https://github.com/echu113).

@@ -1,5 +1,5 @@
 
-# STAT 540 - Seminar 4: Differential Expression Analysis
+# STAT 540 - Seminar 5: Differential Expression Analysis
 
 ## Learning Objectives
 
@@ -402,7 +402,7 @@ longExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 longExpressionMatrix %>% 
@@ -411,7 +411,7 @@ longExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
 The distribution of gene expression for all genes across all samples
 look quite consistent. Let’s move on\!
@@ -575,7 +575,7 @@ expressionDataForGene %>%
   facet_wrap(~gene)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Take a moment to look at these plots. Do you think one of these genes is
 differentially expressed across wt and NrlKO conditions?
@@ -835,7 +835,7 @@ tibble(variance = geneVars) %>%
   geom_point(aes(y = 0), shape = 1, size = 3)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 Notice how many of the observed variances are freakishly small (and
 freakishly large\!), even though they are indeed equal to 1 “on
@@ -1137,7 +1137,7 @@ topGenesExpressionData %>%
   facet_wrap(~gene)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 What do you think? Does it look plausible to you that these genes are
 differentially expressed across developmental stages?
@@ -1168,7 +1168,7 @@ plotGenes <- function(genes, expressionMatrix, samplesMetadata) {
 plotGenes(topGenes, wildTypeExpressionMatrix, wildTypeSamples)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 OK, now let’s use topTable() again to find some boring(insignificant)
 genes.
@@ -1219,7 +1219,7 @@ ourselves.
 plotGenes(rownames(boringGenes), wildTypeExpressionMatrix, wildTypeSamples)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 Are you convinced?? I hope so\!
 
@@ -1314,7 +1314,7 @@ contrastGenes
 plotGenes(rownames(contrastGenes)[1:6], wildTypeExpressionMatrix, wildTypeSamples)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 So far, so good. These 6 probes show little expression change from P6 to
 P10 and a strong increase from P10 to 4\_weeks. I would like to find
@@ -1364,7 +1364,7 @@ hits1
 plotGenes(hits1$gene, wildTypeExpressionMatrix, wildTypeSamples)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 Here are 4 of the 8 that decline from P10 to 4\_weeks.
 
@@ -1393,7 +1393,7 @@ hits2
 plotGenes(hits2$gene[1:4], wildTypeExpressionMatrix, wildTypeSamples)
 ```
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 Is there any overlap between these probes?
 
@@ -1590,7 +1590,7 @@ expressionDataForHits %>%
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](sm4_differential_expression_analysis_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ## Part 5: Deliverables
 

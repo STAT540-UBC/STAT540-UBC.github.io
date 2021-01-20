@@ -1,4 +1,4 @@
-Seminar 5: BAM to count table
+Seminar 6: BAM to count table
 ================
 
 In order to use RNA-Seq data for the purposes of differential expression analysis, we need to calculate an expression value for each gene. The digital nature of RNA-seq data allows us to use the number of reads which align to a specific feature as its expression value. In this seminar, we will use BAM and SAM files to generate a count table of reads aligning to the human transcriptome.
