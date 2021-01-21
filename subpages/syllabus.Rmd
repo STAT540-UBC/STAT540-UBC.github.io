@@ -50,7 +50,7 @@ In the web-oriented setting, it is vital that we have a dedicated plan for how w
 
 **Private matters**: For private matters, please contact the Teaching team by email (listed above).
 
-**Group work**: In your final project teams, we encourage you to make use of the (1) the discussion feature in your GitHub Teams group, and (2) the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
+**Group work**: In your final project teams, we encourage you to make use of (1) the discussion feature in your GitHub Teams group, and (2) the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
 
 ## Schedule  
 
