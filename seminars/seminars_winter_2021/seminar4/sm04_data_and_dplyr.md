@@ -2,25 +2,25 @@ Seminar 4 - Data aggregation with dplyr
 ================
 Jenkin Tsui
 
-**update Dec 29th, 2020, 12:10AM**
+**update Dec 29th, 2020, 12:10PM**
 
 The following sections are to be submitted for marks:
 
-  - Part 2 Exercise
-  - Part 3 Exercise
-  - Part 4 Exercise
+-   Part 2 Exercise
+-   Part 3 Exercise
+-   Part 4 Exercise
 
-# Learning Objectives
+# Objectives
 
 The objectives for this lecture will be to
 
-  - Understand that some freely available genomic, transcriptomic and
+-   Understand that some freely available genomic, transcriptomic and
     proteomic data can be accessed through the Gene Expression Omnibus
     server (GEO)
-  - Download gene expression datasets using GEOquery and explore the
+-   Download gene expression datasets using GEOquery and explore the
     data using dplyr verbs
-  - Use dplyr verbs in conjunction with ggplot2
-  - Run a t-test and isolate the results in a table
+-   Use dplyr verbs in conjunction with ggplot2
+-   Run a t-test and isolate the results in a table
 
 # Part 1 - Accessing data using GEOquery
 
@@ -40,8 +40,6 @@ library(biomaRt)
 library(tidyverse)
 #install.packages("data.table")
 library(data.table)
-#install.packages("reshape2")
-library(reshape2)
 ```
 
 A variety of freely available gene expression data is available through
@@ -78,9 +76,10 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## C:\Users\victo\AppData\Local\Temp\RtmpIJKn2b/GDS507.soft.gz
+    ## /var/folders/pg/nr2b0bh1483cqxnbd8p7ygchsyq09c/T//RtmpFxUBpm/GDS507.soft.gz
 
-    ## Parsed with column specification:
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
     ## cols(
     ##   ID_REF = col_character(),
     ##   IDENTIFIER = col_character(),
@@ -116,7 +115,7 @@ str(gds)
     ##   .. .. ..@ header   : list()
     ##   ..@ dataTable:Formal class 'GEODataTable' [package "GEOquery"] with 2 slots
     ##   .. .. ..@ columns:'data.frame':    17 obs. of  4 variables:
-    ##   .. .. .. ..$ sample       : Factor w/ 17 levels "GSM11810","GSM11815",..: 2 4 5 7 9 10 12 14 16 1 ...
+    ##   .. .. .. ..$ sample       : chr [1:17] "GSM11815" "GSM11832" "GSM12069" "GSM12083" ...
     ##   .. .. .. ..$ disease.state: Factor w/ 2 levels "normal","RCC": 2 2 2 2 2 2 2 2 2 1 ...
     ##   .. .. .. ..$ individual   : Factor w/ 10 levels "001","005","011",..: 6 4 1 2 3 5 8 9 10 6 ...
     ##   .. .. .. ..$ description  : chr [1:17] "Value for GSM11815: C035 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM11832: C023 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12069: C001 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12083: C005 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ ...
@@ -126,18 +125,18 @@ str(gds)
     ##   .. .. .. ..$ GSM11815  : num [1:22645] 4254 17996 41679 65391 19030 ...
     ##   .. .. .. ..$ GSM11832  : num [1:22645] 5298 12011 39117 34806 15814 ...
     ##   .. .. .. ..$ GSM12069  : num [1:22645] 4026 10284 38759 31257 16356 ...
-    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28309 9580 ...
+    ##   .. .. .. ..$ GSM12083  : num [1:22645] 3498 2535 32848 28308 9580 ...
     ##   .. .. .. ..$ GSM12101  : num [1:22645] 3566 11048 39634 67448 14274 ...
     ##   .. .. .. ..$ GSM12106  : num [1:22645] 4903 13354 43511 56990 17217 ...
-    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57973 19117 ...
-    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57571 17488 ...
+    ##   .. .. .. ..$ GSM12274  : num [1:22645] 6373 8564 46857 57972 19117 ...
+    ##   .. .. .. ..$ GSM12299  : num [1:22645] 4829 17248 47032 57570 17488 ...
     ##   .. .. .. ..$ GSM12412  : num [1:22645] 5206 16018 22152 29062 14672 ...
     ##   .. .. .. ..$ GSM11810  : num [1:22645] 2757 6077 26661 35141 17733 ...
     ##   .. .. .. ..$ GSM11827  : num [1:22645] 3932 15704 26374 23629 18022 ...
-    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22101 17957 ...
+    ##   .. .. .. ..$ GSM12078  : num [1:22645] 3730 10138 23810 22100 17957 ...
     ##   .. .. .. ..$ GSM12099  : num [1:22645] 3223 11614 24749 21651 15958 ...
     ##   .. .. .. ..$ GSM12269  : num [1:22645] 3640 8460 21937 18551 15800 ...
-    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23497 16686 ...
+    ##   .. .. .. ..$ GSM12287  : num [1:22645] 4886 10283 31463 23496 16686 ...
     ##   .. .. .. ..$ GSM12301  : num [1:22645] 4070 11844 22734 21315 18817 ...
     ##   .. .. .. ..$ GSM12448  : num [1:22645] 3482 9742 25396 28631 17421 ...
     ##   .. .. .. ..- attr(*, "spec")=
@@ -211,27 +210,27 @@ the first few rows of the dataset.
 head(gds_data)
 ```
 
-    ##        ID_REF IDENTIFIER GSM11815 GSM11832 GSM12069 GSM12083 GSM12101
-    ## 1 200000_s_at      PRPF8   4254.0   5298.2   4026.5   3498.4   3566.4
-    ## 2   200001_at     CAPNS1  17996.2  12010.7  10283.5   2534.7  11048.4
-    ## 3   200002_at      RPL35  41678.8  39116.9  38758.9  32847.7  39633.9
-    ## 4 200003_s_at    MIR6805  65390.9  34806.2  31257.2  28308.5  67447.5
-    ## 5   200004_at     EIF4G2  19030.1  15813.6  16355.7   9579.7  14273.5
-    ## 6   200005_at      EIF3D   8824.5   9706.2  10590.0   6986.7   9400.4
-    ##   GSM12106 GSM12274 GSM12299 GSM12412 GSM11810 GSM11827 GSM12078 GSM12099
-    ## 1   4903.1   6372.6   4829.1   5205.8   2756.8   3932.0   3729.9   3223.4
-    ## 2  13354.0   8563.8  17247.6  16018.5   6077.0  15703.8  10138.5  11614.4
-    ## 3  43511.2  46856.7  47032.4  22152.2  26660.7  26373.6  23809.6  24749.3
-    ## 4  56989.9  57972.5  57570.5  29062.2  35140.9  23629.3  22100.5  21651.0
-    ## 5  17217.0  19116.9  17487.6  14671.6  17733.1  18022.4  17957.4  15958.0
-    ## 6  12835.2  10299.0  12375.2   7645.4   8661.5   7355.7   6973.4   6855.9
-    ##   GSM12269 GSM12287 GSM12301 GSM12448
-    ## 1   3640.5   4886.3   4070.2   3482.1
-    ## 2   8460.5  10282.6  11844.3   9741.6
-    ## 3  21936.8  31462.8  22733.7  25395.5
-    ## 4  18550.7  23496.5  21315.4  28631.4
-    ## 5  15799.8  16685.8  18817.3  17421.1
-    ## 6   7949.2   9486.5   7494.5   7252.1
+    ##        ID_REF IDENTIFIER GSM11815 GSM11832 GSM12069 GSM12083 GSM12101 GSM12106
+    ## 1 200000_s_at      PRPF8   4254.0   5298.2   4026.5   3498.4   3566.4   4903.1
+    ## 2   200001_at     CAPNS1  17996.2  12010.7  10283.5   2534.7  11048.4  13354.0
+    ## 3   200002_at      RPL35  41678.8  39116.9  38758.9  32847.7  39633.9  43511.2
+    ## 4 200003_s_at    MIR6805  65390.9  34806.2  31257.2  28308.5  67447.5  56989.9
+    ## 5   200004_at     EIF4G2  19030.1  15813.6  16355.7   9579.7  14273.5  17217.0
+    ## 6   200005_at      EIF3D   8824.5   9706.2  10590.0   6986.7   9400.4  12835.2
+    ##   GSM12274 GSM12299 GSM12412 GSM11810 GSM11827 GSM12078 GSM12099 GSM12269
+    ## 1   6372.6   4829.1   5205.8   2756.8   3932.0   3729.9   3223.4   3640.5
+    ## 2   8563.8  17247.6  16018.5   6077.0  15703.8  10138.5  11614.4   8460.5
+    ## 3  46856.7  47032.4  22152.2  26660.7  26373.6  23809.6  24749.3  21936.8
+    ## 4  57972.5  57570.5  29062.2  35140.9  23629.3  22100.5  21651.0  18550.7
+    ## 5  19116.9  17487.6  14671.6  17733.1  18022.4  17957.4  15958.0  15799.8
+    ## 6  10299.0  12375.2   7645.4   8661.5   7355.7   6973.4   6855.9   7949.2
+    ##   GSM12287 GSM12301 GSM12448
+    ## 1   4886.3   4070.2   3482.1
+    ## 2  10282.6  11844.3   9741.6
+    ## 3  31462.8  22733.7  25395.5
+    ## 4  23496.5  21315.4  28631.4
+    ## 5  16685.8  18817.3  17421.1
+    ## 6   9486.5   7494.5   7252.1
 
 ``` r
 nrow(gds_data)
@@ -252,7 +251,7 @@ for the 17 samples. In summary, we have an array with dimensions 22645 x
 19 (row x column).
 
 Notice that some gene names are duplicated, because there are multiple
-probes that map to the same gene. We will deal with this later\!
+probes that map to the same gene. We will deal with this later!
 
 Now we can start exploring the dataset a bit. Just for fun - let’s
 compute the average count in each sample.
@@ -354,9 +353,9 @@ instance of that variable. There are no rownames. We can now use dplyr
 verbs to manipulate the data.
 
 These verbs can be used together in a sequence of functions with the
-“pipe” operator. R will interpret the output of the previous function
-as the input to the subsequent function when you put the “pipe” operator
-( %\>% ) inbetween the functions.
+“pipe” operator. R will interpret the output of the previous function as
+the input to the subsequent function when you put the “pipe” operator (
+%&gt;% ) inbetween the functions.
 
 ``` r
 #select all rows with sepal length greater than 5. 
@@ -416,15 +415,14 @@ iris %>%
 
     ## # A tibble: 6 x 6
     ## # Groups:   Species [1]
-    ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-    ##          <dbl>       <dbl>        <dbl>       <dbl> <fct>  
-    ## 1          5.1         3.5          1.4         0.2 setosa 
-    ## 2          4.9         3            1.4         0.2 setosa 
-    ## 3          4.7         3.2          1.3         0.2 setosa 
-    ## 4          4.6         3.1          1.5         0.2 setosa 
-    ## 5          5           3.6          1.4         0.2 setosa 
-    ## 6          5.4         3.9          1.7         0.4 setosa 
-    ## # ... with 1 more variable: Capitalized_names <chr>
+    ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Capitalized_names
+    ##          <dbl>       <dbl>        <dbl>       <dbl> <fct>   <chr>            
+    ## 1          5.1         3.5          1.4         0.2 setosa  SETOSA           
+    ## 2          4.9         3            1.4         0.2 setosa  SETOSA           
+    ## 3          4.7         3.2          1.3         0.2 setosa  SETOSA           
+    ## 4          4.6         3.1          1.5         0.2 setosa  SETOSA           
+    ## 5          5           3.6          1.4         0.2 setosa  SETOSA           
+    ## 6          5.4         3.9          1.7         0.4 setosa  SETOSA
 
 ``` r
 #summarize the average sepal length and number of rows belonging to each species.
@@ -497,65 +495,61 @@ band_members %>% full_join(band_instruments)
     ## 3 Paul  Beatles bass  
     ## 4 Keith <NA>    guitar
 
-Now let’s apply these functions to our gene expression dataset\!
+Now let’s apply these functions to our gene expression dataset!
 
 One problem: our dataset is not “tidy”. Rather, it’s arranged like an
 excel spreadsheet. While intuitive for us to read, dplyr does not like
-this very much. So, we have to change it. Luckily, the melt() function
-from the reshape2 package helps out with that.
+this very much. So, we have to change it so that each row contains only
+one expression value. Luckily, the `pivot_longer()` function from the
+‘tidyr’ package helps out with that.
 
 ``` r
-melted_data <- melt(gds_data, id.vars = c("ID_REF", "IDENTIFIER"), var = "Sample")
-head(melted_data)
+long_data <- pivot_longer(gds_data, 
+                          cols = 3:19,
+                          values_to = "Expression",
+                          names_to = "Sample")
 ```
 
-    ##        ID_REF IDENTIFIER   Sample   value
-    ## 1 200000_s_at      PRPF8 GSM11815  4254.0
-    ## 2   200001_at     CAPNS1 GSM11815 17996.2
-    ## 3   200002_at      RPL35 GSM11815 41678.8
-    ## 4 200003_s_at    MIR6805 GSM11815 65390.9
-    ## 5   200004_at     EIF4G2 GSM11815 19030.1
-    ## 6   200005_at      EIF3D GSM11815  8824.5
-
 It’s hard to describe what this function does. You can see that the
-first \~20,000 rows will correspond to data from the first column that’s
-not listed in id.vars (GSM11815), and the next group of rows will
-correspond to data from the second column. You can think of this
-function as “melting down” a dataset into its simplest form. I would
-suggest reading [this](http://seananderson.ca/2013/10/19/reshape.html)
-for more information about what the melt function does.
+first \~20,000 rows will correspond to data from the first gene
+identifier, and the next group of rows will correspond to data from the
+second gene identifier/ You can think of this function as stretching out
+a dataset into its long form, so that each row has only one expression
+value. I would suggest reading
+[this](https://tidyr.tidyverse.org/reference/pivot_longer.html) for more
+information about what the `pivot_longer()` function does.
 
 Now we have four columns, each one corresponding to a variable: the
 probe name, the gene name, the sample name and the count.
 
-We can do a lot of stuff with this setup\! Let’s calculate the mean gene
+We can do a lot of stuff with this setup! Let’s calculate the mean gene
 expression per sample.
 
 ``` r
-melted_data %>% 
+long_data %>% 
     group_by(Sample) %>% 
-    summarize(mean = mean(value))
+    summarize(mean = mean(Expression))
 ```
 
     ## # A tibble: 17 x 2
     ##    Sample    mean
-    ##    <fct>    <dbl>
-    ##  1 GSM11815  751.
-    ##  2 GSM11832  742.
-    ##  3 GSM12069  748.
-    ##  4 GSM12083  735.
-    ##  5 GSM12101  803.
-    ##  6 GSM12106  744.
-    ##  7 GSM12274  761.
-    ##  8 GSM12299  802.
-    ##  9 GSM12412  685.
-    ## 10 GSM11810  765.
-    ## 11 GSM11827  780.
-    ## 12 GSM12078  774.
-    ## 13 GSM12099  766.
-    ## 14 GSM12269  710.
-    ## 15 GSM12287  791.
-    ## 16 GSM12301  770.
+    ##  * <chr>    <dbl>
+    ##  1 GSM11810  765.
+    ##  2 GSM11815  751.
+    ##  3 GSM11827  780.
+    ##  4 GSM11832  742.
+    ##  5 GSM12069  748.
+    ##  6 GSM12078  774.
+    ##  7 GSM12083  735.
+    ##  8 GSM12099  766.
+    ##  9 GSM12101  803.
+    ## 10 GSM12106  744.
+    ## 11 GSM12269  710.
+    ## 12 GSM12274  761.
+    ## 13 GSM12287  791.
+    ## 14 GSM12299  802.
+    ## 15 GSM12301  770.
+    ## 16 GSM12412  685.
     ## 17 GSM12448  757.
 
 Another thing we note is that there are multiple probes that map to a
@@ -566,34 +560,36 @@ expression. For simplicity, we will use summarize() to take the mean of
 each probe’s expression.
 
 ``` r
-(new_melted_data <- melted_data %>% 
+(new_long_data<- long_data %>% 
     group_by(Sample, IDENTIFIER) %>% 
-    summarize(Count = mean(value)))
+    summarize(Count = mean(Expression)))
 ```
+
+    ## `summarise()` has grouped output by 'Sample'. You can override using the `.groups` argument.
 
     ## # A tibble: 279,905 x 3
     ## # Groups:   Sample [17]
-    ##    Sample   IDENTIFIER   Count
-    ##    <fct>    <chr>        <dbl>
-    ##  1 GSM11815 --Control   8139. 
-    ##  2 GSM11815 222968_at    102. 
-    ##  3 GSM11815 223641_at    200. 
-    ##  4 GSM11815 224429_x_at 2385. 
-    ##  5 GSM11815 224438_at     32.1
-    ##  6 GSM11815 225714_s_at  291. 
-    ##  7 GSM11815 225934_at    284. 
-    ##  8 GSM11815 226014_at     66.3
-    ##  9 GSM11815 226061_s_at   45.1
-    ## 10 GSM11815 226138_s_at   23.3
-    ## # ... with 279,895 more rows
+    ##    Sample   IDENTIFIER    Count
+    ##    <chr>    <chr>         <dbl>
+    ##  1 GSM11810 --Control   15008. 
+    ##  2 GSM11810 222968_at      45.8
+    ##  3 GSM11810 223641_at     406. 
+    ##  4 GSM11810 224429_x_at  1973. 
+    ##  5 GSM11810 224438_at     130  
+    ##  6 GSM11810 225714_s_at   222. 
+    ##  7 GSM11810 225934_at     256. 
+    ##  8 GSM11810 226014_at      44.6
+    ##  9 GSM11810 226061_s_at    23.3
+    ## 10 GSM11810 226138_s_at   152. 
+    ## # … with 279,895 more rows
 
 Now, every gene will only have one value per sample.
 
 Now that we are more familiar with dplyr verbs, we can explore how to
 access information about genes we are interested in.
 
-The biomaRt package is very useful in this regard. It accesses the
-ensembl database of gene names and annotations (ensembl.org). biomaRt
+The `biomaRt` package is very useful in this regard. It accesses the
+ensembl database of gene names and annotations (ensembl.org). `biomaRt`
 can help us convert ensemble ids (eg. ENSGXXXXX) into HGNC symbols (i.e
 BRCA1), for example, along with a host of other things.
 
@@ -613,7 +609,7 @@ identify_gene_names <- function(df){
 }
 
 #There's a lot of variation in how the chromosomal location is annotated. To simplify things, let's filter out all genes with annotations that are not numeric numbers between 1 and 23, X or Y. 
-data_with_chromosome <- identify_gene_names(new_melted_data) %>% 
+data_with_chromosome <- identify_gene_names(new_long_data) %>% 
     filter(chromosome_name %in% c(1:23, "X", "Y"))
 ```
 
@@ -636,12 +632,7 @@ mean using summarize().
 
 ``` r
 full_data <- left_join(data_with_chromosome, meta_data, by = "Sample")
-```
 
-    ## Warning: Column `Sample` joining factors with different levels, coercing to
-    ## character vector
-
-``` r
 full_data %>% 
     group_by(disease) %>% 
     filter(chromosome_name == "X") %>% 
@@ -656,7 +647,7 @@ full_data %>%
 
 # Part 3: Graphing expression data
 
-What if we want to graph our count data? Time for ggplot\!
+What if we want to graph our count data? Time for ggplot!
 
 Because we can’t graph all of the probes, let’s choose a random sampling
 of 100.
@@ -701,9 +692,9 @@ full_data %>%
     summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
-    ## # A tibble: 9,236 x 2
+    ## # A tibble: 9,206 x 2
     ##    hgnc_symbol pvalue
-    ##    <chr>        <dbl>
+    ##  * <chr>        <dbl>
     ##  1 A1BG        0.708 
     ##  2 A1BG-AS1    0.0366
     ##  3 A1CF        0.132 
@@ -714,7 +705,7 @@ full_data %>%
     ##  8 AAK1        0.0229
     ##  9 AARS2       0.0416
     ## 10 AASDH       0.0743
-    ## # ... with 9,226 more rows
+    ## # … with 9,196 more rows
 
 ## Part 4 Exercise - Take home
 

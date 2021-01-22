@@ -38,9 +38,6 @@ library(biomaRt)
 library(tidyverse)
 #install.packages("data.table")
 library(data.table)
-#install.packages("reshape2")
-library(reshape2)
-
 ```
 
 A variety of freely available gene expression data is available through the Gene Expression Omnibus (GEO) server. Most of these datasets have associated papers in which they detail data acquisition and analysis methods. 
@@ -176,38 +173,40 @@ band_members %>% full_join(band_instruments)
 
 Now let's apply these functions to our gene expression dataset!
 
-One problem: our dataset is not "tidy". Rather, it's arranged like an excel spreadsheet. While intuitive for us to read, dplyr does not like this very much. So, we have to change it. Luckily, the melt() function from the reshape2 package helps out with that. 
+One problem: our dataset is not "tidy". Rather, it's arranged like an excel spreadsheet. While intuitive for us to read, dplyr does not like this very much. So, we have to change it so that each row contains only one expression value. Luckily, the `pivot_longer()` function from the 'tidyr' package helps out with that. 
 
 ```{r}
-melted_data <- melt(gds_data, id.vars = c("ID_REF", "IDENTIFIER"), var = "Sample")
-head(melted_data)
+long_data <- pivot_longer(gds_data, 
+                          cols = 3:19,
+                          values_to = "Expression",
+                          names_to = "Sample")
 ```
 
-It's hard to describe what this function does. You can see that the first ~20,000 rows will correspond to data from the first column that's not listed in id.vars (GSM11815), and the next group of rows will correspond to data from the second column. You can think of this function as "melting down" a dataset into its simplest form. I would suggest reading [this](http://seananderson.ca/2013/10/19/reshape.html) for more information about what the melt function does. 
+It's hard to describe what this function does. You can see that the first ~20,000 rows will correspond to data from the first gene identifier, and the next group of rows will correspond to data from the second gene identifier/ You can think of this function as stretching out a dataset into its long form, so that each row has only one expression value. I would suggest reading [this](https://tidyr.tidyverse.org/reference/pivot_longer.html) for more information about what the `pivot_longer()` function does. 
 
 Now we have four columns, each one corresponding to a variable: the probe name, the gene name, the sample name and the count. 
 
 We can do a lot of stuff with this setup! Let's calculate the mean gene expression per sample. 
 
 ```{r}
-melted_data %>% 
+long_data %>% 
 	group_by(Sample) %>% 
-	summarize(mean = mean(value))
+	summarize(mean = mean(Expression))
 ```
 
 Another thing we note is that there are multiple probes that map to a specific gene. In a real life analysis workflow, there are multiple ways to deal with this. Some popular options include picking the probe with the highest expression, or taking the mean/median of all probes' expression. For simplicity, we will use summarize() to take the mean of each probe's expression. 
 
 ```{r}
-(new_melted_data <- melted_data %>% 
+(new_long_data<- long_data %>% 
 	group_by(Sample, IDENTIFIER) %>% 
-	summarize(Count = mean(value)))
+	summarize(Count = mean(Expression)))
 ```
 
 Now, every gene will only have one value per sample. 
 
 Now that we are more familiar with dplyr verbs, we can explore how to access information about genes we are interested in. 
 
-The biomaRt package is very useful in this regard. It accesses the ensembl database of gene names and annotations (ensembl.org). biomaRt can help us convert ensemble ids (eg. ENSGXXXXX) into HGNC symbols (i.e BRCA1), for example, along with a host of other things. 
+The `biomaRt` package is very useful in this regard. It accesses the ensembl database of gene names and annotations (ensembl.org). `biomaRt` can help us convert ensemble ids (eg. ENSGXXXXX) into HGNC symbols (i.e BRCA1), for example, along with a host of other things. 
 
 Say we want to learn more about the gene expression on a particular chromosome, across all samples. We can use biomaRt to look up the chromosomal location of each gene. Read the biomaRt manual for more detailed explanation of the following bit of code.
 
@@ -222,7 +221,7 @@ identify_gene_names <- function(df){
 }
 
 #There's a lot of variation in how the chromosomal location is annotated. To simplify things, let's filter out all genes with annotations that are not numeric numbers between 1 and 23, X or Y. 
-data_with_chromosome <- identify_gene_names(new_melted_data) %>% 
+data_with_chromosome <- identify_gene_names(new_long_data) %>% 
 	filter(chromosome_name %in% c(1:23, "X", "Y"))
 ```
 
