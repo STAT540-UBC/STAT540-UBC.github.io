@@ -212,7 +212,7 @@ dataFrame %>% ggplot() +
 
 ```
 
-Note that it looks absolutely nowhere like the normal distribution. That's what makes the CTL so exciting!
+Note that it looks absolutely nowhere like the normal distribution. That's what makes the CLT so exciting!
 
 ### Simulating many samples
 
@@ -276,7 +276,7 @@ tibble(x = sampleMeans) %>%
 
 ## Part 3: Deliverables
 
-* How well does the CTL hold for smaller sample sizes? Try it with sample sizes of n = 5, keep the number of samples the same at 1000. Make a visual and show it to the TA to get checked off for completion.
+* How well does the CLT hold for smaller sample sizes? Try it with sample sizes of n = 5, keep the number of samples the same at 1000. Make a visual, and turn it in by submitting an issue and tagging TAs.
 
 ## Important takeaway
 
