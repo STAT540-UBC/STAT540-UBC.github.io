@@ -36,17 +36,22 @@ sdat %>% head(3)
 ## link to the page of any seminar where such exists
 smdat <-
   data.frame(html = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.Rmd)$', 
-                               full.names=TRUE,recursive = TRUE),
-                               stringsAsFactors = FALSE)
+                               full.names=TRUE,recursive = TRUE))
 smdat <- smdat %>% mutate(lect = str_extract(html, "sm[0-9]+[a-z]*"))
 smdat$lect <- sapply(smdat$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
 
 sdat <- sdat %>% left_join(smdat, by="lect")
 
+# repeat for md
+smdat2 <-  data.frame(md = list.files(path=glue("../{seminarPathGithubIO}"), pattern = '^sm.*(\\.md)$', 
+                               full.names=TRUE,recursive = TRUE))
+smdat2 <- smdat2 %>% mutate(lect = str_extract(md, "sm[0-9]+[a-z]*"))
+smdat2$lect <- sapply(smdat2$lect, str_replace, pattern="sm0*([0-9]+)([a-z]*)", replacement="seminar-\\1\\2")
 
+sdat <- sdat %>% left_join(smdat2, by="lect")
 
 html_exists = Negate(is.na)(sdat$html)
-
+md_exists = Negate(is.na)(sdat$md)
 
 sdat$lect[html_exists] <-
   str_replace(sdat$lect[html_exists],
@@ -56,6 +61,10 @@ sdat$lect[html_exists] <- str_replace(sdat$lect[html_exists],
                                       file.path(githubLink,'blob/master',
                                                 str_replace(sdat$html[html_exists],'\\.\\.','')
                                                 ))
+
+sdat$md[md_exists] <- file.path(githubLink,'blob/master',
+          str_replace(sdat$md[md_exists],'\\.\\.',''))
+                                                
 
 #sdat$lect[html_exists] <-
 #  str_replace(sdat$lect[html_exists],
@@ -100,8 +109,15 @@ htmls <- tolower(sapply(strsplit(htmls, "/"), function(x) if(length(x) > 1){x[[4
 htmls <- gsub("seminar", "", htmls)
 htmls <- gsub("10", "X", htmls)
 
-knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, lect, raw_notes, instructor, mode) %>%
-            dplyr::rename(Date=date, Seminar=lect, Topic=raw_notes, Instructor=instructor, Mode=mode), 
+dat_sm[["STAT540-Seminar"]] <- dat_sm[["STAT540-Seminar"]] %>% 
+  mutate(Rmd = lect) %>%
+  mutate(both = ifelse(md_exists, paste0(Rmd, " ([md](", md, "))"), 
+                       Rmd))
+
+
+knitr::kable(dat_sm[["STAT540-Seminar"]] %>% select(date, both, raw_notes, instructor, mode) %>%
+            dplyr::rename(Date=date, `Rmd file (md)`= both, Topic=raw_notes, 
+                          Instructor=instructor, Mode=mode), 
             "html") %>% 
   kableExtra::kable_styling(full_width = TRUE)
 ```
