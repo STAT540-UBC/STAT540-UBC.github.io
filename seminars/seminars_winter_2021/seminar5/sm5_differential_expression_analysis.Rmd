@@ -6,6 +6,7 @@ output: github_document
 library(tidyverse)
 library(knitr)
 library(limma)
+library(GEOquery)
 ```
 
 # STAT 540 - Seminar 5: Differential Expression Analysis
@@ -25,26 +26,26 @@ By the end of this seminar, you should
 ## Packages required
 
 * [tidyverse](http://tidyverse.tidyverse.org/) (includes [ggplot2](http://ggplot2.tidyverse.org/), [dplyr](http://dplyr.tidyverse.org/), [tidyr](http://tidyr.tidyverse.org/), [readr](http://readr.tidyverse.org/), [purrr](http://purrr.tidyverse.org/), [tibble](http://tibble.tidyverse.org/))
-    * Install by running 'install.packages("tidyverse", dependencies = TRUE)'
+    * Install by running `install.packages("tidyverse", dependencies = TRUE)`
 * [limma](http://bioconductor.org/packages/release/bioc/html/limma.html)
-    * Install by running 'source("https://bioconductor.org/biocLite.R")' and then 'biocLite("limma")'
+    * Install by running `source("https://bioconductor.org/biocLite.R")` and then `biocLite("limma")`
 * knitr
-    * Install by running 'install.packages("knitr", dependencies = TRUE), and then load using library(knitr)
+    * Install by running `install.packages("knitr", dependencies = TRUE)`, and then load using `library(knitr)`
 
 ## Functions used
 
 * **utils::read.table()** - Reads a file in table format and creates a dataframe from it.
-* **base::c()** - Combine arguments into a single data structure; for example, c(1,2,3) -> a vector containing [1, 2, 3].
+* **base::c()** - Combine arguments into a single data structure; for example, c(1,2,3) -> a vector containing 1, 2, and 3.
 * **base::names()** - Functions to get or set the names of an object (vector, tibble, data frame, etc).
 * **base::factor()** - The function factor is used to encode a vector as a factor.
 * **base::ncol()** - Get the number of columns in a dataframe.
 * **base::nrow()** - Get the number of rows in a dataframe.
 * **base::sort()** - Sort a vector into ascending or descending order.
-* **tibble::rownames_to_column()** - Opposite to column_to_rownames(); convert row names to a column inside a dataframe.
-* **tibble::column_to_rownames()** - Opposite to rownames_to_column(); convert a column into a dataframe's row names.
+* **tibble::rownames_to_column()** - Opposite to `column_to_rownames()`; convert row names to a column inside a dataframe.
+* **tibble::column_to_rownames()** - Opposite to `rownames_to_column()`; convert a column into a dataframe's row names.
 * **tibble::as_tibble()** - Convert a dataframe to a tibble.
-* **dplyr::pivot_longer()** - Reduces the number of columns by decreasing the number of columns.
-* **dplyr::filter()** - Use filter() find rows/cases where conditions are true.
+* **dplyr::pivot_longer()** - Reduces the number of columns by moving values from all columns to one value per row, lengthening the data dimensions.
+* **dplyr::filter()** - Use `filter()` find rows/cases where conditions are true.
 * **dplyr::select()** - Keep only the columns/variables you mention.
 * **base::t()** - Transpose a matrix or dataframe.
 * **base::as.data.frame()** - Coerce object into a dataframe, e.g. convert a tibble into a dataframe so that rownames can be set.
@@ -73,13 +74,13 @@ By the end of this seminar, you should
 
 ## Part 1: Introduction
 
-### What is differential gene expression, anyway? And why statistic? 
+### What is differential gene expression, anyway? And why statistics? 
 
-If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across conditions: healthy vs. disease, young vs. old, treatment vs. control, etc. And we have an elaborate statistical framework that helps us make this assessment. 
+If the idea of differential gene expression sounds completely strange, make sure to review the relevant lecture notes and slides before you start. But, just briefly, for our purpose, the expression of a gene is simply the amount of its mRNA molecule that has been detected; the higher the abundance of mRNA detected, the higher the expression. And as with most other scientists, bioinformaticians are also interested in measuring differences between conditions. So, we'd like to know if genes are differentially expressed across 'conditions': e.g. healthy vs. disease, young vs. old, treatment vs. control, heart tissue vs skeletal muscle tissue, etc. And we have an elaborate statistical framework that helps us make this assessment. 
 
 Specifically, we may take a single gene and assess whether it is differentially expressed across some conditions. Or we may perform differential expression analysis on a large set of genes (sometimes all ~20,000 genes in the human genome) and do a high throughput screen to detect differentially expressed genes across some conditions. In this seminar, we will work through both scenarios. The approaches are fundamentally the same, but are also quite different, as you will soon see. 
 
-First, we introduce the gene expression dataset: its usual format & organization. We will import a sample dataset and render a few plots and tables to get you oriented. Next, we perform differential expression analysis on a single gene. This will be important for understanding the fundamental approach for assessing differential expression. Finally, we perform a genome wide differential expression screen using limma (a popular R package). 
+First, we introduce the gene expression dataset: its usual format & organization. We will import a sample dataset and render a few plots and tables to get you oriented. Next, we perform differential expression analysis on a single gene. This will be important for understanding the fundamental approach for assessing differential expression. Finally, we perform a genome wide differential expression screen using `limma` (a popular R package). 
 
 ## Part 2: Gene expression data
 
@@ -89,77 +90,93 @@ In this seminar, we will use the GSE4051 dataset. See [here](https://www.ncbi.nl
 
 ### Import data
 
-First we import the dataset. The file is located [here](expression_data). With most gene expression datasets, there will be two components that generally come in two different files. 
-
-The first is the **expression matrix**, containing the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column. 
-
-Here, we load the expression matrix. We've printed out a small subset of the dataset so you have an idea what it looks like. 
+First we import the dataset. Note that we could read in the individual expression data table and meta data table separately, but we'll make use of what we learned in last seminar, and obtain this data directly from GEO using the `GEOquery` package. When fetching a "GSE" accession, the `getGEO` function will return a list of `ExpressionSet` objects (more on that in a bit), so we'll use `[[1]]` notation to grab the first (and only) element of that list.
 
 ```{r}
-expressionMatrix <- read.table("expression_data/GSE4051_data.tsv", stringsAsFactors = FALSE, sep = "\t", 
-															 quote = "")
-expressionMatrix <- expressionMatrix %>% rownames_to_column("gene") # rownames deprecated in tibbles and are hard to work with in ggplot
-expressionMatrix <- expressionMatrix %>% as_tibble() # turn into tibble for pretty printing
-
-expressionMatrix
-
+eset <- getGEO("GSE4051", getGPL = FALSE)[[1]]
+eset
 ```
 
-Great, now, the expression matrix has been imported. But we still don't know the properties associated with each sample. For example, does Sample_20 belong to treatment or control? What developmental stage is it in? What tissue is it? How about Sample_22? Sample_23? 
+First, we notice that the object we get out is a specially formatted object of class `ExpressionSet`. It has slots for the assay (expression) data (`assayData`), and sample metadata (`phenoData`). We also have some feature (gene) metadata in a slot called `featureData`. Note that this object format is very similar to the  `SummarizedExperiment` objects we learned about in class - so this data is organized the Bioconductor way, with all data housed in one object (that we are calling `eset`). Note that we could convert this directly into a `SummarizedExperiment` object by calling `SummarizedExperiment(eset)`. But we'll stick with this format since it will serve our purposes just fine.
+
+![ExpressionSet anatomy](https://www.researchgate.net/publication/304005588/figure/fig1/AS:669094365892634@1536535936985/Structure-of-Bioconductors-ExpressionSet-class.png)
+
+Let's take a peek at what's in the **expression matrix**, which we can access from the `ExpressionSet` object with `exprs()`. It contains the sample IDs and their corresponding gene expression profiles. Essentially, each column is a different sample (a tissue, under some treatment, during some developmental stage, etc) and each row is a gene (or a probe). The expression values for all of the genes in a single column collectively constitute the gene expression profile of the sample represented by that column. 
+
+Here, we'll print out a small subset (first 5 rows and first 4 columns) of this matrix so you have an idea what it looks like. Note that the gene (probe) names are stored as rownames. The column names (starting with GSM) indicate Sample IDs.
+
+```{r}
+exprs(eset)[1:5,1:4]
+```
+
+Now let's explore the properties associated with each sample. For example, does sample GSM92610 belong to treatment or control? What developmental stage is it in? What tissue is it? How about sample GSM92611? GSM92612? 
 
 Without this information, the expression matrix is pretty much useless, at least for our purpose of assessing differential expression across conditions. 
 
-So, the second component that comes with the data is the **samples metadata**. We now import it. 
+This information is stored in the **samples metadata**. Here we pull that out of the `ExpressionSet` object and take a peek at it using the `pData()` accessor function. We see that we have 36 variables for each of our 39 samples. We'll print the first 3 variables for the first 6 rows.
 
 ```{r}
+str(pData(eset))
 
-samplesMetadata <- read.table("expression_data/GSE4051_design.tsv", 
-															sep = "\t",
-                              header = TRUE, # set header = TRUE to use the first row of the data as column names
-                              stringsAsFactors = FALSE) # set stringAsFactors to avoid setting everything as factors, we can control that ourselves
-
-samplesMetadata <- samplesMetadata %>% as_tibble() # turn into tibble for pretty printing
-
-# define our own column names for samples metadata for clarity
-names(samplesMetadata) <- c("sample_id", "sample_number", "dev_stage", "genotype")
-
-samplesMetadata
-
+head(pData(eset)[,1:3])
 ```
 
-From the data, it looks like dev_stage and genotype could be made into factors. You can read more about factors [here](http://r4ds.had.co.nz/factors.html). Basically, factors are categorical variables. By declaring a variable as a factor, many operations on the categorical data becomes easier, such as making separate graphs for each categorical grouping. Generally, it is recommended to use factors where appropriate. 
-
-Now, let's turn devStage and gType into factors. These variables have a finite set of categories. sidChar and sidNum are not categorical variables because every row is different. If your categories have a particular order, you can specify them using the "levels" variable in order of increasing value (level1 < level 2 < level3 for levels = c("level1", "level2", "level3")).
+Notice that the developmental stage and genotype information are contained in the variable called 'title'. In order to work with these as separate variables, we'll need to do some data wrangling. 
 
 ```{r}
+pData(eset) <- pData(eset) %>%
+  mutate(sample_id = geo_accession) %>%
+  mutate(dev_stage =  case_when(
+    grepl("E16", title) ~ "E16",
+    grepl("P2", title) ~ "P2",
+    grepl("P6", title) ~ "P6",
+    grepl("P10", title) ~ "P10",
+    grepl("4 weeks", title) ~ "4_weeks"
+  )) %>%
+  mutate(genotype = case_when(
+    grepl("Nrl-ko", title) ~ "NrlKO",
+    grepl("wt", title) ~ "WT"
+  ))
 
-samplesMetadata$dev_stage <- samplesMetadata$dev_stage %>% factor(levels = c("E16", "P2", "P6", "P10", "4_weeks"))
-samplesMetadata$dev_stage # note that Levels contain all possible categories of the variable
-
-samplesMetadata$genotype <- samplesMetadata$genotype %>% factor(levels = c("wt", "NrlKO"))
-samplesMetadata$genotype # note that Levels contain all possible categories of the variable
-
-samplesMetadata # columns dev_stage and genotype are now type factor
-
+pData(eset) %>%
+  with(table(dev_stage, genotype))
 ```
 
-Notice that the samples metadata dataset contains the properties of each sample. Yes, the sample IDs don't match. That's because we're only printing out a subset of the entire dataset to avoid filling up the entire page. Let's now do a quick sanity check make sure the samples match between the two data frames. 
+Right now, the `dev_stage` and `genotype` variables are character variables. However, they are more appropriately represented as factors since they have a finite set of categories. You can read more about factors [here](http://r4ds.had.co.nz/factors.html). Basically, factors are categorical variables. By declaring a variable as a factor, many operations on categorical data become easier, such as making separate graphs for each categorical grouping. Generally, it is recommended to use factors where appropriate. 
+
+Now, let's turn `dev_stage` and `genotype` into factors. If your categories have a particular order, you can specify them using the "levels" variable in order of increasing value (level1 < level 2 < level3 for levels = c("level1", "level2", "level3")). Here, we'll put the developmental stages in chronological order.
 
 ```{r}
+pData(eset) <- pData(eset) %>%
+  mutate(dev_stage = fct_relevel(dev_stage, "E16", "P2", "P6", "P10", "4_weeks")) %>%
+  mutate(genotype = as.factor(genotype))
 
-expressionMatrix %>% ncol() - 1 # number of samples in the expression matrix (- column for genes)
-samplesMetadata %>% nrow() # number of samples in the samples metadata 
+# note that Levels contain all possible categories of the variable, and are in the designated order
+pData(eset)$dev_stage
+pData(eset)$genotype
+```
+
+Notice that the samples metadata contains the properties of each sample. So far, we've only printed out a subset of the entire dataset to avoid filling up the entire page. Let's now do a quick sanity check make sure the samples match between the two data frames *exactly*. 
+
+```{r}
+# number of samples in the expression matrix
+ncol(exprs(eset))
+
+# number of samples in the samples metadata 
+nrow(pData(eset))
+
 
 # do these numbers match? Let's also print them out
-
-expressionMatrix %>% names() %>% sort()
-samplesMetadata$sample_id %>% sort()
+exprs(eset) %>% colnames()
+pData(eset) %>% rownames()
 
 # do the samples match? 
+identical(exprs(eset) %>% colnames(), 
+          pData(eset) %>% rownames())
 
 ```
 
-Yes, the samples in both data frames match! We have metadata for every sample in the expression matrix. Now we're ready to make some plots :). 
+Yes, the samples in both data frames match, and are in exactly the same order! We have metadata for every sample in the expression matrix. Now we're ready to make some plots :). 
 
 ### What are genes? What are probes? 
 
@@ -175,25 +192,61 @@ Two of the quickest visualizations to screen for problems with the dataset are b
 
 Yes, we expect certain genes to be differentially expressed across some conditions. But we do not expect all the genes in a few particular samples to differ from all other samples. If we compare the expression value for all genes from one sample to another, we expect their distributions to line up. This is the rationale for doing such sanity checks. 
 
-One of the most common transformations you want to do is convert your data from wide to long format, so it is easily workable by ggplot. This means, convert multiple columns with numeric values to one single column using a given column as pivot, for doing so you can use pivot_longer() from tidyr or melt() from reshape2. The opposite to pivot_longer() is pivot_wider(), and the opposite to melt() is spread(). We recommend that you play around with these functions to get an idea of how they work. 
+One of the most common transformations you want to do is convert your data from wide to long format, so it is easily workable by ggplot. This means, convert multiple columns with numeric values to one single column using a given column as pivot, for doing so you can use `pivot_longer()` from `tidyr.` The opposite to `pivot_longer()` is `pivot_wider()`. We recommend that you play around with these functions to get an idea of how they work. 
+
+Here we'll pull the data out of the `ExpressionSet` object and into a long tidy table (switching from the "Bioconductor way" to the "Tidy way").
 
 ```{r}
-
 # transform into a format ggplot can easily work with
-# we tell pivot_longer to transform all columns but gene.
-longExpressionMatrix <- expressionMatrix %>% 
-  pivot_longer(cols = !gene)
+# we add row names (gene names) to a column, then
+# we tell pivot_longer to transform all columns but gene
+longExpressionMatrix <- exprs(eset) %>% 
+  as.data.frame() %>%
+  rownames_to_column("gene") %>%
+  pivot_longer(cols = !gene, 
+               values_to = "Expression",
+               names_to = "sample_id") 
 
-longExpressionMatrix %>% 
-  ggplot(aes(x = name, y = value)) +
+longExpressionMatrix
+```
+
+Note we've transformed the 45101 by 39 matrix to a single column with length 1759939. So we have one row for every gene and sample combination. 
+
+Actually, let's put this data transformation code from the last two steps into a function so that it can be reused; we will routinely need the dataset to be in this format as we make plots. 
+
+```{r}
+toLonger <- function(expressionMatrix) {
+    expressionMatrix <- longExpressionMatrix <- expressionMatrix %>% 
+    as.data.frame() %>%
+    rownames_to_column("gene") %>%
+    pivot_longer(cols = !gene, 
+                 values_to = "Expression",
+                 names_to = "sample_id") 
+  return(expressionMatrix)
+}
+```
+
+Note that knowing how to use functions will go a long way in helping you reduce the amount of code you need to write. It also greatly simplifies your code base. Very much recommended!
+
+Okay, now, let's try using this function. 
+
+```{r}
+toLonger(exprs(eset))
+```
+Yay! Now we can use the `toLonger` function to pull out the long format expression data.
+
+Next we'll make some distribution plots. 
+
+```{r}
+toLonger(exprs(eset)) %>% 
+  ggplot(aes(x = sample_id, y = Expression)) +
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-longExpressionMatrix %>% 
-  ggplot(aes(x = value, color = name)) +
+toLonger(exprs(eset))  %>% 
+  ggplot(aes(x = Expression, color = sample_id)) +
   geom_density() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
 ```
 
 The distribution of gene expression for all genes across all samples look quite consistent. Let's move on!
@@ -211,85 +264,57 @@ As an example, let's first take a look at gene 1429226_at. We will plot the expr
 geneIds <- c("1416119_at", "1431708_a_at")
 
 # use dplyr::filter() to get the expression data for the gene
-expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
-
-# Transform the data frame into the format that matches the sample metadata: 
-#   1. Remove the column gene so we can deal only with the gene expression values
-#   2. We need to change the shape of the data to have rows = samples and columns = genes
-#   3. Next we convert the rownames into an actual column. Because tibble drop rownames.
-#      The function requires a dataframe, thus we make the transformation
-#   4. The final step is to generate one single column with the gene expression values 
-#      and other with the gene names. 
-
-expressionDataForGene <- expressionDataForGene %>%
-  column_to_rownames("gene") %>%
-  t() %>% as.data.frame() %>% 
-  rownames_to_column("sample_id") %>% 
-  pivot_longer(cols = !sample_id, names_to = "gene", values_to = "expression")
-
-expressionDataForGene 
-
+expressionDataForGene <- toLonger(exprs(eset)) %>%
+  filter(gene %in% geneIds)
 
 ```
 
-Actually, let's put this data transformation code into a function so that it can be reused; we will routinely need the dataset to be in this format as we perform analyses. 
+
+Now, we'll integrate the samples metadata by doing a join. 
+
+The `left_join()` function ensures that all rows in the first data frame are retained while unmatched rows in the second data frame are dropped. Feel free to run `?join()` in the R-Studio console to learn more as well as other variations of the function such as `right_join()`, `inner_join()`, `full_join()`, etc. 
+
+For simplicity, we'll join just the relevant columns of the metadata (`sample_id`, `dev_stage`, and `genotype`) instead of all columns.
 
 ```{r}
-
-transformGeneExpressionMatrix <- function(expressionMatrix) {
-    expressionMatrix <- expressionMatrix %>%
-    column_to_rownames("gene") %>%
-    t() %>% as.data.frame() %>% 
-    rownames_to_column("sample_id") %>% 
-    pivot_longer(cols = !sample_id, names_to = "gene", values_to = "expression")
-  return(expressionMatrix)
-}
-
-```
-
-Note that knowing how to use functions will go a long way in helping you reduce the amount of code you need to write. It also greatly simplifies your code base. Very much recommended!
-
-Okay, now, let's try using this function. 
-
-```{r}
-
-# use dplyr::filter() to get the expression data for the gene
-expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
-
-# this is the original expression matrix, consisting of only the one gene we filtered for
-expressionDataForGene
-
-# now transformed
-expressionDataForGene <- transformGeneExpressionMatrix(expressionDataForGene)
-expressionDataForGene
-
-```
-
-Yay! Now, we integrate the samples metadata by doing a join. 
-
-The left_join() function ensures that all rows in the first data frame are retained while unmatched rows in the second data frame are dropped. Feel free to run ?join() in the R-Studio console to learn more as well as other variations of the function such as right_join(), inner_join(), full_join(), etc. 
-
-```{r}
-
-expressionDataForGene <- expressionDataForGene %>% left_join(samplesMetadata, by = "sample_id")
+expressionDataForGene <- expressionDataForGene %>% 
+  left_join(pData(eset) %>% select(sample_id, dev_stage, genotype),
+            by = "sample_id")
 
 expressionDataForGene
-
 ```
  
 Beautiful! Now, what we have is one data frame that contains all the metadata for all samples as well as the gene expression for the genes that we're interested in. 
+
+Note that we could also add the join metadata step to our previous function. We'll make the expected input be an `ExpressionSet` object since we'll be accessing both `exprs()` and `pData()` within the function.
+
+```{r}
+toLongerMeta <- function(expset) {
+    stopifnot(class(expset) == "ExpressionSet")
+    
+    expressionMatrix <- longExpressionMatrix <- exprs(expset) %>% 
+    as.data.frame() %>%
+    rownames_to_column("gene") %>%
+    pivot_longer(cols = !gene, 
+                 values_to = "Expression",
+                 names_to = "sample_id") %>%
+    left_join(pData(expset) %>% select(sample_id, dev_stage, genotype),
+            by = "sample_id")
+  return(expressionMatrix)
+}
+
+toLongerMeta(eset)
+```
 
 Finally time for more plots. Not lying, promise. 
 
 First, let's look at a couple of genes
 
 ```{r}
-
 expressionDataForGene %>% 
-  ggplot(aes(x = expression, y = genotype, color = genotype)) + 
+  ggplot(aes(x = Expression, y = genotype, color = genotype)) + 
   geom_point(size = 3, shape = 1) +
   facet_wrap(~gene)
-
 ```
 
 Take a moment to look at these plots. Do you think one of these genes is differentially expressed across wt and NrlKO conditions?
@@ -308,7 +333,7 @@ Let's first do a t-test to compare the expression values across the two genotype
 ```{r}
 
 boringGene <- expressionDataForGene %>% filter(gene == "1416119_at")
-t.test(expression ~ genotype, boringGene)
+t.test(Expression ~ genotype, boringGene)
 
 ```
 
@@ -319,10 +344,10 @@ Now let's run the t-test on the interesting gene.
 ```{r}
 
 interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
-t.test(expression ~ genotype, interestingGene)
+t.test(Expression ~ genotype, interestingGene)
 
 ```
-And, we get a p-value < 7.381e-12. An extremely tiny p-value!... Suppose, we set the significance threshold at 0.001, this p-value is statistically significant. We can also see that the mean expression value between the two conditions of this gene ~=2. 
+And, we get a p-value < 7.35e-12. An extremely tiny p-value!... Suppose, we set the significance threshold at 0.001, this p-value is statistically significant. We can also see that the mean expression value between the two conditions of this gene ~=2. 
 
 
 ### The mighty linear regression
@@ -333,14 +358,11 @@ But essentially, the t-statistics is simply a formulation for testing the relati
 
 To drive the point home, see that we can perform the "t-test" using the linear model in R. 
 
-
-First for the boring gene...
+First for the boring gene... We'll use our handy function to grab the nicely formatted long expression table *with metadata added* and filter for the boring gene, then pass to `lm`.
 
 ```{r}
-
-boringGene <- expressionDataForGene %>% filter(gene == "1416119_at")
-summary(lm(expression ~ genotype, boringGene))
-
+boringGene <- toLongerMeta(eset) %>% filter(gene == "1416119_at")
+summary(lm(Expression ~ genotype, boringGene))
 ```
 
 We get a p-value of >0.85, which is what we got with the t-test. 
@@ -348,13 +370,11 @@ We get a p-value of >0.85, which is what we got with the t-test.
 Let's try it with the interesting gene. 
 
 ```{r}
-
-interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
-summary(lm(expression ~ genotype, interestingGene))
-
+interestingGene <-  toLongerMeta(eset) %>% filter(gene == "1431708_a_at")
+summary(lm(Expression ~ genotype, interestingGene))
 ```
 
-Again, as expected, we get a p-value of ~7.71e-12, similar to the t-test. This is not a coincidence!
+Again, as expected, we get a p-value of ~7.68e-12, similar to the t-test. This is not a coincidence!
 
 By using the linear model instead of the t-test, we free ourselves from making only two-group comparisons. We can now tackle much more complicated situations where there are multiple covariates, each with multiple groups, etc.
 
@@ -363,20 +383,16 @@ As you might realize that to test for differences in multiple groups, we can use
 This is ANOVA. We use it to test if at least one developmental stage is different among all developmental stages (multiple groups) for 1431708_a_at. 
 
 ```{r}
-
-interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
-summary(aov(expression ~ dev_stage, interestingGene))
-
+interestingGene <- toLongerMeta(eset) %>% filter(gene == "1431708_a_at")
+summary(aov(Expression ~ dev_stage, interestingGene))
 ```
 We obtain a p-value that is quite big. Let's see what we get with the linear model. 
 
 ```{r}
-
-interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
-summary(lm(expression ~ dev_stage, interestingGene))
-
+interestingGene <- toLongerMeta(eset) %>% filter(gene == "1431708_a_at")
+summary(lm(Expression ~ dev_stage, interestingGene))
 ```
-And we get exactly the same p-value for the F-statistics. Again, not a coincidence!
+And we get exactly the same p-value for the F-statistic! Again, not a coincidence!
 
 Look like there isn't much differential expression going on for this gene between the developmental stages :D. 
 
@@ -432,60 +448,49 @@ Now we demonstrate how to use limma for performing large-scale differential expr
 
 Here, we look for genes differentially expressed across different developmental stages. We first constrain our search to the wild-type samples, excluding any effect that the alternative genotype may have. Using this as an example, we showcase the overall workflow of limma and its various features. Subsequently, we include the alternative genotype samples to show interaction effects. 
 
-As usual, to get the most out of this seminar, you should reproduce the step-by-step procedure on your own machine!
+As usual, to get the most out of this seminar, you should reproduce the step-by-step procedure on your own machine! And note that there are many different ways to perform each step. 
 
 ```{r}
+# get tidy (long) table containing expression + metadata of wild type samples (useful for plotting later on)
+wildType_long <- toLongerMeta(eset) %>% 
+  filter(genotype == "WT")
 
-# filter for wildtype data
-wildTypeSamples <- samplesMetadata %>% filter(genotype == "wt")
+# pull out just metadata for wildtype samples
+wildTypeMetadata <- pData(eset) %>%
+  filter(genotype == "WT") %>%
+  select(sample_id, genotype, dev_stage)
 
-wildTypeSamples # reminder of what the samples metadata data frame looks like
-
-# reusable function for pulling expression data for given samples
-getExpressionForSamples <- function(sampleIds, expressionMatrix) {
-  # use gene column as row name
-  dataFrame <- expressionMatrix %>% 
-    as.data.frame() %>% 
-    column_to_rownames("gene")
-  # use give sampleIds to pull out the subset of interest (ORDERING OF SAMPLES IS VERY IMPORTANT)
-  return(dataFrame[sampleIds])
-}
-
-# use the wildTypeSamples to pull out the wildtype expression data from the expression matrix
-wildTypeExpressionMatrix <- getExpressionForSamples(wildTypeSamples$sample_id, expressionMatrix)
-
-wildTypeExpressionMatrix %>% as_tibble() # reminder of what the expression matrix looks like
-
+# pull out just expression data for wildtype samples
+# makes use of the fact that the eset has column (sample) names
+wildTypeExpressionMatrix <- exprs(eset[, wildTypeMetadata$sample_id])
 ```
 
 Now we have filtered for only wild-type samples in both the samples metadata and the expression matrix. 
 
 Next we want to construct the design matrix. The design matrix dictates how the categorical covariates are parametized in the linear model. If you're not sure what this means, make sure to get help. This is an important concept! We also recommend reading chapter 3 of [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et al. 
 
-Before we actually construct the design matrix, there is one thing we need to check. That is, the samples are ordered identically in the samples metadata data frame as well as the expression matrix. The design matrix is constructed based on the order of the samples metadata data frame and is used to conduct differential expression analysis on the expression matrix. This consistency is **absolutely critical**. As soon as the two data frame go out of sync, the comparisons is no longer accurate. 
+NBefore we actually construct the design matrix, there is one thing we need to check. That is, the samples are ordered identically in the samples metadata data frame as well as the expression matrix. The design matrix is constructed based on the order of the samples metadata data frame and is used to conduct differential expression analysis on the expression matrix. This consistency is absolutely critical. As soon as the two data frame go out of sync, the comparisons is no longer accurate.
 
 ```{r}
-
 # Ordering of samples in the samples metadata
-wildTypeSamples$sample_id
+wildTypeMetadata$sample_id
 
 # Ordering of samples in the expression matrix
-names(wildTypeExpressionMatrix)
+colnames(wildTypeExpressionMatrix)
 
 # check equivalence
-(wildTypeSamples$sample_id == names(wildTypeExpressionMatrix)) %>% all()
-
+identical(wildTypeMetadata$sample_id, colnames(wildTypeExpressionMatrix))
 ```
 
-Very good! Now, we construct the design matrix. 
+Very good! Now, we construct the design matrix.
 
 It is recommended that you at least eyeball the design matrix to see if you can spot any problems. We print out the first ten rows of the design matrix and the samples metadata here. 
 
 ```{r}
 
-designMatrix <- model.matrix(~dev_stage, wildTypeSamples)
+designMatrix <- model.matrix(~dev_stage, wildTypeMetadata)
 head(designMatrix, 10) %>% kable()
-head(wildTypeSamples, 10) %>% kable()
+head(wildTypeMetadata, 10) %>% kable()
 
 ```
 
@@ -509,34 +514,30 @@ Now we've fit the models. We can start going through the differentially expresse
 
 
 ```{r}
-
 topTenGenes <- topTable(wildTypeDevStageFitEb)
 topTenGenes
-
 ```
 
 By default, topTable() returns the top 10 most statistically significant genes. Let's make a few plots to see how these genes were differentially expressed. 
 
 Let's plot the top 6 genes in our list. We will plot the expression of each gene for all the wild-type samples across all the developmental stages. 
 
-Remember the transformGeneExpressionMatrix() that we wrote? Scroll up if you forgot. We can reuse it here. 
+Remember the `toLongerMeta()` that we wrote? Scroll up if you forgot. We can reuse it here. 
 
 ```{r}
-
 topGenes <- rownames(topTenGenes)[1:6]
-topGenesExpressionData <- wildTypeExpressionMatrix %>% 
-  rownames_to_column("gene") %>% 
-  filter(gene %in% topGenes) %>%
-  transformGeneExpressionMatrix() %>% 
-  left_join(wildTypeSamples, by = "sample_id")
+
+topGenesExpressionData <- toLongerMeta(eset) %>%
+  filter(genotype == "WT") %>%
+  filter(gene %in% topGenes) 
 
 topGenesExpressionData # reminder of formatted expression data looks like - for easy graphing
 
 topGenesExpressionData %>% 
-  ggplot(aes(x = dev_stage, y = expression, color = genotype)) +
+  ggplot(aes(x = dev_stage, y = Expression, color = genotype)) +
   geom_point() +
   geom_jitter() +
-  stat_summary(aes(y = expression, group=1), fun = mean, geom="line") +
+  stat_summary(aes(y = Expression, group=1), fun = mean, geom="line") +
   facet_wrap(~gene)
 
 ```
@@ -545,31 +546,28 @@ What do you think? Does it look plausible to you that these genes are differenti
 
 Let's look at the least significant genes. 
 
-Actually, before we do that, let's put the graphing code into a reusable function. 
+Actually, before we do that, let's put the graphing code into a reusable function that takes two arguments: the list of genes, and the `ExpressionSet` object that contains the expression and metadata:
 
 ```{r}
 
-plotGenes <- function(genes, expressionMatrix, samplesMetadata) {
+plotGenes <- function(genes, exprset) {
   
-  expressionDataForGenes <- expressionMatrix %>% 
-    rownames_to_column("gene") %>% 
-    filter(gene %in% genes) %>%
-    transformGeneExpressionMatrix() %>% 
-    left_join(samplesMetadata, by = "sample_id")
-  
+  expressionDataForGenes <- toLongerMeta(exprset) %>%
+    filter(gene %in% genes) 
+
   expressionDataForGenes %>% 
-    ggplot(aes(x = dev_stage, y = expression, color = genotype)) +
+    ggplot(aes(x = dev_stage, y = Expression, color = genotype)) +
     geom_point() +
     geom_jitter() +
-    stat_summary(aes(y = expression, group=1), fun = mean, geom="line") +
+    stat_summary(aes(y = Expression, group=1), fun = mean, geom="line") +
     facet_wrap(~gene)
 }
 
-# verify that the function works
-plotGenes(topGenes, wildTypeExpressionMatrix, wildTypeSamples)
+# verify that the function works - note that we have to subset the eset to just wild type samples
+# unless we want to plot all samples
+plotGenes(topGenes, eset[, eset$genotype == "WT"])
 
 ```
-
 
 OK, now let's use topTable() again to find some boring(insignificant) genes. 
 
@@ -593,13 +591,13 @@ Notice that the genes on the bottom of our list have very large p-values. Also l
 
 ```{r}
 
-plotGenes(rownames(boringGenes), wildTypeExpressionMatrix, wildTypeSamples)
+plotGenes(rownames(boringGenes), eset[, eset$genotype == "WT"])
 
 ```
 
 Are you convinced?? I hope so!
 
-Explore more with topTable(). Run ?topTable() in your R-Studio Console. Make sure you're familiar with the options to use alternative multiple testing methods, sort by different metrics, apply p-value cutoffs, etc. 
+Explore more with `topTable()`. Run `?topTable()` in your R-Studio Console. Make sure you're familiar with the options to use alternative multiple testing methods, sort by different metrics, apply p-value cutoffs, etc. 
 
 ### Constructing and using the contrast matrix
 
@@ -607,7 +605,7 @@ Now, remember that everything was assessed relative to the baseline (E16). What 
 
 This is where the contrast matrix comes in. Again, review the lecture slides or get help from TAs if you're not sure what contrasts are. Essentially, they help you make comparisons between groups, rather than only with the baseline. 
 
-In order to make these comparisons, you first have to construct the appropriate contrast matrix using makeContrasts(), then fit the contrast using contrast.fit(), apply ebayes() to calculate moderated statistics again, and then use topTable() to get the results. 
+In order to make these comparisons, you first have to construct the appropriate contrast matrix using `makeContrasts()`, then fit the contrast using `contrast.fit()`, apply `ebayes()` to calculate moderated statistics again, and then use `topTable()` to get the results. 
 
 Let’s try to distinguish genes that have stable expression at the last three developmental stages (P6, P10, and 4_weeks) from those that do not. If expression doesn’t change from P6 to P10 to 4_weeks, then the effects for all 3 of those developmental stages should be the same. That means that the difference between the P10 and P6 effects is zero and ditto for the difference between 4_weeks effect and P10 (or P6, for that matter). Let’s form these contrasts.
 
@@ -630,7 +628,7 @@ contrastFitEb <- eBayes(contrastFit)
 
 ```
 
-Now, you can use topTable() again to get the results.
+Now, you can use `topTable()` again to get the results.
 
 ```{r}
 
@@ -639,13 +637,13 @@ contrastGenes <- topTable(contrastFitEb)
 contrastGenes
 
 # again plot the top 6 genes
-plotGenes(rownames(contrastGenes)[1:6], wildTypeExpressionMatrix, wildTypeSamples)
+plotGenes(rownames(contrastGenes)[1:6], eset[, eset$genotype == "WT"])
 
 ```
 
 So far, so good. These 6 probes show little expression change from P6 to P10 and a strong increase from P10 to 4_weeks. I would like to find some where there’s a change in each case but perhaps in opposite direction. Let’s press on.
 
-Let’s use decideTests() to adjust the p-values for both contrasts globally, i.e. all together and then threshold them at a cutoff of 1e-04.
+Let’s use `decideTests()` to adjust the p-values for both contrasts globally, i.e. all together and then threshold them at a cutoff of 1e-04.
 
 ```{r}
 
@@ -655,7 +653,7 @@ summary(wtResCont)
 
 ```
 
-We see there are 4 probes that go down from P6 to P10 and no hits going the other way. There are 8 probes that go down from P10 to 4_weeks and 46 going the other way. Let’s try to pull out various hits and plot their data.
+We see there are 4 probes that go down from P6 to P10 and no hits going the other way. There are 8 probes that go down from P10 to 4_weeks and 67 going the other way. Let’s try to pull out various hits and plot their data.
 
 Here are the 4 that decline from P6 to P10.
 
@@ -670,7 +668,7 @@ hits1 <- wtResCont %>%
 hits1
 
 # lets plot them
-plotGenes(hits1$gene, wildTypeExpressionMatrix, wildTypeSamples)
+plotGenes(hits1$gene, eset[, eset$genotype == "WT"])
 
 ```
 
@@ -688,7 +686,7 @@ hits2 <- wtResCont %>%
 hits2
 
 # lets plot them
-plotGenes(hits2$gene[1:4], wildTypeExpressionMatrix, wildTypeSamples)
+plotGenes(hits2$gene[1:4], eset[, eset$genotype == "WT"])
 
 ```
 
@@ -700,7 +698,7 @@ hits1$gene %>% intersect(hits2$gene)
 
 ```
 
-Doesn't seem so. If there is enough time, repeat this analysis with a less stringent p-value. See if you can get any overlaps. You get the idea. We've demonstrated how to use contrasts to compare between different groups. We've also demonstrated the decideTests() function to find significant genes for each contrast. 
+Doesn't seem so. If there is enough time, repeat this analysis with a less stringent p-value. See if you can get any overlaps. You get the idea. We've demonstrated how to use contrasts to compare between different groups. We've also demonstrated the `decideTests()` function to find significant genes for each contrast. 
 
 ### Assessing interaction
 
@@ -710,9 +708,10 @@ This is called interaction. And to assess this phenomenon, we must analyze all s
 
 
 ```{r}
-
 # for simplification, let's look at only a two-by-two design, we'll filter for developmental stages E16 and 4_weeks
-interactionSamples <- samplesMetadata %>% filter(dev_stage %in% c("E16", "4_weeks"))
+interactionSamples <- pData(eset) %>% 
+  filter(dev_stage %in% c("E16", "4_weeks")) %>%
+  select(sample_id, dev_stage, genotype)
 
 # IMPORTANT - you want to adjust factor levels here to eliminate stages P2, P6, and P10 from your design matrix
 interactionSamples$dev_stage <- interactionSamples$dev_stage %>% 
@@ -723,10 +722,10 @@ interactionSamples$dev_stage <- interactionSamples$dev_stage %>%
 interactionSamples
 
 # reminder of what expression matrix looks like
-expressionMatrix
+exprs(eset)[1:5, 1:4]
 
 # reuse getExpressionForSamples() to get expression data for the samples that we want
-expressionDataForInteractionSamples <- getExpressionForSamples(interactionSamples$sample_id, expressionMatrix)
+expressionDataForInteractionSamples <- exprs(eset[, interactionSamples$sample_id])
 head(expressionDataForInteractionSamples)
 
 # construct the design matrix to include all groups for genotype and developmental stages plus the interaction terms
@@ -754,20 +753,17 @@ changeDirections <- decideTests(interactionFit, p.value = cutoff, method = "glob
   as_tibble()
 
 # look for down regulation across developmental stages in wt but up regulation in genotypeNrlKO 
-hits <- changeDirections %>% filter(dev_stage4_weeks < 0, `genotypeNrlKO:dev_stage4_weeks` > 0)
+hits <- changeDirections %>% filter(dev_stage4_weeks > 0, `genotypeWT:dev_stage4_weeks` < 0)
+hits
 
-# lets try plotting 5 on this list
-
-expressionDataForHits <- expressionDataForInteractionSamples %>% 
-  rownames_to_column("gene") %>% 
-  filter(gene %in% hits$gene[1:4]) %>%
-  transformGeneExpressionMatrix() %>% 
-  left_join(samplesMetadata, id = "sample_id")
+# lets try plotting 4 on this list
+expressionDataForHits <- toLongerMeta(eset[, interactionSamples$sample_id]) %>%
+  filter(gene %in% hits$gene[1:4]) 
 
 expressionDataForHits$dev_stage <- expressionDataForHits$dev_stage %>% as.numeric()
 
 expressionDataForHits %>%
-  ggplot(aes(x = dev_stage, y = expression, color = genotype)) +
+  ggplot(aes(x = dev_stage, y = Expression, color = genotype)) +
   geom_point() +
   geom_jitter() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -783,6 +779,6 @@ expressionDataForHits %>%
 
 ## Attributions
 
-This seminar was developed by [Eric Chu](https://github.com/echu113) with seminar materials previously designed by Dr. Jenny Bryan and Alice Zhu.
+This seminar was originally developed by [Eric Chu](https://github.com/echu113) with seminar materials previously designed by Dr. Jenny Bryan and Alice Zhu. It was later modified by Keegan Korthauer.
 
 
