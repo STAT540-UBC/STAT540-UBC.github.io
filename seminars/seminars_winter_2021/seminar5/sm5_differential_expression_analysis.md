@@ -928,6 +928,8 @@ variance for each gene give the three samples. Finally, we look at the
 distribution of these variance estimates.
 
 ``` r
+set.seed(124)
+
 numberOfGenes <- 1000
 numberOfSamples <- 3
 
@@ -936,13 +938,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##            [,1]       [,2]        [,3]
-    ## [1,] -2.1280312 -1.8006158  0.01210885
-    ## [2,]  0.1576077  0.7085329  0.54014452
-    ## [3,]  1.3556714 -0.2323843  0.60467451
-    ## [4,] -0.8613707  0.1070527  0.28900577
-    ## [5,] -1.0030138 -0.2135726  0.24401452
-    ## [6,]  0.5863775 -0.6492224 -0.22785252
+    ##             [,1]        [,2]       [,3]
+    ## [1,] -1.38507062  0.70180178  0.2738433
+    ## [2,]  0.03832318  0.04880097  0.6606339
+    ## [3,] -0.76303016 -0.58629974 -0.9780842
+    ## [4,]  0.21230614  1.31636967  0.7355453
+    ## [5,]  1.42553797 -0.73749023  0.6788724
+    ## [6,]  0.74447982 -1.31000858 -0.6006028
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
@@ -1031,7 +1033,7 @@ Introduction to Statistical
 Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et
 al. 
 
-NBefore we actually construct the design matrix, there is one thing we
+Before we actually construct the design matrix, there is one thing we
 need to check. That is, the samples are ordered identically in the
 samples metadata data frame as well as the expression matrix. The design
 matrix is constructed based on the order of the samples metadata data
@@ -1121,6 +1123,22 @@ wildTypeDevStageFit <- lmFit(wildTypeExpressionMatrix, designMatrix)
 wildTypeDevStageFitEb <- eBayes(wildTypeDevStageFit)
 ```
 
+Note that `limma` is a Bioconductor package and is actually compatible
+with storing the data the “Bioconductor way”, so we don’t need to put
+the expression data into the tidy long format like we did with `lm`. In
+fact, we actually don’t even need to pull out the expression matrix from
+the `ExpressionSet` object – `limma` can do that on its own. Here we
+check that we get the same results for both types of input.
+
+``` r
+wildTypeDevStageFit_eset <- lmFit(eset[,wildTypeMetadata$sample_id],
+                                       designMatrix)
+
+identical(wildTypeDevStageFit, wildTypeDevStageFit_eset)
+```
+
+    ## [1] TRUE
+
 ### topTable() is your best friend
 
 Now we’ve fit the models. We can start going through the differentially
@@ -1204,7 +1222,7 @@ topGenesExpressionData %>%
   facet_wrap(~gene)
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 What do you think? Does it look plausible to you that these genes are
 differentially expressed across developmental stages?
@@ -1234,7 +1252,7 @@ plotGenes <- function(genes, exprset) {
 plotGenes(topGenes, eset[, eset$genotype == "WT"])
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 OK, now let’s use topTable() again to find some boring(insignificant)
 genes.
@@ -1285,7 +1303,7 @@ ourselves.
 plotGenes(rownames(boringGenes), eset[, eset$genotype == "WT"])
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 Are you convinced?? I hope so!
 
@@ -1392,7 +1410,7 @@ contrastGenes
 plotGenes(rownames(contrastGenes)[1:6], eset[, eset$genotype == "WT"])
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 So far, so good. These 6 probes show little expression change from P6 to
 P10 and a strong increase from P10 to 4\_weeks. I would like to find
@@ -1442,7 +1460,7 @@ hits1
 plotGenes(hits1$gene, eset[, eset$genotype == "WT"])
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 Here are 4 of the 8 that decline from P10 to 4\_weeks.
 
@@ -1471,7 +1489,7 @@ hits2
 plotGenes(hits2$gene[1:4], eset[, eset$genotype == "WT"])
 ```
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 Is there any overlap between these probes?
 
@@ -1531,46 +1549,6 @@ interactionSamples
     ## GSM92636  GSM92636       E16       WT
 
 ``` r
-# reminder of what expression matrix looks like
-exprs(eset)[1:5, 1:4]
-```
-
-    ##              GSM92610 GSM92611  GSM92612 GSM92613
-    ## 1415670_at   7.108863 7.322392  7.420947 7.351444
-    ## 1415671_at   9.714002 9.797742  9.831072 9.658442
-    ## 1415672_at   9.429030 9.846977 10.003092 9.914112
-    ## 1415673_at   8.426974 8.404206  8.594600 8.404206
-    ## 1415674_a_at 8.498338 8.458287  8.426651 8.372776
-
-``` r
-# reuse getExpressionForSamples() to get expression data for the samples that we want
-expressionDataForInteractionSamples <- exprs(eset[, interactionSamples$sample_id])
-head(expressionDataForInteractionSamples)
-```
-
-    ##              GSM92610 GSM92611  GSM92612 GSM92613  GSM92614  GSM92615 GSM92616
-    ## 1415670_at   7.108863 7.322392  7.420947 7.351444  7.240428  7.336860 7.382548
-    ## 1415671_at   9.714002 9.797742  9.831072 9.658442  9.708906 10.030904 7.636955
-    ## 1415672_at   9.429030 9.846977 10.003092 9.914112 10.174548 10.242718 8.422627
-    ## 1415673_at   8.426974 8.404206  8.594600 8.404206  8.835334  8.371316 8.362592
-    ## 1415674_a_at 8.498338 8.458287  8.426651 8.372776  8.541722  8.892941 8.509461
-    ## 1415675_at   9.739536 9.508494  9.598063 9.454508  9.672208  9.613500 9.655965
-    ##              GSM92629 GSM92630 GSM92631 GSM92632  GSM92633  GSM92634  GSM92635
-    ## 1415670_at   7.249942 7.034715 7.131226 7.374397  7.413965  7.236344  7.070270
-    ## 1415671_at   9.664297 8.381062 8.730366 9.435807 10.016159  9.477942 10.125344
-    ## 1415672_at   9.514345 9.206305 9.525853 9.484793 10.041910 10.013613  9.907014
-    ## 1415673_at   8.491196 8.753887 8.647076 8.494675  8.374498  8.362059  8.486530
-    ## 1415674_a_at 8.418862 8.256568 8.283164 8.339452  8.615350  8.585476  8.641078
-    ## 1415675_at   9.669490 9.547021 9.454296 9.327131  9.718741  9.590773  9.699846
-    ##              GSM92636
-    ## 1415670_at   7.168648
-    ## 1415671_at   9.853912
-    ## 1415672_at   9.913023
-    ## 1415673_at   8.403623
-    ## 1415674_a_at 8.520345
-    ## 1415675_at   9.708509
-
-``` r
 # construct the design matrix to include all groups for genotype and developmental stages plus the interaction terms
 interactionDesign <- model.matrix(~genotype*dev_stage, interactionSamples)
 
@@ -1617,7 +1595,8 @@ Let’s try and find these genes!
 
 ``` r
 # first fit the model
-interactionFit <- lmFit(expressionDataForInteractionSamples, interactionDesign) %>% eBayes()
+interactionFit <- lmFit(eset[, interactionSamples$sample_id],
+                        interactionDesign) %>% eBayes()
 
 cutoff <- 1e-06
 changeDirections <- decideTests(interactionFit, p.value = cutoff, method = "global") %>% 
@@ -1657,7 +1636,7 @@ expressionDataForHits %>%
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](sm5_differential_expression_analysis_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 ## Part 5: Deliverables
 

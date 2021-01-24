@@ -413,6 +413,7 @@ We address each of these problems in more detail below.
 Here we provide a data simulation to illustrate why gene variance estimates are bad in gene expression data. We simulate data for 3 samples, each with expression for 1000 genes. We then calculate the variance for each gene give the three samples. Finally, we look at the distribution of these variance estimates. 
 
 ```{r}
+set.seed(124)
 
 numberOfGenes <- 1000
 numberOfSamples <- 3
@@ -469,7 +470,7 @@ Now we have filtered for only wild-type samples in both the samples metadata and
 
 Next we want to construct the design matrix. The design matrix dictates how the categorical covariates are parametized in the linear model. If you're not sure what this means, make sure to get help. This is an important concept! We also recommend reading chapter 3 of [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et al. 
 
-NBefore we actually construct the design matrix, there is one thing we need to check. That is, the samples are ordered identically in the samples metadata data frame as well as the expression matrix. The design matrix is constructed based on the order of the samples metadata data frame and is used to conduct differential expression analysis on the expression matrix. This consistency is absolutely critical. As soon as the two data frame go out of sync, the comparisons is no longer accurate.
+Before we actually construct the design matrix, there is one thing we need to check. That is, the samples are ordered identically in the samples metadata data frame as well as the expression matrix. The design matrix is constructed based on the order of the samples metadata data frame and is used to conduct differential expression analysis on the expression matrix. This consistency is absolutely critical. As soon as the two data frame go out of sync, the comparisons is no longer accurate.
 
 ```{r}
 # Ordering of samples in the samples metadata
@@ -506,6 +507,15 @@ wildTypeDevStageFit <- lmFit(wildTypeExpressionMatrix, designMatrix)
 # run ebayes to calculate moderated t-statistics
 wildTypeDevStageFitEb <- eBayes(wildTypeDevStageFit)
 
+```
+
+Note that `limma` is a Bioconductor package and is actually compatible with storing the data the "Bioconductor way", so we don't need to put the expression data into the tidy long format like we did with `lm`. In fact, we actually don't even need to pull out the expression matrix from the `ExpressionSet` object -- `limma` can do that on its own. Here we check that we get the same results for both types of input.
+
+```{r}
+wildTypeDevStageFit_eset <- lmFit(eset[,wildTypeMetadata$sample_id],
+                                       designMatrix)
+
+identical(wildTypeDevStageFit, wildTypeDevStageFit_eset)
 ```
 
 ### topTable() is your best friend
@@ -721,13 +731,6 @@ interactionSamples$dev_stage <- interactionSamples$dev_stage %>%
 # reminder of what samples metadata look like - all samples
 interactionSamples
 
-# reminder of what expression matrix looks like
-exprs(eset)[1:5, 1:4]
-
-# reuse getExpressionForSamples() to get expression data for the samples that we want
-expressionDataForInteractionSamples <- exprs(eset[, interactionSamples$sample_id])
-head(expressionDataForInteractionSamples)
-
 # construct the design matrix to include all groups for genotype and developmental stages plus the interaction terms
 interactionDesign <- model.matrix(~genotype*dev_stage, interactionSamples)
 
@@ -744,7 +747,8 @@ Let's try and find these genes!
 ```{r}
 
 # first fit the model
-interactionFit <- lmFit(expressionDataForInteractionSamples, interactionDesign) %>% eBayes()
+interactionFit <- lmFit(eset[, interactionSamples$sample_id],
+                        interactionDesign) %>% eBayes()
 
 cutoff <- 1e-06
 changeDirections <- decideTests(interactionFit, p.value = cutoff, method = "global") %>% 
