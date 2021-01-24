@@ -75,7 +75,8 @@ This interdisciplinary course requires a broad range of skills at the interface 
 **Statistics**: 
 
 - You should have already taken a university level introductory statistics course. 
-- [This free online book "Modern Statistics for Modern Biology" by Susan Holmes and Wolfgang Huber](http://web.stanford.edu/class/bios221/book/) is a great reference for introduction or review of many of the concepts that are relevant for this course.
+- [This free online book "Modern Statistics for Modern Biology" by Susan Holmes and Wolfgang Huber](http://web.stanford.edu/class/bios221/book/) is a great reference for introduction or review of many of the statistical concepts that are relevant for this course.
+- [This free online book "Data Analysis for the Life Sciences" by Rafael Irizarry and Michael Love](http://genomicsclass.github.io/book/) is another great resource for introduction or review of many of the statistical concepts relevant in this course, with an emphasis on implementation in R.
 
 **Biology**: 
 
