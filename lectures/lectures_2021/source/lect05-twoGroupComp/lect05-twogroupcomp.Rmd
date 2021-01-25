@@ -14,9 +14,6 @@ output:
       ratio: "16:9"
 ---
 
-layout: true
-
-
 ```{r, echo = FALSE}
 library(ggplot2)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.retina=3)
@@ -25,7 +22,7 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 20))
 ```
 
 
-```{r wrap-hook, echo = FALSE}
+```{r wrap-hook, echo = FALSE, results = 'hide'}
 library(knitr)
 hook_output = knit_hooks$get('output')
 knit_hooks$set(output = function(x, options) {
@@ -74,14 +71,9 @@ xaringanExtra::use_logo(
   height = "2.87cm",
 )
 ```
-
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
-
-<big>
-
----
 
 <big>
 
@@ -168,7 +160,7 @@ We observe and study a <font color=red>random sample</font> to make conclusions 
 
 .pull-left[
 **Experimental design**:
-* 4 developmental stages (E16, P2, P6, P10, 4Weeks)
+* 5 developmental stages (E16, P2, P6, P10, 4Weeks)
 * 2 genotypes: Wild type (WT), Nrl Knockout (NrlKO)
 * 3-4 replicates for each combination
 ]
@@ -405,7 +397,8 @@ diffExp
 
 ``` {r echo=FALSE,fig.height=4.2, fig.width=10, fig.align="center"}
 
-grid.arrange(irsMean, nrlMean, nrow = 1)
+grid.arrange(irsMean + ylim(5, 13), nrlMean + ylim(5, 13), ncol = 2)
+
 
 ```
 
@@ -472,7 +465,6 @@ grid.arrange(artMean, nrlMean, nrow = 1)
 
 ## Quantifying observed variation (in the difference)
 
-<small>
 
 * Recall that if $Var(Y_i)=\sigma_Y^2$, then $Var(\bar{Y})=\frac{\sigma_Y^2}{n_Y}$
 
@@ -483,7 +475,11 @@ grid.arrange(artMean, nrlMean, nrow = 1)
 $$ Var(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}$$
 * If we also assume equal population variances:</big> $\sigma_Z^2=\sigma_Y^2=\sigma^2$, then
 $$Var(\bar{Z}-\bar{Y})=\frac{\sigma_Z^2}{n_Z}+\frac{\sigma_Y^2}{n_Y}=\sigma^2\left[\frac{1}{n_Z}+\frac{1}{n_Y}\right]$$
-### But how can we calculate population variance $\sigma$ if it is **unknown**?
+
+--
+
+#### But how can we calculate population variance $\sigma$ if it is **unknown**?
+
 ---
 
 
@@ -568,7 +564,7 @@ by(twoGenes, twoGenes$gene, function(theDat) {
 ```
 
 
-##  The Test Statistic:  <small> $T=\frac{\bar{Z}_n-\bar{Y}_n}{\hat{V}(\bar{Z_n}-\bar{Y_n})}$</small>
+##  The Test Statistic:  <small> $T=\frac{\bar{Z}_n-\bar{Y}_n}{\sqrt{\hat{V}(\bar{Z_n}-\bar{Y_n})}}$</small>
 
 <small>
 
@@ -580,6 +576,8 @@ tTests
 ```
 
 ### Can we now say that the observed differences are 'big'?
+
+--
 
 The difference is about half a standard deviation for Irs4 and ~17 standard deviations for Nrl. 
 
@@ -597,11 +595,15 @@ class:middle
 ---
 
 
-### Theory now tells us specific **null distributions** for these test statistics, depending on your assumptions.
+# Theory now tells us specific **null distributions** for these test statistics, depending on our assumptions
+
+<big>
 
 Let's call the unknown probability distributions F and G $(Y_i \sim F, \text{ and } Z_i \sim G)$
 
-### $\large\Rightarrow$ Willing to assume that F and G are normal distributions?
+---
+
+## $\large\Rightarrow$ Willing to assume that F and G are normal distributions?
 
 .pull-left[
 ###  2-sample *t*-test: 
@@ -617,7 +619,7 @@ $$T\sim t_{<something\,ugly>}$$
 --
 
 <br>
-### $\large\Rightarrow$ Unwilling to assume that F and G are normal distributions? But you feel that n<sub>Y</sub> and n<sub>Z</sub> are large enough?
+## $\large\Rightarrow$ Unwilling to assume that F and G are normal distributions? But you feel that n<sub>Y</sub> and n<sub>Z</sub> are large enough?
 
 Then the t-distributions above or even a normal distribution are decent approximations.
 
