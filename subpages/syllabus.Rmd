@@ -103,6 +103,7 @@ This interdisciplinary course requires a broad range of skills at the interface 
 
 - In this course we'll be using the version control software [Git](https://en.wikipedia.org/wiki/Git) and its web-based hosting and collaborative platform [GitHub](https://en.wikipedia.org/wiki/GitHub). 
 - [The online resource "Happy Git and GitHub for the useR" from Jenny Bryan](https://happygitwithr.com/) is a great reference for these tools as we learn them.
+- Another helpful git resource is [Hadley Wickham's webinar "Collaboration and time travel- version control with git, github and RStudio"](https://rstudio.com/resources/webinars/collaboration-and-time-travel-version-control-with-git-github-and-rstudio/)
 - We'll soon learn about using [R markdown](https://rmarkdown.rstudio.com/) to generate readable and reproducible reports with code and text, and you'll be using that a lot in this course - see [Chapter 18 of the 'Happy Git' resource: "Test drive R markdown"](https://happygitwithr.com/rmd-test-drive.html).
 
 ## Course-level learning objectives
