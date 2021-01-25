@@ -67,7 +67,7 @@ Each student should review and critique this paper:
 
 * [Comparative Transcriptome Profiling of Human Foreskin Fibroblasts Infected with the Sylvio and Y Strains of *Trypanosoma cruzi*](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0159197) by Houston-Ludlam et al (2016)
 
-in a 450-650 word summary/report. The summary should include: 
+Aim for a length of 500-700 words in your summary/report. The summary should include: 
 
 1. A brief review of the goal, findings and conclusion of the paper. (1 pt)
 2. A list (or mentioning) of the related datasets/databases and data types used in the study. In the case of datasets, provide some details of the data matrix and meta data. (0.5 pt)
