@@ -176,16 +176,14 @@ You all have a private repository in STAT540-UBC organization account, i.e., the
   * Compile your homework to Markdown (file extension should be `.md`).
     - In the YAML header, specify `output: github_document`   
     - RStudio's "Knit" button will create the md file when the output is specified in this way. The github .md file is a file that can be rendered nicely on GitHub.   
-  * Note that, by default, any figures created are placed into a `figures/` subdirectory. The Markdown file links to these and, therefore, requires them to present your full report. By default, the figures are base64 encoded and *embedded* into the HTML, which, therefore, is self-contained. (Note that you can also specify `self_contained: true` in the YAML header in order to encode the embedded figures directly into the output file with no separate `figures` directory)
+  * Note that, by default, any figures created are placed into a subdirectory titled `[filename]_files` where `[filename] is the basename (without extension) of your Rmd. The Markdown file links to these and, therefore, requires them to present your full report.
 
 **Optional HTML file** 
 
-  * In addition, you may generate an html output file
-    - This can be done by opening the md file generated from the previous step and clicking 'preview' in RStudio.  
+  * In addition, you may generate an html output file by specifying `output: html_document`. If you do this, also specify `keep_md: true` to keep the markdown file which will be used for grading 
+  * Generating an html can also be done by opening the md file generated from the previous step and clicking 'preview' in RStudio.  
     - Alternatively, use `knit2html()` from the `knitr` package in the R Console or in an R script.
     - To run from the shell or in a Makefile, use something like `Rscript -e "knitr::knit2html('hw01_lastname-firstnmae.Rmd')"`
-  * Same considerations apply to including figure files or a self-contained option as described above for the Markdown document
-
 
 **What to put (or not put) into your Git(Hub) repository**
 
