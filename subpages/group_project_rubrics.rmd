@@ -58,7 +58,7 @@ A one-page proposal as `project_proposal.md`. Please make sure that you have inc
 - For each of the aims, what computational/statistical approaches did you use? (Note: your methodology might change as you are progressing, exploring your data and reading through the literature)
 - Provide references for any sections as needed.
 
-Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by the due date.
+Please provide a link to your `project_proposal.md` file in your group repo `README.md`. This is a group-level deliverable so you'd submit it by opening an issue in your group repository, with the issue named "Project proposal of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your group by the due date. See [this post](https://github.com/STAT540-UBC/Discussion/issues/298) for an example proposal.
 
 ## Progress report (8 pts)
 
