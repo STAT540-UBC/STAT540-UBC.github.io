@@ -1,6 +1,5 @@
 ---
-output:
-  github_document
+output: github_document
 ---
 Seminar 7: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
 ==========================================
@@ -47,24 +46,14 @@ library(knitr)
 library(pheatmap)
 ```
 
-If you don't have `GEOquery` installed, you will need to get it using biocLite (`install.packages` won't work!).  
-```{r, echo=TRUE, eval=FALSE}
-source("http://bioconductor.org/biocLite.R")
-biocLite("GEOquery")
-```
-
 **Read the data into R**   
 > We will be reading in the data using the GEOquery library. This lets us read in the expression data and phenotypic data for a particular analysis, using its GEO accession ID.  
 
 ```{r}
-if(file.exists("GSE70213.Rdata")){ # if previously downloaded
-  load("GSE70213.Rdata")
-} else { 
 #Get geo object that contains our data and phenotype information  
 geo_obj <- getGEO("GSE70213", GSEMatrix = TRUE)
 geo_obj <- geo_obj[[1]]
-save(geo_obj, file = "GSE70213.Rdata")
-}
+
 #Get expression data  
 data <- exprs(geo_obj)
 
@@ -542,5 +531,6 @@ text(tsne_p1$Y, labels=prDes$grp, col=colors[prDes$grp])
 
 ## Deliverables   
 - Regenerate the pheatmap clustering plot for the top genes, selected from limma, using clustering distance: correlation, and clustering method: mcquitty.  
+
 - Regenerate the dendrogram on the samples of this heatmap using the `hclust` and `dist` functions. 
-- Plot the data for this analyses along PCs 1 and 2 using `ggplot` instead base plotting. Color the points by tissue
+- Make a plot of PC 1 vs PC 2 using `ggplot` instead base plotting. Color the points by tissue.
