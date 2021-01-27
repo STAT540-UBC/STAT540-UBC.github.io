@@ -174,7 +174,7 @@ randomVals <- rnorm(numVals, mean = meanValue, sd = standardDeviation)
 dataFrame %>% ggplot() +
     geom_line(aes(x = x_value, y = true_value), color = "blue") +
     geom_line(aes(x = randomVals), color = "red", stat = "density") +
-    geom_point(aes(x = randomVals, y = 0), color = "red", shape = 1, size = 3) +
+    geom_point(aes(x = randomVals, y = 0), color = "black", shape = 1, size = 3) +
     ylab("")
 
 ```
@@ -255,6 +255,7 @@ Ok, now let's separate all these values into 1000 samples, and then work out the
 
 # organize the random values into 1000 sample rows of size n = 5 columns
 samples <- matrix(randomChiSqValues, nrow = numSamples, ncol = sampleSize)
+
 sampleMeans <- rowMeans(samples) # work out the sample means 
 
 head(sampleMeans)
@@ -264,7 +265,6 @@ head(sampleMeans)
 Great, now we have the sample means. Let's check their distribution. 
 
 ```{r}
-
 tibble(x = sampleMeans) %>% 
   ggplot() + 
   geom_line(aes(x = x), stat = "density", color = "blue") +
@@ -277,6 +277,8 @@ tibble(x = sampleMeans) %>%
 ## Part 3: Deliverables
 
 * How well does the CLT hold for smaller sample sizes? Try it with sample sizes of n = 5, keep the number of samples the same at 1000. Make a visual, and turn it in by submitting an issue and tagging TAs.
+
+
 
 ## Important takeaway
 

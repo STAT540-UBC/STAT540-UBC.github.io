@@ -5,66 +5,66 @@
 
 By the end of this seminar, you should
 
--   have a clear understanding of what a normal distribution, its
+  - have a clear understanding of what a normal distribution, its
     associated parameters (mean & standard deviation), as well as the
     consequential probability density and cumulative distribution
     functions
--   have a clear understanding of the Central Limit Theorem (CLT)
--   have practical experience exploring the aforementioned concepts in
+  - have a clear understanding of the Central Limit Theorem (CLT)
+  - have practical experience exploring the aforementioned concepts in
     statistics by simulating data and building visualizations
 
 ## Packages required
 
--   [tidyverse](http://tidyverse.tidyverse.org/) (includes
+  - [tidyverse](http://tidyverse.tidyverse.org/) (includes
     [ggplot2](http://ggplot2.tidyverse.org/),
     [dplyr](http://dplyr.tidyverse.org/),
     [tidyr](http://tidyr.tidyverse.org/),
     [readr](http://readr.tidyverse.org/),
     [purrr](http://purrr.tidyverse.org/),
     [tibble](http://tibble.tidyverse.org/))
-    -   Install by running ‘install.packages(“tidyverse”, dependencies =
+      - Install by running ‘install.packages(“tidyverse”, dependencies =
         TRUE)’
 
 ## Functions used
 
--   **base::seq()** - Generate sequence of numbers given some pattern.
--   **base::matrix()** - Constructs matrix given data.
--   **tibble::tibble()** - Constructs tibble given data.
--   **stats::pnorm()** - Probability density function for the normal
+  - **base::seq()** - Generate sequence of numbers given some pattern.
+  - **base::matrix()** - Constructs matrix given data.
+  - **tibble::tibble()** - Constructs tibble given data.
+  - **stats::pnorm()** - Probability density function for the normal
     distribution.
--   **stats::dnorm()** - Cumulative distribution function for the normal
+  - **stats::dnorm()** - Cumulative distribution function for the normal
     distribution.
--   **stats::rnorm()** - Random number generator for sampling values
+  - **stats::rnorm()** - Random number generator for sampling values
     from the normal distribution.
--   **stats::dchisq()** - Cumulative distribution function for the
+  - **stats::dchisq()** - Cumulative distribution function for the
     chi-square distribution.
--   **stats::rchisq()** - Random number generator for sampling values
+  - **stats::rchisq()** - Random number generator for sampling values
     from the chi-square distribution.
--   **ggplot2::ggplot()** - Base function for using ggplot2. Lays out
+  - **ggplot2::ggplot()** - Base function for using ggplot2. Lays out
     the invisible ‘canvas’ for graphing.
--   **ggplot2::geom\_line()** - Geom function for drawing lines in trend
+  - **ggplot2::geom\_line()** - Geom function for drawing lines in trend
     charts.
--   **ggplot2::xlab()** - Manually set x-axis label.
+  - **ggplot2::xlab()** - Manually set x-axis label.
 
 ## Statistical concepts and terminology
 
--   **Probability distribution** - Describes the probabilities of all
+  - **Probability distribution** - Describes the probabilities of all
     possible values in a given scenario.
--   **Mean** - One of two parameters used to describe a normal
+  - **Mean** - One of two parameters used to describe a normal
     distribution; it is the average value, and also the value with the
     highest probability.
--   **Standard deviation** - One of two parameters used to describe a
+  - **Standard deviation** - One of two parameters used to describe a
     normal distribution; it describes the spread of the data.
--   **Probability density function** - Maps the values x (possible
+  - **Probability density function** - Maps the values x (possible
     heights in our example) to its associated probability described by a
     given distribution.
--   **Cumulative distribution function** - Describes the cumulative
+  - **Cumulative distribution function** - Describes the cumulative
     probability of all values smaller than x; x starts a 0 and goes up
     to 1.
--   **Central limit theorem (CLT)** - States that the distribution of
+  - **Central limit theorem (CLT)** - States that the distribution of
     the sum or means of random samples generated independently (IID) by
     any distribution will converge to the normal distribution.
--   **Independent and identically distributed (IID)** - Each random
+  - **Independent and identically distributed (IID)** - Each random
     value is sampled with replacement from the same distribution.
 
 ## Part 1: The normal distribution
@@ -72,7 +72,7 @@ By the end of this seminar, you should
 The normal (or Gaussian) distribution is one of the most useful
 distributions in statistics. Turns out, many things in the world
 naturally follow a normal distribution. With this simple and (for the
-most part) reasonable assumption, we can go quite far!
+most part) reasonable assumption, we can go quite far\!
 
 In this section, we will explore the properties of the normal
 distribution using R. Along with the normal distribution, you will also
@@ -90,7 +90,7 @@ used features of R.
 A probability distribution describes the probabilities of all possible
 values in a given scenario. For example, if you randomly select a person
 from the UBC student database, what is the probability that this
-person’s height is &gt;150cm? &lt;200cm? somewhere in between? These are
+person’s height is \>150cm? \<200cm? somewhere in between? These are
 the types of questions that a probability distribution can help answer.
 
 The *mean* and the *standard deviation* are the two parameters used to
@@ -141,7 +141,7 @@ the probability density function is symmetrical.
 Here are a few more probability density plots for the normal
 distribution with different means and standard deviations. We recommend
 that you try running the code line by line so that you understand
-exactly what happens every step of the way!
+exactly what happens every step of the way\!
 
 From the code, can you figure out which color corresponds to which set
 of parameters? (mean & standard deviation)
@@ -226,7 +226,7 @@ sample values from the normal distribution easy using the rnorm()
 function.
 
 Here we demonstrate usage of this function. We overlap the resulting
-density plot with true distribution. Notice how they line up :)!
+density plot with true distribution. Notice how they line up :)\!
 
 ``` r
 meanValue <- 0
@@ -304,7 +304,7 @@ dataFrame %>% ggplot() +
 ![](sm3_intro_to_stat_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Note that it looks absolutely nowhere like the normal distribution.
-That’s what makes the CLT so exciting!
+That’s what makes the CLT so exciting\!
 
 ### Simulating many samples
 
@@ -341,9 +341,9 @@ tibble(x = randomChiSqValues) %>%
 ![](sm3_intro_to_stat_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 So, yes, of course it resembles the chi-square distribution. The values
-were sampled from it! Nothing too exciting yet…
+were sampled from it\! Nothing too exciting yet…
 
-### Convergence to the normal distribution - what an amazing property!
+### Convergence to the normal distribution - what an amazing property\!
 
 Ok, now let’s separate all these values into 1000 samples, and then work
 out the sample means and look at the distribution of that.
@@ -370,11 +370,12 @@ tibble(x = sampleMeans) %>%
 ![](sm3_intro_to_stat_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 … and TADA. Sample means of random samples generated from the chi-square
-distribution converges to the normal distribution. How amazing is that?!
+distribution converges to the normal distribution. How amazing is
+that?\!
 
 ## Part 3: Deliverables
 
--   How well does the CLT hold for smaller sample sizes? Try it with
+  - How well does the CLT hold for smaller sample sizes? Try it with
     sample sizes of n = 5, keep the number of samples the same at 1000.
     Make a visual, and turn it in by submitting an issue and tagging
     TAs.
