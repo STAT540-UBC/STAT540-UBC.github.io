@@ -99,8 +99,8 @@ Sina is an M.Sc. student in Bioinformatics and recently defended his M.Sc. thesi
 ## Guest Lecturers
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Paul](peoplePics/paulPavlidis.jpg){width=60%} | | ![Youngjin](peoplePics/youngjinPark.png){width=60%} |
-|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | | [Youngjin Park](https://ypark.github.io/) |
+| ![Paul](peoplePics/paulPavlidis.jpg){width=60%} | | ![Yongjin](peoplePics/youngjinPark.png){width=60%} |
+|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | | [Yongjin Park](https://ypark.github.io/) |
 |  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | | Assistant Professor of Pathology and Statistics <ypp@stat.ubc.ca> |
 |  &nbsp; |  &nbsp; | &nbsp;  |
  | ![Jessica](peoplePics/jessicaDennis.jpg){width=60%} | | ![Sarah](peoplePics/sarahMerrill.jpg){width=60%}  |

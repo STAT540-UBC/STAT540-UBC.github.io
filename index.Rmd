@@ -39,7 +39,7 @@ For course information, please see the following pages (also accessible via the 
 
 * The course organization on GitHub: <https://github.com/STAT540-UBC>  
 
-* Discussion forum: <https://github.com/STAT540-UBC/Discussion>
+* Discussion forum: <https://github.com/STAT540-UBC/Discussion/issues>
 
 * Repo that creates this website: <https://github.com/STAT540-UBC/STAT540-UBC.github.io>
 

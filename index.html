@@ -13,7 +13,7 @@
 
 <title>STAT 540 Home</title>
 
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -23,6 +23,15 @@
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -68,6 +77,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
@@ -239,7 +249,7 @@ summary {
 <ul>
 <li><p>For useful links to free online textbooks/guides relevant to the course, see the <a href="https://stat540-ubc.github.io/subpages/syllabus.html#prerequisites-and-resources">“Prerequisites &amp; Resources” section of the syllabus</a></p></li>
 <li><p>The course organization on GitHub: <a href="https://github.com/STAT540-UBC" class="uri">https://github.com/STAT540-UBC</a></p></li>
-<li><p>Discussion forum: <a href="https://github.com/STAT540-UBC/Discussion" class="uri">https://github.com/STAT540-UBC/Discussion</a></p></li>
+<li><p>Discussion forum: <a href="https://github.com/STAT540-UBC/Discussion/issues" class="uri">https://github.com/STAT540-UBC/Discussion/issues</a></p></li>
 <li><p>Repo that creates this website: <a href="https://github.com/STAT540-UBC/STAT540-UBC.github.io" class="uri">https://github.com/STAT540-UBC/STAT540-UBC.github.io</a></p></li>
 </ul>
 </div>
@@ -686,7 +696,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
