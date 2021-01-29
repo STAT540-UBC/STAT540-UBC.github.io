@@ -140,6 +140,8 @@ For help on your homework mechanics, please see this list of [assignment tips](a
 
 ### Timeline overview 
 
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag horizontally to slide date range and vertically to view all items. Reload the page to reset the view to include all due dates.
+
 ```{r,echo=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(timevis))
 
