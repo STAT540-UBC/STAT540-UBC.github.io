@@ -263,13 +263,13 @@ full_data %>%
 
 ## Part 3 Exercise
 
-* By adding one additional function to the unmodified code (in Part 2) above, calculate the sum of all counts in each sample and divide each expression value by that sum (hint: use mutate). 
+By adding one additional function to the unmodified code (in Part 2) above, calculate the sum of all counts in each sample and divide each expression value by that sum (hint: use mutate). 
 
 Please do not use the modified code (in Part 2 exercise) to do this exercise. Your code would be different if you use the modified data frame (one with the transcription_length) instead of the data frame in Part 2 (one without the transcription_length).
 
 As an optional exercise, what would be the consequence if we use the data frame with the "transcription_length" column?
 
-Remember, you can add multiple new columns using mutate by separating each column with a comma (i.e mutate(x = c("a", "b"), y = c("d", "c"))). Plot this new transformed column.*
+Remember, you can add multiple new columns using mutate by separating each column with a comma (i.e mutate(x = c("a", "b"), y = c("d", "c"))). Plot this new transformed column.
 
 # Part 4 - Analyzing the results of statistical tests
 

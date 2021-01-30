@@ -6,21 +6,21 @@ Jenkin Tsui
 
 The following sections are to be submitted for marks:
 
--   Part 2 Exercise
--   Part 3 Exercise
--   Part 4 Exercise
+  - Part 2 Exercise
+  - Part 3 Exercise
+  - Part 4 Exercise
 
 # Objectives
 
 The objectives for this lecture will be to
 
--   Understand that some freely available genomic, transcriptomic and
+  - Understand that some freely available genomic, transcriptomic and
     proteomic data can be accessed through the Gene Expression Omnibus
     server (GEO)
--   Download gene expression datasets using GEOquery and explore the
+  - Download gene expression datasets using GEOquery and explore the
     data using dplyr verbs
--   Use dplyr verbs in conjunction with ggplot2
--   Run a t-test and isolate the results in a table
+  - Use dplyr verbs in conjunction with ggplot2
+  - Run a t-test and isolate the results in a table
 
 # Part 1 - Accessing data using GEOquery
 
@@ -76,7 +76,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /var/folders/pg/nr2b0bh1483cqxnbd8p7ygchsyq09c/T//RtmpFxUBpm/GDS507.soft.gz
+    ## /var/folders/pz/rdjxq2157yl4wc05pqd_5fcrvz1p7p/T//RtmpdSlscT/GDS507.soft.gz
 
     ## 
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -115,7 +115,7 @@ str(gds)
     ##   .. .. ..@ header   : list()
     ##   ..@ dataTable:Formal class 'GEODataTable' [package "GEOquery"] with 2 slots
     ##   .. .. ..@ columns:'data.frame':    17 obs. of  4 variables:
-    ##   .. .. .. ..$ sample       : chr [1:17] "GSM11815" "GSM11832" "GSM12069" "GSM12083" ...
+    ##   .. .. .. ..$ sample       : Factor w/ 17 levels "GSM11810","GSM11815",..: 2 4 5 7 9 10 12 14 16 1 ...
     ##   .. .. .. ..$ disease.state: Factor w/ 2 levels "normal","RCC": 2 2 2 2 2 2 2 2 2 1 ...
     ##   .. .. .. ..$ individual   : Factor w/ 10 levels "001","005","011",..: 6 4 1 2 3 5 8 9 10 6 ...
     ##   .. .. .. ..$ description  : chr [1:17] "Value for GSM11815: C035 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM11832: C023 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12069: C001 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ "Value for GSM12083: C005 Renal Clear Cell Carcinoma U133B; src: Trizol isolation of total RNA from Renal Clear "| __truncated__ ...
@@ -251,7 +251,7 @@ for the 17 samples. In summary, we have an array with dimensions 22645 x
 19 (row x column).
 
 Notice that some gene names are duplicated, because there are multiple
-probes that map to the same gene. We will deal with this later!
+probes that map to the same gene. We will deal with this later\!
 
 Now we can start exploring the dataset a bit. Just for fun - let’s
 compute the average count in each sample.
@@ -353,9 +353,9 @@ instance of that variable. There are no rownames. We can now use dplyr
 verbs to manipulate the data.
 
 These verbs can be used together in a sequence of functions with the
-“pipe” operator. R will interpret the output of the previous function as
-the input to the subsequent function when you put the “pipe” operator (
-%&gt;% ) inbetween the functions.
+“pipe” operator. R will interpret the output of the previous function
+as the input to the subsequent function when you put the “pipe” operator
+( %\>% ) inbetween the functions.
 
 ``` r
 #select all rows with sepal length greater than 5. 
@@ -432,6 +432,8 @@ iris %>%
     head()
 ```
 
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
     ## # A tibble: 3 x 3
     ##   Species    average_sepal_length     n
     ##   <fct>                     <dbl> <int>
@@ -495,7 +497,7 @@ band_members %>% full_join(band_instruments)
     ## 3 Paul  Beatles bass  
     ## 4 Keith <NA>    guitar
 
-Now let’s apply these functions to our gene expression dataset!
+Now let’s apply these functions to our gene expression dataset\!
 
 One problem: our dataset is not “tidy”. Rather, it’s arranged like an
 excel spreadsheet. While intuitive for us to read, dplyr does not like
@@ -522,7 +524,7 @@ information about what the `pivot_longer()` function does.
 Now we have four columns, each one corresponding to a variable: the
 probe name, the gene name, the sample name and the count.
 
-We can do a lot of stuff with this setup! Let’s calculate the mean gene
+We can do a lot of stuff with this setup\! Let’s calculate the mean gene
 expression per sample.
 
 ``` r
@@ -531,9 +533,11 @@ long_data %>%
     summarize(mean = mean(Expression))
 ```
 
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
     ## # A tibble: 17 x 2
     ##    Sample    mean
-    ##  * <chr>    <dbl>
+    ##    <chr>    <dbl>
     ##  1 GSM11810  765.
     ##  2 GSM11815  751.
     ##  3 GSM11827  780.
@@ -565,7 +569,7 @@ each probe’s expression.
     summarize(Count = mean(Expression)))
 ```
 
-    ## `summarise()` has grouped output by 'Sample'. You can override using the `.groups` argument.
+    ## `summarise()` regrouping output by 'Sample' (override with `.groups` argument)
 
     ## # A tibble: 279,905 x 3
     ## # Groups:   Sample [17]
@@ -627,7 +631,7 @@ X chromosome changes between RCC and normal cells.
 The first thing we will do is combine information from the meta data
 file (meta\_data) with our expression table (data\_with\_chromosome).
 Then we will use dplyr verbs to first group all samples by disease
-status, filter out all non-X-chromosome genes, and then calcualte the
+status, filter out all non-X-chromosome genes, and then calculate the
 mean using summarize().
 
 ``` r
@@ -639,6 +643,8 @@ full_data %>%
     summarize(mean = mean(Count))
 ```
 
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
     ## # A tibble: 2 x 2
     ##   disease  mean
     ##   <fct>   <dbl>
@@ -647,7 +653,7 @@ full_data %>%
 
 # Part 3: Graphing expression data
 
-What if we want to graph our count data? Time for ggplot!
+What if we want to graph our count data? Time for ggplot\!
 
 Because we can’t graph all of the probes, let’s choose a random sampling
 of 100.
@@ -669,11 +675,21 @@ full_data %>%
 
 ## Part 3 Exercise
 
-*By adding one additional function to the code above, calculate the sum
-of all counts in each sample and divide each expression value by that
-sum (hint: use mutate). Remember, you can add multiple new columns using
-mutate by separating each column with a comma (i.e mutate(x = c(“a”,
-“b”), y = c(“d”, “c”))). Plot this new transformed column.*
+By adding one additional function to the unmodified code (in Part 2)
+above, calculate the sum of all counts in each sample and divide each
+expression value by that sum (hint: use mutate).
+
+Please do not use the modified code (in Part 2 exercise) to do this
+exercise. Your code would be different if you use the modified data
+frame (one with the transcription\_length) instead of the data frame in
+Part 2 (one without the transcription\_length).
+
+As an optional exercise, what would be the consequence if we use the
+data frame with the “transcription\_length” column?
+
+Remember, you can add multiple new columns using mutate by separating
+each column with a comma (i.e mutate(x = c(“a”, “b”), y = c(“d”, “c”))).
+Plot this new transformed column.
 
 # Part 4 - Analyzing the results of statistical tests
 
@@ -692,9 +708,11 @@ full_data %>%
     summarize( pvalue = t.test(Count ~ disease)$p.value)
 ```
 
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
     ## # A tibble: 9,206 x 2
     ##    hgnc_symbol pvalue
-    ##  * <chr>        <dbl>
+    ##    <chr>        <dbl>
     ##  1 A1BG        0.708 
     ##  2 A1BG-AS1    0.0366
     ##  3 A1CF        0.132 
