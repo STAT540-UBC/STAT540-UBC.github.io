@@ -1,0 +1,147 @@
+---
+title: "Course Outline"
+subtitle: 'STAT 540: Statistical Methods for High Dimensional Biology'
+output:
+  pdf_document:
+    toc: true
+toc-title: Contents
+urlcolor: blue
+---
+
+## Overview
+
+Winter Term 2 2020 (January 11, 2021 - April 14, 2021)
+
+STAT 540 is a 3 credit course with a mandatory computing seminar 
+
+This course is cross-listed as STAT 540, BIOF 540, and GSAT 540 
+
+## Teaching Team
+
+Virtual office hours listed below are on a drop-in basis (no appointment necessary) and Zoom links will be posted in Canvas. For more info on the Teaching team, including brief bios, see the [People](people.html) page.
+
+### **Instructor**  
+
+Keegan Korthauer, Ph.D (She/Her/Hers) - <keegan@stat.ubc.ca>  
+
+### **Teaching Assistants**  
+
+Jenkin Tsui (He/Him/His) - <jenkin.tsui@aya.yale.edu>  
+
+Marco Tello Palencia (He/Him/His) - <Marco.TelloPalencia@bcchr.ca>  
+
+Sina Jafarzadeh (He/Him/His) - <jafarzadeh91@gmail.com>   
+
+### **Guest Lecturers**  
+
+We are also fortunate to have several guest lectures throughout the course. See the [Lecture](lectures.html) schedule and [People](people.html) page for more info.
+
+## Course-level learning objectives
+
+  * Perform exploratory data analysis and visualize genomics data
+  * Apply tailored statistical methods to answer questions using high dimensional biological data
+  * Make your work reproducible, reusable, and shareable
+  * Work with real data in a collaborative model
+
+## Selected topics 
+
+  * Basics of molecular genetics/genomics and data collection assays (methods)
+  * Basic probability and math foundations
+  * Exploratory data analysis and data quality control
+  * Normalization, batch correction
+  * Basic statistical inference (“one gene at a time”) – linear models
+  * Large-scale inference (“genome-wide”) – multiple testing
+  * Analysis of microarray, RNASeq, and epigenetics data
+  * Principal Component Analysis and Clustering (unsupervised machine learning)
+  * Classification and cross validation (supervised machine learning)
+  * Gene set analysis and gene networks
+  * Genome-wide association analysis (GWAS) 
+  * Guest lectures on special topics: Single-cell RNA-seq, Causal Inference in Genomics, & Polygenic Risk Scores and Phenome-Wide Association Studies
+
+## Course communication
+
+In the web-oriented setting, it is vital that we have a dedicated plan for how we will communicate throughout the semester.
+
+**General questions**: We encourage you to use the [course Github Discussion repository](https://github.com/STAT540-UBC/Discussion) (you will be granted access after we collect your Github user IDs) for posting questions, so that the message can be seen by the entire teaching team, and so that others in the class who might have the same question can learn from responses. You are also welcome to share your input on questions posted by others. Course announcements will also be posted in this repository, so please check it regularly (and/or subscribe to notifications).
+
+**Private matters**: For private matters, please contact the Teaching team by email (listed above).
+
+**Group work**: In your final project teams, we encourage you to make use of (1) the discussion feature in your GitHub Teams group, and (2) the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
+
+## Schedule  
+
+#### **Lectures** (Sec 201)
+
+- Time : Mon Wed 9:30 - 11am*
+- Location: Online (Zoom) - Meeting links and recordings posted in Canvas
+- *Note that some lectures will be asynchronous/prerecorded - see [Lectures](lectures.html) for lecture materials and schedule 
+
+#### **Seminars** (Sec S2B) 
+
+- Time : Wed 12pm - 1pm
+- Location: Online (Zoom) - Meeting links posted in Canvas
+- See [Seminars](seminars.html) for schedule and seminar materials 
+- We strongly recommend reading the seminar materials prior to attending each seminar. 
+
+## Prerequisites and Resources
+
+This interdisciplinary course requires a broad range of skills at the interface of statistics, molecular biology / genomics, and computing. While you may have some background in one or more of the following areas, you are not expected to be an expert in all. That said, to be successful in the course, you may need to spend a bit more time in the areas that you have less experience in. Although there are no official prerequisites for the course, here is a list of useful skills to bring into the course and/or learn along the way.
+
+**Statistics**: 
+
+- You should have already taken a university level introductory statistics course. 
+- [This free online book "Modern Statistics for Modern Biology" by Susan Holmes and Wolfgang Huber](http://web.stanford.edu/class/bios221/book/) is a great reference for introduction or review of many of the statistical concepts that are relevant for this course.
+- [This free online book "Data Analysis for the Life Sciences" by Rafael Irizarry and Michael Love](http://genomicsclass.github.io/book/) is another great resource for introduction or review of many of the statistical concepts relevant in this course, with an emphasis on implementation in R.
+
+**Biology**: 
+
+- No requirements, but you are expected to learn things like, e.g. the difference between DNA and RNA, and the difference between a gene and a genome.
+- See [Seminar-0c](https://github.com/STAT540-UBC/STAT540-UBC.github.io/raw/master/seminars/seminars_legacy/sm01e_biology-intro-2017.pdf) for some basic introductory material.
+- [This free online book "Concepts of Biology" by Fowler, Roush & Wise](https://openstax.org/books/concepts-biology/pages/1-introduction) is a great resource for biological concepts, in particular chapters 6 and 9
+- [This free online book "Biology" by Clark, Douglas & Choi](https://openstax.org/books/biology-2e/pages/1-introduction) goes more in-depth, see Chapters 14, 15, and 16 for material on genetics that is particularly relevant for this course.
+- No matter your prior experience, when you come across a new biological concept during the course or in your research, you might need to spend a bit of time 'learning as you go' - this is expected and something I still do regularly in my day-to-day research!
+
+**R**: 
+
+- No experience required but be prepared to do a lot of self-guided learning if you haven't taken other courses on R or used it in your research.
+- Start now by installing [R](https://cran.r-project.org/) and the HIGHLY RECOMMENDED "integrated development environment" (IDE) [RStudio](https://rstudio.com/products/rstudio/download/) - both are free and open source. 
+- You should be able to run R on your own computer during each seminar session.
+- If you are new to R, check out [this blog post on getting started with R](http://santina.me/Get-started-with-R/).
+- [This free online book "Introduction to Data Science" by Rafael Irizarry](https://rafalab.github.io/dsbook/) is also a great resource for getting more in-depth with R, programming basics, and the tidyverse. In particular see Chapters 1-5:
+  - [Chapter 1: Getting Started with R and R Studio](https://rafalab.github.io/dsbook/getting-started.html)
+  - [Chapter 2: R Basics](https://rafalab.github.io/dsbook/r-basics.html)
+  - [Chapter 3: Programming Basics](https://rafalab.github.io/dsbook/programming-basics.html)
+  - [Chapter 4: The tidyverse](https://rafalab.github.io/dsbook/tidyverse.html)
+  - [Chapter 5: Importing data](https://rafalab.github.io/dsbook/importing-data.html)
+  
+**Other computing tools:** 
+
+- In this course we'll be using the version control software [Git](https://en.wikipedia.org/wiki/Git) and its web-based hosting and collaborative platform [GitHub](https://en.wikipedia.org/wiki/GitHub). 
+- [The online resource "Happy Git and GitHub for the useR" from Jenny Bryan](https://happygitwithr.com/) is a great reference for these tools as we learn them.
+- Another helpful git resource is [Hadley Wickham's webinar "Collaboration and time travel- version control with git, github and RStudio"](https://rstudio.com/resources/webinars/collaboration-and-time-travel-version-control-with-git-github-and-rstudio/)
+- We'll learn about using [R markdown](https://rmarkdown.rstudio.com/) to generate readable and reproducible reports with code and text, and you'll be using that a lot in this course - see [Chapter 18 of the 'Happy Git' resource: "Test drive R markdown"](https://happygitwithr.com/rmd-test-drive.html).
+
+## Evaluation
+
+You will have three individual assignments, six seminar submissions (one divided into two parts), and one group project. Deadlines are all by 11:59 pm (Pacific time) on the due date, and late assignments are penalized 10% per day/partial day. If you anticipate having trouble meeting a deadline, or need to request an extension please reach out via email. 
+
+**For more detail on each of these assignments, see the [course work page](https://stat540-ubc.github.io/subpages/assignments)** (the header of each assignment on this page points to the relevant section of the course work page).
+
+For help on your homework mechanics, please see this list of [assignment tips](assignment_tips.html). For detailed instructions on how to turn in your assignments, see the [submission instructions on the course work page](https://stat540-ubc.github.io/subpages/assignments.html#stat-540-homework-submission-instructions).
+
+### Timeline overview 
+
+Current date is indicated by the vertical red bar. Click the zoom buttons to zoom in on a date. Click and drag horizontally to slide date range and vertically to view all items. Reload the page to reset the view to include all due dates.
+
+```{r,echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(timevis))
+
+assignment_data <- read.csv("../course-admin/assn_2021.csv",as.is = T,sep = ",")
+assignment_data$start <- paste0(assignment_data$start, " 23:59:00")
+timevis(assignment_data, options= list(verticalScroll=TRUE, zoomable = FALSE),
+        height=375)
+```
+
+## Copyright 
+
+All materials of the course are licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) license.

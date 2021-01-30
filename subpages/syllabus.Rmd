@@ -1,13 +1,16 @@
 ---
 title: "Syllabus"
-subtitle: "STAT 540: Statistical Methods for High Dimensional Biology <br><small> Winter Term 2 2020 (January 11, 2021 - April 14, 2021) <br> STAT 540 is a 3 credit course with a mandatory computing seminar <br> Cross-listed as STAT 540, BIOF 540, GSAT 540 </small>"
+subtitle: 'STAT 540: Statistical Methods for High Dimensional Biology <br><small>
+  Winter Term 2 2020 (January 11, 2021 - April 14, 2021) <br> STAT 540 is a 3 credit
+  course with a mandatory computing seminar <br> Cross-listed as STAT 540, BIOF 540,
+  GSAT 540 </small>'
 output:
   html_document:
     includes:
       before_body: ../include/nav.html
       after_body: ../include/nothing.html
-    toc: true
-toc-title: "Contents"
+    toc: yes
+toc-title: Contents
 ---
 
 ## Land acknowledgement
@@ -16,7 +19,7 @@ We respectfully recognize that the University of British Columbia Vancouver camp
 
 ## Teaching Team
 
-Virtual office hours listed below are on a drop-in basis (no appointment necessary) and Zoom links will be posted in Canvas. For more info on the Teaching team, including brief bios, see the [People](people.html) page.
+For more info on the Teaching team, including brief bios, see the [People](people.html) page.
 
 #### **Instructor**
 
@@ -42,16 +45,6 @@ Office hours: Friday 1-2pm (Pacific time)
 
 We are also fortunate to have several guest lectures throughout the course. See the [Lecture](lectures.html) schedule and [People](people.html) page for more info.
 
-## Course communication
-
-In the web-oriented setting, it is vital that we have a dedicated plan for how we will communicate throughout the semester.
-
-**General questions**: We encourage you to use the [course Github Discussion repository](https://github.com/STAT540-UBC/Discussion) (you will be granted access after we collect your Github user IDs) for posting questions, so that the message can be seen by the entire teaching team, and so that others in the class who might have the same question can learn from responses. You are also welcome to share your input on questions posted by others. Course announcements will also be posted in this repository, so please check it regularly (and/or subscribe to notifications).
-
-**Private matters**: For private matters, please contact the Teaching team by email (listed above).
-
-**Group work**: In your final project teams, we encourage you to make use of (1) the discussion feature in your GitHub Teams group, and (2) the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
-
 ## Schedule  
 
 #### **Lectures** (Sec 201)
@@ -67,6 +60,15 @@ In the web-oriented setting, it is vital that we have a dedicated plan for how w
 - See [Seminars](seminars.html) for schedule and seminar materials 
 - We strongly recommend reading the seminar materials prior to attending each seminar. 
 
+## Course communication
+
+In the web-oriented setting, it is vital that we have a dedicated plan for how we will communicate throughout the semester.
+
+**General questions**: We encourage you to use the [course Github Discussion repository](https://github.com/STAT540-UBC/Discussion) (you will be granted access after we collect your Github user IDs) for posting questions, so that the message can be seen by the entire teaching team, and so that others in the class who might have the same question can learn from responses. You are also welcome to share your input on questions posted by others. Course announcements will also be posted in this repository, so please check it regularly (and/or subscribe to notifications).
+
+**Private matters**: For private matters, please contact the Teaching team by email (listed above).
+
+**Group work**: In your final project teams, we encourage you to make use of (1) the discussion feature in your GitHub Teams group, and (2) the issues feature in your group's project repo. In addition, you are encouraged to meet regularly via a platform of your choice (e.g. Microsoft Teams). Please reach out if you have any questions or challenges in this space.
 
 ## Prerequisites and Resources
 
@@ -104,7 +106,7 @@ This interdisciplinary course requires a broad range of skills at the interface 
 - In this course we'll be using the version control software [Git](https://en.wikipedia.org/wiki/Git) and its web-based hosting and collaborative platform [GitHub](https://en.wikipedia.org/wiki/GitHub). 
 - [The online resource "Happy Git and GitHub for the useR" from Jenny Bryan](https://happygitwithr.com/) is a great reference for these tools as we learn them.
 - Another helpful git resource is [Hadley Wickham's webinar "Collaboration and time travel- version control with git, github and RStudio"](https://rstudio.com/resources/webinars/collaboration-and-time-travel-version-control-with-git-github-and-rstudio/)
-- We'll soon learn about using [R markdown](https://rmarkdown.rstudio.com/) to generate readable and reproducible reports with code and text, and you'll be using that a lot in this course - see [Chapter 18 of the 'Happy Git' resource: "Test drive R markdown"](https://happygitwithr.com/rmd-test-drive.html).
+- We'll learn about using [R markdown](https://rmarkdown.rstudio.com/) to generate readable and reproducible reports with code and text, and you'll be using that a lot in this course - see [Chapter 18 of the 'Happy Git' resource: "Test drive R markdown"](https://happygitwithr.com/rmd-test-drive.html).
 
 ## Course-level learning objectives
 

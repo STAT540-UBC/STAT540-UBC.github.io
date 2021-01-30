@@ -99,13 +99,6 @@ Sina is an M.Sc. student in Bioinformatics and recently defended his M.Sc. thesi
 ## Guest Lecturers
 |  |   |  |
 |---------------|---------------|---------------|
-| ![Paul](peoplePics/paulPavlidis.jpg){width=60%} | | ![Youngjin](peoplePics/youngjinPark.png){width=60%} |
-|  [Paul Pavlidis](https://pavlab.msl.ubc.ca/)  | | [Youngjin Park](https://ypark.github.io/) |
-|  Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> | | Assistant Professor of Pathology and Statistics <ypp@stat.ubc.ca> |
-|  &nbsp; |  &nbsp; | &nbsp;  |
- | ![Jessica](peoplePics/jessicaDennis.jpg){width=60%} | | ![Sarah](peoplePics/sarahMerrill.jpg){width=60%}  |
- | [Jessica Dennis](www.dennislab.ca) | |  Sarah Merrill |
- |  Assistant Professor of Medical Genetics <Jessica.Dennis@bcchr.ca> | |  Postdoctoral Fellow, Kobor Lab  <sarah.merrill@bcchr.ca> |
-
-
+| <br> ![Paul](peoplePics/paulPavlidis.jpg){width=60%} <br> [Paul Pavlidis](https://pavlab.msl.ubc.ca/) <br> Professor of Psychiatry / Michael Smith Labs <paul@msl.ubc.ca> <br> &nbsp; | | <br> ![Yongjin](peoplePics/youngjinPark.png){width=60%} <br> [Yongjin Park](https://ypark.github.io/) <br> Assistant Professor of Pathology and Statistics <br> <ypp@stat.ubc.ca> <br> &nbsp; |
+ | <br> ![Jessica](peoplePics/jessicaDennis.jpg){width=60%} <br> [Jessica Dennis](www.dennislab.ca) <br> Assistant Professor of Medical Genetics <br> <Jessica.Dennis@bcchr.ca> | | <br> ![Sarah](peoplePics/sarahMerrill.jpg){width=60%} <br> Sarah Merrill <br> Postdoctoral Fellow, Kobor Lab  <br> <sarah.merrill@bcchr.ca> |
 
