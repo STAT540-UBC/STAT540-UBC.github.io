@@ -231,7 +231,7 @@ data_with_chromosome <- identify_gene_names(new_long_data) %>%
 
 Let's say we're interested in how the average expression of genes on the X chromosome changes between RCC and normal cells. 
 
-The first thing we will do is combine information from the meta data file (meta_data) with our expression table (data_with_chromosome). Then we will use dplyr verbs to first group all samples by disease status, filter out all non-X-chromosome genes, and then calcualte the mean using summarize(). 
+The first thing we will do is combine information from the meta data file (meta_data) with our expression table (data_with_chromosome). Then we will use dplyr verbs to first group all samples by disease status, filter out all non-X-chromosome genes, and then calculate the mean using summarize(). 
 
 ```{r}
 full_data <- left_join(data_with_chromosome, meta_data, by = "Sample")
@@ -263,7 +263,13 @@ full_data %>%
 
 ## Part 3 Exercise
 
-*By adding one additional function to the code above, calculate the sum of all counts in each sample and divide each expression value by that sum (hint: use mutate). Remember, you can add multiple new columns using mutate by separating each column with a comma (i.e mutate(x = c("a", "b"), y = c("d", "c"))). Plot this new transformed column.*
+* By adding one additional function to the unmodified code (in Part 2) above, calculate the sum of all counts in each sample and divide each expression value by that sum (hint: use mutate). 
+
+Please do not use the modified code (in Part 2 exercise) to do this exercise. Your code would be different if you use the modified data frame (one with the transcription_length) instead of the data frame in Part 2 (one without the transcription_length).
+
+As an optional exercise, what would be the consequence if we use the data frame with the "transcription_length" column?
+
+Remember, you can add multiple new columns using mutate by separating each column with a comma (i.e mutate(x = c("a", "b"), y = c("d", "c"))). Plot this new transformed column.*
 
 # Part 4 - Analyzing the results of statistical tests
 
