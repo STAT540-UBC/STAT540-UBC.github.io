@@ -177,7 +177,7 @@ You need to have Git installed on your compute. You can use command line Git or 
     - In the YAML header, specify `output: github_document`   
     - RStudio's "Knit" button will create the md file when the output is specified in this way. The github .md file is a file that can be rendered nicely on GitHub.   
   * Note that, by default, any figures created are placed into a subdirectory titled `[filename]_files` where `[filename] is the basename (without extension) of your Rmd. The Markdown file links to these and, therefore, requires them to present your full report.
-    * __Never ever__ edit the output Markdown "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
+  * __Never ever__ edit the output Markdown "by hand". Only edit the R Markdown source and then regenerate the downstream products from that.
 
 #### Optional HTML file
 
