@@ -23,7 +23,7 @@ You will have three individual assignments, six seminar submissions, and one gro
 For detailed instructions on how to submit your work, see the [submission instructions section on this page](https://stat540-ubc.github.io/subpages/assignments.html#how-to-turn-in-your-work) and for more tips on mechanics, see the [assignment tips page](assignment_tips.html). <font color="red">For full credit, the following needs be done before the deadline:</font>
 
 1. Commit & push the necessary files (for coding assignments both the Rmd and Markdown output are required) 
-2. Open an issue in your private repo the the appropriate commit tagged, and tag current TAs with @STAT540-UBC/current_tas
+2. Open an issue in your private repo the the appropriate commit tagged, include a link to your Markdown file, and tag current TAs with @STAT540-UBC/current_tas
 
 ## Timeline Overview
 
