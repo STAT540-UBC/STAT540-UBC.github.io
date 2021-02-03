@@ -22,8 +22,8 @@ You will have three individual assignments, six seminar submissions, and one gro
 
 For detailed instructions on how to submit your work, see the [submission instructions section on this page](https://stat540-ubc.github.io/subpages/assignments.html#how-to-turn-in-your-work) and for more tips on mechanics, see the [assignment tips page](assignment_tips.html). <font color="red">For full credit, the following needs be done before the deadline:</font>
 
-1. Commit & push the necessary files (for coding assignments both the Rmd and Markdown output are required) 
-2. Open an issue in your private repo the the appropriate commit tagged, include a link to your Markdown file, and tag current TAs with @STAT540-UBC/current_tas
+1. Commit & push the necessary files (for coding assignments **both** the Rmd and Markdown output are required) 
+2. Open an issue in your private repo the the appropriate commit tagged (with commit link pointing to the folder containing submitted files - see [instructions](https://stat540-ubc.github.io/subpages/assignments.html#how-to-turn-in-your-work)), and tag current TAs with `@STAT540-UBC/current_tas`
 
 ## Timeline Overview
 
@@ -205,14 +205,21 @@ When it's time to turn in your deliverable, follow these steps carefully:
     - Save all the files associated with your solution locally (<font color="red">**R Markdown and Markdown files are both required**</font> for coding assignments).
     - Commit those files to your local Git repository.
     - Push the current state of your local repo to your private repo on GitHub.
-2. **Open an issue, link to the latest commit, tag us**: 
-    - Visit your private GitHub repository in a web browser
-    - Just above the file list, look for the text "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon
-    - Click on the clipboard icon to copy the revision SHA to your clipboard
-    - Click on "Issues", then on "New Issue". Name the issue "Mark *the deliverable title* of *your repository name*", e.g. "Mark seminar 1 of zz_lastname-firstname_STAT540_2021W2"
-    - In the description of the issue, tag all TAs with the <font color="red">**@STAT540-UBC/current_tas**</font> tag
-    - Paste the revision SHA, and include a link to the markdown file as well. 
-    - Click "Submit new issue". You're done! Congratulations!
+2. **Link to the latest commit, open an issue, tag us**: 
+  i. Grab the link to the latest commit:
+      - Visit your private GitHub repository in a web browser
+      - Just above the file list, click on the link to the list of commits in your repo
+      - Click on the SHA tag of the relevant commit (7 letters/numbers)
+      - Click 'Browse files'
+      - Navigate to the folder containing the submitted files
+      - Copy the link in the address bar of your browser (this link points to the submitted files at the time of the relevant commit)
+  i. Open an issue:
+      - Click on "Issues", then on "New Issue"
+      - Paste the link from step (i). in the body of the issue
+      - Name the issue "Mark *the deliverable title* of *your repository name*", e.g. "Mark seminar 1 of zz_lastname-firstname_STAT540_2021W2"
+  i. Tag us:
+      - In the description of the issue, tag all TAs with the <font color="red">**@STAT540-UBC/current_tas**</font> tag
+      - Click "Submit new issue". You're done! Congratulations!
 
 > If you're concerned that something hasn't gone right with the submission, send the TAs an e-mail with your assignment attached. **Note**: this is *only* an emergency back-up plan. We will work with you until you eventually get it submitted via GitHub.
 
