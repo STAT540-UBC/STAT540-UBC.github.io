@@ -1,185 +1,147 @@
 ---
-title: 'Seminar 6: BAM to count table'
-output: github_document
+title: 'Seminar 6: RNA-seq preprocessing: BAM files to count tables'
+author: Keegan Korthauer
+date: (4 February 2021)
+output: 
+  github_document
 ---
 
-In order to use RNA-Seq data for the purposes of differential expression analysis, we need to calculate an expression value for each gene. The digital nature of RNA-seq data allows us to use the number of reads which align to a specific feature as its expression value. In this seminar, we will use BAM and SAM files to generate a count table of reads aligning to the human transcriptome.
+# Overview
+
+This seminar focuses on a portion of the upstream preprocessing of RNA-seq: going from aligned reads (BAM files) to count tables that will be used in differential expression analysis. Note that we are skipping the step of going from raw reads (fastq files) to aligned reads (BAM files), as this is outside the scope of this course. Refer to the lecture materials on High-dimensional genomics assays & data for details and resources.
+
+In order to use RNA-Seq data for the purposes of differential expression analysis, we need to obtain an expression value for each gene (or transcript). The digital nature of RNA-seq data allows us to use the number of reads (an integer count) which align to a specific feature (gene or transcript) as its expression value. In this seminar, we will explore how to use BAM (or SAM) files to generate a count table of reads aligning to the human transcriptome.
 
 By the end of this seminar, you should be able to:
 
--  use samtools to sort and index a BAM file
--  use HTSeq to count the number of reads that align to each gene/transcript
+-  use the [`Rsamtools`](https://bioconductor.org/packages/release/bioc/html/Rsamtools.html) package to **sort and index a BAM file**
+-  use the [`Rsubread`](https://bioconductor.org/packages/release/bioc/html/Rsubread.html) package to **count the number of reads that align to each gene/transcript**
 
 # BAM/SAM - Aligned Sequence data format
 
-SAM (sequence alignment map) and BAM (the binary version of SAM) files are the preferred output of most alignment tools. SAM and BAM files carry the same information. The only difference is that SAM is human readable, meaning that you can visually inspect each of the reads. You can learn more about the SAM file format [here](http://biobits.org/samtools_primer.html#UnderstandingtheSAMFormat). 
+SAM (sequence alignment map) and BAM (the binary version of SAM) files are the preferred output of most alignment tools. SAM and BAM files carry the same information. The only difference is that SAM is human readable, meaning that you can visually inspect each of the reads. You can learn more about the SAM file format [here](https://en.wikipedia.org/wiki/SAM_(file_format)). 
 
-The samtools package is one of many that have been developed for working with SAM/BAM alignment files. HTSeq is a tool that summarizes SAM/BAM files into count tables. 
+The [`Rsamtools`](https://bioconductor.org/packages/release/bioc/html/Rsamtools.html) package is one of many software tools that have been developed for working with SAM/BAM alignment files - it is an R implementation of the widely used command line tool [Samtools](http://www.htslib.org/). The [`Rsubread`](https://bioconductor.org/packages/release/bioc/html/Rsubread.html) package is a tool that summarizes SAM/BAM files into count tables - it is an R implementation of the command line program [Subread](http://subread.sourceforge.net/) which has tools for alignment and quantification. The tool we'll use within Subread is the [featureCounts](https://academic.oup.com/bioinformatics/article/30/7/923/232889) tool.
 
-To make it as easy as possible to learn how these tools work, each of you should have access to a GSC account with the following packages installed:
+Although you could use the standalone command line versions of both of these tools, to make things as convenient as possible, we'll use the R implementations and run today's seminar entirely within R.
 
--  samtools v1.5
--  HTSeq v0.9.1
+# HeLa cell line transcription 
 
-Each student should have received individualized login information from one of the TAs. 
+The alignment BAM file we will be working with was created by aligning raw reads from an RNA-seq experiment of HNRNPC gene knockdown cell line and control HeLa cells ([Zarnack et al. 2012](http://europepmc.org/article/MED/23374342)). We will specifically work with one of the control HeLa cell samples. [HeLa cells](https://en.wikipedia.org/wiki/HeLa) are immortalized cervical cancer cells derived taken from cancer patient Henrietta Lacks in 1951. Henrietta Lacks was a 31-year-old African-American mother of five and a patient at Johns Hopkins Hospital. She died from cervical cancer on October 4, 1951. Her cells were taken from her without her knowledge or consent, and the HeLa cell line is now the oldest and most used immortal cell line in scientific research. To read more about Henrietta's legacy and the ethical issues involved in procuring and using her cells, read [The Immortal Life of Henrietta Lacks](http://rebeccaskloot.com/the-immortal-life/).
 
-**Login instructions for Mac/linux users**
+In this tutorial, we are working with an already aligned BAM file, but the raw reads (fastq files) from this experiment are available in the [European Nucleotide Archive](https://www.ebi.ac.uk/ena/browser/view/PRJEB3048).
 
-To login to the account, open a command line program (i.e Terminal) and type in:
+# RNA-seq upstream analysis pipeline
 
-```
-ssh -X your_username@orca-wg.bcgsc.ca
-```
-When prompted, type in your password. Note: you will not see your password when you type it in. 
+In this tutorial we will only be dealing with a portion of the RNA-seq analysis pipeline. Here is an overview of the entire pipeline (image source: [Yang & Kim 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4742321/)). Note that this figure is simplistic in its depiction of downstream analysis - differential expression is **not** the only downstream analysis in typical experiments. For example, we'll learn about things like gene set enrichment analysis later in the course. 
 
-**Login instructions for PC users**
+![Typical workflow for RNA sequencing data analysis (Yang & Kim 2015)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4742321/bin/gni-13-119-g001.jpg)
 
-Download PuTTy. Some of you may already have installed Git Bash when configuring Rstudio. You can open a Git Bash terminal here as well, the instructions should not change.
+As you can see, there are many steps to go from the raw reads to the aligned bam files (red to light blue). These have been done for us in this example, as we are making use of the aligned data in the Bioconductor package [RNAseqData.HNRNPC.bam.chr14](http://bioconductor.org/packages/release/data/experiment/html/RNAseqData.HNRNPC.bam.chr14.html). Briefly, this package has preprocessed the data from [Zarnack et al. 2012](http://europepmc.org/article/MED/23374342). The reads (paired-end) were aligned to the full human genome (version hg19) with TopHat2. In addition, the data have been subset to only include reads mapped to Chromosome 14. This will reduce the computational time for our tutorial compared to running on the entire genome.
 
-When it has finished downloading, open it up and type in 'you_username@orca-wg.bcgsc.ca' in the host name input box. 
+**In this tutorial, we are only going to deal with the dark blue box: "Expression Quantification". Specifically, we are going to learn how to convert a SAM/BAM alignment file to a count table that can be used for differential expression analysis. Along the way, we will learn more about the SAM and BAM files.**
 
-When prompted, type your password.
+# Loading libraries
 
-**Orienting yourself**
+Before we begin, we'll need to load the necessary R packages for this seminar. It is likely you don't already have all of these installed on your machine - if this is true, you'll need to run this code chunk to install them (currently set to `eval = FALSE`):
 
-When you log in, type:
-
-```
-ls
+```{r, eval=FALSE}
+library(BiocManager)
+install("Rsamtools")
+install("Rsubread")
+install("RNAseqData.HNRNPC.bam.chr14")
 ```
 
-You should see an empty folder. This is where you will do all of your work. But first - explore a little bit. 
+After they are successfully installed, we'll load them for use in our session.
 
-There is a common folder that is one level above your personal folder. Type:
-
+```{r, message = FALSE}
+library(Rsamtools)
+library(Rsubread)
+library(RNAseqData.HNRNPC.bam.chr14)
 ```
-cd ..
-ls
-```
-to see the folders: your_personal_folder, stat540 and linuxbrew. The stat540 folder contains data that we will be analyzing in this seminar. 
-
-Now navigate back to your personal folder by typing
-
-```
-cd your_folder_name
-```
-
-The alignment BAM file we will be working with is the transcriptome of the HeLa cell line from the [ENCODE project](http://genome.crg.es/encode_RNA_dashboard/hg19/). HeLa cells are immortalized cervical cancer cells from Henrietta Lacks. For more information on how these cells were procured, and their legacy, read [The Immortal Life of Henrietta Lacks](http://rebeccaskloot.com/the-immortal-life/).
-
-In this tutorial we will be dealing with a subset of the RNA-seq analysis pipeline. Here is an overview of the entire pipeline from biobits.org. 
-
-![Conesa et al, 2016](figures/conesa2016.jpg)
-
-Part a) deals with pre-processing, part b) deals with transcriptome profiling, differential gene expression and functional profiling, and part c) deals with other RNAseq visualization strategies. Credit to [Conesa et al, 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8) for the above figure. 
-
-*In this tutorial, we are only going to deal with the first part of b). Specifically, we are going to learn how to convert a SAM/BAM file to a count table that can be used for differential expression analysis. Along the way, we will learn more about the SAM and BAM files.*
-
-```{r, results='hide', message=FALSE, warning=FALSE, echo = FALSE}
-#Download the following R packages. 
-library(tidyverse)
-```
-
-# Working on the command line
-
-Samtools and HTSeq are both *command-line tools*, meaning that you will have to access them on the command line. There are a variety of ways to do this using R. However, to keep it simple, we will be using the command line directly. Along the way, I will provide screenshots so you can make sure you are on track. 
-
-##Understanding basic UNIX commands
-
-Let's dive into basic UNIX commands just to get oriented. 
-
-Every command in unix follows the same basic grammar:
-
-```
-utility flag argument
-```
-
-The **utility** tells the command line what to do. 
-The **flag** is like an option or a preference that modifies how the utility interprets the argument. 
-The **argument** is some extra piece of information that the utility needs to do the required action (i.e a file name).
-
-##Changing your directory
-
-Note: substitute **path_to_new_directory** with the relative or absolute path of the new directory you want to navigate to.
-
-```
-cd path_to_new_directory
-```
-
-To learn more about absolute and relative paths, see Seminar 0a.
-
-##Copying a file
-
-This makes a copy of the file in the same directory.
-
-```
-cp old_name new_name
-```
-
-##Moving a file
-
-This mcommand moves file from the current directory to a new directory, overwriting any files with the same name in that directory. mv can be used to rename files this way as well.
-
-```
-mv file path_to_new_directory
-```
-For more information on command-line basics, go to [this link](https://www.davidbaumgold.com/tutorials/command-line/)
 
 # Viewing BAM files 
 
-The first thing we are going to do is look at the alignment file, so we can learn more about the structure of BAM/SAM files. In the common repository (stat540), you should have one file named HeLa.bam. This file is not human readable, so we are going to convert it into a SAM file, which we can read. 
+The first thing we are going to do is look at the alignment file, so we can learn more about the structure of BAM/SAM files. Since we're not downloading the BAM file directly, but instead using a BAM filea included in the `RNAseqData.HNRNPC.bam.chr14` package files, we first need to find out the file location of where the BAM file is stored. From the package documentation, we learn that the file names are stored in the object `RNAseqData.HNRNPC.bam.chr14_BAMFILES`.
 
-If you type in the following command
+```{r}
+RNAseqData.HNRNPC.bam.chr14_BAMFILES
 ```
-pwd
-```
-the name of your working directory will print to the console. 
+We can see we have 8 BAM files. We'll use sample ERR127306, which we can determine from the [data repository](https://www.ebi.ac.uk/ena/browser/view/PRJEB3048) is a control HeLa sample. 
 
-Make sure the output reads /home/your_username
-
-If it does not, navigate using *cd* to the correct directory. 
-
-Now that we're in the correct directory, we can convert the BAM file into a SAM file, so we can view it. 
-
-```
-samtools view -o hela.sam ../stat540/HeLa.bam 
+```{r}
+bamfile <- RNAseqData.HNRNPC.bam.chr14_BAMFILES[grepl("ERR127306",
+                                                RNAseqData.HNRNPC.bam.chr14_BAMFILES)]
 ```
 
-The *-o* flag signifies that hela.sam is the desired output file. The BAM file I want to analyze is located in the common folder (stat540), which is one level above my current folder. The characters ".." mean "one level above my current folder". So in "../stat540/hela.bam", I'm telling the computer to look for the file HeLa.bam in a folder called stat540 that is one level above my current directory. 
+This file is not human readable, so we are going to convert it into a SAM file, which we can read. The `asSam` function converts BAM files to SAM files. We'll save a SAM file to the current working directory. 
 
-Now if you type:
+```{r}
+asSam(bamfile, destination = "hela")
 ```
-ls
-```
-you should see that you now have a new file: hela.sam. 
+We have created the file "hela.sam". We'll take a peek at the top of the header:
 
-If you type:
-```
-less hela.sam
-```
-The contents of the file will print to console. 
-
-![HeLa head](figures/hela_head.jpg)
-
-
-You can see that each line corresponds to a single read, and each field refers to a different descriptor of the read. For a detailed explanation of what each field means, see [here](http://biobits.org/samtools_primer.html#UnderstandingtheSAMFormat). Understanding what each field means is not of immediate relavence to the following steps. However, it is always good to have a general understanding of the structure of the files you are working with. 
-
-Type "q" to return to the command prompt. 
-
-#Sorting and indexing BAM files
-
-In order to be able to do things like extract reads that align to a certain chromosome, or that map to a certain genomic region, we need to generate a BAM file index. To do this, we first have to sort the file. We can do this using the following command to sort our bam file by chromosome and positions of each read:
-
-```
-samtools sort ../stat540/HeLa.bam -o hela_sorted.bam
+```{r}
+system("head hela.sam")
 ```
 
-Once the file has been sorted, we can generate an index file. 
+This contains information on the format and contents of the file. And at the last few lines of the file, which illustrates some reads and their mapping location, along with lots of extra mysterious-looking information:
 
+```{r}
+system("tail hela.sam")
 ```
-samtools index hela_sorted.bam
+
+You can see that each line corresponds to a single read, and each field refers to a different descriptor of the read. For a detailed explanation of what each field means, see [this document](https://samtools.github.io/hts-specs/SAMv1.pdf). Understanding what each field means is not of immediate relevence to the following steps. However, it is always good to have a general understanding of the structure of the files you are working with.
+
+# Sorting and indexing BAM files
+
+In order to be able to do things like extract reads that align to a certain chromosome, or that map to a certain genomic region, we need to have a BAM file index. In this example dataset, one has already been generated for us. But for illustration we'll review how to create one. To do this, we first have to sort the file. We can do this using the following command to sort our BAM file by chromosome and positions of each read:
+
+```{r}
+sortBam(bamfile, destination="hela_sorted")
+```
+
+This generated a file 'hela_sorted.bam' in our current working directory. Once this file has been sorted, we can generate an index file. 
+
+```{r}
+indexBam("hela_sorted.bam")
 ```
 
 *Note: you must always sort before indexing a file*
+
+# Viewing basic information about our BAM file
+
+We don't want to have to look through our entire file line by line. Let's instead use some of the handy parsing functions in `RSamtools` to view some basic summary info about our file (note these functions can use the non-human readable BAM file, which is more efficient than the human-readable SAM file.
+
+First, we create a special reference to the BAM file, which will be passed to the parsing functions (this contains more information than just the path to the BAM file - also points to the location of the BAM index file):
+
+```{r}
+# view basic info of bam
+bamFile <- BamFile(bamfile)
+bamFile
+```
+
+We'll pass this special reference to `countBam`, which will by default tell us how many reads and bases are contained in our BAM file.
+
+```{r}
+countBam(bamFile) 
+```
+
+We can see we have `r countBam(bamFile)$records` reads, which amounts to a total of `r countBam(bamFile)$nucleotides`. From this, can you determine how long are our reads?
+
+Next, we'll use the `quickBamFlagSummary` function to look at the different 'flags' for our reads. 
+
+```{r}
+quickBamFlagSummary(bamFile)
+```
+These 'flags' can be used to get detailed counts of certain types of reads. As a quick example, we might want to grab the count of reads that on the minus strand, we could do the following:
+
+```{r}
+params <- ScanBamParam(flag = scanBamFlag(isMinusStrand = TRUE))
+countBam(bamFile, param = params)
+```
+
+There's a ton of more possibilities - explore the documentation of the `RSamtools` package (in particular the `scanBamFlag` and `scanBamParam` functions), as well as the [meaning of SAM flags](https://www.samformat.info/sam-format-flag).
 
 # Generating a count table
 
@@ -207,6 +169,14 @@ head(HTseq_output)
 ```
 
 This can be used as input to a differential expression tool such as edgeR or Deseq2. 
+
+Lastly, we'll cleanup our directory by removing the SAM/BAM/index files we generated earlier.
+
+```{r}
+file.remove("hela.sam")
+file.remove("hela_sorted.bam")
+file.remove("hela_sorted.bam.bai")
+```
 
 # Take home exercise
 
