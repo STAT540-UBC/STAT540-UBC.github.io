@@ -1,5 +1,5 @@
 ---
-title: 'Seminar 6: RNA-seq preprocessing: BAM files to count tables'
+title: 'Seminar 6: RNA-seq preprocessing - BAM files to count tables'
 author: Keegan Korthauer
 date: (4 February 2021)
 output: 
@@ -58,11 +58,14 @@ After they are successfully installed, we'll load them for use in our session.
 library(Rsamtools)
 library(Rsubread)
 library(RNAseqData.HNRNPC.bam.chr14)
+library(ggplot2)
+theme_set(theme_bw())
+library(dplyr)
 ```
 
 # Viewing BAM files 
 
-The first thing we are going to do is look at the alignment file, so we can learn more about the structure of BAM/SAM files. Since we're not downloading the BAM file directly, but instead using a BAM filea included in the `RNAseqData.HNRNPC.bam.chr14` package files, we first need to find out the file location of where the BAM file is stored. From the package documentation, we learn that the file names are stored in the object `RNAseqData.HNRNPC.bam.chr14_BAMFILES`.
+The first thing we are going to do is look at the alignment file, so we can learn more about the structure of BAM/SAM files. Since we're not downloading the BAM file directly, but instead using a BAM file included in the `RNAseqData.HNRNPC.bam.chr14` package files, we first need to find out the file location of where the BAM file is stored. From the package documentation, we learn that the file names are stored in the object `RNAseqData.HNRNPC.bam.chr14_BAMFILES`.
 
 ```{r}
 RNAseqData.HNRNPC.bam.chr14_BAMFILES
@@ -82,13 +85,13 @@ asSam(bamfile, destination = "hela")
 We have created the file "hela.sam". We'll take a peek at the top of the header:
 
 ```{r}
-system("head hela.sam")
+cat(system("head hela.sam", intern = TRUE), sep = '\n')
 ```
 
 This contains information on the format and contents of the file. And at the last few lines of the file, which illustrates some reads and their mapping location, along with lots of extra mysterious-looking information:
 
 ```{r}
-system("tail hela.sam")
+cat(system("tail hela.sam", intern = TRUE), sep = '\n')
 ```
 
 You can see that each line corresponds to a single read, and each field refers to a different descriptor of the read. For a detailed explanation of what each field means, see [this document](https://samtools.github.io/hts-specs/SAMv1.pdf). Understanding what each field means is not of immediate relevence to the following steps. However, it is always good to have a general understanding of the structure of the files you are working with.
@@ -127,7 +130,7 @@ We'll pass this special reference to `countBam`, which will by default tell us h
 countBam(bamFile) 
 ```
 
-We can see we have `r countBam(bamFile)$records` reads, which amounts to a total of `r countBam(bamFile)$nucleotides`. From this, can you determine how long are our reads?
+We can see we have `r countBam(bamFile)$records` reads, which amounts to a total of about `r signif(countBam(bamFile)$nucleotides/10E6, 3)` million nucleotides. From this output, can you determine how long are our reads?
 
 Next, we'll use the `quickBamFlagSummary` function to look at the different 'flags' for our reads. 
 
@@ -141,53 +144,83 @@ params <- ScanBamParam(flag = scanBamFlag(isMinusStrand = TRUE))
 countBam(bamFile, param = params)
 ```
 
-There's a ton of more possibilities - explore the documentation of the `RSamtools` package (in particular the `scanBamFlag` and `scanBamParam` functions), as well as the [meaning of SAM flags](https://www.samformat.info/sam-format-flag).
+There's a ton more possibilities - explore the documentation of the `RSamtools` package (in particular the `scanBamFlag` and `scanBamParam` functions), as well as the [meaning of SAM flags](https://www.samformat.info/sam-format-flag) if you'd like to learn more. These can be really helpful for quality control of our alignment - to make sure we have what we generally expect (e.g. if we performed stranded sequencing, we expect that roughly half of the reads map to each strand). We don't need to dive too deep into the flags if we are satisfied with our alignment and just want to proceed to get our count table, however. 
+
 
 # Generating a count table
 
-Let's take stock of where we are: we have a BAM file, a SAM file and a BAI (BAM index) file. It is hard to do much analysis with what we have, because even though we know which chromosome our reads map to, we don't know which genes they map to. 
+Let's take stock of where we are: we have a BAM file, a SAM file and a BAI (BAM index) file. It is hard to do much analysis with what we have, because even though we know which chromosome our reads map to, we don't know which *genes* (or *transcripts*) they map to. 
 
-A variety of different tools can be used to generate a count table - i.e a table of how many reads align to each gene. HTSeq and RSEM are two examples of such programs. Each tool works optimally with the output of different aligners, so it is best to read up on how the BAM files you are working with were processed, and to use the feature counting tools.
+A variety of different tools can be used to generate a count table - i.e a table of how many reads align to each gene. `HTSeq`, `RSEM`, and `featureCounts` are examples of such programs that are command line tools. Each tool works optimally with the output of different aligners, so it is best to read up on how the BAM files you are working with were processed, and to use the feature counting tools. 
 
-Today, we are going to use HTSeq, as the BAM files we are using were generated using the STAR tool, which generates BAM files that are compatible with HTSeq. Because we are trying to correlate each read with a transcript ID, we need an alignment file that contains information on the genomic coordinates of each transcript. This alignment file already exists in your repository, and is called gencode.gtf. 
+Today, we are going to use `featureCounts` as implemented in the `RSubread` package, as the BAM files we are using were generated using the Tophat2 aligner, which generates BAM files that are compatible with `featureCounts`. Because we are trying to associate each read with a gene ID, we need an *alignment file* (such as a GTF file) that contains information on the genomic coordinates of each transcript. 
 
-```
-htseq-count -s yes -a 10 hela.sam ../stat540/gencode.gtf > hela_count.txt
-```
+This type of alignment file can be downloaded from a database such as [Gencode](https://www.gencodegenes.org/), but conveniently, `RSubread` has some RefSeq annotations built-in, including for mm10, mm9, hg38, and hg19. It is critical that you use the **same genome version as the genome version used to align raw reads to your BAM file**. Our BAM file was generated by aligning reads to hg19, so that's what we'll use. These built-in annotations allow for summarizing counts over genes (the default, and also the option we'll choose) or exons. Note that external annotation files can be used for other genomes and to summarize over transcript/isoform annotations. 
 
-Let's break this down. 
-
-The *-s* flag refers to whether the reads are stranded. In this case, we know they are, so we write "yes". Certain alignment procedures/sequencing protocols may require that you specify "reverse" instead for a stranded experiment. The difference in the number of recognized features here should be drastic if this is specified incorrectly
-The *-a* flag refers to the minimum quality of the read we want to allow. Our quality score filter is set at 10, the maximum score is 255. 
-The SAM and GTF files are self-explanatory. The ">" operator means that we want to print the output of the commands on the left to the file on the right. 
-
-The resulting file should look like this:
+Now we're ready to apply the `featureCounts` function that will do the counting of reads over genes. Note that this step can take a while if we have a large BAM file. We specify `isPairedEnd = TRUE` since as we mentioned above our sequencing protocol generated paired end reads. We also specify `strandSpecific = 1` to indicate that our sequencing protocol was stranded.
 
 ```{r}
-HTseq_output <- read.table("hela_count.txt", sep = "\t")
-head(HTseq_output)
+counts <- featureCounts(bamfile,
+                        annot.inbuilt = "hg19",
+                        isPairedEnd = TRUE,
+                        strandSpecific = 1)
 ```
 
-This can be used as input to a differential expression tool such as edgeR or Deseq2. 
 
-Lastly, we'll cleanup our directory by removing the SAM/BAM/index files we generated earlier.
+You can change other options, such as the `minMQS`, the minimum mapping quality score to include in the counts. To learn more about different parameters, see the help fule for the `featureCounts` function.
+
+Let's take a peek at the output.
 
 ```{r}
+str(counts)
+```
+
+It looks like the counts are stored in the `counts` slot and the gene annotation is stored in the `annotation` slot. There are also a couple more slots for experiment metadata (`targets` has sample name, and `stat` contains some stats about our BAM file).
+
+Let's take a peek at the count table, subsetted for genes on chromosome 14 (since our bam file was subsetted to reads mapping to chr 14).
+
+```{r}
+chr14 <- which(grepl("chr14", counts$annotation$Chr))
+str(chr14)
+head(counts$counts[chr14,])
+sum(counts$counts[chr14,] > 0)
+sum(counts$counts[-chr14,] > 0)
+```
+
+Looks like there are `r length(chr14)` genes on chromosome 14, `r sum(counts$counts[chr14,] > 0)` of which have non-zero expression. And as we expected, no genes on any other chromosomes have any counts.
+
+Note that the gene IDs are RefSeq IDs. If we'd like to convert them to another ID, such as Hugo symbols or Ensembl IDs, we can use things like the [`biomaRt`](https://bioconductor.org/packages/release/bioc/html/biomaRt.html) package, or annotation packages specific to the organism we are dealing with (e.g. for human: [`org.Hs.eg.db`](https://www.bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html))
+
+Let's look at a density of expression of the chr14 genes (log-transformed).
+
+```{r, fig.align = 'center'}
+data.frame(count = counts$counts[chr14,]) %>%
+  ggplot(aes(x = count + 1)) +
+    geom_density() +
+    scale_x_log10()
+```
+
+We can save the count table to a text file for importing into future R sessions for downstream analysis (such as with [`DESeq2`](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) or [`edgeR`](https://bioconductor.org/packages/release/bioc/html/edgeR.html). We also include a column for gene length, since we might want to use this to obtain quantities like RPKM.
+
+```{r}
+write.table(data.frame(counts$annotation[,c("GeneID","Length")],
+                       counts$counts),
+            file = "hela_counts.txt", quote = FALSE, sep = "\t", row.names = FALSE)
+```
+
+Lastly, we'll cleanup our directory by removing the SAM/BAM/index files we generated earlier, and the text file of counts (comment the last line if you'd like to keep the text file).
+
+```{r, results = "hide", show = FALSE}
 file.remove("hela.sam")
 file.remove("hela_sorted.bam")
 file.remove("hela_sorted.bam.bai")
+file.remove("hela_counts.txt")
 ```
 
 # Take home exercise
 
-Now we have a table that summarizes the number of reads that align to each transcript. The is the perfect input to use for algorithms like edgeR, whose algorithm requires reads be in integer counts, not normalized by library size. Other tools, however, may require that reads are normalized first.
+Now we have a table that summarizes the number of reads that align to each transcript. The is the perfect input to use for methods mentioned above like [`DESeq2`](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)  and [`edgeR`](https://bioconductor.org/packages/release/bioc/html/edgeR.html), whose algorithm requires reads be in integer counts, not normalized by library size. For visualization purposes, however, it may be helpful to use reads that are normalized first.
 
-Your take home exercise is to convert the existing count data into Transcripts per Million (CPM), as defined by Bo Li et al in [this paper](https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read).
-
-Compare your output with the file in the repository for this course. 
+Your take home exercise is to convert the existing count data into Transcripts per Million (CPM), as defined by Bo Li et al in [this paper](https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read). Hint: check out the `cpm` and `rpkm` functions in the `edgeR` package.
 
 This take home exercise will not be graded. 
-
-# Relevant Tutorial for RNA-Seq to Differential Expression Pipelines
-[Griffifth Lab RNA-Seq Tutorial](https://github.com/griffithlab/rnaseq_tutorial/wiki)
-
