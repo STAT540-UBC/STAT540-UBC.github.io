@@ -221,6 +221,6 @@ file.remove("hela_counts.txt")
 
 Now we have a table that summarizes the number of reads that align to each transcript. The is the perfect input to use for methods mentioned above like [`DESeq2`](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)  and [`edgeR`](https://bioconductor.org/packages/release/bioc/html/edgeR.html), whose algorithm requires reads be in integer counts, not normalized by library size. For visualization purposes, however, it may be helpful to use reads that are normalized first.
 
-Your take home exercise is to convert the existing count data into Transcripts per Million (CPM), as defined by Bo Li et al in [this paper](https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read). Hint: check out the `cpm` and `rpkm` functions in the `edgeR` package.
+Your take home exercise is to convert the existing count data into Counts per Million (CPM) and/or Reads Per Kilobase per Million mapped reads (RPKM) as defined by Bo Li et al in [this paper](https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read). Hint: check out the `cpm` and `rpkm` functions in the `edgeR` package.
 
 This take home exercise will not be graded. 

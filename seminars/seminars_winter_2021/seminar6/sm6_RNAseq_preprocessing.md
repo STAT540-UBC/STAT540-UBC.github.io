@@ -584,7 +584,8 @@ library size. For visualization purposes, however, it may be helpful to
 use reads that are normalized first.
 
 Your take home exercise is to convert the existing count data into
-Transcripts per Million (CPM), as defined by Bo Li et al in [this
+Counts per Million (CPM) and/or Reads Per Kilobase per Million mapped
+reads (RPKM) as defined by Bo Li et al in [this
 paper](https://academic.oup.com/bioinformatics/article/26/4/493/243395/RNA-Seq-gene-expression-estimation-with-read).
 Hint: check out the `cpm` and `rpkm` functions in the `edgeR` package.
 
