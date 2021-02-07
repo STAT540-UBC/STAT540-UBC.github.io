@@ -1,6 +1,6 @@
 ---
 title: "**Statistical Methods for High Dimensional Biology**"
-subtitle: "Linear models and ANOVA"
+subtitle: "Linear models with multiple factors"
 author: Keegan Korthauer
 date: "1 February 2021 <br><br><font size=4> with slide contributions from Gabriela Cohen Freue and Jenny Bryan </font>"
 output:
@@ -1089,7 +1089,7 @@ As we suspected, there is a **significant genotype effect** for this probe (1447
 
 - However, additive models are easier and smaller
 
-- If there are no statistical or theoretical grounds to include the interaction term, additive models are preferred 
+- If there are no statistical or biological grounds to include the interaction term, additive models are preferred 
 
 - Additive effects: $E[Y_{NrlKO,4W}]-E[Y_{WT,E16}]=\tau_{KO}+\tau_{4W}$
 
