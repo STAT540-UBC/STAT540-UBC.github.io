@@ -47,8 +47,8 @@ the Gene Expression Omnibus (GEO) server. Most of these datasets have
 associated papers in which they detail data acquisition and analysis
 methods.
 
-To simplify things for its users, GEO has four basic entitys that act as
-containers for different types of data. The four main types are:
+To simplify things for its users, GEO has four basic entities that act
+as containers for different types of data. The four main types are:
 
 **GSM** - stores data associated with a single sample, and additional
 info about how the data was collected
@@ -76,7 +76,7 @@ gds <- getGEO("GDS507")
 
     ## File stored at:
 
-    ## /var/folders/pz/rdjxq2157yl4wc05pqd_5fcrvz1p7p/T//RtmpdSlscT/GDS507.soft.gz
+    ## /var/folders/pz/rdjxq2157yl4wc05pqd_5fcrvz1p7p/T//RtmpiN8kmh/GDS507.soft.gz
 
     ## 
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -355,7 +355,7 @@ verbs to manipulate the data.
 These verbs can be used together in a sequence of functions with the
 “pipe” operator. R will interpret the output of the previous function
 as the input to the subsequent function when you put the “pipe” operator
-( %\>% ) inbetween the functions.
+( %\>% ) in between the functions.
 
 ``` r
 #select all rows with sepal length greater than 5. 
@@ -675,21 +675,17 @@ full_data %>%
 
 ## Part 3 Exercise
 
-By adding one additional function to the unmodified code (in Part 2)
-above, calculate the sum of all counts in each sample and divide each
-expression value by that sum (hint: use mutate).
-
-Please do not use the modified code (in Part 2 exercise) to do this
-exercise. Your code would be different if you use the modified data
-frame (one with the transcription\_length) instead of the data frame in
-Part 2 (one without the transcription\_length).
-
-As an optional exercise, what would be the consequence if we use the
-data frame with the “transcription\_length” column?
+By adding one additional function to full\_data
+(“data\_with\_chromosome”) data frame above, calculate the sum of
+all gene counts in each sample and divide each expression value by that
+sum (hint: use mutate).
 
 Remember, you can add multiple new columns using mutate by separating
 each column with a comma (i.e mutate(x = c(“a”, “b”), y = c(“d”, “c”))).
 Plot this new transformed column.
+
+As an optional exercise, what would be the consequence if we use the
+data frame with the “transcription\_length” column?
 
 # Part 4 - Analyzing the results of statistical tests
 
