@@ -944,9 +944,9 @@ knitr::include_graphics("img/bh.png")
 .pull-right[
 <big>
 
-Benjamini Y, Hochberg Y. "Controlling the false discovery rate: a practical and powerful approach to multiple testing." Journal of the Royal statistical society: series B (Methodological). 1995 Jan;57(1):289-300.
+Benjamini Y, Hochberg Y. "**Controlling the False Discovery Rate: a Practical and Powerful Approach to Multiple Testing.**" *Journal of the Royal Statistical Society: Series B (Methodological)*. 1995 Jan;57(1): 289-300.
 
-Over 60K citations!!
+Over 70K citations!!
 ]
 
 
@@ -1226,10 +1226,10 @@ Great primer on how things can go wrong: [http://varianceexplained.org/statistic
 
 * Solution: compute p-values "empirically" using resampling/permutation/bootstrap techniques 
 
-* **Bootstrap**: take repeated random samples with replacement from your data and compute statistic; repeat many times and use bootstrap statistics as your sampling distribution rather than a t, Normal, F, $\chi^2$, etc
+* **Bootstrap**: take repeated random samples *with replacement* from your dataset (randomly assigning covariate of interest) and compute statistic; repeat many times and use bootstrap statistics as your sampling distribution rather than a t, Normal, F, $\chi^2$, etc
 
 * **Permutation**: construct a simulated version of your dataset that satisfies the null hypothesis and compute statistic (e.g. shuffle group labels for a two-group comparison); repeat many times and use permutation statistics as your sampling distribution rather than a t, Normal, F, $\chi^2$, etc
 
-* Downside: often computationally intensive for genomics
+* Downsides: often computationally intensive for genomics; not optimal for small sample sizes
 
 
