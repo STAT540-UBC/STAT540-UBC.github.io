@@ -168,11 +168,11 @@ nrow(pData(eset))
 
 # do these numbers match? Let's also print them out
 exprs(eset) %>% colnames()
-pData(eset) %>% rownames()
+pData(eset)$sample_id
 
 # do the samples match? 
 identical(exprs(eset) %>% colnames(), 
-          pData(eset) %>% rownames())
+          pData(eset)$sample_id)
 
 ```
 
@@ -761,7 +761,7 @@ hits <- changeDirections %>% filter(dev_stage4_weeks > 0, `genotypeWT:dev_stage4
 hits
 
 # lets try plotting 4 on this list
-expressionDataForHits <- toLongerMeta(eset[, interactionSamples$sample_id]) %>%
+expressionDataForHits <- toLongerMeta(eset[, eset$sample_id %in% interactionSamples$sample_id]) %>%
   filter(gene %in% hits$gene[1:4]) 
 
 expressionDataForHits$dev_stage <- expressionDataForHits$dev_stage %>% as.numeric()
