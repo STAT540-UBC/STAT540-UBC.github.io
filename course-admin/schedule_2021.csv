@@ -24,7 +24,7 @@ STAT540,lecture-6,Wed,January,27,3,6,Statistical Inference - linear regression a
 STAT540,lecture-7,Mon,February,1,4,7,Statistical Inference - multiple linear regression,Keegan,Synchronous
 STAT540,lecture-8,Wed,February,3,4,8,Statistical Inference - continuous model + limma,Keegan,Asynchronous
 STAT540,lecture-9,Mon,February,8,5,9,Statistical inference - multiple testing,Keegan,Synchronous
-STAT540,lecture-10,Wed,February,10,5,10,Normalization and batch effects,Keegan,Asynchronous
+STAT540,lecture-10,Wed,February,10,5,10,Confounding and batch effects,Keegan,Asynchronous
 STAT540,Break,Mon,February,15,6,NA,Family day (no class),,
 STAT540,Break,Wed,February,17,6,NA,Reading break (no class),,
 STAT540,lecture-11,Mon,February,22,7,11,Application of statistical inference to RNA-seq I,Keegan,Synchronous
