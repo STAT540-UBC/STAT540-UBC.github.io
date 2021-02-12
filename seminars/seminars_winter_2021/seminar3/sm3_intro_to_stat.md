@@ -244,7 +244,7 @@ randomVals <- rnorm(numVals, mean = meanValue, sd = standardDeviation)
 dataFrame %>% ggplot() +
     geom_line(aes(x = x_value, y = true_value), color = "blue") +
     geom_line(aes(x = randomVals), color = "red", stat = "density") +
-    geom_point(aes(x = randomVals, y = 0), color = "red", shape = 1, size = 3) +
+    geom_point(aes(x = randomVals, y = 0), color = "black", shape = 1, size = 3) +
     ylab("")
 ```
 
@@ -351,6 +351,7 @@ out the sample means and look at the distribution of that.
 ``` r
 # organize the random values into 1000 sample rows of size n = 5 columns
 samples <- matrix(randomChiSqValues, nrow = numSamples, ncol = sampleSize)
+
 sampleMeans <- rowMeans(samples) # work out the sample means 
 
 head(sampleMeans)
