@@ -1581,15 +1581,15 @@ interactionDesign
     ## [1] "contr.treatment"
 
 Now you have a design that allows you to compare the effect development
-stage for the two genotypes. The baseline is wild-type at the E16
+stage for the two genotypes. The baseline is NrlKO at the E16
 developmental stage.
 
 If genotype and developmental stage are interactive, then we should see
 some genes which are up-regulated over development for one genotype but
-down regulated for the other. Specifically, these gens would have a
+down regulated for the other. Specifically, these genes would have a
 differential expression of in the dev\_stage4\_weeks term in one
-direction and a differential expression in the
-genotypeNrlKO:dev\_stage4\_weeks term in the opposite direction.
+direction and differential expression in the
+`genotypeWT:dev_stage4_weeks` term in the opposite direction.
 
 Let’s try and find these genes!
 
