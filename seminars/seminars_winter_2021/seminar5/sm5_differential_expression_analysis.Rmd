@@ -352,7 +352,7 @@ And, we get a p-value < 7.35e-12. An extremely tiny p-value!... Suppose, we set 
 
 ### The mighty linear regression
 
-What does the linear regression have to do with this? Turns out, everything. If you're not sure what I'm talking about, make sure to go back to the lectures slides! I would also recommend reading chapter 3 of [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et al. The PDF is freely available [here](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf). Be especially mindful of using linear models for 
+What does the linear regression have to do with this? Turns out, everything. If you're not sure what I'm talking about, make sure to go back to the lectures slides! I would also recommend reading chapter 3 of [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et al. The PDF is freely available [here](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf). 
 
 But essentially, the t-statistics is simply a formulation for testing the relationship between variables based on a linear fit. 
 

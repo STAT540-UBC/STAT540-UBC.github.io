@@ -801,7 +801,6 @@ of [An Introduction to Statistical
 Learning](http://www-bcf.usc.edu/~gareth/ISL/index.html) by Gareth et
 al. The PDF is freely available
 [here](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf).
-Be especially mindful of using linear models for
 
 But essentially, the t-statistics is simply a formulation for testing
 the relationship between variables based on a linear fit.
