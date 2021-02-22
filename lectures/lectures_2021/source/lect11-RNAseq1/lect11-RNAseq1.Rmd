@@ -344,6 +344,16 @@ head(modm, 10)
 
 ---
 
+# Are we ready to fit the model?
+
+### Might start with the `limma` approach on the raw counts, but...
+
+--
+
+### Not so fast - we have to consider additional sources of variation!
+
+---
+
 # Library size (sequencing depth)
 
 * **Library size**: Total number of read counts per sample
@@ -375,7 +385,7 @@ hist(colSums(assays(sumexp)$counts)/1e6, main = "", xlab = "library size (millio
 
 * **Within-sample comparison** – at the same expression level, longer genes/transcripts have more read counts
 
-```{r, fig.width=12, fig.align='center', echo = FALSE}
+```{r, out.width=500, fig.align='center', echo = FALSE}
 knitr::include_graphics(c("img/genelength.png"))
 ```
 
@@ -383,7 +393,7 @@ knitr::include_graphics(c("img/genelength.png"))
 
 * **Between samples** – higher sequencing depths leads to higher gene/transcript read counts
 
-```{r, fig.width=12, fig.align='center', echo = FALSE}
+```{r, out.width = 500, fig.align='center', echo = FALSE}
 knitr::include_graphics(c("img/seqdepth.png"))
 ```
 
@@ -545,7 +555,7 @@ data.frame(fpkm = log2(fpkm(DESeqDataSet(sumexp, ~1), robust = FALSE)[,1]+1)) %>
 
 <big>
 .pull-left[
-* Essentially: rank transformation.
+* Essentially: rank transformation
 
 * Effect: Force all samples to have the same distribution of expression values (mild assumption in most cases)
 
@@ -656,7 +666,7 @@ hist(dge$samples$norm.factors, breaks = 9, main = "", xlab = "TMM normalization 
   
   * May obtain a more 'well-behaved' association between mean and variance, which might affect some methods (e.g. Voom)
   
-* No universal threshold - depends on library size of dataset, and possibly mean-variance trend. 
+* No universal threshold - depends on library size of dataset, and possibly mean-variance trend
 
 * Here we'll use the threshold used by the authors: only keep genes with at least 2 samples that have CPM greater than 10
 
@@ -742,7 +752,7 @@ NOTE: We are focused on the distribution of expression values for a gene across 
   
 --
 
-* For count data, the variance is a funtcion of the mean (*very* different from a normal)
+* For count data, the variance is a function of the mean (*very* different from a normal)
   * Binomial: mean $= np$, variance $=np(1-p)$
   * Poisson: mean = variance = $np$
   
