@@ -325,7 +325,7 @@ where $D\# \in \{D14.5, D17.5, D21, D77\}$
 
 * Our model has no interaction term (though we could add one if we wish)
 
-* $p=7$ parameters to estimate in our model: $\tau_{Mut}, \tau_{F}, \tau_{D14.5}, \tau_{D17.5}, \tau_{D21}, \text{ and } \tau_{D77}$
+* $p=7$ parameters to estimate in our model: $\theta, \tau_{Mut}, \tau_{F}, \tau_{D14.5}, \tau_{D17.5}, \tau_{D21}, \text{ and } \tau_{D77}$
 
 * $n=44$ samples total, so our model has $n-p=44-7=37$ degrees of freedom
 
@@ -846,7 +846,7 @@ praw
 **log-transformed**
 ]
 ]
-```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 760}
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 740}
 knitr::include_graphics(c("img/arraytransf.png"))
 ```
 
@@ -854,8 +854,7 @@ knitr::include_graphics(c("img/arraytransf.png"))
 
 # Chd8 data & effect of log transform
 
-```{r, echo = FALSE, fig.width=20}
-
+```{r, echo = FALSE, fig.width=20, fig.align='center', message = FALSE}
 pqrt <- data.frame(mean = (rowMeans(as.matrix(counts))),
            var = sqrt(sqrt(rowVars(as.matrix(counts))))) %>%
   drop_na() %>%
@@ -863,6 +862,7 @@ pqrt <- data.frame(mean = (rowMeans(as.matrix(counts))),
   geom_point(alpha = 0.1) +
   xlab("mean") +
   ylab("sqrt(sd)") +
+  geom_smooth(method = "loess", se = FALSE, span = 0.3) +
   ggtitle("M vs Quarter-root V (Unfiltered, raw)")
 
 plqrt <- data.frame(mean = rowMeans(log2(as.matrix(counts)+1)),
@@ -870,9 +870,10 @@ plqrt <- data.frame(mean = rowMeans(log2(as.matrix(counts)+1)),
   drop_na() %>%
   ggplot(aes(x = mean, y = var)) +
   geom_point(alpha = 0.1) +
+  geom_smooth(method = "loess", se = FALSE, span = 0.3) +
   xlab("mean") +
   ylab("sqrt(sd)") +
-  ggtitle("V vs Quarter-root V (Unfiltered, raw)")
+  ggtitle("M vs Quarter-root V (Unfiltered, log2)") 
 
 
 grid.arrange(praw, pqrt, plqrt, nrow = 1)
@@ -887,7 +888,7 @@ grid.arrange(praw, pqrt, plqrt, nrow = 1)
 # Mean variance trends for various RNA-seq datasets
 
 .pull-left[
-```{r, echo = FALSE, fig.width=6, fig.height = 5, fig.align = 'center'}
+```{r, echo = FALSE, fig.width=6, fig.height = 5, fig.align = 'center', message = FALSE}
 plqrtf <- data.frame(mean = rowMeans(log2(assays(sumexp)$counts+1)),
            var = sqrt(sqrt(rowVars(log2(assays(sumexp)$counts+1))))) %>%
   drop_na() %>%
@@ -895,19 +896,22 @@ plqrtf <- data.frame(mean = rowMeans(log2(assays(sumexp)$counts+1)),
   geom_point(alpha = 0.1) +
   xlab("mean") +
   ylab("sqrt(sd)") +
-  ggtitle("Chd8 dataset")
+  geom_smooth(method = "loess", se = FALSE, span = 0.3) +
+  ggtitle("M vs Quarter-root V (Filtered, log2)")
 plqrtf
 ```
 
-Above: M vs Quarter-root V (Filtered, raw), lowly expressed genes removed, log2 transformed
-
-Right: Counts obtained from [Recount](https://bioconductor.org/packages/release/bioc/html/recount.html), filtered for lowly expressed genes, and log10 transformed
+Chd8 dataset (Filtered to remove lowly expressed genes, log2-transformed)
 ]
 
 .pull-right[
-```{r, fig.align='center', echo = FALSE, out.width = 500}
-knitr::include_graphics(c("img/mvvplots.png"))
+```{r, fig.align='center', echo = FALSE, out.width = 600}
+knitr::include_graphics("https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053721/bin/gb-2014-15-2-r29-1.jpg")
 ```
+
+Panels (a)-(e) represent datasets with increasing expected biological variability
+
+Source: [Law et al. 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053721/)
 ]
 
 ---
