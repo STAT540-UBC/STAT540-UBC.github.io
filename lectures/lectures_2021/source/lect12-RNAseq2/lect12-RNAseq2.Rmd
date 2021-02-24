@@ -1,0 +1,740 @@
+---
+title: "**Statistical Methods for High Dimensional Biology**"
+subtitle: "Statistical Inference for RNA-seq - Part II"
+author: Keegan Korthauer
+date: "24 February 2021 <br><br><font size=4> with slide contributions from Paul Pavlidis </font>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+layout: true
+background-image: url("img/video_placeholder.jpg")
+background-size: 240px
+background-position: 100% 0%
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(tidy = FALSE, tidy.opts=list(width.cutoff=80), fig.retina=3)
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 20))
+ggplot2::update_geom_defaults("point", list(size = 3))
+```
+
+```{css, echo = FALSE}
+.remark-code, .remark-inline-code {
+  background: #f0f0f0;
+}
+.remark-code {
+  font-size: 24px;
+}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+.smaller .remark-code { /*Change made here*/
+  font-size: 90% !important;
+}
+.smaller2 .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+.smaller3 .remark-code { /*Change made here*/
+  font-size: 70% !important;
+}
+```
+
+
+```{r wrap-hook, include=FALSE}
+library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  
+  lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output
+       x <- c(head(x, lines))
+     }
+   } else {
+     x <- c(x[lines])
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+
+  hook_output(x, options)
+})
+
+```
+
+---
+
+# Learning objectives (lectures 11 and 12)
+
+<big>
+
+* Understand *why* and *when* between and within sample normalization are needed
+
+* Apply common between and within sample normalization approaches to RNA-seq counts
+
+* Understand why the *count nature* of RNA-seq data requires modification to the Differential Expression approaches applied to microarray data (e.g. limma)
+
+* Apply models such as limma-trend, limma-voom, DESeq2 and edgeR for inference of Differential Expression 
+
+---
+
+# Reminder: Additional resources
+
+<big>
+
+* Companion document for this lecture (Rmd, md and html) that goes through much of what we discuss in greater detail can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/rnaseqdiffex-examples/examples-RNAseq.md)
+  - that link points to the markdown version - download and open the html version in your browser to make use of the table of contents feature
+
+* Source Rmd for these slides (and all slides generated with Rmd) can be found [here](https://github.com/STAT540-UBC/STAT540-UBC.github.io/tree/master/lectures/lectures_2021/source)
+
+* For all of the specific methods we discuss, refer to the Bioconductor pages (vignettes, reference manuals) for the most current and thorough details on implementation
+
+---
+
+```{r prep & read in data, echo = FALSE, message = FALSE, warnings = FALSE}
+library(tidyverse)
+library(limma)
+library(DESeq2)
+library(edgeR)
+library(pheatmap)
+library(qvalue)
+library(GGally)
+library(UpSetR)
+library(ComplexHeatmap)
+library(TxDb.Mmusculus.UCSC.mm10.knownGene)
+library(org.Mm.eg.db)
+library(gridExtra)
+
+bcols<-colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
+# Set some defaults for ggplot2.
+theme_update(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+m <- read.csv("data/nn.4592-S4.fixed.csv") %>%
+   mutate(Sample = Sample.ID) %>%
+   column_to_rownames(var = "Sample.ID") %>%
+   dplyr::select(-Number)
+
+m <- m %>% 
+   dplyr::rename(DPC = `Stage..DPC.`,
+                 Sex = `Sex..1.male.`,
+                 Group = `Group..1.WT.`,
+                 SeqRun = `SeqRun`,
+                 MappedReads = `Mapped.Reads`,
+                 FeatureCounts = `Feature.Counts`) %>%
+   mutate(Sex = factor(Sex, labels = c("M", "F")),
+          Group = factor(Group, labels = c("WT", "Mu")),
+          SeqRun = factor(SeqRun),
+          DPC = factor(DPC))
+
+
+counts <- read.table("data/Gompers_NN_CountMatrix.txt", 
+                     header = TRUE, row.names = 1) %>% 
+  filter(rowSums(.) > 0)
+
+sumexp <- SummarizedExperiment(assays = SimpleList(counts = as.matrix(counts)), 
+                             colData = DataFrame(m))
+
+# filter lowly expressed genes
+assays(sumexp)$cpm <- cpm(counts, log = FALSE, normalized.lib.sizes = FALSE)
+keep <- which(rowSums(assays(sumexp)$cpm > 10) > 2)
+sumexp <- sumexp[keep,]
+```
+
+## How do we handle these M-V relationships in our analysis?
+
+.pull-left[
+<big>
+Options we discussed last time:
+
+* Use a non-parametric test 
+  
+* Make adjustments and model as usual
+  
+* Use a model specific for count data
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.width=6.5, fig.height = 6, message = FALSE, fig.align = 'center'}
+plqrtf <- data.frame(mean = rowMeans(log2(assays(sumexp)$counts+1)),
+           var = sqrt(sqrt(rowVars(log2(assays(sumexp)$counts+1))))) %>%
+  drop_na() %>%
+  ggplot(aes(x = mean, y = var)) +
+  geom_point(alpha = 0.1) +
+  xlab("mean") +
+  ylab("sqrt(sd)") +
+  geom_smooth(method = "loess", se = FALSE, span = 0.3) +
+  ggtitle("M vs Quarter-root V (Filtered, log2)")
+plqrtf
+```
+]
+
+---
+
+# One option: Voom
+
+<big>
+
+### Mean-variance modelling at the observational level
+
+* Falls under the category *"Make adjustments and model as usual"*
+
+* Specifically, adjustment to regular `lm` to take into account the M-V relationship
+
+* **Key idea**: modeling the mean-variance relationship is more important than getting the probability distribution exactly right (i.e. don't bother with other distributions like Poisson, Binomial, etc)
+
+--
+
+* Input:
+  * **raw counts** (required to estimate M-V relationship), but modeling is done on log-transformed CPM values (log2(CPM + 0.5), to be precise)
+  * design matrix
+
+* Implemented in [`limma` package](https://bioconductor.org/packages/release/bioc/html/limma.html): `voom` function
+
+---
+
+# Voom steps
+
+<big>
+
+1. Fit linear model to $log2(CPM_{ij} + 0.5)$ values (samples $i$, genes $j$)
+
+2. Extract the fitted quarter-root error variances $\sqrt{\hat{sd}(\epsilon_{ij})}$
+
+3. Fit a smoothed line $\hat{f}$ to the trend between mean log count and $\sqrt{\hat{sd}(\epsilon_{ij})}$ using [lowess](https://rafalab.github.io/dsbook/smoothing.html#local-weighted-regression-loess) (locally weighted regression)
+
+--
+
+4. Use the fitted lowess curve to estimate *observational weights*: $w_i = \frac{1}{\hat{f}(\hat{c}_{ij})^4}$ <br> where $\hat{c}_i$ are the log2 fitted *counts* (estimated from model in step 1)
+
+5. Fit linear model to $log2(CPM_{ij} + 0.5)$ values **using observational weights** $w_{ij}$
+
+6. Compute moderated $t$-statistics as before (using `eBayes`)
+
+---
+
+# Voom illustration
+
+![](https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fgb-2014-15-2-r29/MediaObjects/13059_2013_Article_3227_Fig2_HTML.jpg)
+
+Figure 2, [Law et. al, 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053721/#B34)
+
+--
+
+$$w_i = \frac{1}{\hat{f}(\hat{c}_{ij})^4} = \frac{1}{(\sqrt{s_{ij}})^4} = \frac{1}{s_{ij}^2}$$
+
+---
+
+# lowess
+
+.pull-left[
+
+* locally weighted regression fits a smooth curve to approximate the relationship between independent and dependent variables
+
+* Each smoothed value is given by a weighted linear least squares regression over the **span** (a neighborhood of the independent variable)
+
+* Smoothing span is adjustable
+
+* Generalization to locally weighted polynomial regression and inclusion of multiple independent variables: `loess`
+
+Image source: ["Introduction to Data Science" by Irizarry](https://rafalab.github.io/dsbook/smoothing.html#local-weighted-regression-loess)
+]
+
+.pull-right[
+![](https://rafalab.github.io/dsbook/ml/img/loess-animation.gif)
+
+]
+
+---
+
+# Why quarter-root variance?
+
+* The squared **coefficient of variation** $(CV = \frac{\sigma}{\mu})$ for RNA-seq counts is roughly $CV^2 =\frac{1}{\lambda} + \phi$
+  * $\lambda$ is expected size of count
+  * $\phi$ is a measure of biological variation (*overdispersion*)
+  
+* First term arises from technical variability associated with sequencing, and gradually decreases with increasing expected count size 
+
+* Second term remains roughly constant
+
+--
+
+#### CV of RNA-seq counts should be a decreasing function of count size for small to moderate counts, and asymptote to a value that depends on biological variability ([Law et. al, 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053721/#B34))
+
+--
+
+* Standard deviation of log2(CPM) is approximately equal to CV of the counts (by Taylor's theorem) 
+
+$$sd(log_2(CPM)) \approx \sqrt{\frac{1}{\lambda} + \phi}$$
+--
+
+* Square root of standard deviation used as distribution is more symmetric
+
+---
+
+# Weighted least squares (WLS) regression
+
+<big>
+
+* OLS: $\boldsymbol{\hat{\beta} = (X^TX)^{-1}X^Ty}$
+
+* WLS: $\boldsymbol{\hat{\beta} = (X^TWX)^{-1}X^TWy}$, where $W$ is a diagonal matrix of weights
+
+* **Intuition**: in minimizing the sum of squared errors, we put less weight on data points that are less precise: 
+
+$$\hat{\beta}_{j} = argmin_{\beta_j} \Big( \sum_{i=1}^n w_{ij}(X_i^T \beta_j - y_{ij})^2 \Big)$$
+--
+
+* Optimal weights for this purpose: inverse variance
+
+* Remedies heteroskedasticity 
+
+* Note: parameter estimates $\hat{\boldsymbol{\beta}}$ assume weights (variances) are known
+
+---
+
+# limma-voom
+
+<big>
+
+* limma-voom is the application of limma to log2(CPM + 0.5) values, with inverse variance observational weights estimated from the M-V trend
+
+* This alleviates the problem of heteroskedasticity and (hopefully) improves estimates of residual standard error
+
+* Gene-specific variance estimates are 'shrunken' to borrow information across all genes:
+
+$$\tilde{s}^2_g = \frac{d_0s_0^2 + ds^2_g}{d_0 + d}$$ 
+
+--
+
+* Note that $s^2_g$ estimates are affected by voom weights
+  
+  * recall that $s^2_g$ is the sum of squared residuals $\frac{1}{n-p}\hat{\boldsymbol{\epsilon}_g}^T\hat{\boldsymbol{\epsilon}_g}$
+  * under WLS $\boldsymbol{\hat{\epsilon_g} = y - X\hat{\beta} = y- X(X^TWX)^{-1}X^TWy}$
+  
+---
+
+# limma-voom, continued
+
+<big>
+
+* Moderated $t$ statistics are then calculated using the shrunken gene-specific variance estimates: $\tilde{t}_{gj} = \frac{\hat{\beta}_{gj}}{\tilde{s}_g \sqrt{v_{jj}}}$
+
+  * recall that under OLS, $v_{jj}$ is the $j^{th}$ diagonal element of $(X^TX)^{-1}$
+  * under WLS, $v_{jj}$ is the $j^{th}$ diagonal element of $(X^TWX)^{-1}$
+
+* Degrees of freedom for moderated $t$ statistic: $n-p+d_0$ 
+
+* If prior degrees of freedom $(d_0$, estimated from data) is large compared to $n-p$, moderated statistics have a bigger effect compared to using regular $t$ statistics
+  * i.e. in general, shrinkage matters more for small sample sizes
+
+---
+
+# Differential expression analysis on Chd8 data
+
+<big>
+
+* Recall: We'd like to fit am **additive** model for each gene so we can test for Group (Chd8 mutant vs WT) effect, and adjust for:
+  * Sex (M vs F)
+  * DPC (days post conception, 5 levels)
+
+$$Y_{i} = \theta + \tau_{Mut} x_{i,Mut} + \tau_{F} x_{i,F} + \tau_{D14.5} x_{i,D14.5} + \tau_{D17.5} x_{i,D17.5} + \tau_{D21} x_{i,D21} + \tau_{D77} x_{i,D77} + \epsilon_i$$
+<small>
+$$x_{i,Mut} = \bigg\{\begin{array}{l} 
+1\text{ if sample } i \text{ is Mutant} \\
+0 \text{ otherwise}\\
+\end{array}, \hspace{1em} x_{i,F} = \bigg\{\begin{array}{l} 
+1\text{ if sample } i \text{ is Female} \\
+0 \text{ otherwise}\\
+\end{array}, \hspace{1em}x_{i,D\#} = \bigg\{\begin{array}{l} 
+1\text{ if sample } i \text{ is DPC#} \\
+0 \text{ otherwise}\\
+\end{array}$$
+
+where $D\# \in \{D14.5, D17.5, D21, D77\}$
+<big>
+
+* Our model has $n-p=44-7=37$ degrees of freedom
+
+* We will focus on the null hypothesis of the **main effect** of Group $H_0: \tau_{Mut}=0$ 
+
+---
+
+# limma-voom in action
+
+.smaller[
+```{r, fig.align='center', fig.width = 8, fig.height = 6}
+vw <- voom(assays(sumexp)$counts, 
+           design = model.matrix(~ Sex + Group + DPC, data = colData(sumexp)), 
+           plot = TRUE, span = 0.5)  
+lvfit <- lmFit(vw, model.matrix(~ Sex + Group + DPC, data = colData(sumexp)))
+lvfit <- eBayes(lvfit)
+```
+]
+
+---
+
+# limma-voom vs limma
+
+```{r, echo = FALSE, fig.align='center', fig.width = 10, fig.height = 7}
+lfit <- lmFit(cpm(assays(sumexp)$counts, prior.count = 0.5, log = TRUE), 
+              design =  model.matrix(~ Sex + Group + DPC, data = colData(sumexp)))
+lfit <- eBayes(lfit)
+
+data.frame(limma = lfit$t[,"GroupMu"], voom = lvfit$t[,"GroupMu"]) %>%
+  ggplot(aes(x = limma, y = voom)) +
+  geom_hex(bins = 60, aes(fill = stat(log(count)))) +
+  geom_abline(intercept = 0, slope = 1) +
+  xlab(expression(paste("limma ", tilde(t)[g]^2))) +
+  ylab(expression(paste("limma-voom ", tilde(t)[g]^2))) +
+  ggtitle("Moderated t statistics (Chd8 Mu vs WT)")
+```
+
+---
+
+# Another option: limma-trend
+
+#### Limma-trend uses the M-V relationship at the **gene** level, whereas voom uses **observational** level trends ([Law et. al, 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053721/#B34))
+
+<big> 
+
+* Gene-wise variances are shrunken toward a global M-V trend, instead of toward a constant pooled variance:
+
+$$\tilde{s}^2_g = \frac{d_0s_{0g}^2 + ds^2_g}{d_0 + d}$$ 
+--
+
+* Notice the $g$ subscript on $s_{0g}^2$! The prior variance is different for each gene (unlike in regular limma)
+
+* Based on the M-V trend, $s_{0g}^2$ is (typically) higher for lowly expressed genes
+
+---
+
+# limma-trend in action
+
+.pull-left[
+.smaller[
+```{r}
+ltfit <- lmFit(cpm(assays(sumexp)$counts, log = TRUE), 
+               design =  model.matrix(~ Sex + Group + DPC, 
+                                      data = colData(sumexp)))
+ltfit <- eBayes(ltfit, trend = TRUE)
+
+# limma s^2_0
+str(lfit$s2.prior)
+
+# limma-trend s^2_{0g}
+str(ltfit$s2.prior)
+```
+]]
+
+.pull-right[
+```{r, echo = FALSE, fig.align = 'center', fig.width = 8, fig.height = 6}
+ data.frame(prior = ltfit$s2.prior) %>% 
+  ggplot() + 
+  geom_histogram(aes(prior), bins = 35) + 
+  scale_x_log10() +
+  geom_vline(xintercept = lfit$s2.prior, colour = "red") + 
+  geom_text(aes(x = 0.052, y = 3000, label = "limma s_0^2"), colour = "red") +
+  xlab(expression(paste("limma-trend ", s["0g"]^2))) +
+  ggtitle(expression(paste("limma-trend ", s["0g"]^2, " vs limma ", s[0]^2))) 
+```
+]
+
+---
+
+# Nuances for limma-trend and limma-voom
+
+<big>
+
+* If M-V relationship is flat, limma-voom and limma-trend have practically no effect
+
+  * for limma-voom, weights will be all equal
+  
+  * for limma-trend, $s_{0g}^2$ will be constant across genes
+
+* Even if it's not flat, the impact is seen most prominently in lowly expressed genes
+
+---
+
+# limma-voom 'false positives'?
+
+* This is one of the top genes for differential expression by Group by voom (but not other methods)
+
+* Why does this happen? 
+  * For voom the weighting means that very low expression values are going to have little effect on the model fit
+  * Inspecting the weights for this gene they are about 30-40x higher for DPC 77 observations
+  
+* Whether this is a false positive is a matter of opinion, but lesson is: *always look at the data*
+
+```{r, fig.align = 'center', fig.width = 10, fig.height = 4, echo = FALSE}
+# get counts in tidy format
+counts_long <- assays(sumexp)$counts %>% data.frame() %>%
+  rownames_to_column("Gene") %>%
+  pivot_longer(names_to = "Sample", values_to = "Count", cols = -Gene) %>%
+  left_join(data.frame(colData(sumexp)), by="Sample")
+
+counts_long %>% 
+  filter(Gene == "Etnppl") %>%
+  ggplot(aes(x = Group, y = Count, colour = Group)) +
+  geom_jitter(width=0.05, height=0, size=3 )  + 
+  facet_grid(Gene ~ DPC) + 
+  ggtitle("Top hit in limma-voom only") + 
+  labs(x="Group" ) + 
+  geom_hline(yintercept = log2(1), color="grey")
+```
+
+---
+
+# Another option: directly model counts
+
+.left-column[
+```{r, out.width = 100, echo = FALSE, fig.align = 'center'}
+knitr::include_graphics(c("https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/DESeq2/DESeq2.png", "https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/edgeR/edgeR.png"))
+```
+]
+
+.right-column[
+<big>
+
+* Methods: [`edgeR`](https://bioconductor.org/packages/release/bioc/html/edgeR.html), [`DESeq2`](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+
+* Both assume counts have underlying *Negative Binomial distribution* and fit **generalized linear models**
+
+  * **Generalized linear models** (GLM) are a generalization of OLS that allows for response variables that have error distribution models other than a normal distribution
+  
+* Still fit models gene-by-gene as we've discussed so far
+
+* Many similarities with limma: empirical Bayes-based moderation of parameters and addressing the M-V trend
+]
+
+---
+
+# Why Negative Binomial distribution?
+
+* Negative Binomial is also known as a Poisson-Gamma mixture
+
+  * i.e. A Poisson with a rate parameter that is Gamma-distributed (instead of fixed)
+  
+  * The Gamma distribution on means captures the biological variance (overdispersion) that can't be accommodated by Poisson alone
+
+* "Overdispersed Poisson" (variance > mean)
+
+* Key problem: estimating dispersion from small datasets is tricky
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 400}
+knitr::include_graphics(c("img/overdisp.png"))
+```
+
+---
+
+# Negative Binomial GLM
+
+<big>
+$$\sigma_g^2 = \mu_g(1+\mu_g\phi_g)$$
+where $\phi_g$ is the dispersion for gene $g$ (if $\phi_g=0$, get Poisson)
+
+* We can perform inference about $\mu_g$ using GLM (e.g. using likelihood ratio tests)
+
+--
+
+* To do so, we need to treat $\phi_g$ as known (so first need to estimate it)
+
+--
+
+### Estimation of dispersion is the main issue addressed by methods like `edgeR` and `DEseq2`
+
+---
+
+# Disperson estimation
+
+* One option is to assume $\phi$ is a set parametric function of the mean $\mu$ (e.g. quadratic)
+
+* More flexible approach is to use empirical Bayes techniques:
+
+  * Dispersion is gene-specific but moderated toward the observed trend with the mean
+  
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 600}
+knitr::include_graphics(c("img/dispersion.png"))
+```
+]
+
+<small>
+source: [Statistical Analysis of Next Generation Sequencing Data, Chapter 3 by Chen, Lun, and Smyth (2014)](https://link.springer.com/book/10.1007/978-3-319-07212-8)
+
+---
+
+# DESeq2 vs edgeR
+
+* These methods are very similar overall 
+
+* Major differences between the methods lie in how they filter low-count genes, estimate prior degrees of freedom, deal with outliers in dispersion estimation, and moderate dispersion of genes with high within-group variance or low counts
+  * Also slight differences in types of hypothesis tests (quasi-likelihood in edgeR and Wald test in DESeq2)
+
+* Many of these choices can be altered by changing default parameter settings in both methods (see user manuals)
+
+---
+
+# DESeq2 vs edgeR
+
+.pull-left[
+**edgeR**
+.tiny[
+```{r}
+dge <- DGEList(assays(sumexp)$counts)
+dge <- calcNormFactors(dge)
+dge <- estimateDisp(dge, 
+                    design = model.matrix(~ Sex + Group + DPC, 
+                                      data = colData(sumexp)), 
+                    robust = TRUE)
+
+edgeR_fit <- glmQLFit(dge, 
+                      design = model.matrix(~ Sex + Group + DPC, 
+                                      data = colData(sumexp)))
+```
+]
+]
+.pull-right[
+**DESeq2**
+.tiny[
+```{r}
+dds <- DESeqDataSet(sumexp, 
+                    design = model.matrix(~ Sex + Group + DPC, 
+                                      data = colData(sumexp)))
+dds <- estimateSizeFactors(dds)
+dds <- DESeq(dds)
+```
+]
+]
+
+---
+
+# How to choose a method?
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 1000}
+knitr::include_graphics(c("img/comparisons.png"))
+```
+
+---
+
+# Example comparison 1 [Love et al. (2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6178912.2/)
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 500}
+knitr::include_graphics(c("https://f1000researchdata.s3.amazonaws.com/manuscripts/17982/ea0127cc-e217-43f8-ab4c-f0f93e48eb46_figure14.gif"))
+```
+
+
+---
+
+# Example comparison 2 (for single-cell RNA-seq)
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 350}
+knitr::include_graphics(c("https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fnmeth.4612/MediaObjects/41592_2018_Article_BFnmeth4612_Fig5_HTML.jpg?as=webp"))
+```
+
+[Soneson & Robinson (2018)](https://www.nature.com/articles/nmeth.4612)
+
+---
+
+# How to choose a method?
+
+<big>
+
+* No established gold standards
+
+  * Simulations somewhat unsatisfying (depend on specific settings)
+  
+  * In real data, the truth is unknown
+  
+--
+  
+* The most popular and widely used methods tend to give similar results
+
+* **edgeR** and **DESeq2** are very similar in design
+  
+  * might be expected to work better for small sample sizes or low read depth
+    
+* **limma-trend** or **limma-voom** also sound choices
+
+  * work equally well when library sizes don't vary much
+  
+  * might not do as well when sample size or depth is very low
+  
+---
+
+# Comparing methods on the Chd8 dataset
+
+#### tl;dr version: there isn't a big huge difference
+
+<big>
+
+Possible reasons why:
+* methods have been converging in approach
+* modeling count data directly with GLMs is more important for smaller samples sizes, lower read depth
+
+Check out the comparisons in detail in the [companion notes](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master/examples/rnaseqdiffex-examples/examples-RNAseq.md)
+
+---
+
+### Comparisons of p-values for Chd8 mutation effect
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 500}
+knitr::include_graphics(c("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/examples/rnaseqdiffex-examples/examples-RNAseq_files/figure-html/comparemethods-1.png"))
+```
+
+---
+
+### Correlation of p-value ranks for the effect of Chd8 mutation
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 600}
+knitr::include_graphics(c("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/examples/rnaseqdiffex-examples/examples-RNAseq_files/figure-html/unnamed-chunk-28-1.png"))
+```
+
+---
+
+### Overlap of genes with FDR < 0.05 for the effect of Chd8 mutation
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 900}
+knitr::include_graphics(c("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/examples/rnaseqdiffex-examples/examples-RNAseq_files/figure-html/unnamed-chunk-29-1.png"))
+```
+
+---
+
+### Heatmap of top 30 genes by limma-voom applied to TMM
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 900}
+knitr::include_graphics(c("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/examples/rnaseqdiffex-examples/examples-RNAseq_files/figure-html/hm-2.png"))
+```
+
+---
+
+### Heatmap of top 30 genes by limma-trend, adjusted for DPC effect
+
+```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 900}
+knitr::include_graphics(c("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/examples/rnaseqdiffex-examples/examples-RNAseq_files/figure-html/adjhm-1.png"))
+```
+
+
+
+
+
