@@ -191,7 +191,7 @@ kable(assn %>% filter(Category == "Seminar") %>% select(-Category))
 
 ### [Paper critique (5%)](assignments.html#paper-critique-5)
 
-- Read, summarize and critique [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4405555/)
+- Read, summarize and critique [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0159197)
 - For detailed instructions, refer to [the course work page](https://stat540-ubc.github.io/subpages/assignments.html#paper-review)
 
 ```{r, echo = FALSE, warning =  FALSE}
