@@ -782,15 +782,15 @@ dge <- DGEList(assays(sumexp)$counts)
 dge <- calcNormFactors(dge)
 vwn <- voom(dge, modm )
 
-limmavoomTPM <- lmFit(vwn, modm)
-limmavoomTPM <- eBayes(limmavoomTPM)
-plotSA(limmavoomTPM, main= "limma voom + TMM")
+limmavoomTMM <- lmFit(vwn, modm)
+limmavoomTMM <- eBayes(limmavoomTMM)
+plotSA(limmavoomTMM, main= "limma voom + TMM")
 ```
 
 ![](examples-RNAseq_files/figure-html/voomnorm-1.png)<!-- -->
 
 ```r
-signif(topTable(limmavoomTPM, number = 10, coef = "SexF", sort.by = "p") ,3)
+signif(topTable(limmavoomTMM, number = 10, coef = "SexF", sort.by = "p") ,3)
 ```
 
 ```
@@ -808,7 +808,7 @@ signif(topTable(limmavoomTPM, number = 10, coef = "SexF", sort.by = "p") ,3)
 ```
 
 ```r
-signif(topTable(limmavoomTPM, number = 10, coef = "GroupMu", sort.by = "p") ,3)
+signif(topTable(limmavoomTMM, number = 10, coef = "GroupMu", sort.by = "p") ,3)
 ```
 
 ```
@@ -826,7 +826,7 @@ signif(topTable(limmavoomTPM, number = 10, coef = "GroupMu", sort.by = "p") ,3)
 ```
 
 ```r
-signif(topTable(limmavoomTPM, number = 10, coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77")),3)
+signif(topTable(limmavoomTMM, number = 10, coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77")),3)
 ```
 
 ```
@@ -844,7 +844,7 @@ signif(topTable(limmavoomTPM, number = 10, coef = c("DPC14.5", "DPC17.5", "DPC21
 ```
 
 ```r
-difmethods$limmavoomTPM <- topTable(limmavoomTPM, number = Inf, coef = "GroupMu", 
+difmethods$limmavoomTMM <- topTable(limmavoomTMM, number = Inf, coef = "GroupMu", 
                                     sort = "none")$P.Value 
 ```
 
@@ -1227,7 +1227,7 @@ difmethods[apply(difmethods, 1, function(x) any(is.na(x))),]
 ```
 
 ```
-##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTPM  edgeRlrt
+##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTMM  edgeRlrt
 ## Gh    0.9666708   0.9647626  0.9644664 0.4963914    0.5060823 0.2294544
 ## Inadl 0.1857345   0.1667272  0.1654464 0.1497694    0.1713521 0.1089240
 ## Prkcd 0.5978009   0.5797309  0.5764311 0.6065118    0.6539891 0.3446382
@@ -1253,37 +1253,37 @@ sumexpD <- sumexp[, order(colData(sumexp)$DPC, colData(sumexp)$Group, colData(su
 sumexpG <- sumexp[, order(colData(sumexp)$Group, colData(sumexp)$DPC, colData(sumexp)$Sex)]
 
 pheatmap(assays(sumexpS)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpS) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpS) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "SexF", sort.by = "p"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpS)[,c("Sex", "DPC", "Group")] %>% data.frame(), 
-         main = "Top genes for Sex effect (limma-voom with TPM)")
+         main = "Top genes for Sex effect (limma-voom with TMM)")
 ```
 
 ![](examples-RNAseq_files/figure-html/hm-1.png)<!-- -->
 
 ```r
 pheatmap(assays(sumexpG)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpG)[,c("Group", "DPC", "Sex")] %>% data.frame(), 
-         main = "Top genes for Group effect (limma-voom with TPM)")
+         main = "Top genes for Group effect (limma-voom with TMM)")
 ```
 
 ![](examples-RNAseq_files/figure-html/hm-2.png)<!-- -->
 
 ```r
 pheatmap(assays(sumexpD)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpD) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpD) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77"),
                                                      sort.by = "F"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpD)[,c("DPC", "Group", "Sex")] %>% data.frame(), 
-         main = "Top genes for DPC effect (limma-voom with TPM)")
+         main = "Top genes for DPC effect (limma-voom with TMM)")
 ```
 
 ![](examples-RNAseq_files/figure-html/hm-3.png)<!-- -->
@@ -1305,7 +1305,7 @@ dadjG <- dadj[, order(colData(sumexp)$Group, colData(sumexp)$DPC, colData(sumexp
 
 # Makes it a lot easier to see the Chd8-driven pattern:
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", 
          cluster_rows = TRUE, cluster_cols = FALSE, color = bcols, border_color = NA,
@@ -1326,7 +1326,7 @@ Clipping the data (recall from our lecture on exploratory data analysis and visu
 breaksList = seq(-3, 3, by = 6/length(bcols))
 
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", breaks = breaksList,
          cluster_rows = TRUE, cluster_cols = FALSE, color = bcols, border_color = NA,
@@ -1343,7 +1343,7 @@ Heatmap for all the FDR < 0.05 genes (there are 299 by limma-trend:
 breaksList = seq(-3, 3, by = 6/length(bcols))
 
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = Inf, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = Inf, 
                                                                   p.value = 0.05,
                                                                   coef = "GroupMu", 
                                                                   sort.by = "p"))),
@@ -1371,7 +1371,7 @@ difqval["Chd8",]
 ```
 
 ```
-##     lmlogcpm  limmalogcpm   limmatrend    limmavoom limmavoomTPM     edgeRlrt 
+##     lmlogcpm  limmalogcpm   limmatrend    limmavoom limmavoomTMM     edgeRlrt 
 ## 3.337684e-09 9.422548e-10 4.172884e-10 4.122962e-10 1.775047e-10 1.251449e-24 
 ##   edgeRquasi       deseq2 
 ## 1.536544e-10 2.245049e-25
@@ -1433,7 +1433,7 @@ unlist(lapply(topGenes, length))
 ```
 
 ```
-##     lmlogcpm  limmalogcpm   limmatrend    limmavoom limmavoomTPM     edgeRlrt 
+##     lmlogcpm  limmalogcpm   limmatrend    limmavoom limmavoomTMM     edgeRlrt 
 ##          416          381          384          615          586          552 
 ##   edgeRquasi       deseq2 
 ##          402          710
@@ -1483,7 +1483,7 @@ signif(difmethods[disg,], 3)
 ```
 
 ```
-##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTPM edgeRlrt
+##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTMM edgeRlrt
 ## Etnppl   0.0339      0.0325     0.0600  8.93e-07     6.19e-07  0.00855
 ## Plin4    0.0455      0.0354     0.0369  2.58e-09     2.01e-09  0.09960
 ## Xdh      0.0296      0.0262     0.0430  6.48e-07     6.61e-07  0.01070
@@ -1498,7 +1498,7 @@ difranks[disg,]
 ```
 
 ```
-##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTPM edgeRlrt
+##        lmlogcpm limmalogcpm limmatrend limmavoom limmavoomTMM edgeRlrt
 ## Etnppl     1900        1840       2578         9            6      923
 ## Plin4      2217        1928       1994         2            2     3353
 ## Xdh        1741        1638       2154         7            7     1055

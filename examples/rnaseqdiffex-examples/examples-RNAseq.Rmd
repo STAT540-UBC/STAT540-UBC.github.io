@@ -409,15 +409,15 @@ dge <- DGEList(assays(sumexp)$counts)
 dge <- calcNormFactors(dge)
 vwn <- voom(dge, modm )
 
-limmavoomTPM <- lmFit(vwn, modm)
-limmavoomTPM <- eBayes(limmavoomTPM)
-plotSA(limmavoomTPM, main= "limma voom + TMM")
+limmavoomTMM <- lmFit(vwn, modm)
+limmavoomTMM <- eBayes(limmavoomTMM)
+plotSA(limmavoomTMM, main= "limma voom + TMM")
 
-signif(topTable(limmavoomTPM, number = 10, coef = "SexF", sort.by = "p") ,3)
-signif(topTable(limmavoomTPM, number = 10, coef = "GroupMu", sort.by = "p") ,3)
-signif(topTable(limmavoomTPM, number = 10, coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77")),3)
+signif(topTable(limmavoomTMM, number = 10, coef = "SexF", sort.by = "p") ,3)
+signif(topTable(limmavoomTMM, number = 10, coef = "GroupMu", sort.by = "p") ,3)
+signif(topTable(limmavoomTMM, number = 10, coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77")),3)
 
-difmethods$limmavoomTPM <- topTable(limmavoomTPM, number = Inf, coef = "GroupMu", 
+difmethods$limmavoomTMM <- topTable(limmavoomTMM, number = Inf, coef = "GroupMu", 
                                     sort = "none")$P.Value 
 ```
 
@@ -578,29 +578,29 @@ sumexpD <- sumexp[, order(colData(sumexp)$DPC, colData(sumexp)$Group, colData(su
 sumexpG <- sumexp[, order(colData(sumexp)$Group, colData(sumexp)$DPC, colData(sumexp)$Sex)]
 
 pheatmap(assays(sumexpS)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpS) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpS) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "SexF", sort.by = "p"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpS)[,c("Sex", "DPC", "Group")] %>% data.frame(), 
-         main = "Top genes for Sex effect (limma-voom with TPM)")
+         main = "Top genes for Sex effect (limma-voom with TMM)")
 
 pheatmap(assays(sumexpG)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpG)[,c("Group", "DPC", "Sex")] %>% data.frame(), 
-         main = "Top genes for Group effect (limma-voom with TPM)")
+         main = "Top genes for Group effect (limma-voom with TMM)")
 
 pheatmap(assays(sumexpD)$log2cpm %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpD) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpD) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = c("DPC14.5", "DPC17.5", "DPC21", "DPC77"),
                                                      sort.by = "F"))),
          scale="row", color = bcols, border_color = NA,
          cluster_cols = FALSE,
          annotation_col = colData(sumexpD)[,c("DPC", "Group", "Sex")] %>% data.frame(), 
-         main = "Top genes for DPC effect (limma-voom with TPM)")
+         main = "Top genes for DPC effect (limma-voom with TMM)")
 ```
 
 We see the strongest visual effect with the DPC variable.
@@ -619,7 +619,7 @@ dadjG <- dadj[, order(colData(sumexp)$Group, colData(sumexp)$DPC, colData(sumexp
 
 # Makes it a lot easier to see the Chd8-driven pattern:
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", 
          cluster_rows = TRUE, cluster_cols = FALSE, color = bcols, border_color = NA,
@@ -637,7 +637,7 @@ Clipping the data (recall from our lecture on exploratory data analysis and visu
 breaksList = seq(-3, 3, by = 6/length(bcols))
 
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = 30, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = 30, 
                                                      coef = "GroupMu", sort.by = "p"))),
          scale="row", breaks = breaksList,
          cluster_rows = TRUE, cluster_cols = FALSE, color = bcols, border_color = NA,
@@ -645,13 +645,13 @@ pheatmap(dadjG %>% data.frame() %>%
          main = "Chd8 genotype effect, Dev stage-corrected,  clipped (limma-trend)")
 ```
 
-Heatmap for all the FDR < 0.05 genes (there are `r nrow(topTable(limmavoomTPM, number = Inf, coef = "GroupMu", sort.by = "p", p.value = 0.05))` by limma-trend:
+Heatmap for all the FDR < 0.05 genes (there are `r nrow(topTable(limmavoomTMM, number = Inf, coef = "GroupMu", sort.by = "p", p.value = 0.05))` by limma-trend:
 
 ```{r adjhm.clip.more, fig.height = 6, fig.width = 10}
 breaksList = seq(-3, 3, by = 6/length(bcols))
 
 pheatmap(dadjG %>% data.frame() %>%
-           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTPM, number = Inf, 
+           dplyr::filter(rownames(sumexpG) %in% rownames(topTable(limmavoomTMM, number = Inf, 
                                                                   p.value = 0.05,
                                                                   coef = "GroupMu", 
                                                                   sort.by = "p"))),
