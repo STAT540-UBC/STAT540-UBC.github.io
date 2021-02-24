@@ -406,8 +406,8 @@ data.frame(limma = lfit$t[,"GroupMu"], voom = lvfit$t[,"GroupMu"]) %>%
   ggplot(aes(x = limma, y = voom)) +
   geom_hex(bins = 60, aes(fill = stat(log(count)))) +
   geom_abline(intercept = 0, slope = 1) +
-  xlab(expression(paste("limma ", tilde(t)[g]^2))) +
-  ylab(expression(paste("limma-voom ", tilde(t)[g]^2))) +
+  xlab(expression(paste("limma ", tilde(t)[g]))) +
+  ylab(expression(paste("limma-voom ", tilde(t)[g]))) +
   ggtitle("Moderated t statistics (Chd8 Mu vs WT)")
 ```
 
@@ -637,7 +637,7 @@ knitr::include_graphics(c("img/comparisons.png"))
 
 ---
 
-# Example comparison 1 [Love et al. (2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6178912.2/)
+# Example comparison 1: [Love et al. (2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6178912.2/)
 
 ```{r, fig.width = 24, fig.align='center', echo = FALSE, out.width = 500}
 knitr::include_graphics(c("https://f1000researchdata.s3.amazonaws.com/manuscripts/17982/ea0127cc-e217-43f8-ab4c-f0f93e48eb46_figure14.gif"))
