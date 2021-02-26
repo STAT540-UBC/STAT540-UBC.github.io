@@ -1012,9 +1012,9 @@ since above we mentioned that, in particular, if you want to use the
 centering and scaling feature in `prcomp` *the genes must be in
 columns*. But, you could run it on already centered/scaled data where
 the genes are in rows. It turns out that running `svd` on the data
-matrix where samples are columns is equivalent to `svd` on the data
-matrix where the samples are rows, *if no centering has been done*. It’s
-just that now, the meaning of the U and V matrices are swapped:
+matrix where samples are columns is exactly equivalent to `svd` on the
+data matrix where the samples are rows, *if no centering has been done*.
+It’s just that now, the meaning of the U and V matrices are swapped:
 
 ``` r
 svd1 <- svd(t(exprs(geo_obj)))
@@ -1038,12 +1038,16 @@ all.equal(svd1$v[, 1], svd2$u[, 1])
     ## [1] TRUE
 
 In terms of `prcomp`, it is the `rotation` and `x` matrices that are
-swapped, although the equivalence with PCs is up to a scaling. So,
-though it is convention to perform PCA with features (genes) in columns,
-you can do it the other way around (*if you’re careful about what is
-being centered/scaled*) and achieve equivalent results up to a scaling
-of the values of the PCs. For more details, see [this section of
-Irizarry’s Genomics Class online
+swapped, although the equivalence with PCs is up to a scaling and
+rotation. So, though it is convention to perform PCA with features
+(genes) in columns for comparing samples, you can do it the other way
+around (*if you’re careful to make sure it is the genes that are being
+centered/scaled*) and achieve equivalent results up to a
+scaling/rotation of the values of the PCs. Also note that if instead
+you’re looking to find axes of variation of genes (instead of samples),
+as in SVA, then the scaling/centering should be done on samples instead.
+For more details, see lecture notes and [this section of Irizarry’s
+Genomics Class online
 book](https://genomicsclass.github.io/book/pages/pca_svd.html).
 
 OK, on with our analysis. What does the sample spread look like, as
@@ -1053,7 +1057,7 @@ explained by their first 2 principal components?
 plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
 ```
 
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-33-1.png" style="display: block; margin: auto;" />
 
 Is the covariate `tissue` localized in the different clusters we see?
 
@@ -1063,7 +1067,7 @@ legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$tissue)), pch 
     pt.bg = c(1, 2, 3, 4, 5))
 ```
 
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-34-1.png" style="display: block; margin: auto;" />
 
 Is the covariate `genotype` localized in the different clusters we see?
 
@@ -1073,7 +1077,7 @@ legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$genotype)), pc
     pt.bg = c(1, 2, 3, 4, 5))
 ```
 
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-35-1.png" style="display: block; margin: auto;" />
 
 PCA is a useful initial means of analysing any hidden structures in your
 data. We can also use it to determine how many sources of variance are
@@ -1168,21 +1172,21 @@ In this plot we are changing the `perplexity` parameter for the two
 different plots. As you see, the outputs are remarkably different.
 
 ``` r
+# put genotype:tissue combination as a separate variable in metadata
 pData(geo_obj) <- pData(geo_obj) %>% mutate(grp = interaction(tissue, genotype))
 colors = rainbow(length(unique(pData(geo_obj)$grp)))
 names(colors) = unique(pData(geo_obj)$grp)
 
-# first just plotting the sample legend for our tSNE plots
-plot(NULL, xaxt = "n", yaxt = "n", bty = "n", ylab = "", xlab = "", xlim = c(0, 1), 
-    ylim = c(0, 1))
-legend("topleft", col = colors, legend = names(colors), pch = 20)
-```
+# function to plot first two tsne dimensions given expressionset and perplexity
+# value
+tsnePlotPerplexity <- function(eset, perp) {
+    Rtsne(t(exprs(eset)), pca_center = TRUE, pca_scale = TRUE, dims = 2, perplexity = perp, 
+        verbose = TRUE, max_iter = 100)$Y %>% data.frame() %>% mutate(Tissue.Genotype = pData(eset)$grp) %>% 
+        ggplot(aes(x = X1, y = X2, colour = Tissue.Genotype)) + geom_point() + xlab("tsne 1") + 
+        ylab("tsne 2") + ggtitle(paste0("Perplexity ", perp))
+}
 
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
-
-``` r
-tsne <- Rtsne(t(exprs(geo_obj)), pca_center = TRUE, pca_scale = TRUE, dims = 2, perplexity = 0.1, 
-    verbose = TRUE, max_iter = 100)
+tsnePlotPerplexity(eset = geo_obj, perp = 0.1)
 ```
 
     ## Performing PCA
@@ -1197,65 +1201,51 @@ tsne <- Rtsne(t(exprs(geo_obj)), pca_center = TRUE, pca_scale = TRUE, dims = 2, 
     ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
     ## Fitting performed in 0.00 seconds.
 
-``` r
-plot(tsne$Y, main = "tsne, perplexity 0.1", col = colors[pData(geo_obj)$grp], pch = 20)
-```
-
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-2.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-1.png" style="display: block; margin: auto;" />
 
 ``` r
-tsne_p1 <- Rtsne(t(exprs(geo_obj)), pca_center = TRUE, pca_scale = TRUE, dims = 2, 
-    perplexity = 1, verbose = TRUE, max_iter = 100)
+tsnePlotPerplexity(eset = geo_obj, perp = 0.5)
 ```
 
     ## Performing PCA
     ## Read the 24 x 24 data matrix successfully!
-    ## Using no_dims = 2, perplexity = 1.000000, and theta = 0.500000
+    ## Using no_dims = 2, perplexity = 0.500000, and theta = 0.500000
     ## Computing input similarities...
     ## Building tree...
-    ## Done in 0.00 seconds (sparsity = 0.163194)!
+    ## Done in 0.00 seconds (sparsity = 0.069444)!
     ## Learning embedding...
-    ## Iteration 50: error is 61.025683 (50 iterations in 0.00 seconds)
-    ## Iteration 100: error is 68.183662 (50 iterations in 0.00 seconds)
+    ## Iteration 50: error is 62.277794 (50 iterations in 0.00 seconds)
+    ## Iteration 100: error is 73.305310 (50 iterations in 0.00 seconds)
     ## Fitting performed in 0.00 seconds.
 
-``` r
-plot(tsne_p1$Y, main = "tsne, preplexity 1", col = colors[pData(geo_obj)$grp], pch = 20)
-```
-
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-3.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-2.png" style="display: block; margin: auto;" />
 
 ``` r
-tsne_p1 <- Rtsne(t(exprs(geo_obj)), pca_center = TRUE, pca_scale = TRUE, dims = 2, 
-    perplexity = 4, verbose = TRUE, max_iter = 100)
+tsnePlotPerplexity(eset = geo_obj, perp = 2)
 ```
 
     ## Performing PCA
     ## Read the 24 x 24 data matrix successfully!
-    ## Using no_dims = 2, perplexity = 4.000000, and theta = 0.500000
+    ## Using no_dims = 2, perplexity = 2.000000, and theta = 0.500000
     ## Computing input similarities...
     ## Building tree...
-    ## Done in 0.00 seconds (sparsity = 0.642361)!
+    ## Done in 0.00 seconds (sparsity = 0.322917)!
     ## Learning embedding...
-    ## Iteration 50: error is 53.664559 (50 iterations in 0.00 seconds)
-    ## Iteration 100: error is 63.631407 (50 iterations in 0.00 seconds)
+    ## Iteration 50: error is 65.321426 (50 iterations in 0.00 seconds)
+    ## Iteration 100: error is 53.449391 (50 iterations in 0.00 seconds)
     ## Fitting performed in 0.00 seconds.
 
-``` r
-plot(tsne_p1$Y, main = "tsne, preplexity 4", col = colors[pData(geo_obj)$grp], pch = 20)
-```
-
-![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-4.png)<!-- -->
+<img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-3.png" style="display: block; margin: auto;" />
 
 ## Deliverables
 
 1.  Regenerate the `pheatmap` clustering plot for the top genes for the
     main effect of genotype (selected from limma by adjusted p-value
-    less than 1e-5) using distance: correlation, and clustering method:
-    “centroid” (UPGMC).
+    less than 1e-5) using distance: “correlation”, and clustering
+    method: “centroid” (UPGMC).
 
 2.  Regenerate the standalone dendrogram on the samples of this heatmap
     using the `hclust` and `dist` functions.
 
 3.  Make a plot of PC 1 vs PC 2 using `ggplot` instead base plotting.
-    Color the points by tissue.
+    Color the points by tissue and genotype combination.
