@@ -93,7 +93,7 @@ lets us read in the expression data and phenotypic (meta) data for a
 particular analysis, using its GEO accession ID.
 
 ``` r
-# Get geo object that contains our data and phenotype information
+#Get geo object that contains our data and phenotype information  
 geo_obj <- getGEO("GSE70213", getGPL = FALSE)
 ```
 
@@ -134,7 +134,7 @@ systems. Try setting the ‘download.file.method’ to the ‘curl’ option to
 fix this.
 
 ``` r
-options(download.file.method = "curl")
+options('download.file.method' = 'curl')
 ```
 
 We have read in the data as an `ExpressionSet` object, with 35557
@@ -148,7 +148,8 @@ the values), and change categorical variables to factors.
 
 ``` r
 # keep only relevant columns
-pData(geo_obj) <- pData(geo_obj) %>% select(organism_ch1, title, contains("characteristics"))
+pData(geo_obj) <- pData(geo_obj) %>%
+  select(organism_ch1, title, contains("characteristics"))
 str(pData(geo_obj))
 ```
 
@@ -162,10 +163,14 @@ str(pData(geo_obj))
 
 ``` r
 # Clean up covariate data
-pData(geo_obj) <- pData(geo_obj) %>% rename(organism = organism_ch1, sample_name = title) %>% 
-    mutate(tissue = factor(gsub("tissue: ", "", characteristics_ch1)), genotype = factor(gsub("genotype: ", 
-        "", characteristics_ch1.1)), sex = factor(gsub("Sex: ", "", characteristics_ch1.2)), 
-        age = gsub("age: ", "", characteristics_ch1.3)) %>% select(-contains("characteristics"))
+pData(geo_obj) <- pData(geo_obj) %>%
+  rename(organism = organism_ch1,
+         sample_name = title) %>%
+  mutate(tissue = factor(gsub("tissue: ", "", characteristics_ch1)),
+         genotype = factor(gsub("genotype: ", "",characteristics_ch1.1)),
+         sex = factor(gsub("Sex: ", "",characteristics_ch1.2)),
+         age = gsub("age: ", "",characteristics_ch1.3)) %>%
+  select(-contains("characteristics"))
 str(pData(geo_obj))
 ```
 
@@ -182,7 +187,7 @@ str(pData(geo_obj))
 Let us take a look at our expression values.
 
 ``` r
-kable(head(exprs(geo_obj)[, 1:5]))
+kable(head(exprs(geo_obj)[,1:5]))
 ```
 
 |          |  GSM1720833 |  GSM1720834 |  GSM1720835 |  GSM1720836 |  GSM1720837 |
@@ -226,7 +231,7 @@ Now let us see how the gene values are spread across our dataset, with a
 frequency histogram (using base R).
 
 ``` r
-hist(exprs(geo_obj), col = "gray", main = "GSE70213 - Histogram")
+hist(exprs(geo_obj), col="gray", main="GSE70213 - Histogram")
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
@@ -238,7 +243,7 @@ the frequency distribution after Log2 transformation?
 > comparisons?
 
 ``` r
-hist(log2(exprs(geo_obj) + 1), col = "gray", main = "GSE70213 log transformed - Histogram")
+hist(log2(exprs(geo_obj)+1), col="gray", main="GSE70213 log transformed - Histogram")
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
@@ -364,7 +369,7 @@ euclidean distances between samples.
 
 ``` r
 # compute pairwise distances
-pr.dis <- dist(t(expr_scaled), method = "euclidean")
+pr.dis <- dist(t(expr_scaled), method = 'euclidean')
 str(pr.dis)
 ```
 
@@ -382,13 +387,13 @@ more about these settings. We set some plotting options to reduce the
 margins, and to arrange the plots 2 by 2.
 
 ``` r
-pr.hc.s <- hclust(pr.dis, method = "single")
-pr.hc.c <- hclust(pr.dis, method = "complete")
-pr.hc.a <- hclust(pr.dis, method = "average")
-pr.hc.w <- hclust(pr.dis, method = "ward.D")
+pr.hc.s <- hclust(pr.dis, method = 'single')
+pr.hc.c <- hclust(pr.dis, method = 'complete')
+pr.hc.a <- hclust(pr.dis, method = 'average')
+pr.hc.w <- hclust(pr.dis, method = 'ward.D')
 
 # plot them
-op <- par(mar = c(0, 4, 4, 2), mfrow = c(2, 2))
+op <- par(mar = c(0,4,4,2), mfrow = c(2,2))
 
 plot(pr.hc.s, labels = FALSE, main = "Single", xlab = "")
 plot(pr.hc.c, labels = FALSE, main = "Complete", xlab = "")
@@ -427,17 +432,20 @@ as that of the `hclust()` function*
 
 ``` r
 # set pheatmap clustering parameters
-clust_dist_col = "euclidean"
+clust_dist_col = "euclidean" 
 clust_method = "ward.D2"
 clust_scale = "none"
 
-## the annotation option uses the covariate object (pData(geo_obj)). It must have
-## the same rownames, as the colnames in our data object (expr_scaled).
+## the annotation option uses the covariate object (pData(geo_obj)). It must have the same rownames, as the colnames in our data object (expr_scaled).  
 
-pheatmap(expr_scaled, cluster_rows = FALSE, scale = clust_scale, clustering_method = clust_method, 
-    clustering_distance_cols = clust_dist_col, show_colnames = TRUE, show_rownames = FALSE, 
-    main = "Clustering heatmap for GSE70213", annotation = pData(geo_obj)[, c("tissue", 
-        "genotype")])
+pheatmap(expr_scaled, 
+         cluster_rows = FALSE, 
+         scale = clust_scale, 
+         clustering_method = clust_method, 
+         clustering_distance_cols = clust_dist_col, 
+         show_colnames = TRUE, show_rownames = FALSE,  
+         main = "Clustering heatmap for GSE70213", 
+         annotation = pData(geo_obj)[,c("tissue","genotype")])
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
@@ -455,17 +463,22 @@ to suppress reordering).
 We can also change the colours of the different covariates.
 
 ``` r
-## We can change the colours of the covariates
-var1 = c("darkblue", "darkred")
+## We can change the colours of the covariates  
+var1 = c("darkblue","darkred")
 names(var1) = levels(pData(geo_obj)$tissue)
-var2 = c("grey", "black")
+var2 = c("grey","black")
 names(var2) = levels(pData(geo_obj)$genotype)
 covar_color = list(tissue = var1, genotype = var2)
 
-my_heatmap_obj = pheatmap(expr_scaled, cluster_rows = FALSE, scale = clust_scale, 
-    clustering_method = clust_method, clustering_distance_cols = clust_dist_col, 
-    show_rownames = FALSE, main = "Clustering heatmap for GSE70213", annotation = pData(geo_obj)[, 
-        c("tissue", "genotype")], annotation_colors = covar_color)
+my_heatmap_obj = pheatmap(expr_scaled, 
+                          cluster_rows = FALSE, 
+                          scale = clust_scale, 
+                          clustering_method = clust_method, 
+                          clustering_distance_cols = clust_dist_col, 
+                          show_rownames = FALSE, 
+                          main = "Clustering heatmap for GSE70213",
+                          annotation = pData(geo_obj)[,c("tissue","genotype")], 
+                          annotation_colors = covar_color)
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
@@ -516,16 +529,15 @@ document. Let’s plot the dendrogram and highlight the 10 clusters.
 
 ``` r
 # identify 10 clusters
-op <- par(mar = c(1, 4, 4, 1))
-plot(pr.hc.w, labels = pData(geo_obj)$grp, cex = 0.6, main = "Ward, 10 clusters", 
-    xlab = "")
+op <- par(mar = c(1,4,4,1))
+plot(pr.hc.w, labels = pData(geo_obj)$grp, cex = 0.6, main = "Ward, 10 clusters", xlab = "" )
 rect.hclust(pr.hc.w, k = 10)
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
-par(op)
+par(op) 
 ```
 
 We could save the heatmap we made to a PDF file for reference. Remember
@@ -534,7 +546,7 @@ where you are running the script in your directory structure.
 
 ``` r
 # Save the heatmap to a PDF file
-pdf("GSE70213_Heatmap.pdf")
+pdf ("GSE70213_Heatmap.pdf")
 my_heatmap_obj
 dev.off()
 ```
@@ -583,21 +595,22 @@ genes (\~35K). Note again that we have to transpose our expression
 matrix so our samples are in rows since `kmeans` operates on rows.
 
 ``` r
-# Objects in columns
+#Objects in columns
 set.seed(31)
 k <- 5
-pr.km <- kmeans(t(expr_scaled), centers = k, nstart = 50)
+pr.km <- kmeans(t(expr_scaled), centers = k, nstart =  50)
 
-# We can look at the within sum of squares of each cluster
+#We can look at the within sum of squares of each cluster
 pr.km$withinss
 ```
 
     ## [1]      0.00 125694.08  94760.68 105507.14 110026.69
 
 ``` r
-# We can look at the composition of each cluster
-pr.kmTable <- data.frame(tissue = pData(geo_obj)$tissue, genotype = pData(geo_obj)$genotype, 
-    cluster = pr.km$cluster)
+#We can look at the composition of each cluster
+pr.kmTable <- data.frame(tissue = pData(geo_obj)$tissue, 
+                         genotype = pData(geo_obj)$genotype, 
+                         cluster = pr.km$cluster)
 kable(pr.kmTable)
 ```
 
@@ -656,8 +669,9 @@ Here we run PAM with k = 5.
 
 ``` r
 pr.pam <- pam(pr.dis, k = 4)
-pr.pamTable <- data.frame(tissue = pData(geo_obj)$tissue, genotype = pData(geo_obj)$genotype, 
-    cluster = pr.pam$clustering)
+pr.pamTable <- data.frame(tissue = pData(geo_obj)$tissue, 
+                          genotype = pData(geo_obj)$genotype,
+                          cluster = pr.pam$clustering)
 kable(pr.pamTable)
 ```
 
@@ -705,7 +719,7 @@ to those in other clusters. Thus, the average of all objects silhouette
 widths gives an indication of how well the clusters are defined.
 
 ``` r
-op <- par(mar = c(5, 1, 4, 4))
+op <- par(mar = c(5,1,4,4))
 plot(pr.pam, main = "Silhouette Plot for 5 clusters")
 ```
 
@@ -753,10 +767,13 @@ genes that show differential expression between nebulin KO and wildtype
 (control).
 
 ``` r
-cutoff <- 1e-05
-dsFit <- lmFit(exprs(geo_obj), model.matrix(~tissue + genotype, pData(geo_obj)))
+cutoff <-  1e-05
+dsFit <- lmFit(exprs(geo_obj), 
+               model.matrix(~ tissue + genotype, pData(geo_obj)))
 dsEbFit <- eBayes(dsFit)
-dsHits <- topTable(dsEbFit, coef = c("genotypenebulin KO"), p.value = cutoff, n = Inf)
+dsHits <- topTable(dsEbFit,
+                   coef = c("genotypenebulin KO"),
+                   p.value = cutoff, n = Inf)
 nrow(dsHits)
 ```
 
@@ -776,8 +793,11 @@ We can plot the heatmap using the `pheatmap` function. Notice how the
 rows are now clustered.
 
 ``` r
-pheatmap(exprs(geo_obj)[topGenes, ], scale = "row", clustering_method = "average", 
-    annotation = pData(geo_obj)[, c("tissue", "genotype")], show_rownames = FALSE)
+pheatmap(exprs(geo_obj)[topGenes, ],
+         scale = "row", 
+         clustering_method = "average", 
+         annotation = pData(geo_obj)[,c("tissue","genotype")], 
+         show_rownames = FALSE)
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
@@ -786,9 +806,9 @@ Or we can plot the dendrogram of genes using the `plot` function, after
 we have made the hclust object.
 
 ``` r
-geneC.dis <- dist(expr_scaled[topGenes, ], method = "euclidean")
+geneC.dis <- dist(expr_scaled[topGenes,], method = 'euclidean')
 
-geneC.hc.a <- hclust(geneC.dis, method = "average")
+geneC.hc.a <- hclust(geneC.dis, method = 'average')
 
 plot(geneC.hc.a, labels = FALSE, main = "Hierarchical with Average Linkage", xlab = "")
 ```
@@ -812,22 +832,28 @@ center.
 ``` r
 set.seed(1234)
 k <- 5
-kmeans.genes <- kmeans(expr_scaled[topGenes, ], centers = k)
+kmeans.genes <- kmeans(expr_scaled[topGenes,], centers = k)
 
 # choose which cluster we want
 clusterNum <- 2
 
-df.centers <- data.frame(relexpr = kmeans.genes$centers[clusterNum, ], sample = colnames(geo_obj), 
-    genotype = pData(geo_obj)$genotype)
-df.genes <- data.frame(expr_scaled[topGenes, ][kmeans.genes$cluster == clusterNum, 
-    ]) %>% mutate(probe = topGenes[kmeans.genes$cluster == clusterNum]) %>% pivot_longer(values_to = "relexpr", 
-    names_to = "sample", cols = -probe)
+df.centers <- data.frame(relexpr = kmeans.genes$centers[clusterNum, ],
+                         sample = colnames(geo_obj),
+                         genotype = pData(geo_obj)$genotype) 
+df.genes <- data.frame(expr_scaled[topGenes,][kmeans.genes$cluster == clusterNum, ]) %>% 
+  mutate(probe = topGenes[kmeans.genes$cluster == clusterNum]) %>%
+  pivot_longer(values_to = "relexpr", names_to = "sample", cols = -probe)
 
-ggplot() + geom_line(data = df.genes, aes(x = sample, y = relexpr, group = probe), 
-    alpha = 0.2, linetype = "dashed", colour = "grey") + geom_line(data = df.centers, 
-    aes(x = sample, y = relexpr), group = 1) + geom_point(data = df.centers, aes(x = sample, 
-    y = relexpr, colour = genotype)) + theme(axis.text.x = element_text(angle = 90)) + 
-    ylab("Relative expression")
+ggplot() +
+  geom_line(data = df.genes, 
+            aes(x = sample, y = relexpr, group = probe),
+            alpha = 0.2, linetype = "dashed", colour = "grey") +
+  geom_line(data = df.centers,
+            aes(x = sample, y = relexpr), group = 1) +
+  geom_point(data = df.centers,
+            aes(x = sample, y = relexpr, colour = genotype)) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  ylab("Relative expression")
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
@@ -852,22 +878,22 @@ samples in this example:
 ``` r
 set.seed(31)
 
-k_max <- 10  # the max number of clusters to explore clustering with 
-km_fit <- list()  # create empty list to store the kmeans object
+k_max  <-  10  # the max number of clusters to explore clustering with 
+km_fit  <-  list() # create empty list to store the kmeans object
 
-for (i in 1:k_max) {
-    k_cluster <- kmeans(t(expr_scaled), centers = i, nstart = 50)
-    km_fit[[i]] <- k_cluster
+for (i in 1:k_max){
+  k_cluster  <-  kmeans(t(expr_scaled),centers=i, nstart =50)
+  km_fit[[i]]  <-  k_cluster
 }
 
 
 # function calculate AIC
-km_AIC <- function(km_cluster) {
-    m <- ncol(km_cluster$centers)
-    n <- length(km_cluster$cluster)
-    k <- nrow(km_cluster$centers)
-    D <- km_cluster$tot.withinss
-    return(D + 2 * m * k)
+km_AIC  <-  function(km_cluster){
+  m  <-  ncol(km_cluster$centers)
+  n  <-  length(km_cluster$cluster)
+  k  <-  nrow(km_cluster$centers)
+  D  <-  km_cluster$tot.withinss
+  return(D + 2*m*k)
 }
 
 # calculate AIC with our new function
@@ -878,8 +904,10 @@ Then, we plot the AIC vs. the number of clusters. We want to choose the
 k value that corresponds to the elbow point on the AIC/BIC curve.
 
 ``` r
-plot(seq(1, k_max), aic, xlab = "Number of clusters", ylab = "AIC", pch = 20, cex = 2, 
-    main = "Clustering Samples")
+plot(seq(1,k_max), aic, 
+     xlab = "Number of clusters",
+     ylab = "AIC",
+     pch = 20, cex = 2, main = "Clustering Samples" )
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
@@ -888,17 +916,19 @@ Same for BIC
 
 ``` r
 # calculate BIC
-km_BIC <- function(km_cluster) {
-    m <- ncol(km_cluster$centers)
-    n <- length(km_cluster$cluster)
-    k <- nrow(km_cluster$centers)
-    D <- km_cluster$tot.withinss
-    return(D + log(n) * m * k)
+km_BIC  <-  function(km_cluster){
+  m  <-  ncol(km_cluster$centers)
+  n  <-  length(km_cluster$cluster)
+  k  <-  nrow(km_cluster$centers)
+  D  <-  km_cluster$tot.withinss
+  return(D + log(n)*m*k)
 }
 
-bic <- sapply(km_fit, km_BIC)
-plot(seq(1, k_max), bic, xlab = "Number of clusters", ylab = "BIC", pch = 20, cex = 2, 
-    main = "Clustering Samples")
+bic <- sapply(km_fit,km_BIC)
+plot(seq(1,k_max), bic, 
+     xlab = "Number of clusters",
+     ylab = "BIC",
+     pch = 20, cex = 2, main="Clustering Samples" )
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
@@ -932,7 +962,7 @@ k-means and PAM), here we are identifying the most stable clustering
 arising from hierarchichal clustering.
 
 ``` r
-pvc <- pvclust(expr_scaled[topGenes, ], nboot = 100)
+pvc <- pvclust(expr_scaled[topGenes,], nboot = 100)
 ```
 
     ## Bootstrap (r = 0.5)... Done.
@@ -948,7 +978,7 @@ pvc <- pvclust(expr_scaled[topGenes, ], nboot = 100)
 
 ``` r
 plot(pvc, labels = pData(geo_obj)$grp, cex = 0.6)
-pvrect(pvc, alpha = 0.95)
+pvrect(pvc, alpha = 0.95) 
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
@@ -991,17 +1021,17 @@ In R, we can use `prcomp()` to do PCA. You can also use `svd()`.
 pcs <- prcomp(t(exprs(geo_obj)), center = TRUE, scale = TRUE)
 
 # scree plot
-plot(pcs)
+plot(pcs) 
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 ``` r
 # append the rotations for the first 10 PCs to the phenodata
-prinComp <- cbind(pData(geo_obj), pcs$x[rownames(pData(geo_obj)), 1:10])
+prinComp <- cbind(pData(geo_obj), pcs$x[rownames(pData(geo_obj)), 1:10]) 
 
 # scatter plot showing us how the first few PCs relate to covariates
-plot(prinComp[, c("genotype", "tissue", "PC1", "PC2", "PC3")], pch = 19, cex = 0.8)
+plot(prinComp[ ,c("genotype", "tissue", "PC1", "PC2", "PC3")], pch = 19, cex = 0.8)
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-31-2.png)<!-- -->
@@ -1026,13 +1056,13 @@ all.equal(svd1$d, svd2$d)
     ## [1] TRUE
 
 ``` r
-all.equal(svd1$u[, 1], svd2$v[, 1])
+all.equal(svd1$u[,1], svd2$v[,1])
 ```
 
     ## [1] TRUE
 
 ``` r
-all.equal(svd1$v[, 1], svd2$u[, 1])
+all.equal(svd1$v[,1], svd2$u[,1])
 ```
 
     ## [1] TRUE
@@ -1054,7 +1084,7 @@ OK, on with our analysis. What does the sample spread look like, as
 explained by their first 2 principal components?
 
 ``` r
-plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
+plot(prinComp[ ,c("PC1","PC2")],  pch = 21, cex = 1.5)
 ```
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-33-1.png" style="display: block; margin: auto;" />
@@ -1062,9 +1092,9 @@ plot(prinComp[, c("PC1", "PC2")], pch = 21, cex = 1.5)
 Is the covariate `tissue` localized in the different clusters we see?
 
 ``` r
-plot(prinComp[, c("PC1", "PC2")], bg = pData(geo_obj)$tissue, pch = 21, cex = 1.5)
-legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$tissue)), pch = 21, 
-    pt.bg = c(1, 2, 3, 4, 5))
+plot(prinComp[ ,c("PC1","PC2")], bg = pData(geo_obj)$tissue, pch = 21, cex = 1.5)
+legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$tissue)),
+       pch = 21, pt.bg = c(1,2,3,4,5))
 ```
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-34-1.png" style="display: block; margin: auto;" />
@@ -1072,9 +1102,9 @@ legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$tissue)), pch 
 Is the covariate `genotype` localized in the different clusters we see?
 
 ``` r
-plot(prinComp[, c("PC1", "PC2")], bg = pData(geo_obj)$genotype, pch = 21, cex = 1.5)
-legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$genotype)), pch = 21, 
-    pt.bg = c(1, 2, 3, 4, 5))
+plot(prinComp[ ,c("PC1","PC2")], bg = pData(geo_obj)$genotype, pch = 21, cex = 1.5)
+legend(list(x = 100, y = 150), as.character(levels(pData(geo_obj)$genotype)),
+       pch = 21, pt.bg = c(1,2,3,4,5))
 ```
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-35-1.png" style="display: block; margin: auto;" />
@@ -1088,7 +1118,7 @@ First, let us first assess how much of the total variance is captured by
 each principal component.
 
 ``` r
-# Get the subset of PCs that capture the most variance in your predictors
+# Get the subset of PCs that capture the most variance in your predictors  
 summary(pcs)
 ```
 
@@ -1111,7 +1141,7 @@ summary(pcs)
     ## Cumulative Proportion   0.92863  0.94735  0.96569  0.98305  1.00000 1.000e+00
 
 ``` r
-plot(pcs$sdev^2/sum(pcs$sdev^2), ylab = "Proportion Variance Explained", xlab = "PC")
+plot(pcs$sdev^2 / sum(pcs$sdev^2), ylab = "Proportion Variance Explained", xlab = "PC")
 ```
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
@@ -1173,17 +1203,23 @@ different plots. As you see, the outputs are remarkably different.
 
 ``` r
 # put genotype:tissue combination as a separate variable in metadata
-pData(geo_obj) <- pData(geo_obj) %>% mutate(grp = interaction(tissue, genotype))
+pData(geo_obj) <- pData(geo_obj) %>%
+  mutate(grp = interaction(tissue, genotype))
 colors = rainbow(length(unique(pData(geo_obj)$grp)))
 names(colors) = unique(pData(geo_obj)$grp)
 
-# function to plot first two tsne dimensions given expressionset and perplexity
-# value
-tsnePlotPerplexity <- function(eset, perp) {
-    Rtsne(t(exprs(eset)), pca_center = TRUE, pca_scale = TRUE, dims = 2, perplexity = perp, 
-        verbose = TRUE, max_iter = 100)$Y %>% data.frame() %>% mutate(Tissue.Genotype = pData(eset)$grp) %>% 
-        ggplot(aes(x = X1, y = X2, colour = Tissue.Genotype)) + geom_point() + xlab("tsne 1") + 
-        ylab("tsne 2") + ggtitle(paste0("tSNE, Perplexity ", perp))
+# function to plot first two tsne dimensions given expressionset and perplexity value
+tsnePlotPerplexity <- function(eset, perp){
+  Rtsne(t(exprs(eset)), 
+              pca_center = TRUE, pca_scale = TRUE,
+              dims = 2, perplexity = perp, verbose = TRUE, max_iter = 100)$Y %>%
+    data.frame() %>%
+    mutate(`Tissue.Genotype` = pData(eset)$grp) %>%
+    ggplot(aes(x = X1, y = X2, colour = `Tissue.Genotype`)) +
+      geom_point() +
+      xlab("tsne 1") +
+      ylab("tsne 2") +
+      ggtitle(paste0("tSNE, Perplexity ", perp))
 }
 
 tsnePlotPerplexity(eset = geo_obj, perp = 0.1)

@@ -7,7 +7,7 @@ Seminar 7: Dimensionality reduction and Cluster Analysis-Hierarchical Clustering
 Contributors: Gabriela Cohen Freue, Jasleen Grewal, Keegan Korthauer, Alice Zhu
 
 ```{r include = FALSE }
-knitr::opts_chunk$set(echo=TRUE, warning=TRUE, message=TRUE, tidy.opts=list(width.cutoff=80),tidy=TRUE)
+knitr::opts_chunk$set(echo=TRUE, warning=TRUE, message=TRUE)
 knitr::opts_chunk$set(fig.width=6, fig.height=4) 
 ```
 
