@@ -8,15 +8,25 @@ Alice Zhu
 
 By the end of this tutorial, you should be able to  
 - Differentiate between sample-wise clustering and gene-wise clustering,
-and identify when either may be appropriate - Differentiate between
-agglomerative hierarchical clustering and partition clustering methods
-like K-means  
-- Outline the methods used to determine an optimal number of clusters in
-K-means clustering - Undertake dimensionality reduction using PCA -
-Appreciate the differences between PCA and t-SNE - Recognize that the
-t-SNE approach is an intricate process requiring parametrization - Add
-cluster annotations to t-SNE visualizations of a dataset - Understand
-some of the limitations of the clustering methods, PCA, and t-SNE
+and identify when either may be appropriate
+
+-   Differentiate between agglomerative hierarchical clustering and
+    partition clustering methods like K-means
+
+-   Outline the methods used to determine an optimal number of clusters
+    in K-means clustering
+
+-   Undertake dimensionality reduction using PCA
+
+-   Appreciate the differences between PCA and t-SNE
+
+-   Recognize that the t-SNE approach is an intricate process requiring
+    parametrization
+
+-   Add cluster annotations to t-SNE visualizations of a dataset
+
+-   Understand some of the limitations of the clustering methods, PCA,
+    and t-SNE
 
 # Introduction
 
