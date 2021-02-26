@@ -1183,7 +1183,7 @@ tsnePlotPerplexity <- function(eset, perp) {
     Rtsne(t(exprs(eset)), pca_center = TRUE, pca_scale = TRUE, dims = 2, perplexity = perp, 
         verbose = TRUE, max_iter = 100)$Y %>% data.frame() %>% mutate(Tissue.Genotype = pData(eset)$grp) %>% 
         ggplot(aes(x = X1, y = X2, colour = Tissue.Genotype)) + geom_point() + xlab("tsne 1") + 
-        ylab("tsne 2") + ggtitle(paste0("Perplexity ", perp))
+        ylab("tsne 2") + ggtitle(paste0("tSNE, Perplexity ", perp))
 }
 
 tsnePlotPerplexity(eset = geo_obj, perp = 0.1)

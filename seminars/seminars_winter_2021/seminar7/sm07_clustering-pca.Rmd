@@ -616,7 +616,7 @@ The computational costs of t-SNE are also quite expensive, and finding an embedd
 We will be using the `Rtsne` package to visualize our data using t-SNE.    
 In this plot we are changing the `perplexity` parameter for the two different plots. As you see, the outputs are remarkably different.
 
-```{r, fig.align = 'center', fig.width = 9, fig.height = 7}
+```{r, fig.align = 'center', fig.width = 7, fig.height = 5}
 # put genotype:tissue combination as a separate variable in metadata
 pData(geo_obj) <- pData(geo_obj) %>%
   mutate(grp = interaction(tissue, genotype))
@@ -634,7 +634,7 @@ tsnePlotPerplexity <- function(eset, perp){
       geom_point() +
       xlab("tsne 1") +
       ylab("tsne 2") +
-      ggtitle(paste0("Perplexity ", perp))
+      ggtitle(paste0("tSNE, Perplexity ", perp))
 }
 
 tsnePlotPerplexity(eset = geo_obj, perp = 0.1)
