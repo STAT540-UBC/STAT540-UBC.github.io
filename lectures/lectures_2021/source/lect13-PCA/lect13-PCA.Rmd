@@ -822,6 +822,8 @@ $$X_{m\times n} = UDV^T$$
 
 * $D_{n \times n}$: diagonal matrix of eigenvalues of $X^TX$ (nonzero eigenvalues of $XX^T$) 
 
+* In other words, $U$ gives us a sense of the direction of of maximum variance in row space, and $V$ gives us a sense of the direction of maximum variance in column space
+
 ---
 
 # Singular Value Decomposition (SVD)
