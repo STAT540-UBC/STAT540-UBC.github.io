@@ -535,20 +535,20 @@ grid.arrange(p1, p2, nrow = 1)
 
 For $m$-length vectors $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$ representing sample 1 and 2 (columns of ${X}$):
 
-$$Cov(\boldsymbol{x}_1, \boldsymbol{x}_2) = \frac{\sum_{j=1}^m (x_{1j} - \bar{x}_1)(x_{2j} - \bar{x}_2)}{m-1}$$
+$$Cov(\boldsymbol{x}_1, \boldsymbol{x}_2) = \frac{\sum_{j=1}^m (x_{j1} - \bar{x}_{\cdot1})(x_{j2} - \bar{x}_{\cdot2})}{m-1}$$
 * Intuition: *is sample 1 far away from its mean when sample 2 is far away from its mean?*
 
 --
 
-* Computing $Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'})$ for every pair of samples $i$ and $i'$ (note $Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i}) = 1$) gives the $n\times n$ sample **covariance matrix**
+* Computing $Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'})$ for every pair of samples $i$ and $i'$ (for $i$ and $i' \in \{1,...,n)$) gives the $n\times n$ sample **covariance matrix**
 
-* $\frac{X^TX}{m-1}$ on *centered* data gives you the sample covariance matrix
+* $\frac{X^TX}{m-1}$ on column *centered* data gives you the sample covariance matrix
 
 --
 
 * Could alternatively compute covariances between all pairs of rows (features) to get $m\times m$ covariance matrix (e.g. gene covariance matrix)
 
-* Sample **Correlation matrix**: $\frac{X^TX}{m-1}$ on *centered* and *scaled* columns 
+* Sample **Correlation matrix**: $\frac{X^TX}{m-1}$ on *centered* and *scaled* columns (note $Cor(\boldsymbol{x}_i, \boldsymbol{x}_{i}) = 1$, so it will have diagonal of 1)
 
 ---
 
@@ -579,11 +579,11 @@ Heatmap of sample correlation matrix for photoreceptor data
 
 <big>
 
-* Sample **variance** of sample $i$: $Var(\boldsymbol{x}_i) = \frac{\sum_{j=1}^m (x_{ij} - \bar{x}_i)^2}{m-1}$
+* Sample **variance** of sample (column) $i$: $Var(\boldsymbol{x}_i) = \frac{\sum_{j=1}^m (x_{ji} - \bar{x}_{\cdot i})^2}{m-1}$
 
-* Sample **covariance** of samples $i$ and $i'$: $Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'}) = \frac{\sum_{j=1}^m (x_{ij} - \bar{x}_i)(x_{i'j} - \bar{x}_{i'})}{m-1}$
+* Sample **covariance** of samples (columns) $i$ and $i'$: $Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'}) = \frac{\sum_{j=1}^m (x_{ji} - \bar{x}_{\cdot i})(x_{ji'} - \bar{x}_{\cdot i'})}{m-1}$
 
-* Sample (Pearson) **correlation** of samples $i$ and $i'$: : $Cor(\boldsymbol{x}_i, \boldsymbol{x}_{i'}) = \frac{Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'})}{\sqrt{Var(\boldsymbol{x}_i)Var(\boldsymbol{x}_{i'})}}$
+* Sample (Pearson) **correlation** of samples (columns) $i$ and $i'$: $Cor(\boldsymbol{x}_i, \boldsymbol{x}_{i'}) = \frac{Cov(\boldsymbol{x}_i, \boldsymbol{x}_{i'})}{\sqrt{Var(\boldsymbol{x}_i)Var(\boldsymbol{x}_{i'})}}$
 
 * Can likewise define sample variance of features (e.g. genes) by replacing $m$-length column vectors $\boldsymbol{x}_i$ with $n$-length row vectors $\boldsymbol{x}_j$
 
@@ -593,7 +593,7 @@ Heatmap of sample correlation matrix for photoreceptor data
 
 <big>
 
-* **dot / inner product**: $\boldsymbol{x}_i \cdot \boldsymbol{x}_{i'} = \sum_{j=1}^m x_{ij}x_{i'j}$
+* **dot / inner product**: $\boldsymbol{x}_i \cdot \boldsymbol{x}_{i'} = \sum_{j=1}^m x_{ji}x_{ji'}$
 
 ```{r, fig.align="center", echo = FALSE, out.width=400}
 knitr::include_graphics("img/matrixmult.png")
@@ -812,15 +812,15 @@ knitr::include_graphics("https://blog.bioturing.com/wp-content/uploads/2018/11/B
 
 <big>
 
-* In practice, for non-square matrices we use SVD
+The underpinnings of PCA involve the decomposition of the data matrix into 3 parts:
 
 $$X_{m\times n} = UDV^T$$
 
-* $U_{m\times n}$: left singular vectors: orthogonal basis of row space of $X$
+* $U_{m\times n}$: left singular vectors: orthonormal basis of **row space** of $X$, columns are first $n$ eigenvectors of $XX^T$
 
-* $V_{n \times n}$: right singular vectors: orthogonal basis of column space of $X$
+* $V_{n \times n}$: right singular vectors: orthonormal basis of **column space** of $X$, columns are eigenvectors of $X^TX$
 
-* $D_{n \times n}$: diagonal matrix of eigenvalues
+* $D_{n \times n}$: diagonal matrix of eigenvalues of $X^TX$ (nonzero eigenvalues of $XX^T$) 
 
 ---
 
