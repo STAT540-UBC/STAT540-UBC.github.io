@@ -132,6 +132,8 @@ library(gridExtra)
 library(ComplexHeatmap)
 library(pheatmap)
 
+bcols<-colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
+
 eset <- getGEO("GSE4051", getGPL= FALSE)[[1]]
 
 # recode time points
@@ -164,7 +166,8 @@ pData(eset) <- pData(eset) %>%
 set.seed(345)
 x <- exprs(eset)[sample(seq_len(nrow(eset)), 1000), ]
 hm <- pheatmap(x,
-         scale = "row",  border_color = NA,
+         color = bcols,
+         border_color = NA,
          cluster_cols = FALSE, cluster_rows = FALSE,
          show_rownames = FALSE,
          show_colnames = FALSE)
@@ -543,7 +546,7 @@ $$Cov(\boldsymbol{x}_1, \boldsymbol{x}_2) = \frac{\sum_{j=1}^m (x_{1j} - \bar{x}
 
 --
 
-* Could alternatively compute covariances between all pairs for rows (features) to get $m\times m$ covariance matrix (e.g. gene covariance matrix)
+* Could alternatively compute covariances between all pairs of rows (features) to get $m\times m$ covariance matrix (e.g. gene covariance matrix)
 
 * Sample **Correlation matrix**: $\frac{X^TX}{m-1}$ on *centered* and *scaled* columns 
 
@@ -558,7 +561,6 @@ corr <- data.frame(cor(exprs(eset_ordered)),
                  row.names = colnames(eset_ordered)) %>% 
   as.matrix()
 
-bcols<-colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
 Heatmap(corr, col = bcols, 
         name = "corr",
         cluster_rows = FALSE, cluster_columns = FALSE, 
@@ -693,7 +695,6 @@ ggplot() +
 
 # Example: 2D basis and 1D subspace
 
-<big>
 
 * 2D basis: any vector $\nu$ in $\mathbb{R}^2$ can be constructed by a weighted combination of these two vectors:
 
@@ -839,7 +840,7 @@ Breaking it down...
 
   * where $\boldsymbol{u}_k$ is the $k^{th}$ column vector of $U$
   
-  * where $\boldsymbol{\nu}_i$ is the $k^{th}$ column vector of $V^T$
+  * where $\boldsymbol{\nu}_i$ is the $i^{th}$ column vector of $V^T$
   
   * i.e. each column of $X$ is a sum of weighted column vectors of $U$
   
@@ -847,7 +848,8 @@ Breaking it down...
 
 * Then matrix $X$ is reconstructed from the multiplication of column vectors of $U$ and $V$:
 
-$$X = \sum_{k=1}^n d_{kk} \boldsymbol{u}_k \boldsymbol{\nu}_{k}^T$$
+$$X = UDV^T = \sum_{k=1}^n d_{kk} \boldsymbol{u}_k \boldsymbol{\nu}_{k}^T$$
+We'll see this illustrated later on
   
 ---
 
@@ -868,7 +870,7 @@ We can look at PCA/SVD from three points of view:
 
 # Practical stuff
 
-* Before applying SVD/PCA, it is common practice to standardize your data (e.g. center, scale)
+* Before applying SVD/PCA, it is common practice to **standardize** your data (e.g. center, scale)
 
   * Otherwise the first PC captures the average expression/intensity; this constraints the next direction (recall orthogonality)
   
@@ -935,7 +937,7 @@ plot(p$sdev^2 / sum(p$sdev^2), ylab = "Proportion of variance explained", xlab =
 
 ---
   
-# Projection of data matrix
+# Decomposition of data matrix
 
 Original data (centered and scaled):
 
@@ -956,7 +958,7 @@ Note: for illustration, we are using a set of 1000 random genes
 
 ---
 
-# Projection: First component
+# First component
 
 .pull-left[
 
@@ -990,7 +992,7 @@ pheatmap(x1,
 
 ---
 
-# Projection: Second component
+# Second component
 
 .pull-left[
 
@@ -1024,7 +1026,7 @@ pheatmap(x2,
 
 ---
 
-# Projection: Components 1-10
+# Components 1-10
 
 .pull-left[
 
@@ -1060,7 +1062,7 @@ pheatmap(x10,
 
 ---
 
-# Visualization of data based on PC 1-2
+# Projection of data on PC 1-2
 
 ### Points colored by developmental stage and genotype
 
@@ -1079,7 +1081,7 @@ legend(list(x = -40, y = 20), as.character(levels(prinComp$genotype)), pch = 21,
 
 ---
 
-# Visualization of data based on PC 2-3
+# Projection of data on PC 2-3
 
 ### Points colored by developmental stage and genotype
 
