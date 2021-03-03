@@ -358,8 +358,11 @@ In this section we will illustrate different hierarchical clustering
 methods.
 
 However, for most expression data applications, we suggest you should:
-\* standardize the data \* use Euclidean as the “distance” (so it’s just
-like Pearson correlation) \* use “average linkage”
+
+-   standardize the data
+-   use Euclidean as the “distance” (so it’s just like Pearson
+    correlation)
+-   use “average linkage”
 
 First, we’ll compute the distance with `dist` - the default distance
 metric is euclidean. Note that we need to transpose the data with `t`

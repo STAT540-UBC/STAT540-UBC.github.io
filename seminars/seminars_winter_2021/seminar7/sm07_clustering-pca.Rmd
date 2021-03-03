@@ -175,6 +175,7 @@ As an exercise, you will pick a specific number of clusters, and compare the sam
 In this section we will illustrate different hierarchical clustering methods. 
 
 However, for most expression data applications, we suggest you should:
+
 * standardize the data
 * use Euclidean as the "distance" (so it's just like Pearson correlation)
 * use "average linkage"
