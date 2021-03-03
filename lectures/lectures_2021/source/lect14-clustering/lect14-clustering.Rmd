@@ -350,7 +350,7 @@ Rocks were clustered according to their colour and texture
 
 <big>
 
-* Many clustering methods rely on a measure of similarity (or **distance**, which is just one minus similarity)
+* Many clustering methods rely on a measure of similarity (or **distance**, which is just one minus similarity for a distance metric scaled to have values between 0 and 1)
 
 * From the feature vectors $\boldsymbol{x}_i$, we need to compute a measure of similarity or distance between all pairs of objects
 
@@ -757,9 +757,11 @@ knitr::include_graphics("img/elbow.JPG")
 **Agglomerative**: each observation starts in its own cluster; going up in hierarchy pairs of clusters are merged 
 
 
-```{r, echo = FALSE, fig.align='center', out.width = 480}
+```{r, echo = FALSE, fig.align='center', out.width = 400}
 knitr::include_graphics("https://ars.els-cdn.com/content/image/3-s2.0-B9780124157811000091-f09-04-9780124157811.jpg")
 ```
+
+Note: vertical red bar 'cuts' the tree to define the clusters indicated by label colours
 
 ---
 
@@ -787,13 +789,13 @@ Given $n$ objects with $p$ attributes, and a distance metric:
 
   * **Single** linkage: distance between two clusters is the **minimum** distance between any pair of elements
   
-  * **Average** linkage:distance between two clusters is the **average** distance between all pairs of elements
+  * **Average** linkage: distance between two clusters is the **average** distance between all pairs of elements
   
   * **Complete** linkage: distance between two clusters is the **maximum** distance between any pair of elements
 
 --
 
-* Default in `pheatmap` is complete Linkage using Euclidean distance
+* Default in `pheatmap` is complete linkage using Euclidean distance
 
 ---
 
@@ -824,7 +826,7 @@ round(dist(x),2)
 ```
 ]
 
-### Merge cluster 3 and 6 
+### Next: Merge cluster 3 and 6 
 
 We'll use average linkage
 ]
@@ -860,7 +862,7 @@ round(dist(x),2)
 ```
 ]
 
-# Merge cluster 2 and 9
+### Next: Merge cluster 2 and 9
 ]
 
 ---
@@ -892,7 +894,7 @@ round(dist(x),2)
 ```
 ]
 
-# Merge cluster 36 and 7
+### Next: Merge cluster 36 and 7
 ]
 
 ---
@@ -924,7 +926,7 @@ round(dist(x),2)
 ```
 ]
 
-# Merge cluster 29 and 4...
+### Next: Merge cluster 29 and 4...
 ]
 
 ---
