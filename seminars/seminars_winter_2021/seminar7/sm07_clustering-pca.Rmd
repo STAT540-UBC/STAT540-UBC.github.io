@@ -95,6 +95,8 @@ pData(geo_obj) <- pData(geo_obj) %>%
          sex = factor(gsub("Sex: ", "",characteristics_ch1.2)),
          age = gsub("age: ", "",characteristics_ch1.3)) %>%
   select(-contains("characteristics"))
+rownames(pData(geo_obj)) <- colnames(exprs(geo_obj))
+
 str(pData(geo_obj))
 ```
 

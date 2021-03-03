@@ -7,25 +7,25 @@ Alice Zhu
 # Learning objectives
 
 By the end of this tutorial, you should be able to  
-- Differentiate between sample-wise clustering and gene-wise clustering,
-and identify when either may be appropriate
+\- Differentiate between sample-wise clustering and gene-wise
+clustering, and identify when either may be appropriate
 
--   Differentiate between agglomerative hierarchical clustering and
+  - Differentiate between agglomerative hierarchical clustering and
     partition clustering methods like K-means
 
--   Outline the methods used to determine an optimal number of clusters
+  - Outline the methods used to determine an optimal number of clusters
     in K-means clustering
 
--   Undertake dimensionality reduction using PCA
+  - Undertake dimensionality reduction using PCA
 
--   Appreciate the differences between PCA and t-SNE
+  - Appreciate the differences between PCA and t-SNE
 
--   Recognize that the t-SNE approach is an intricate process requiring
+  - Recognize that the t-SNE approach is an intricate process requiring
     parametrization
 
--   Add cluster annotations to t-SNE visualizations of a dataset
+  - Add cluster annotations to t-SNE visualizations of a dataset
 
--   Understand some of the limitations of the clustering methods, PCA,
+  - Understand some of the limitations of the clustering methods, PCA,
     and t-SNE
 
 # Introduction
@@ -50,7 +50,7 @@ study (quoted from the GEO entry):
 > are born with high nebulin levels in their skeletal muscle but within
 > weeks after birth nebulin expression rapidly falls to barely
 > detectable levels Surprisingly, a large fraction of the mice survives
-> to adulthood with low nebulin levels (&lt;5% of control), contain
+> to adulthood with low nebulin levels (\<5% of control), contain
 > nemaline rods, and undergo fiber-type switching towards oxidative
 > types. These microarrays investigate the changes in gene expression
 > when nebulin is deficient.
@@ -101,12 +101,12 @@ geo_obj <- getGEO("GSE70213", getGPL = FALSE)
 
     ## GSE70213_series_matrix.txt.gz
 
-    ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Parsed with column specification:
     ## cols(
     ##   .default = col_double()
     ## )
-    ## ℹ Use `spec()` for the full column specifications.
+
+    ## See spec(...) for full column specifications.
 
 ``` r
 geo_obj <- geo_obj[[1]]
@@ -127,8 +127,8 @@ geo_obj
     ##   pubMedIds: 26123491 
     ## Annotation: GPL6246
 
-**Note**: You might get an error like
-`Error in download.file..cannot download all files`.  
+**Note**: You might get an error like `Error in download.file..cannot
+download all files`.  
 This happens when R cannot connect to the NCBI ftp servers from linux
 systems. Try setting the ‘download.file.method’ to the ‘curl’ option to
 fix this.
@@ -143,8 +143,8 @@ values are found in the `exprs` slot. Now, we’ll do some reformatting of
 the phenotypic (meta) data that is found in the `pData(geo_obj)` slot.
 Specifically, we’ll keep only relevant columns, rename them to something
 more convenient (since by default they are named
-“characteristics\_ch\#”, and the specific characteristic is encoded in
-the values), and change categorical variables to factors.
+“characteristics\_ch\#”, and the specific characteristic is encoded
+in the values), and change categorical variables to factors.
 
 ``` r
 # keep only relevant columns
@@ -154,12 +154,18 @@ str(pData(geo_obj))
 ```
 
     ## 'data.frame':    24 obs. of  6 variables:
-    ##  $ organism_ch1         : chr  "Mus musculus" "Mus musculus" "Mus musculus" "Mus musculus" ...
-    ##  $ title                : chr  "quad-control-1" "quad-control-2" "quad-control-3" "quad-control-4" ...
-    ##  $ characteristics_ch1  : chr  "tissue: quadriceps" "tissue: quadriceps" "tissue: quadriceps" "tissue: quadriceps" ...
-    ##  $ characteristics_ch1.1: chr  "genotype: control" "genotype: control" "genotype: control" "genotype: control" ...
-    ##  $ characteristics_ch1.2: chr  "Sex: male" "Sex: male" "Sex: male" "Sex: male" ...
-    ##  $ characteristics_ch1.3: chr  "age: 41 days old" "age: 41 days old" "age: 41 days old" "age: 41 days old" ...
+    ##  $ organism_ch1         : Factor w/ 1 level "Mus musculus": 1 1 1 1 1 1 1 1 1 1 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ title                : Factor w/ 24 levels "quad-cKO-1","quad-cKO-2",..: 7 8 9 10 11 12 1 2 3 4 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ characteristics_ch1  : Factor w/ 2 levels "tissue: quadriceps",..: 1 1 1 1 1 1 1 1 1 1 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ characteristics_ch1.1: Factor w/ 2 levels "genotype: control",..: 1 1 1 1 1 1 2 2 2 2 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ characteristics_ch1.2: Factor w/ 1 level "Sex: male": 1 1 1 1 1 1 1 1 1 1 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ characteristics_ch1.3: Factor w/ 3 levels "age: 40 days old",..: 2 2 2 2 3 1 2 2 2 1 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
 
 ``` r
 # Clean up covariate data
@@ -171,12 +177,16 @@ pData(geo_obj) <- pData(geo_obj) %>%
          sex = factor(gsub("Sex: ", "",characteristics_ch1.2)),
          age = gsub("age: ", "",characteristics_ch1.3)) %>%
   select(-contains("characteristics"))
+rownames(pData(geo_obj)) <- colnames(exprs(geo_obj))
+
 str(pData(geo_obj))
 ```
 
     ## 'data.frame':    24 obs. of  6 variables:
-    ##  $ organism   : chr  "Mus musculus" "Mus musculus" "Mus musculus" "Mus musculus" ...
-    ##  $ sample_name: chr  "quad-control-1" "quad-control-2" "quad-control-3" "quad-control-4" ...
+    ##  $ organism   : Factor w/ 1 level "Mus musculus": 1 1 1 1 1 1 1 1 1 1 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
+    ##  $ sample_name: Factor w/ 24 levels "quad-cKO-1","quad-cKO-2",..: 7 8 9 10 11 12 1 2 3 4 ...
+    ##   ..- attr(*, "names")= chr  "V2" "V3" "V4" "V5" ...
     ##  $ tissue     : Factor w/ 2 levels "quadriceps","soleus": 1 1 1 1 1 1 1 1 1 1 ...
     ##  $ genotype   : Factor w/ 2 levels "control","nebulin KO": 1 1 1 1 1 1 2 2 2 2 ...
     ##  $ sex        : Factor w/ 1 level "male": 1 1 1 1 1 1 1 1 1 1 ...
@@ -191,7 +201,7 @@ kable(head(exprs(geo_obj)[,1:5]))
 ```
 
 |          |  GSM1720833 |  GSM1720834 |  GSM1720835 |  GSM1720836 |  GSM1720837 |
-|:---------|------------:|------------:|------------:|------------:|------------:|
+| :------- | ----------: | ----------: | ----------: | ----------: | ----------: |
 | 10338001 | 2041.408000 | 2200.861000 | 2323.760000 | 3216.263000 | 2362.775000 |
 | 10338002 |   63.780590 |   65.084380 |   58.308200 |   75.861450 |   66.956050 |
 | 10338003 |  635.390400 |  687.393600 |  756.004000 | 1181.929000 |  759.099800 |
@@ -213,7 +223,7 @@ kable(head(pData(geo_obj)))
 ```
 
 |            | organism     | sample\_name   | tissue     | genotype | sex  | age         |
-|:-----------|:-------------|:---------------|:-----------|:---------|:-----|:------------|
+| :--------- | :----------- | :------------- | :--------- | :------- | :--- | :---------- |
 | GSM1720833 | Mus musculus | quad-control-1 | quadriceps | control  | male | 41 days old |
 | GSM1720834 | Mus musculus | quad-control-2 | quadriceps | control  | male | 41 days old |
 | GSM1720835 | Mus musculus | quad-control-3 | quadriceps | control  | male | 41 days old |
@@ -236,7 +246,7 @@ hist(exprs(geo_obj), col="gray", main="GSE70213 - Histogram")
 
 ![](sm07_clustering-pca_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-It appears a lot of genes have values &lt; 1000. What happens if we plot
+It appears a lot of genes have values \< 1000. What happens if we plot
 the frequency distribution after Log2 transformation?
 
 > Why might it be useful to log transform the data, prior to making any
@@ -422,10 +432,10 @@ suppressed with `cluster_rows = FALSE` and/or `cluster_cols = FALSE`.
 we’ll suppress row clustering for now since we are plotting all genes.*
 
 By default, `pheatmap()` uses the `hclust()` function, which takes a
-distance matrix, calculated by the `dist()` function (with
-`default = 'euclidean'`). However, you can also write your own
-clustering and distance functions. In the examples below, I used
-`hclust()` with `ward.D2` linkage method and the `euclidean` distance.
+distance matrix, calculated by the `dist()` function (with `default =
+'euclidean'`). However, you can also write your own clustering and
+distance functions. In the examples below, I used `hclust()` with
+`ward.D2` linkage method and the `euclidean` distance.
 
 *Note that the dendrogram in the top margin of the heatmap is the same
 as that of the `hclust()` function*
@@ -496,32 +506,32 @@ cluster_samples = cutree(my_heatmap_obj$tree_col, k = 10)
 kable(cluster_samples)
 ```
 
-|            |   x |
-|:-----------|----:|
-| GSM1720833 |   1 |
-| GSM1720834 |   1 |
-| GSM1720835 |   1 |
-| GSM1720836 |   2 |
-| GSM1720837 |   3 |
-| GSM1720838 |   4 |
-| GSM1720839 |   5 |
-| GSM1720840 |   5 |
-| GSM1720841 |   6 |
-| GSM1720842 |   5 |
-| GSM1720843 |   5 |
-| GSM1720844 |   5 |
-| GSM1720845 |   7 |
-| GSM1720846 |   8 |
-| GSM1720847 |   8 |
-| GSM1720848 |   8 |
-| GSM1720849 |   8 |
-| GSM1720850 |   9 |
-| GSM1720851 |  10 |
-| GSM1720852 |  10 |
-| GSM1720853 |  10 |
-| GSM1720854 |  10 |
-| GSM1720855 |  10 |
-| GSM1720856 |  10 |
+|            |  x |
+| :--------- | -: |
+| GSM1720833 |  1 |
+| GSM1720834 |  1 |
+| GSM1720835 |  1 |
+| GSM1720836 |  2 |
+| GSM1720837 |  3 |
+| GSM1720838 |  4 |
+| GSM1720839 |  5 |
+| GSM1720840 |  5 |
+| GSM1720841 |  6 |
+| GSM1720842 |  5 |
+| GSM1720843 |  5 |
+| GSM1720844 |  5 |
+| GSM1720845 |  7 |
+| GSM1720846 |  8 |
+| GSM1720847 |  8 |
+| GSM1720848 |  8 |
+| GSM1720849 |  8 |
+| GSM1720850 |  9 |
+| GSM1720851 | 10 |
+| GSM1720852 | 10 |
+| GSM1720853 | 10 |
+| GSM1720854 | 10 |
+| GSM1720855 | 10 |
+| GSM1720856 | 10 |
 
 Note you can do this with the base `hclust` method too, as shown here.
 We are using one of the `hclust` objects we defined earlier in this
@@ -579,10 +589,10 @@ function).
 
 Keep in mind that k-means makes certain assumptions about the data that
 may not always hold:  
-- Variance of distribution of each variable (in our case, genes) is
+\- Variance of distribution of each variable (in our case, genes) is
 spherical  
-- All variables have the same variance  
-- A prior probability that all k clusters have the same number of
+\- All variables have the same variance  
+\- A prior probability that all k clusters have the same number of
 members
 
 Often, we have to try different ‘k’ values before we identify the most
@@ -615,7 +625,7 @@ kable(pr.kmTable)
 ```
 
 |            | tissue     | genotype   | cluster |
-|:-----------|:-----------|:-----------|--------:|
+| :--------- | :--------- | :--------- | ------: |
 | GSM1720833 | quadriceps | control    |       4 |
 | GSM1720834 | quadriceps | control    |       4 |
 | GSM1720835 | quadriceps | control    |       4 |
@@ -676,7 +686,7 @@ kable(pr.pamTable)
 ```
 
 |            | tissue     | genotype   | cluster |
-|:-----------|:-----------|:-----------|--------:|
+| :--------- | :--------- | :--------- | ------: |
 | GSM1720833 | quadriceps | control    |       1 |
 | GSM1720834 | quadriceps | control    |       1 |
 | GSM1720835 | quadriceps | control    |       1 |
@@ -731,15 +741,15 @@ par(op)
 
 **Exercise:**\_
 
-1.  Draw a plot with number of clusters in the x-axis and the average
+1)  Draw a plot with number of clusters in the x-axis and the average
     silhouette widths in the y-axis. Use the information obtained to
     determine if 5 was the best choice for the number of clusters.
 
-2.  For a common choice of *k*, compare the clustering across different
-    methods, e.g. hierarchical (pruned to specific *k*, obviously),
-    k-means, PAM. You will re-discover the “label switching problem” for
-    yourself. How does that manifest itself? How concordant are the
-    clusterings for different methods?
+2)  For a common choice of \(k\), compare the clustering across
+    different methods, e.g. hierarchical (pruned to specific \(k\),
+    obviously), k-means, PAM. You will re-discover the “label switching
+    problem” for yourself. How does that manifest itself? How concordant
+    are the clusterings for different methods?
 
 ## Gene clustering
 
@@ -785,7 +795,7 @@ topGenes <- rownames(dsHits)
 
 We start by using different clustering algorithms to cluster the top
 1221 genes that showed differential expression across the different
-developmental stage (BH adjusted p value &lt; 10^{-5}).
+developmental stage (BH adjusted p value \< 10^{-5}).
 
 #### Agglomerative Hierarchical Clustering
 
@@ -949,7 +959,7 @@ address this. Here we introduce an approachable one offered in R,
 clustering](https://academic.oup.com/bioinformatics/article/22/12/1540/207339).
 
 > Important: `pvclust` clusters the columns. I don’t recommend doing
-> this for genes (rows)! The computation will take a very long time.
+> this for genes (rows)\! The computation will take a very long time.
 > Even the following example with all 30K genes would take some time to
 > run.
 
@@ -1074,10 +1084,10 @@ rotation. So, though it is convention to perform PCA with features
 around (*if you’re careful to make sure it is the genes that are being
 centered/scaled*) and achieve equivalent results up to a
 scaling/rotation of the values of the PCs. Also note that if instead
-you’re looking to find axes of variation of genes (instead of samples),
-as in SVA, then the scaling/centering should be done on samples instead.
-For more details, see lecture notes and [this section of Irizarry’s
-Genomics Class online
+you’re looking to find axes of variation of genes (instead of
+samples), as in SVA, then the scaling/centering should be done on
+samples instead. For more details, see lecture notes and [this section
+of Irizarry’s Genomics Class online
 book](https://genomicsclass.github.io/book/pages/pca_svd.html).
 
 OK, on with our analysis. What does the sample spread look like, as
@@ -1136,7 +1146,7 @@ summary(pcs)
     ## Proportion of Variance  0.02409  0.02298  0.02259  0.02166  0.02101  0.02004
     ## Cumulative Proportion   0.80055  0.82353  0.84612  0.86779  0.88880  0.90884
     ##                            PC19     PC20     PC21     PC22     PC23      PC24
-    ## Standard deviation     26.52966 25.79456 25.54092 24.84522 24.54739 3.147e-13
+    ## Standard deviation     26.52966 25.79456 25.54092 24.84522 24.54739 3.185e-13
     ## Proportion of Variance  0.01979  0.01871  0.01835  0.01736  0.01695 0.000e+00
     ## Cumulative Proportion   0.92863  0.94735  0.96569  0.98305  1.00000 1.000e+00
 
@@ -1174,12 +1184,12 @@ data, another method we can use as an alternative to PCA is t-SNE. This
 method allows for non-linear interactions between our features.
 
 Importantly, there are certain caveats with using t-SNE.  
-1. Solutions are not deterministic: While in PCA the *correct* solution
+1\. Solutions are not deterministic: While in PCA the *correct* solution
 to a question is guaranteed, t-SNE can have many multiple minima, and
 might give many different optimal solutions. It is hence
 non-deterministic. This may make it challenging to generate reproducible
 results.  
-2. Clusters are not intuitive: t-SNE non-linearly collapses similar
+2\. Clusters are not intuitive: t-SNE non-linearly collapses similar
 points in high dimensional space, on top of each other in lower
 dimensions. This means it maps features that are proximal to each other
 in a way that global trends may be **warped** (distance is not
@@ -1187,7 +1197,7 @@ preserved). On the other hand, PCA always rotates our features in
 specific ways that can be extracted by considering the covariance matrix
 of our initial dataset and the eigenvectors in the new coordinate
 space.  
-3. Applying our fit to new data: t-SNE embedding is generated by moving
+3\. Applying our fit to new data: t-SNE embedding is generated by moving
 all our data to a lower dimensional state. It does not give us
 eigenvectors (like PCA does) that can map/project new/unseen data to
 this lower dimensional state.
@@ -1227,15 +1237,16 @@ tsnePlotPerplexity(eset = geo_obj, perp = 0.1)
 
     ## Performing PCA
     ## Read the 24 x 24 data matrix successfully!
+    ## OpenMP is working. 1 threads.
     ## Using no_dims = 2, perplexity = 0.100000, and theta = 0.500000
     ## Computing input similarities...
     ## Perplexity should be lower than K!
     ## Building tree...
     ## Done in 0.00 seconds (sparsity = 0.000000)!
     ## Learning embedding...
-    ## Iteration 50: error is 0.000000 (50 iterations in 0.00 seconds)
-    ## Iteration 100: error is 0.000000 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Iteration 50: error is 0.000000 (50 iterations in 0.01 seconds)
+    ## Iteration 100: error is 0.000000 (50 iterations in 0.01 seconds)
+    ## Fitting performed in 0.02 seconds.
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-1.png" style="display: block; margin: auto;" />
 
@@ -1245,14 +1256,15 @@ tsnePlotPerplexity(eset = geo_obj, perp = 0.5)
 
     ## Performing PCA
     ## Read the 24 x 24 data matrix successfully!
+    ## OpenMP is working. 1 threads.
     ## Using no_dims = 2, perplexity = 0.500000, and theta = 0.500000
     ## Computing input similarities...
     ## Building tree...
     ## Done in 0.00 seconds (sparsity = 0.069444)!
     ## Learning embedding...
-    ## Iteration 50: error is 62.277794 (50 iterations in 0.00 seconds)
-    ## Iteration 100: error is 73.305310 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Iteration 50: error is 61.344560 (50 iterations in 0.01 seconds)
+    ## Iteration 100: error is 55.744121 (50 iterations in 0.01 seconds)
+    ## Fitting performed in 0.02 seconds.
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-2.png" style="display: block; margin: auto;" />
 
@@ -1262,14 +1274,15 @@ tsnePlotPerplexity(eset = geo_obj, perp = 2)
 
     ## Performing PCA
     ## Read the 24 x 24 data matrix successfully!
+    ## OpenMP is working. 1 threads.
     ## Using no_dims = 2, perplexity = 2.000000, and theta = 0.500000
     ## Computing input similarities...
     ## Building tree...
     ## Done in 0.00 seconds (sparsity = 0.322917)!
     ## Learning embedding...
-    ## Iteration 50: error is 65.321426 (50 iterations in 0.00 seconds)
-    ## Iteration 100: error is 53.449391 (50 iterations in 0.00 seconds)
-    ## Fitting performed in 0.00 seconds.
+    ## Iteration 50: error is 65.822985 (50 iterations in 0.01 seconds)
+    ## Iteration 100: error is 54.750868 (50 iterations in 0.01 seconds)
+    ## Fitting performed in 0.02 seconds.
 
 <img src="sm07_clustering-pca_files/figure-gfm/unnamed-chunk-38-3.png" style="display: block; margin: auto;" />
 
