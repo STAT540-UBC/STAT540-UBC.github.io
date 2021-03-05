@@ -2,220 +2,325 @@
 output:
   github_document
 ---
+
 DNA methylation analysis with Illumina's Infinium DNA methylation probes  
 ========================================================
 
-Contributors: Gloria Li, Jasleen Grewal
+Contributors: Gloria Li, Jasleen Grewal, and Keegan Korthauer
 
-> This seminar is inspired by a STAT 540 project in 2013: *Analysis of Gene Expression Omnibus Leukaemia Data from the Illumina HumanMethylation450 Array* by Alice Zhu, Rachel Edgar, Shaun Jackman and Nick Fishbane. See their project website [here](https://sites.google.com/site/stat540diffmethleuk/).   
+> This seminar is inspired by a STAT 540 project in 2013: *Analysis of Gene Expression Omnibus Leukemia Data from the Illumina HumanMethylation450 Array* by Alice Zhu, Rachel Edgar, Shaun Jackman and Nick Fishbane. See their project website [here](https://sites.google.com/site/stat540diffmethleuk/).   
 
 ## Learning objectives   
+
 By the end of this tutorial, you should be able to  
-- Identify the basic steps in a methylation analysis pipeline.  
-- Appreciate the role of normalization prior to analysis in methylation datasets, and know what M values are.  
-- Undertake exploratory visual analysis of methylation data (ploting Beta value densities).  
-- Undertake differential methylation analysis and annotate CpG island probes for interpretation.  
-- Plot results from differential analysis (differentially methylated probes) across all chromosomes, to highlight areas under regulatory influence as per the methylation profiles.  
+- Identify the basic steps in a methylation analysis pipeline  
+- Appreciate the role of normalization prior to analysis in methylation datasets, and know what M values are  
+- Undertake exploratory visual analysis of methylation data (plotting Beta value densities)  
+- Undertake differential methylation analysis and annotate CpG island probes for interpretation  
+- Plot results from differential analysis (differentially methylated probes) across all chromosomes, to highlight areas under regulatory influence as per the methylation profiles  
 
-## Introduction  
-The Illumina Infiniumn Array is a microarray based high throughput platform for methylation profiling on 487,173 pre-selected probes for CpGs across the human genome. A great number of datasets have been made publicly available through Gene Expression Omnibus (GEO). Each dataset in GEO has a unique GSE ID that we can use to retrieve it from GEO. There are several Bioconductor packages that are very useful for obtaining data from GEO and microarray analysis. If you haven't done so yet, install and load these packages.    
-The Illumina Infinium Methylation is an aggregation of the HumanMethylation27 and HumanMethylation450 annotations. 
+## Setup
 
+First we load necessary packages into our session. If any of these packages are not already installed on your system, you'll first need to install them with `BiocManager::install()`.
 
-```{r, eval = FALSE}
-install.packages("tidyverse")
-install.packages("gplots")
-source('http://bioconductor.org/biocLite.R')
-biocLite('GEOquery')
-biocLite('lumi')
-biocLite('limma')
-biocLite('FDb.InfiniumMethylation.hg19')
-```
-```{r, message=F, warning=F}
+```{r, message=FALSE, warning=FALSE}
+library(SummarizedExperiment)
 library(ggplot2)
+theme_set(theme_bw())
 library(GEOquery)
 library(limma)
-library(lumi)
 library(FDb.InfiniumMethylation.hg19)
+library(tidyverse)
+library(ComplexHeatmap)
+library(circlize)
+library(wateRmelon)
 ```
 
-## Explore 450k methylation array data
-In this seminar, we are going to perform differential methylation analysis for Acute lymphoblastic leukemia (ALL) cases and healthy B cells as control group. The datasets we are going to use are: GSE39141 which contains 29 ALL bone marrow samples and 4 healthy B cell samples, and to make up for the small sample size for healthy cells,  we will also use GSE42865 which contains 9 healthy B cell samples and 7 samples with other conditions.    
+## Introduction  
 
-First, let's retrieve our datasets from GEO with `getGEO` from `GEOquery` package. Warning: this may take several minutes! So to avoid re-downloading in the future, save the data once you get it into a good shape.    
+The Illumina Infiniumn Array is a microarray-based high throughput platform for methylation profiling on 487,173 pre-selected probes for CpGs across the human genome. This platform is an aggregation of the Illumina HumanMethylation27 ("27K") and HumanMethylation450 ("450K") arrays. A great number of these datasets have been made publicly available through Gene Expression Omnibus (GEO). Each dataset in GEO has a unique GSE ID that we can use to retrieve it from GEO, with the help of packages like `GEOquery` which we loaded above. 
 
-As you can see, the datasets we got are large lists including Beta values as well as metadata. We can extract this information separately. Then we can isolate a subset of GSE42865 containing only the healthy cells.   
+## Explore 450K methylation array data
 
-**IMPORTANT NOTE:** Due to many factors (like server load, your internet connection, and more) downloading the following large dataset from GEO may take a considerable amount of time. To make your life easier a pre-formatted version of the data has been made available at [this](https://www.dropbox.com/s/vkijisly8zwxkk9/methyl_ALL.Rdata?dl=0) link. Just download it and place it next to your rmd file to be able to finish the assignment without waiting to download data from GEO.
+In this seminar, we are going to perform differential methylation analysis for Acute lymphoblastic leukemia (ALL) cases and healthy B cells as control group. The datasets we are going to use are: [GSE39141](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE39141) which contains 29 ALL bone marrow samples and 4 healthy B cell samples, and to make up for the small sample size for healthy cells,  we will also use [GSE42865](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42865) which contains 9 healthy B cell samples and 7 samples with other conditions.    
 
-```{r fetchGEO, message = F}
-if(file.exists("methyl_ALL.RData")){ # if previously downloaded
-  load("methyl_ALL.RData")
+First, let's retrieve our datasets from GEO with `getGEO` from `GEOquery` package.
+
+**NOTE:** Due to many factors (like server load, your internet connection, and more) downloading large datasets from GEO may take a some time. Pre-formatted versions of the data has been made available as .rds files via a [Dropbox share](https://www.dropbox.com/sh/s2ut2bu8ahuxumn/AAAazmOgfCD5EDyUxqVIVW9-a?dl=0).  If you experience delays downloading direct from GEO, try downloading these two .RData files instead by changing the following code chunk to `eval = TRUE`. Note that these are still moderately large files (115 MB and 33 MB), so will only noticeably save time if the GEO server is experiencing a high load.
+
+```{r, eval = FALSE}
+# option to download pre-formatted data from Dropbox 
+# (if you experience issues downloading directly from GEO)
+download.file("https://www.dropbox.com/s/11fprv8ayksd91u/methyl_ALL.rds?dl=1",
+              destfile = "methyl_ALL.rds")
+download.file("https://www.dropbox.com/s/hyii130s996w2vc/methyl_CTRL.rds?dl=1",
+              destfile = "methyl_CTRL.rds")
+```
+
+
+```{r fetchGEO, message = FALSE}
+if(file.exists("methyl_ALL.rds") & file.exists("methyl_CTRL.rds")){ # if previously downloaded
+  ALL <- readRDS("methyl_ALL.rds")
+  CTRL <- readRDS("methyl_CTRL.rds")
 } else { # if downloading for the first time
-  GSE39141 <- getGEO('GSE39141')
+  GSE39141 <- getGEO('GSE39141', getGPL = FALSE)[[1]]
   show(GSE39141) ## 33 samples (29 ALL and 4 healthy B cells)
-  GSE42865 <- getGEO('GSE42865') # took ~2 mins for JB
+  GSE42865 <- getGEO('GSE42865', getGPL = FALSE)[[1]]
   show(GSE42865) ## 16 samples (9 healthy cells B cells and 7 other cells)
   
-  # Extract expression matrices (turn into data frames at once) 
-  ALL.dat <- as.data.frame(exprs(GSE39141[[1]]))
-  CTRL.dat <- as.data.frame(exprs(GSE42865[[1]]))
+  # convert to summarized experiment objects
+  ALL <- makeSummarizedExperimentFromExpressionSet(GSE39141)
+  CTRL <- makeSummarizedExperimentFromExpressionSet(GSE42865)
   
-  # Obtain the meta-data for the samples and rename them perhaps?
-  ALL.meta <- pData(phenoData(GSE39141[[1]]))
-  CTRL.meta <- pData(phenoData(GSE42865[[1]]))
+  # rename assays slot to an informative name (we have beta values)
+  names(assays(ALL)) <- "beta"
+  names(assays(CTRL)) <- "beta"
   
-  # create some labels
-  ALL.meta$Group<- c(rep('ALL', 29), rep('HBC', 4)) 
-  ## ALL: Case; HBC: Healthy B Cells
+    # Subset CTRL for control (healthy) donors   
+  CTRL <- CTRL[, grepl("Healthy donor", colData(CTRL)$characteristics_ch1.1)]
   
-  # Subset both meta-data and data for control (healthy) donors
-  CTRL.meta <- droplevels(subset(CTRL.meta,
-                                 grepl("Healthy donor", characteristics_ch1.1)))
-  CTRL.dat <- subset(CTRL.dat, select = as.character(CTRL.meta$geo_accession)) 
-  
-  # Rename variables
-  names(ALL.dat) <- paste(ALL.meta$Group,
-                          gsub("GSM", "", names(ALL.dat)), sep = '_')
-  names(CTRL.dat) <- paste('HBC', gsub("GSM", "", names(CTRL.dat)), sep = '_')
-  
-  # save the data to avoid future re-downloading
-  save(ALL.dat, CTRL.dat, ALL.meta, CTRL.meta, file = "methyl_ALL.RData")
+  # create simpler data labels
+  # ALL: Case; HBC: Healthy B Cells
+  colData(ALL)$Group <- ifelse(colData(ALL)$disease.state.ch1 == "leukemia", 
+                                    "ALL", "HBC")
+  colData(CTRL)$Group <- "HBC"
+
+  # save the RData objects so they doesn't need to be re downloaded each time
+  saveRDS(ALL, file = "methyl_ALL.rds")
+  saveRDS(CTRL, file = "methyl_CTRL.rds")
 }
 ```
 
-Now, we can do some exploratory analysis of the data, for examples, looking at distribution of Beta values in each sample or each probe. Here is a density plot of average Beta values for probes in the two datasets. See if you get similar results. 
-> Hint: you can use `rowMeans` function to calculate the average Beta value for each probe. Don't forget to use `na.rm = T` to exclude NAs. 
+As you can see, the datasets we got are `ExpressionSet` objects including Beta values as well as metadata. We first convert `ExpressionSet` objects into `SummarizedExperiment` objects (so that we can have multiple assays slots, which will be handy when we compute normalized beta values and M-values). Then we can subset the GSE42865 object to contain only the healthy cells. Finally, we create a Group variable that indicates whether the sample is ALL or HBC (healthy B cell). And then we save the two objects into one RData file that can be used in later sessions (without the need to re-download the data).
+
+Now, we can do some exploratory analysis of the data, for examples, looking at distribution of Beta values in each sample or each probe. Here is a density plot of average Beta values for probes in the two datasets. 
+
+> Note: you can use `rowMeans` function to calculate the average Beta value for each probe. Don't forget to use `na.rm = TRUE` to exclude NAs.
 
 ```{r exploratory, echo = T}
 # density plot
-library(ggplot2)
-dat.probeMeans <- c(rowMeans(ALL.dat, na.rm = T), rowMeans(CTRL.dat, na.rm = T)) 
-plotDat <- data.frame(Beta = dat.probeMeans,
-                      Dataset = rep(c('ALL', 'CTRL'), each = nrow(ALL.dat)))
-(probeAvg <- ggplot(data = plotDat, aes(x = Beta, col = Dataset)) +
+plotDat <- data.frame(Beta = c(rowMeans(assays(ALL[,colData(ALL)$Group == "ALL"])$beta, 
+                                        na.rm = TRUE), 
+                               rowMeans(assays(ALL[,colData(ALL)$Group == "HBC"])$beta, 
+                                        na.rm = TRUE),
+                               rowMeans(assays(CTRL)$beta, 
+                                        na.rm = TRUE)),
+                      Dataset = rep(c('GSE39141:ALL', 'GSE39141:HBC', 'GSE42865:HBC'), 
+                                    each = nrow(ALL)))
+probeAvg <- ggplot(data = plotDat, aes(x = Beta, col = Dataset)) +
    geom_density() + 
    ggtitle("Average Beta value density of two experiments") + 
    xlab("Beta") + 
-   ylab("Density") + 
-   theme_bw()
-)
+   ylab("Density")
+probeAvg
+```
+
+Here's also a sample-sample correlation heatmap.
+
+```{r}
+cc <- as.matrix(data.frame(cor(cbind(assays(ALL)$beta, assays(CTRL)$beta), 
+                     use = "pairwise.complete.obs"), 
+                     row.names = c(colnames(ALL), colnames(CTRL))))
+
+annot <- HeatmapAnnotation(df = data.frame(Group = c(colData(ALL)$Group, 
+                                                     colData(CTRL)$Group),
+                                           Expmt = c(rep("GSE39141", ncol(ALL)),
+                                                     rep("GSE42865", ncol(CTRL)))),
+                           col = list(Group = c("ALL" =  "red", "HBC" = "blue"),
+                                      Expmt = c("GSE39141" = "black", "GSE42865" = "grey")))
+
+bcols <- colorRamp2(c(0.75, 0.875, 1), c("#000000", "#FF8000", "#FFFFFF"))
+
+Heatmap(cc, col = bcols, name = "Corr",
+        column_title = "Correlation of raw beta values",
+        cluster_rows = FALSE, cluster_columns = FALSE, 
+        top_annotation = annot, 
+        row_names_gp = gpar(fontsize = 8), 
+        column_names_gp = gpar(fontsize = 8))
 ```
 
 ## Data Normalization
-You can see the distribution of Beta values are not the same between different experiments. That is why it is important to normalize the data before proceeding. The Bioconductor package `wateRmelon`, for example, offers 15 methods for 450K methylation array normalization. If you are interested in comparing these methods, check out [this paper](http://www.biomedcentral.com/1471-2164/14/293). For the sake of convenience, we will just use the `normalizeBetweenArrays` method from our trusted friend `limma` which performs quantile normalization on the beta values.        
+
+You can see the distribution of Beta values are not the same between different experiments, or between the ALL and HBC groups within the same experiment. The difference between HBC groups between experiments illustrates why it is important to normalize the data before proceeding. A note of caution here - since we can't be sure the differences between ALL and HBC within experiment are due to technical factors (as opposed to biological differences), it is not appropriate to perform between-sample normalization that assumes the distribution of beta values is the same across all samples (such as quantile normalization, e.g. using `normalizeBetweenArrays` method from our trusted friend `limma`). If we did quantile normalize across all arrays, this could potentially remove biological signal. 
+
+Instead, we may use intra-sample normalization approaches. Many normalization approaches for methylation microarray data (e.g. in the `minfi` package) operate on the raw intensity data to correct for background signal. We do not have such data, as we only have the beta values. However, there are others that operate on beta values, such as [BMIQ: Beta-Mixture Quantile (BMIQ) Normalisation method](https://pubmed.ncbi.nlm.nih.gov/23175756/), available in the Bioconductor package `wateRmelon`. This method aims to correct the bias of type II probes (which have a lower dynamic range than type I probes).
+
+![](https://image.slidesharecdn.com/databasics-150730020758-lva1-app6891/95/data-basics-7-638.jpg?cb=1446133797)
+
+Note that `wateRmelon` also offers several other methods for 450K methylation array normalization (mostly on raw intensity values). If you are interested in comparing these methods, check out [this paper](http://www.biomedcentral.com/1471-2164/14/293).
+
+Here we apply BMIQ normalization on our beta values. Note that this step may take a few minutes to run. Ideally, we'd increase the `nfit` parameter (number of probes to use to estimate bias) to get a more robust fitting, but in the interest of time we set it to 100. We also set a seed since the probes for fitting are chosen randomly.
 
 ```{r normalization}
-# combine data from two experiments into one matrix, each column represents beta
-# values of one sample
-beta.matrix <- as.matrix(cbind(ALL.dat, CTRL.dat))
-str(beta.matrix, max.level = 0)
+#First get annotation data from FDb database  
+InfiniumMethylation <- getPlatform(platform = 'HM450', genome = 'hg19')
+InfiniumMethylation <- InfiniumMethylation[sort(names(InfiniumMethylation)),]
+show(InfiniumMethylation)
 
-# quantile normalization
-system.time(beta.norm <- normalizeBetweenArrays(beta.matrix))
-  
+# check that probe information matches order of probes in dataset
+identical(names(InfiniumMethylation), rownames(ALL))
+
+# if probe has both channels, is Type II (72%). Otherwise Type I.
+probeDesign <- ifelse(InfiniumMethylation$channel == "Both", "2", "1")
+table(probeDesign)/length(probeDesign)
+
+# run BMIQ
+assays(ALL)$beta.norm <- apply(assays(ALL)$beta, 2, function(x){
+  set.seed(29)
+  BMIQ(x, probeDesign, nfit = 5000, 
+       plots = FALSE, pri = FALSE)$nbeta
+})
+
+assays(CTRL)$beta.norm <- apply(assays(CTRL)$beta, 2, function(x){
+  set.seed(29)
+  BMIQ(x, probeDesign, nfit = 5000, 
+       plots = FALSE, pri = FALSE)$nbeta
+})
 ```
+Now let's see how the distribution looks after intra-sample normalization.
+
 ```{r postNorm, echo = T}
-dat.probeMeans <- c(rowMeans(beta.norm[, 1:ncol(ALL.dat)], na.rm = TRUE),
-                    rowMeans(beta.norm[, ncol(ALL.dat):ncol(beta.norm)], na.rm = TRUE)) 
-plotNorm <-
-  rbind(data.frame(plotDat, Norm = "Before"),
-        data.frame(Beta = dat.probeMeans,
-                   Dataset = rep(c('ALL', 'CTRL'), each = nrow(ALL.dat)),
-                   Norm = "After"))
-plotNorm$Norm <- factor(plotNorm$Norm, levels = c("Before", "After"))
-(probeAvgNorm <- ggplot(data = plotNorm, aes(x = Beta, col = Dataset)) +
+plotDat <-
+  rbind(
+    data.frame(plotDat, Norm = "Before"),
+    data.frame(Beta = c(rowMeans(assays(ALL[,colData(ALL)$Group == "ALL"])$beta.norm, 
+                                        na.rm = TRUE), 
+                        rowMeans(assays(ALL[,colData(ALL)$Group == "HBC"])$beta.norm, 
+                                        na.rm = TRUE),
+                        rowMeans(assays(CTRL)$beta.norm, 
+                                        na.rm = TRUE)),
+               Dataset = rep(c('GSE39141:ALL', 'GSE39141:HBC', 'GSE42865:HBC'), 
+                             each = nrow(ALL)),
+               Norm = "After")
+  )
+
+plotDat$Norm <- factor(plotDat$Norm, levels = c("Before", "After"))
+probeAvgNorm <- ggplot(data = plotDat, aes(x = Beta, col = Dataset)) +
    geom_density() + 
    facet_grid(Norm ~ .) + 
    ggtitle("Density of Beta values before and after normalization") + 
    xlab("Beta") + 
-   ylab("Density") + 
-   theme_bw()
-)
+   ylab("Density") 
+probeAvgNorm
+```
+As you can see, after normalization, beta values from the different experiments have more similar distributions. Note that we did not do any between-sample normalization here, so we didn't assume anything about different samples being similar. We only removed bias of Type II probes. 
+
+And here is the sample-sample correlation plot of the normalized beta values.
+
+```{r}
+cc.norm <- as.matrix(data.frame(cor(cbind(assays(ALL)$beta.norm, assays(CTRL)$beta.norm), 
+                     use = "pairwise.complete.obs"), 
+                     row.names = c(colnames(ALL), colnames(CTRL))))
+
+Heatmap(cc.norm, col = bcols, name = "Corr",
+        column_title = "Correlation of BMIQ normalized beta values",
+        cluster_rows = FALSE, cluster_columns = FALSE, 
+        top_annotation = annot, 
+        row_names_gp = gpar(fontsize = 8), 
+        column_names_gp = gpar(fontsize = 8))
 ```
 
+We see that the sample-sample correlations have not appreciably changed.
+
 ## M values
-As you can see, after normalization, beta values from the different experiments have more similar distributions. However, this distribution is on the interval [0, 1], with two modes near the two extremes. This type of distribution is not very compatible with the typical assumptions of linear models. A common solution is to apply a logit transformation on the data to convert it to a continuous variable that spans $(-\infty, \infty)$, i.e. compute the M value. The `beta2m()` function in the `lumi` package does this conversion. 
-$$M = log({Beta\over 1-Beta})$$
+
+Note that beta values live in the interval [0, 1], with two modes near the two extremes. This type of distribution is not very compatible with the typical assumptions of linear models. A common solution is to apply a **logit** transformation on the data to convert it to a continuous variable that spans $(-\infty, \infty)$, i.e. compute the M value.
+
+$$M = log\Big({Beta \over 1-Beta}\Big)$$
+Here we also regularize beta values that are very very close to zero or 1 (within 1e-6).
 
 ```{r Beta2M}
-M.norm <- beta2m(beta.norm)
+# regularize beta.norm within 0.001 of 0 or 1
+assays(ALL)$beta.norm <- pmin(pmax(assays(ALL)$beta.norm, 1e-6), 1-1e-6)
+assays(CTRL)$beta.norm <- pmin(pmax(assays(CTRL)$beta.norm, 1e-6), 1-1e-6)
+
+assays(ALL)$m.norm <- log2(assays(ALL)$beta.norm/(1 - assays(ALL)$beta.norm))
+assays(CTRL)$m.norm <- log2(assays(CTRL)$beta.norm/(1 - assays(CTRL)$beta.norm))
+```
+
+Before going further, we'll also remove probes with very little variation across samples.
+
+```{r}
+rmv <- which(rowVars(cbind(assays(ALL)$m.norm, assays(CTRL)$m.norm), na.rm = TRUE) < 0.25)
+names(rmv) <- rownames(ALL)[rmv]
+length(rmv)
+
+ALL <- ALL[-rmv, ]
+CTRL <- CTRL[-rmv, ]
+
+InfiniumMethylation <- InfiniumMethylation[-which(names(InfiniumMethylation) %in% names(rmv)),]
 ```
 
 ## CpG Islands
+
 Now we can go ahead with differential methylation analysis -- `cases vs. controls` or `leukemia vs. healthy`. You can perform this analysis on each probe, but in this seminar, we will aggregate the probes into CpG Islands (CGIs), i.e. the CpG dense regions of the genome, and then detect differentially methylated CGIs. The biological function of CGIs is better studied, so the interpretation of our results will be easier if we focus on CGIs.  
-Conveniently, the Bioconductor package `FDb.InfiniumMethylation.hg19` provides all sorts of annotation information for the 450K methylation array including the association of probes to CGIs. We will extract this information and use the *mean of M values* for all probes in a specific CGI to represent its methylation level. Check if you get the same boxplot for CGI M values.    
 
-```{r eval=TRUE,echo=T}
-#First get annotation data from FDb database  
-InfiniumMethylation <- features(FDb.InfiniumMethylation.hg19)
+Conveniently, the Bioconductor package `FDb.InfiniumMethylation.hg19` provides all sorts of annotation information for the 450K methylation array including the association of probes to CGIs. Note that we already extracted some of this information when fetching the probe type info above (into `InfiniumMethylation`). Here we'll fetch even more annotation - CGI status, and use the *mean of M values* for all probes in a specific CGI to represent its methylation level. Check if you get the same boxplot for CGI M values.    
 
-## We only want annotations for the hg19 genome  
-met <- metadata(FDb.InfiniumMethylation.hg19) ## need to fetch genome
-genome(InfiniumMethylation) <- met[which(met[,'name']=='Genome'),'value']
+```{r eval=TRUE,echo=TRUE}
+data(hg19.islands)
 
-InfiniumMethylation <- sort(InfiniumMethylation)
-show(InfiniumMethylation)
-## Subset to probes that are present in 450k assay  
-probes_450k = as.data.frame(InfiniumMethylation[InfiniumMethylation$platform %in% c("BOTH","HM450"),])
-probes_450k$Probe_ID = rownames(probes_450k)
-cginame_onlycg = probes_450k[probes_450k$probeType == "cg", ]
+CGI.probes <- subsetByOverlaps(InfiniumMethylation, hg19.islands)
+overlaps <- findOverlaps(InfiniumMethylation, hg19.islands)
+CGI.probes$CGI <- hg19.islands$ID[overlaps@to]
+
+CGI.probes
 ```
+
+We can see that `r length(CGI.probes)` probes are in a total of `r length(unique(CGI.probes$CGI))`CGIs. Now we'll subset our data to just those probes in these CGIs, and then compute mean M-values over all probes in each CGI.
 
 ```{r aggregate}
-hm450 <-  getPlatform(platform='HM450', genome='hg19')
-probe_UCSC_name = getNearestGene(hm450)
+ALL <- ALL[names(CGI.probes),]
+CTRL <- CTRL[names(CGI.probes),]
 
-#Restrict our own dataset to probes within CGIs  
-beta.inCGI <- beta.norm[rownames(beta.norm) %in% rownames(probe_UCSC_name),]
-M.inCGI <- M.norm[rownames(M.norm) %in% rownames(probe_UCSC_name),]
-cginame = probe_UCSC_name[rownames(M.inCGI),]
-cginame$cginame = cginame$nearestGeneSymbol
-cginame$Probe_ID = rownames(cginame)
-nrow(M.inCGI)
+CGI.probes$probe <- names(CGI.probes)
+CGI.probes <- as.data.frame(CGI.probes)
+
+m <- data.frame(Sample = c(colnames(ALL), colnames(CTRL)), 
+                Group = c(colData(ALL)$Group, colData(CTRL)$Group))
+
+cgi.mean.Mvalue <- cbind(assays(ALL)$m.norm, assays(CTRL)$m.norm) %>% 
+  data.frame() %>%
+  mutate(probe = rownames(ALL)) %>%
+  pivot_longer(cols = -probe, names_to = "Sample", values_to = "m") %>%
+  left_join(CGI.probes, by = "probe") %>%
+  group_by(CGI, Sample) %>%
+  summarize(mean_mval = mean(m, na.rm = TRUE)) %>%
+  left_join(m, by = "Sample") 
 ```
 
-```{r, eval=TRUE}
-## What is the cginame characteristic in the updated data source?? 
-# aggregate probes to CGIs
-beta.CGI <- aggregate(beta.inCGI, by = list(cginame$nearestGeneSymbol), mean, na.rm = T)
-rownames(beta.CGI) <- beta.CGI[, "Group.1"]
-beta.CGI <- subset(beta.CGI, select = - Group.1)
-str(beta.CGI, max.level = 0)
-M.CGI <- aggregate(M.inCGI, by = list(cginame$nearestGeneSymbol), mean, na.rm = T)
-rownames(M.CGI) <- M.CGI[, "Group.1"]
-M.CGI <- subset(M.CGI, select = - Group.1)
-str(M.CGI, max.level = 0)
-```
+Finally, we'll create a box plot of Mean CGI values per sample.
 
 ```{r M.CGI.boxplot, echo=T, warning=F}
 # check the distribution of CGI M values with boxplot
-library(reshape2)
-M.CGI.tall <- melt(t(M.CGI), value.name = 'M', varnames = c('Sample', 'CGI'))
-M.CGI.tall$Group <- gsub("_[0-9]+", "", M.CGI.tall$Sample)
-(M.boxplot <- ggplot(data = M.CGI.tall, aes(Sample, M, fill = factor(Group))) + 
-   geom_boxplot() + 
-   ggtitle("Distribution of CGI M values") + 
-   xlab("Samples") + 
-   ylab("M values") + 
-   theme_bw() + 
-   scale_x_discrete(labels = NULL))
+cgi.mean.Mvalue %>%
+  ggplot(aes(Sample, mean_mval, fill = Group)) + 
+     geom_boxplot() + 
+     ggtitle("Distribution of mean CGI M values") + 
+     xlab("Samples") + 
+     ylab("mean M values") + 
+     theme_bw() + 
+     scale_x_discrete(labels = NULL)
 ```
 
 ## Differential methylation analysis with limma
+
 Next, we can use a linear model to identify differentially methylated CGIs with `limma`. You are already familiar with this part.    
 
 ```{r limma}
-library(limma)
-design <-
-  data.frame(Group = relevel(factor(gsub("_[0-9]+", "", colnames(M.CGI))),
-                             ref = "HBC"), row.names = colnames(M.CGI))
-str(design)
-(DesMat <- model.matrix(~ Group, design))
-DMRfit <- lmFit(M.CGI, DesMat)
+cgi.mean.Mvalue.mat <- cgi.mean.Mvalue %>%
+  pivot_wider(id_cols = c(Sample, CGI),
+              names_from = Sample,  values_from = mean_mval) %>%
+  column_to_rownames(var = "CGI")
+
+cgi.mean.Mvalue.mat <- cgi.mean.Mvalue.mat[, m$Sample]
+
+identical(colnames(cgi.mean.Mvalue.mat), m$Sample)
+
+DMRfit <- lmFit(cgi.mean.Mvalue.mat, model.matrix( ~ Group, data = m))
 DMRfitEb <- eBayes(DMRfit)
 cutoff <- 0.01
-DMR <- topTable(DMRfitEb, coef = 'GroupALL', number = Inf, p.value = cutoff)
+DMR <- topTable(DMRfitEb, coef = 'GroupHBC', number = Inf, p.value = cutoff)
 head(DMR)   # top hits 
 ```
 
@@ -224,51 +329,50 @@ So using a cutoff of FDR = `r cutoff`, we identified `r nrow(DMR)` CGIs that are
 First, let us plot a heatmap of beta values of top 100 hits.    
 
 ```{r heatmap, message=F, warning=F} 
-library(gplots)
-DMR100 <- topTable(DMRfitEb, coef = 'GroupALL', number = 100)
-DMR.CGI <- t(as.matrix(subset(beta.CGI,
-                              rownames(beta.CGI) %in% rownames(DMR100))))
-str(DMR.CGI, max.level = 0)
-col <- c(rep("darkgoldenrod1", times = nrow(DMR.CGI))) 
-col[grepl("HBC", rownames(DMR.CGI))] <- "forestgreen"
-op <- par(mai = rep(0.5, 4))
-heatmap.2(DMR.CGI, col = redblue(256), RowSideColors = col,
-          density.info = "none", trace = "none", Rowv = TRUE, Colv = TRUE,
-          labCol = FALSE, labRow = FALSE, dendrogram="row",
-          margins = c(1, 5))
-legend("topright", c("ALL", "HBC"),
-       col = c("darkgoldenrod1", "forestgreen"), pch = 15)
-par(op)
-```
 
-> Try to regenerate this plot using pheatmap, like we did in Seminar 7.   
+DMR100 <- topTable(DMRfitEb, coef = 'GroupHBC', number = 100)
+DMR.CGI <- cgi.mean.Mvalue.mat[rownames(cgi.mean.Mvalue.mat) %in% rownames(DMR100),]
+  
+annot <- HeatmapAnnotation(df = data.frame(Group = c(colData(ALL)$Group, 
+                                                     colData(CTRL)$Group),
+                                           Expmt = c(rep("GSE39141", ncol(ALL)),
+                                                     rep("GSE42865", ncol(CTRL)))),
+                           col = list(Group = c("ALL" =  "red", "HBC" = "blue"),
+                                      Expmt = c("GSE39141" = "black", "GSE42865" = "grey")))
+
+ccols <- colorRampPalette(c("#000000" ,"#800000" ,"#FF8000" ,"#FFFF00", "#FFFFFF"))(20)
+
+Heatmap(2^DMR.CGI / (1+2^DMR.CGI),  name = "beta",
+        column_title = "Top 100 Differentially Methylated CGIs",
+        cluster_rows = TRUE, cluster_columns = TRUE, 
+        top_annotation = annot, 
+        row_names_gp = gpar(fontsize = 8), 
+        column_names_gp = gpar(fontsize = 8))
+```
 
 Next, stripplot of beta values of probes within top 5 CGI hits.   
 
 ```{r stripplot, warning=F, message=F, eval=T, echo = T}
-DMR5 <- topTable(DMRfitEb, coef = 'GroupALL', number = 5)
-beta.DMR5probe <-
-  beta.inCGI[cginame[rownames(beta.inCGI),]$cginame %in% rownames(DMR5),]
-beta.DMR5probe.tall <-
-  melt(beta.DMR5probe, value.name = 'M', varnames = c('Probe_ID', 'Sample'))
-beta.DMR5probe.tall$Group <-
-  factor(gsub("_[0-9]+", "", beta.DMR5probe.tall$Sample))
-beta.DMR5probe.tall$CGI <-
-  factor(cginame[as.character(beta.DMR5probe.tall$Probe_ID),]$cginame)
-(beta.DMR5.stripplot <-
-   ggplot(data = beta.DMR5probe.tall, aes(x = Group, y = M, color = Group)) + 
+DMR5 <- topTable(DMRfitEb, coef = 'GroupHBC', number = 5)
+DMR.CGI <- cgi.mean.Mvalue.mat[rownames(DMR5),] %>%
+  rownames_to_column(var = "CGI") %>%
+  pivot_longer(cols = -CGI, names_to = c("Sample"), values_to = "M") %>%
+  left_join(m, by = "Sample") %>%
+  mutate(beta = 2^M / (1+2^M))
+
+DMR.CGI %>%
+   ggplot(aes(x = Group, y = beta, color = Group)) + 
    geom_point(position = position_jitter(width = 0.05), na.rm = T) + 
-   stat_summary(fun.y = mean, aes(group = 1), geom = "line", color = "black") + 
+   stat_summary(fun = mean, aes(group = 1), geom = "line", color = "black") + 
    facet_grid(. ~ CGI) + 
    ggtitle("Probe beta values within top 5 DM CGIs") + 
    xlab("Group") + 
-   ylab("beta") + 
-   theme_bw())
+   ylab("beta") 
 ```
 
 Finally, plot location of differentially methylated probes along each chromosome.   
 
-```{r coord, warning=F, message=F}
+```{r coord, warning=F, message=F, eval = FALSE}
 chrlen = as.data.frame(seqinfo.hg19)
 chrlen$chr = as.character(rownames(chrlen))
 chrlen = chrlen[chrlen$chr %in% c("chrX",paste("chr",1:22,sep="")),]
@@ -278,7 +382,7 @@ coord = coord_big[,c("chr","coord")]
 # coordinates of probes in DM CGIs
 coordDMRprobe <- droplevels(na.omit(coord[cginame[cginame$cginame %in% rownames(DMR),]$Probe_ID,])) 
 coordDMRprobe$chr <- as.character(coordDMRprobe$chr)
-(coord.plot <- ggplot(data = coordDMRprobe) + 
+ggplot(data = coordDMRprobe) + 
    geom_linerange(aes(x=chr, ymin = 0, ymax = seqlengths), data = chrlen, alpha = 0.5) + 
    geom_point(aes(x = chr, y = coord),
               position = position_jitter(width = 0.03), na.rm = T) + 
@@ -286,7 +390,7 @@ coordDMRprobe$chr <- as.character(coordDMRprobe$chr)
    ylab("Position of DMRs") +
    xlab("chr") +
    coord_flip() + 
-   theme_bw())
+   theme_bw()
 ```
 
 
