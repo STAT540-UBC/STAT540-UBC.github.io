@@ -146,7 +146,7 @@ legend("top", legend=levels(factor(targets$Sample_Source)), text.col=pal,
 
 Notice that PCs 1 and 2 largely separate samples by donor/individual. Let's look at higher dimensions.
 
-```{r, fig.height = 7}
+```{r, fig.width = 10}
 # Examine higher dimensions to look at other sources of variation
 par(mfrow=c(1,2))
 plotMDS(getM(mSetNorm), top=1000, gene.selection="common", 
@@ -164,7 +164,7 @@ PC 3 seems to capture the cell type differences.
 
 Let's also look at a sample-sample correlation plot based on the top 1000 most variable probes.
 
-```{r}
+```{r, fig.height=7}
 top1000 <- which(rank(-rowVars(getM(mSetNorm))) <= 1000)
 cc <- as.matrix(cor(getM(mSetNorm[top1000,]), 
                      use = "pairwise.complete.obs"), 
@@ -236,7 +236,7 @@ Great! After filtering poor quality probes and probes near SNPs, we see that PC1
 
 Let's recheck the sample-sample correlation plot.
 
-```{r}
+```{r, fig.height = 7}
 top1000 <- which(rank(-rowVars(getM(mSetNormFilt))) <= 1000)
 cc <- as.matrix(cor(getM(mSetNormFilt[top1000,]), 
                      use = "pairwise.complete.obs"), 
@@ -379,7 +379,7 @@ results.ranges
 
 Let's visualize the results for DMR number 8 (which I selected because it has a relatively high number of CpGs (14), and a relatively high mean beta difference). The `DMR.plot` function from `DMRcate` plots sample-level heatmaps and smoothed group means (only useful for larger numbers of CpGs) of methylation values in the context of genomic location.
 
-```{r, fig.width = 10}
+```{r, fig.width = 10, fig.height = 7}
 # set up the grouping variables and colours
 groups <- pal[1:length(unique(targets$Sample_Group))]
 names(groups) <- levels(factor(targets$Sample_Group))
