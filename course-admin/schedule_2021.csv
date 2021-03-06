@@ -9,7 +9,7 @@ STAT540-Seminar,No Seminar,Wed,February,17,6,NA,Reading break (no class),,
 STAT540-Seminar,seminar-6,Wed,February,24,7,7,RNA-seq: from beginning to end -- BAM to count data,Marco,Synchronous
 STAT540-Seminar,seminar-7,Wed,March,3,8,8,"Dimensionality reduction and data visualization -- clustering, PCA, t-sne",Sina,Synchronous
 STAT540-Seminar,No Seminar,Wed,March,10,9,NA,Visit office hours for group project advice,,
-STAT540-Seminar,seminar-8,Wed,March,17,10,9,"Methylation analysis I -- e.g., investigating cell type heterogeneity",Sina,Synchronous
+STAT540-Seminar,seminar-8,Wed,March,17,10,9,Methylation microarray analysis,Sina,Synchronous
 STAT540-Seminar,seminar-9,Wed,March,24,11,10,"eQTL (or mQTL) analysis -- finding cis variants per gene, testing for association",Sina,Synchronous
 STAT540-Seminar,seminar-10,Wed,March,31,12,11,Gene set enrichment analysis for methylation and gene expression data,Sina,Synchronous
 STAT540-Seminar,seminar-11,Wed,April,7,13,12,"Supervised learning, cross-validation, variable selection",Jenkin,Synchronous
