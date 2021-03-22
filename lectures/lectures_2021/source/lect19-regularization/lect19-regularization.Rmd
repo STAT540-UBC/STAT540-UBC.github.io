@@ -286,7 +286,7 @@ grid.arrange(p_lda + theme(legend.position = "none"),
 
 # Overfitting
 
-If we allow very complicated predictors, we could **overfit** fit training data
+If we allow very complicated predictors, we could **overfit** training data
 
 ```{r, echo = FALSE, fig.align='center', out.width= 650}
 knitr::include_graphics("img/overfit.JPG")
@@ -440,13 +440,13 @@ Assume we have $n$ samples:
 
 **Larger** $K$: 
 
-* variance of CV error higher
+* variance of CV error smaller
 
 * computational time larger
 
 **Smaller** $K$:
 
-* variance of CV error smaller
+* variance of CV error larger
 
 * computational time lower
 
@@ -609,7 +609,7 @@ class: middle
 
 --
 
-* A main analysis goal is to **identify** features / covariates that are **important** in predicting the response 
+* A main analysis goal is to **identify** features / covariates that are **important** in predicting the response (feature selection)
 
 * **A Solution**: we can use **regularization** as a tool to perform feature selection
 
@@ -677,7 +677,7 @@ $$argmin_\boldsymbol{\beta} \, (\boldsymbol{y - X\beta})^T(\boldsymbol{y - X\bet
   
 --
   
-  * what happens if $\lambda = \infty$?
+  * what happens if $\lambda \rightarrow \infty$?
 
 ---
 
@@ -770,7 +770,7 @@ $$argmin_\boldsymbol{\beta} \, \sum_{i=1}^n (y_i - \boldsymbol{x_i^T\beta})^2 + 
 <big>
 
 * As before, tuning parameter $\lambda$ controls the strength of the penalty and is selected with nested CV
-  * What happens at $\lambda = 0$ and $\lambda = \infty$?
+  * What happens at $\lambda = 0$ and $\lambda \rightarrow \infty$?
 
 --
 
