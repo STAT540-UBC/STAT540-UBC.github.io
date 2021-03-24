@@ -110,8 +110,7 @@ This should contain the materials (or associated live links) an instructor would
 - Think of it as a technical report of your presentation. Add brief comments and text throughout explaining the aim and conclusions of each part. You do not need to talk about all the analysis you have done but make sure you are addressing the important files, such as “inputs” (e.g. the dataset(s) you analyzed) and “outputs” (e.g. plain text files of your key statistical results or PDFs of your main figures)
 - Make sure your code is readable and could be run by instructors. So, it is necessary to provide valid addresses for the files you use in your scripts. Add comments for different chunks of your code and document it.
 
-You do not need to open an issue and tag TAs for this. Just make sure that your last commit is by the date of the first presentation
-
+This is a group-level deliverable so please submit it before the deadline by opening an issue in your group repo can call it "Final GitHub repo of [group name]", and provide the revision SHA and tag the TAs and instructors who are mentors of your project.
 
 ## Oral presentation (20 pts)
 
