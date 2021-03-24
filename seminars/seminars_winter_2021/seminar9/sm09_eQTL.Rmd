@@ -255,7 +255,7 @@ Also make a similar plot as above for this SNP/gene pair, and compare it with th
  
 > HINT: You might have to remove a sample with an 'NA' genotype  
 
-```{r, eval=FALSE, echo=ANSWER_FLAG}
+```{r, echo=ANSWER_FLAG, eval=ANSWER_FLAG}
 df <- data.frame(
     exprs = as.numeric(exprsdat[rownames(exprsdat) == "208644_at",]),
     genotype = as.numeric(genodat.numeric[rownames(genodat.numeric) == "rs3219090",])
