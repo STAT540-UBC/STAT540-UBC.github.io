@@ -71,7 +71,7 @@ library(edgeR)
 download_study(project="SRP043008")
 ```
 
-    ## 2021-01-24 17:54:07 downloading file rse_gene.Rdata to SRP043008
+    ## 2021-03-23 16:32:04 downloading file rse_gene.Rdata to SRP043008
 
 ``` r
 load(file.path("SRP043008", "rse_gene.Rdata"))
@@ -214,8 +214,8 @@ variable to a numeric representation.
 -   Find the expression profile for the gene *OAS* (Ensembl ID
     ENSG00000089127). Make a scatterplot with hours post-infection on
     the x-axis and expression value in log2(CPM + 1) on the y-axis.
-    Color the data points by infection status. Add in a regression line
-    for each cell type.
+    Color the data points by infection status, and add in a regression
+    line for each one.
 
 ``` r
 # your code here

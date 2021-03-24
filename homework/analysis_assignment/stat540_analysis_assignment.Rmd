@@ -138,7 +138,7 @@ The different character values of `Developmental.stage` refer to time points - t
 
 ### Question 5: Single gene graphing (3 POINTS)
 
-- Find the expression profile for the gene *OAS* (Ensembl ID ENSG00000089127). Make a scatterplot with hours post-infection on the x-axis and expression value in log2(CPM + 1) on the y-axis. Color the data points by infection status. Add in a regression line for each cell type.
+- Find the expression profile for the gene *OAS* (Ensembl ID ENSG00000089127). Make a scatterplot with hours post-infection on the x-axis and expression value in log2(CPM + 1) on the y-axis. Color the data points by infection status, and add in a regression line for each one.
 
 ```{r}
 # your code here
