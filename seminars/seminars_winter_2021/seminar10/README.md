@@ -1,3 +1,3 @@
 # Feedback and Proposed Changes
-* Typos and language
-* some additional install information
+* Would be nice to have the code that reproduces the list of genes and their FC values
+* In addition, would be nice to explain where the multifunctionality scores list came from
